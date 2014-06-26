@@ -1,0 +1,5 @@
+create serializer that writes xml generator configuration files.
+create deserializer that reads xml generator configuration files.
+create ui where the user can create sections (without parameters).
+change ui to allow user to create parameters.
+expose an api to be used programatically.

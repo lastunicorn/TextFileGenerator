@@ -1,0 +1,4 @@
+TextFileGenerator
+=================
+
+It is a small tool that generates text files containing repetitive sections.

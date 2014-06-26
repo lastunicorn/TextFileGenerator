@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<textFileGenerator xmlns="http://alez.ro/TextFileGenerator" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="namespace-to-use TextFileGenerator.xsd">
+    <sections separator="" separatorType="Infix">
+        <section name="Header" count="1" separator="" separatorType="Infix">
+            <template>This is a file.&#13;&#10;===============&#13;&#10;&#13;&#10;</template>
+        </section>
+        <section name="Body" count="100" separator="&#13;&#10;" separatorType="Infix">
+            <template>My email address is {email}. This is a test abc {p1}; def {p2}; ghi {p3}; jkl {p4}</template>
+            <parameters>
+                <parameter key="email">
+                    <constant value="me@alez.ro" />
+                </parameter>
+                <parameter key="p1">
+                    <counter format="000" startValue="0" step="1" />
+                </parameter>
+                <parameter key="p2">
+                    <randomNumber format="000" minValue="0" maxValue="100" />
+                </parameter>
+                <parameter key="p3">
+                    <randomText minLength="0" maxLength="100" />
+                </parameter>
+                <parameter key="p4">
+                    <custom classType="" methodName="" />
+                </parameter>
+            </parameters>
+        </section>
+        <section name="Footer" count="1" separator="" separatorType="Infix">
+            <template>Copyleft lastunicorn.</template>
+        </section>
+    </sections>
+</textFileGenerator>

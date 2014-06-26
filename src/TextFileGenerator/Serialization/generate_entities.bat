@@ -1,0 +1,1 @@
+xsd TextFileGenerator.xsd /classes /n:DustInTheWind.TextFileGenerator.Serialization
