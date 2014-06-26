@@ -3,7 +3,7 @@ using DustInTheWind.TextFileGenerator.Options;
 using DustInTheWind.TextFileGenerator.Parameters;
 using NUnit.Framework;
 
-namespace DustInTheWind.TextFileGenerator.Tests
+namespace DustInTheWind.TextFileGenerator.Tests.GeneratorTests
 {
     [TestFixture]
     public class SectionWithConstantParameterTests
@@ -18,7 +18,7 @@ namespace DustInTheWind.TextFileGenerator.Tests
             };
             section.Parameters.AddRange(new[]
             {
-                new ConstantParameter { Key = "param1", Value = "value1" }
+                new Parameter("param1", new ConstantValueProvider { Value = "value1" })
             });
             options.Sections.Add(section);
 
@@ -37,7 +37,7 @@ namespace DustInTheWind.TextFileGenerator.Tests
             };
             section.Parameters.AddRange(new[]
             {
-                new ConstantParameter { Key = "param1", Value = "value1" }
+                new Parameter("param1", new ConstantValueProvider { Value = "value1" })
             });
             options.Sections.Add(section);
 
@@ -56,8 +56,8 @@ namespace DustInTheWind.TextFileGenerator.Tests
             };
             section.Parameters.AddRange(new[]
             {
-                new ConstantParameter { Key = "param1", Value = "value1" },
-                new ConstantParameter { Key = "param2", Value = "value2" }
+                new Parameter("param1", new ConstantValueProvider { Value = "value1" }),
+                new Parameter("param2", new ConstantValueProvider { Value = "value2" })
             });
             options.Sections.Add(section);
 

@@ -1,30 +1,30 @@
 ﻿using System.IO;
 using DustInTheWind.TextFileGenerator.Options;
-using DustInTheWind.TextFileGenerator.Parameters;
 using NUnit.Framework;
 
-namespace DustInTheWind.TextFileGenerator.Tests
+namespace DustInTheWind.TextFileGenerator.Tests.GeneratorTests
 {
     [TestFixture]
-    public class SectionWithRandomNumberParameterTests
+    public class MultipleParameterlessSectionTests
     {
         [Test]
-        public void test()
+        public void writes_both_section_templates_if_two_sections_are_declared()
         {
             GeneratorOptions options = new GeneratorOptions();
-            Section section = new Section
+            Section section1 = new Section
             {
-                Template = "test {param1}"
+                Template = "section1"
             };
-            section.Parameters.AddRange(new IParameter[]
+            Section section2 = new Section
             {
-                new RandomNumberParameter { Key = "param1", Format = "000", MinValue = 10, MaxValue = 100 }
-            });
-            options.Sections.Add(section);
+                Template = "section2"
+            };
+            options.Sections.Add(section1);
+            options.Sections.Add(section2);
 
             string actual = PerformTest(options);
 
-            Assert.That(actual, Contains.Substring("test "));
+            Assert.That(actual, Is.EqualTo("section1section2"));
         }
 
         private static string PerformTest(GeneratorOptions options)

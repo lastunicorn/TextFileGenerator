@@ -40,15 +40,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Parameters\CounterParameter.cs" />
     <Compile Include="Generator.cs" />
     <Compile Include="Options\GeneratorOptions.cs" />
     <Compile Include="Options\IParameter.cs" />
     <Compile Include="Options\ListSerializer.cs" />
-    <Compile Include="Parameters\ConstantParameter.cs" />
-    <Compile Include="Parameters\CustomParameter.cs" />
-    <Compile Include="Parameters\RandomNumberParameter.cs" />
-    <Compile Include="Parameters\RandomTextParameter.cs" />
+    <Compile Include="Parameters\ConstantValueProvider.cs" />
+    <Compile Include="Parameters\CounterValueProvider.cs" />
+    <Compile Include="Parameters\EmptyValueProvider.cs" />
+    <Compile Include="Parameters\IValueProvider.cs" />
+    <Compile Include="Parameters\Parameter.cs" />
+    <Compile Include="Parameters\RandomNumberValueProvider.cs" />
+    <Compile Include="Parameters\RandomTextValueProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Options\Section.cs" />
     <Compile Include="Options\SectionList.cs" />
@@ -56,7 +58,11 @@
     <Compile Include="Serialization\Entities.cs" />
     <Compile Include="Serialization\OptionsSerializer.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Serialization\TextFileGenerator.xsd">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

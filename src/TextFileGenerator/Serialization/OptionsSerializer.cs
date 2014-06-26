@@ -27,46 +27,46 @@ namespace DustInTheWind.TextFileGenerator.Serialization
         {
             textFileGenerator textFileGenerator = new textFileGenerator();
 
-            if (generatorOptions.Sections.Count > 0 || generatorOptions.Sections.Separator != null || generatorOptions.Sections.SeparatorType != SeparatorType.Infix)
-            {
-                textFileGenerator.Item = new sections();
-            }
+            //if (generatorOptions.Sections.Count > 0 || generatorOptions.Sections.Separator != null || generatorOptions.Sections.SeparatorType != SeparatorType.Infix)
+            //{
+            //    textFileGenerator.sections = new sections();
+            //}
 
-            if (generatorOptions.Sections.Separator != null)
-            {
-                textFileGenerator.Item.separator = generatorOptions.Sections.Separator;
-            }
+            //if (generatorOptions.Sections.Separator != null)
+            //{
+            //    textFileGenerator.Item.separator = generatorOptions.Sections.Separator;
+            //}
 
-            if (generatorOptions.Sections.SeparatorType != SeparatorType.Infix)
-            {
-                switch (generatorOptions.Sections.SeparatorType)
-                {
-                    case SeparatorType.Infix:
-                        textFileGenerator.Item.separatorType = separatorType.Infix;
-                        break;
+            //if (generatorOptions.Sections.SeparatorType != SeparatorType.Infix)
+            //{
+            //    switch (generatorOptions.Sections.SeparatorType)
+            //    {
+            //        case SeparatorType.Infix:
+            //            textFileGenerator.Item.separatorType = separatorType.Infix;
+            //            break;
 
-                    case SeparatorType.Prefix:
-                        textFileGenerator.Item.separatorType = separatorType.Prefix;
-                        break;
+            //        case SeparatorType.Prefix:
+            //            textFileGenerator.Item.separatorType = separatorType.Prefix;
+            //            break;
 
-                    case SeparatorType.Postfix:
-                        textFileGenerator.Item.separatorType = separatorType.Postfix;
-                        break;
-                }
-            }
+            //        case SeparatorType.Postfix:
+            //            textFileGenerator.Item.separatorType = separatorType.Postfix;
+            //            break;
+            //    }
+            //}
 
             bool existsSections = generatorOptions.Sections.Count > 0;
 
             if (existsSections)
             {
-                textFileGenerator.Item.section = new section[generatorOptions.Sections.Count];
+                textFileGenerator.sections = new section[generatorOptions.Sections.Count];
 
                 for (int i = 0; i < generatorOptions.Sections.Count; i++)
                 {
                     Section sourceSection = generatorOptions.Sections[i];
                     section destinationSection = CreateSection(sourceSection);
 
-                    textFileGenerator.Item.section[i] = destinationSection;
+                    textFileGenerator.sections[i] = destinationSection;
                 }
             }
 
@@ -125,7 +125,7 @@ namespace DustInTheWind.TextFileGenerator.Serialization
             section destinationSection = new section();
 
             destinationSection.name = sourceSection.Name;
-            destinationSection.count = sourceSection.Count.ToString(CultureInfo.InvariantCulture);
+            destinationSection.repeat = sourceSection.RepeatCount.ToString(CultureInfo.InvariantCulture);
             destinationSection.separator = sourceSection.Separator;
 
             switch (sourceSection.SeparatorType)
@@ -143,7 +143,13 @@ namespace DustInTheWind.TextFileGenerator.Serialization
                     break;
             }
 
-            destinationSection.template = sourceSection.Template;
+            if (sourceSection.Template != null)
+            {
+                destinationSection.Items = new object[]
+                {
+                    sourceSection.Template
+                };
+            }
 
             bool existsParameters = sourceSection.Parameters.Count > 0;
 

@@ -43,13 +43,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="SectionWithRandomTextParameterTests.cs" />
-    <Compile Include="SectionWithRandomNumberParameterTests.cs" />
-    <Compile Include="SectionWithCounterParameterTests.cs" />
-    <Compile Include="CounterParameterTests.cs" />
-    <Compile Include="SectionWithConstantParameterTests.cs" />
-    <Compile Include="MultipleParameterlessSectionTests.cs" />
-    <Compile Include="OneParameterlessSectionTests.cs" />
+    <Compile Include="GeneratorTests\SectionWithRandomTextParameterTests.cs" />
+    <Compile Include="GeneratorTests\SectionWithRandomNumberParameterTests.cs" />
+    <Compile Include="GeneratorTests\SectionWithCounterParameterTests.cs" />
+    <Compile Include="Parameters\CounterValueProviderTests.cs" />
+    <Compile Include="GeneratorTests\SectionWithConstantParameterTests.cs" />
+    <Compile Include="GeneratorTests\MultipleParameterlessSectionTests.cs" />
+    <Compile Include="GeneratorTests\OneParameterlessSectionTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Serialization\OptionsSerializerTests\ParameterElementTests.cs" />
     <Compile Include="Serialization\OptionsSerializerTests\ParametersElementTests.cs" />

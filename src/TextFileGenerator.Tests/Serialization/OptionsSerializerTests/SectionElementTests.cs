@@ -56,28 +56,28 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerT
         }
 
         [Test]
-        public void section_element_contains_count_attribute_if_Count_is_greater_then_1()
+        public void section_element_contains_repeat_attribute_if_RepeatCount_is_greater_then_1()
         {
             GeneratorOptions generatorOptions = new GeneratorOptions();
             generatorOptions.Sections.Add(new Section
             {
-                Count = 2
+                RepeatCount = 2
             });
 
             XmlAsserter xmlAsserter = SerializeAndCreateNavigatorOnResult(generatorOptions);
 
             xmlAsserter.AddNamespace("alez", "http://alez.ro/TextFileGenerator");
-            xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section/@count", 1);
-            xmlAsserter.AssertText("/alez:textFileGenerator/alez:sections/alez:section/@count", "2");
+            xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section/@repeat", 1);
+            xmlAsserter.AssertText("/alez:textFileGenerator/alez:sections/alez:section/@repeat", "2");
         }
 
         [Test]
-        public void section_element_does_not_contain_count_attribute_if_Count_is_1()
+        public void section_element_does_not_contain_repeat_attribute_if_RepeatCount_is_1()
         {
             GeneratorOptions generatorOptions = new GeneratorOptions();
             generatorOptions.Sections.Add(new Section
             {
-                Count = 1
+                RepeatCount = 1
             });
 
             XmlAsserter xmlAsserter = SerializeAndCreateNavigatorOnResult(generatorOptions);
@@ -190,7 +190,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerT
         {
             GeneratorOptions generatorOptions = new GeneratorOptions();
             Section section = new Section();
-            section.Parameters.Add(new ConstantParameter());
+            section.Parameters.Add(new Parameter("key1", new EmptyValueProvider()));
             generatorOptions.Sections.Add(section);
 
             XmlAsserter xmlAsserter = SerializeAndCreateNavigatorOnResult(generatorOptions);

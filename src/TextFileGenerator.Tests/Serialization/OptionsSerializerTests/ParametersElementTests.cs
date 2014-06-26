@@ -32,7 +32,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerT
         {
             GeneratorOptions generatorOptions = new GeneratorOptions();
             Section section = new Section();
-            section.Parameters.Add(new ConstantParameter());
+            section.Parameters.Add(new Parameter("key1", new ConstantValueProvider { Value = "value" }));
             generatorOptions.Sections.Add(section);
 
             XmlAsserter xmlAsserter = SerializeAndCreateNavigatorOnResult(generatorOptions);
@@ -46,8 +46,8 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerT
         {
             GeneratorOptions generatorOptions = new GeneratorOptions();
             Section section = new Section();
-            section.Parameters.Add(new ConstantParameter());
-            section.Parameters.Add(new ConstantParameter());
+            section.Parameters.Add(new Parameter("key1", new ConstantValueProvider { Value = "value" }));
+            section.Parameters.Add(new Parameter("key2", new ConstantValueProvider { Value = "value" }));
             generatorOptions.Sections.Add(section);
 
             XmlAsserter xmlAsserter = SerializeAndCreateNavigatorOnResult(generatorOptions);

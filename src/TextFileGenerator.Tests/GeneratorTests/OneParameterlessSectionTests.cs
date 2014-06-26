@@ -2,7 +2,7 @@
 using DustInTheWind.TextFileGenerator.Options;
 using NUnit.Framework;
 
-namespace DustInTheWind.TextFileGenerator.Tests
+namespace DustInTheWind.TextFileGenerator.Tests.GeneratorTests
 {
     [TestFixture]
     public class OneParameterlessSectionTests
@@ -29,7 +29,7 @@ namespace DustInTheWind.TextFileGenerator.Tests
             Section section = new Section
             {
                 Template = "test",
-                Count = 2
+                RepeatCount = 2
             };
             options.Sections.Add(section);
 
@@ -45,7 +45,7 @@ namespace DustInTheWind.TextFileGenerator.Tests
             Section section = new Section
             {
                 Template = "test",
-                Count = 2,
+                RepeatCount = 2,
                 Separator = ";"
             };
             options.Sections.Add(section);
@@ -62,7 +62,7 @@ namespace DustInTheWind.TextFileGenerator.Tests
             Section section = new Section
             {
                 Template = "test",
-                Count = 2,
+                RepeatCount = 2,
                 Separator = ";",
                 SeparatorType = SeparatorType.Postfix
             };
@@ -80,7 +80,7 @@ namespace DustInTheWind.TextFileGenerator.Tests
             Section section = new Section
             {
                 Template = "test",
-                Count = 2,
+                RepeatCount = 2,
                 Separator = ";",
                 SeparatorType = SeparatorType.Prefix
             };

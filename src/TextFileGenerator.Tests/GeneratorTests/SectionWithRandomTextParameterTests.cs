@@ -3,7 +3,7 @@ using DustInTheWind.TextFileGenerator.Options;
 using DustInTheWind.TextFileGenerator.Parameters;
 using NUnit.Framework;
 
-namespace DustInTheWind.TextFileGenerator.Tests
+namespace DustInTheWind.TextFileGenerator.Tests.GeneratorTests
 {
     [TestFixture]
     public class SectionWithRandomTextParameterTests
@@ -16,9 +16,9 @@ namespace DustInTheWind.TextFileGenerator.Tests
             {
                 Template = "test {param1}"
             };
-            section.Parameters.AddRange(new IParameter[]
+            section.Parameters.AddRange(new[]
             {
-                new RandomTextParameter { Key = "param1", MinLength = 10, MaxLength = 100 }
+                new Parameter("param1", new RandomTextValueProvider { MinLength = 10, MaxLength = 100 })
             });
             options.Sections.Add(section);
 

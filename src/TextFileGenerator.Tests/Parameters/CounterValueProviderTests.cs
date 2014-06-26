@@ -1,17 +1,17 @@
 ﻿using DustInTheWind.TextFileGenerator.Parameters;
 using NUnit.Framework;
 
-namespace DustInTheWind.TextFileGenerator.Tests
+namespace DustInTheWind.TextFileGenerator.Tests.Parameters
 {
     [TestFixture]
-    public class CounterParameterTests
+    public class CounterValueProviderTests
     {
-        private CounterParameter counterParameter;
+        private CounterValueProvider counterParameter;
 
         [SetUp]
         public void SetUp()
         {
-            counterParameter = new CounterParameter();
+            counterParameter = new CounterValueProvider();
         }
 
         [Test]

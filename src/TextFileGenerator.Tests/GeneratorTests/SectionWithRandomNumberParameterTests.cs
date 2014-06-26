@@ -3,13 +3,13 @@ using DustInTheWind.TextFileGenerator.Options;
 using DustInTheWind.TextFileGenerator.Parameters;
 using NUnit.Framework;
 
-namespace DustInTheWind.TextFileGenerator.Tests
+namespace DustInTheWind.TextFileGenerator.Tests.GeneratorTests
 {
     [TestFixture]
-    public class SectionWithCounterParameterTests
+    public class SectionWithRandomNumberParameterTests
     {
         [Test]
-        public void replaces_counter_parameter_in_section_template()
+        public void test()
         {
             GeneratorOptions options = new GeneratorOptions();
             Section section = new Section
@@ -18,33 +18,13 @@ namespace DustInTheWind.TextFileGenerator.Tests
             };
             section.Parameters.AddRange(new IParameter[]
             {
-                new CounterParameter { Key = "param1", StartValue = 10, Step = 2 }
+                new Parameter("param1", new RandomNumberValueProvider{ Format = "000", MinValue = 10, MaxValue = 100 })
             });
             options.Sections.Add(section);
 
             string actual = PerformTest(options);
 
-            Assert.That(actual, Is.EqualTo("test 10"));
-        }
-
-        [Test]
-        public void replaces_counter_parameter_in_section_template_rendered_multiple_times()
-        {
-            GeneratorOptions options = new GeneratorOptions();
-            Section section = new Section
-            {
-                Template = "test{param1}",
-                Count = 2
-            };
-            section.Parameters.AddRange(new IParameter[]
-            {
-                new CounterParameter { Key = "param1", StartValue = 10, Step = 2 }
-            });
-            options.Sections.Add(section);
-
-            string actual = PerformTest(options);
-
-            Assert.That(actual, Is.EqualTo("test10test12"));
+            Assert.That(actual, Contains.Substring("test "));
         }
 
         private static string PerformTest(GeneratorOptions options)

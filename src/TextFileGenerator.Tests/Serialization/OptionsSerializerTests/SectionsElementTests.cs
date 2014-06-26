@@ -62,31 +62,6 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerT
             xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section", 2);
         }
 
-        [Test]
-        public void sections_element_contains_separator_attribute_if_it_is_declared()
-        {
-            GeneratorOptions generatorOptions = new GeneratorOptions();
-            generatorOptions.Sections.Separator = ",";
-
-            XmlAsserter xmlAsserter = SerializeAndCreateNavigatorOnResult(generatorOptions);
-
-            xmlAsserter.AddNamespace("alez", "http://alez.ro/TextFileGenerator");
-            xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/@separator", 1);
-            xmlAsserter.AssertText("/alez:textFileGenerator/alez:sections/@separator", ",");
-        }
-
-        [Test]
-        public void sections_element_contains_separatorType_attribute_if_it_is_declared()
-        {
-            GeneratorOptions generatorOptions = new GeneratorOptions();
-            generatorOptions.Sections.SeparatorType = SeparatorType.Postfix;
-
-            XmlAsserter xmlAsserter = SerializeAndCreateNavigatorOnResult(generatorOptions);
-
-            xmlAsserter.AddNamespace("alez", "http://alez.ro/TextFileGenerator");
-            xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/@separatorType", 1);
-        }
-
         private XmlAsserter SerializeAndCreateNavigatorOnResult(GeneratorOptions generatorOptions)
         {
             optionsSerializer.Serialize(actualStream, generatorOptions);

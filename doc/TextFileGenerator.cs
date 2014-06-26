@@ -24,16 +24,72 @@ namespace DustInTheWind.TextFileGenerator.Serialization {
     [System.Xml.Serialization.XmlRootAttribute(Namespace="http://alez.ro/TextFileGenerator", IsNullable=false)]
     public partial class textFileGenerator {
         
-        private section[] sectionsField;
+        private sections itemField;
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlArrayItemAttribute("section", IsNullable=false)]
-        public section[] sections {
+        [System.Xml.Serialization.XmlElementAttribute("sections")]
+        public sections Item {
             get {
-                return this.sectionsField;
+                return this.itemField;
             }
             set {
-                this.sectionsField = value;
+                this.itemField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://alez.ro/TextFileGenerator")]
+    [System.Xml.Serialization.XmlRootAttribute(Namespace="http://alez.ro/TextFileGenerator", IsNullable=false)]
+    public partial class sections {
+        
+        private section[] sectionField;
+        
+        private string separatorField;
+        
+        private separatorType separatorTypeField;
+        
+        public sections() {
+            this.separatorField = "";
+            this.separatorTypeField = separatorType.Infix;
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute("section")]
+        public section[] section {
+            get {
+                return this.sectionField;
+            }
+            set {
+                this.sectionField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute("")]
+        public string separator {
+            get {
+                return this.separatorField;
+            }
+            set {
+                this.separatorField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute(separatorType.Infix)]
+        public separatorType separatorType {
+            get {
+                return this.separatorTypeField;
+            }
+            set {
+                this.separatorTypeField = value;
             }
         }
     }
@@ -47,33 +103,31 @@ namespace DustInTheWind.TextFileGenerator.Serialization {
     [System.Xml.Serialization.XmlRootAttribute(Namespace="http://alez.ro/TextFileGenerator", IsNullable=false)]
     public partial class section {
         
-        private object[] itemsField;
+        private string templateField;
         
         private parameter[] parametersField;
         
         private string nameField;
         
-        private string repeatField;
+        private string countField;
         
         private string separatorField;
         
         private separatorType separatorTypeField;
         
         public section() {
-            this.repeatField = "1";
+            this.countField = "1";
             this.separatorField = "";
             this.separatorTypeField = separatorType.Infix;
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("section", typeof(section))]
-        [System.Xml.Serialization.XmlElementAttribute("template", typeof(string))]
-        public object[] Items {
+        public string template {
             get {
-                return this.itemsField;
+                return this.templateField;
             }
             set {
-                this.itemsField = value;
+                this.templateField = value;
             }
         }
         
@@ -102,12 +156,12 @@ namespace DustInTheWind.TextFileGenerator.Serialization {
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute(DataType="positiveInteger")]
         [System.ComponentModel.DefaultValueAttribute("1")]
-        public string repeat {
+        public string count {
             get {
-                return this.repeatField;
+                return this.countField;
             }
             set {
-                this.repeatField = value;
+                this.countField = value;
             }
         }
         
@@ -152,6 +206,7 @@ namespace DustInTheWind.TextFileGenerator.Serialization {
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("constant", typeof(parameterConstant))]
         [System.Xml.Serialization.XmlElementAttribute("counter", typeof(parameterCounter))]
+        [System.Xml.Serialization.XmlElementAttribute("custom", typeof(parameterCustom))]
         [System.Xml.Serialization.XmlElementAttribute("randomNumber", typeof(parameterRandomNumber))]
         [System.Xml.Serialization.XmlElementAttribute("randomText", typeof(parameterRandomText))]
         public object Item {
@@ -250,6 +305,41 @@ namespace DustInTheWind.TextFileGenerator.Serialization {
             }
             set {
                 this.stepField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://alez.ro/TextFileGenerator")]
+    public partial class parameterCustom {
+        
+        private string classTypeField;
+        
+        private string methodNameField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string classType {
+            get {
+                return this.classTypeField;
+            }
+            set {
+                this.classTypeField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string methodName {
+            get {
+                return this.methodNameField;
+            }
+            set {
+                this.methodNameField = value;
             }
         }
     }
@@ -367,29 +457,6 @@ namespace DustInTheWind.TextFileGenerator.Serialization {
         
         /// <remarks/>
         Postfix,
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://alez.ro/TextFileGenerator")]
-    [System.Xml.Serialization.XmlRootAttribute(Namespace="http://alez.ro/TextFileGenerator", IsNullable=false)]
-    public partial class sections {
-        
-        private section[] sectionField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("section")]
-        public section[] section {
-            get {
-                return this.sectionField;
-            }
-            set {
-                this.sectionField = value;
-            }
-        }
     }
     
     /// <remarks/>

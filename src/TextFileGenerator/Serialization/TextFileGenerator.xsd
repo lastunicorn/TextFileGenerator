@@ -1,90 +1,85 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <xs:schema id="TextFileGenerator" xmlns="http://alez.ro/TextFileGenerator" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" targetNamespace="http://alez.ro/TextFileGenerator" >
 
-	<xs:element name="textFileGenerator">
-		<xs:complexType>
-			<xs:choice minOccurs="0" maxOccurs="1">
-				<xs:element ref="sections" />
-			</xs:choice>
-		</xs:complexType>
-	</xs:element>
+    <xs:element name="textFileGenerator">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="sections" minOccurs="0" maxOccurs="1"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
 
-	<xs:element name="sections">
-		<xs:complexType>
-			<xs:sequence>
-				<xs:element ref="section" minOccurs="0" maxOccurs="unbounded" />
-			</xs:sequence>
-			<xs:attribute name="separator" type="xs:string" default="" />
-			<xs:attribute name="separatorType" type="separatorType" default="Infix" />
-		</xs:complexType>
-	</xs:element>
+    <xs:element name="sections">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="section" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
 
-	<xs:element name="section">
-		<xs:complexType>
-			<xs:sequence>
-				<xs:element name="template" type="xs:string" minOccurs="0" />
-				<xs:element ref="parameters" minOccurs="0" maxOccurs="1" />
-			</xs:sequence>
-			<xs:attribute name="name" form="unqualified" type="xs:string" />
-			<xs:attribute name="count" form="unqualified" type="xs:positiveInteger" default="1" />
-			<xs:attribute name="separator" type="xs:string" default="" />
-			<xs:attribute name="separatorType" type="separatorType" default="Infix" />
-		</xs:complexType>
-	</xs:element>
+    <xs:element name="section">
+        <xs:complexType>
+            <xs:sequence minOccurs="0">
+                <xs:choice>
+                    <xs:element name="template" type="xs:string"/>
+                    <xs:element ref="section" maxOccurs="unbounded"/>
+                </xs:choice>
+                <xs:element ref="parameters" minOccurs="0"/>
+            </xs:sequence>
+            <xs:attribute name="name" form="unqualified" type="xs:string" />
+            <xs:attribute name="repeat" form="unqualified" type="xs:positiveInteger" default="1" />
+            <xs:attribute name="separator" type="xs:string" default="" />
+            <xs:attribute name="separatorType" type="separatorType" default="Infix" />
+        </xs:complexType>
+    </xs:element>
 
-	<xs:element name="parameters">
-		<xs:complexType>
-			<xs:sequence>
-				<xs:element ref="parameter" minOccurs="0" maxOccurs="unbounded" />
-			</xs:sequence>
-		</xs:complexType>
-	</xs:element>
+    <xs:element name="parameters">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="parameter" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
 
-	<xs:element name="parameter">
-		<xs:complexType>
-			<xs:choice>
-				<xs:element name="custom">
-					<xs:complexType>
-						<xs:attribute name="classType" type="xs:string" use="required" />
-						<xs:attribute name="methodName" type="xs:string" use="required" />
-					</xs:complexType>
-				</xs:element>
-				<xs:element name="randomText">
-					<xs:complexType>
-						<xs:attribute name="minLength" type="xs:positiveInteger" default="1" />
-						<xs:attribute name="maxLength" type="xs:positiveInteger" default="100" />
-					</xs:complexType>
-				</xs:element>
-				<xs:element name="randomNumber">
-					<xs:complexType>
-						<xs:attribute name="format" type="xs:string" default="" />
-						<xs:attribute name="minValue" type="xs:positiveInteger" default="1" />
-						<xs:attribute name="maxValue" type="xs:positiveInteger" default="100" />
-					</xs:complexType>
-				</xs:element>
-				<xs:element name="counter">
-					<xs:complexType>
-						<xs:attribute name="format" type="xs:string" default="" />
-						<xs:attribute name="startValue" type="xs:integer" default="1" />
-						<xs:attribute name="step" type="xs:positiveInteger" default="1" />
-					</xs:complexType>
-				</xs:element>
-				<xs:element name="constant">
-					<xs:complexType>
-						<xs:attribute name="value" form="unqualified" type="xs:string" use="required" />
-					</xs:complexType>
-				</xs:element>
-			</xs:choice>
-			<xs:attribute name="key" type="xs:string" use="required" />
-		</xs:complexType>				
-	</xs:element>
+    <xs:element name="parameter">
+        <xs:complexType>
+            <xs:choice>
+                <xs:element name="randomText">
+                    <xs:complexType>
+                        <xs:attribute name="minLength" type="xs:positiveInteger" default="1" />
+                        <xs:attribute name="maxLength" type="xs:positiveInteger" default="100" />
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="randomNumber">
+                    <xs:complexType>
+                        <xs:attribute name="format" type="xs:string" default="" />
+                        <xs:attribute name="minValue" type="xs:positiveInteger" default="1" />
+                        <xs:attribute name="maxValue" type="xs:positiveInteger" default="100" />
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="counter">
+                    <xs:complexType>
+                        <xs:attribute name="format" type="xs:string" default="" />
+                        <xs:attribute name="startValue" type="xs:integer" default="1" />
+                        <xs:attribute name="step" type="xs:positiveInteger" default="1" />
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="constant">
+                    <xs:complexType>
+                        <xs:attribute name="value" form="unqualified" type="xs:string" use="required" />
+                    </xs:complexType>
+                </xs:element>
+            </xs:choice>
+            <xs:attribute name="key" type="xs:string" use="required" />
+        </xs:complexType>
+    </xs:element>
 
-	<xs:simpleType name="separatorType">
-		<xs:restriction base="xs:string">
-			<xs:enumeration value="Prefix"/>
-			<xs:enumeration value="Infix"/>
-			<xs:enumeration value="Postfix"/>
-		</xs:restriction>
-	</xs:simpleType>
+    <xs:simpleType name="separatorType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Prefix"/>
+            <xs:enumeration value="Infix"/>
+            <xs:enumeration value="Postfix"/>
+        </xs:restriction>
+    </xs:simpleType>
 
 </xs:schema>

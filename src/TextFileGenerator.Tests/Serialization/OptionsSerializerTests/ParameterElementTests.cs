@@ -28,14 +28,26 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerT
         }
 
         [Test]
+        public void parameter_element_contains_key_attribute()
+        {
+            GeneratorOptions generatorOptions = new GeneratorOptions();
+            Section section = new Section();
+            section.Parameters.Add(new Parameter("key1", new EmptyValueProvider()));
+            generatorOptions.Sections.Add(section);
+
+            XmlAsserter xmlAsserter = SerializeAndCreateNavigatorOnResult(generatorOptions);
+
+            xmlAsserter.AddNamespace("alez", "http://alez.ro/TextFileGenerator");
+            xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section/alez:parameters/alez:parameter/@key", 1);
+            xmlAsserter.AssertText("/alez:textFileGenerator/alez:sections/alez:section/alez:parameters/alez:parameter/@key", "key1");
+        }
+
+        [Test]
         public void parameter_element_contain_key_attribute()
         {
             GeneratorOptions generatorOptions = new GeneratorOptions();
             Section section = new Section();
-            section.Parameters.Add(new ConstantParameter
-            {
-                Key = "key1"
-            });
+            section.Parameters.Add(new Parameter("key1", new EmptyValueProvider()));
             generatorOptions.Sections.Add(section);
 
             XmlAsserter xmlAsserter = SerializeAndCreateNavigatorOnResult(generatorOptions);

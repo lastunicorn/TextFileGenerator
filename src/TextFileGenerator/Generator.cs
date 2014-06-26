@@ -17,17 +17,9 @@ namespace DustInTheWind.TextFileGenerator
 
         public void Generate(TextWriter textWriter)
         {
-            bool existsSeparator = !string.IsNullOrEmpty(options.Sections.Separator);
-
             for (int i = 0; i < options.Sections.Count; i++)
             {
-                if (existsSeparator)
-                    WriteSeparatorBeforeItem(textWriter, options.Sections.Separator, options.Sections.SeparatorType, i);
-
                 WriteSection(textWriter, options.Sections[i]);
-
-                if (existsSeparator)
-                    WriteSeparatorAfterItem(textWriter, options.Sections.Separator, options.Sections.SeparatorType);
             }
 
             textWriter.Flush();
@@ -37,7 +29,7 @@ namespace DustInTheWind.TextFileGenerator
         {
             bool existsSeparator = !string.IsNullOrEmpty(section.Separator);
 
-            for (int i = 0; i < section.Count; i++)
+            for (int i = 0; i < section.RepeatCount; i++)
             {
                 if (existsSeparator)
                     WriteSeparatorBeforeItem(textWriter, section.Separator, section.SeparatorType, i);
