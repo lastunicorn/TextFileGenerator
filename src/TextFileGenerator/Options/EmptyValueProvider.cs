@@ -1,4 +1,4 @@
-﻿namespace DustInTheWind.TextFileGenerator.Parameters
+﻿namespace DustInTheWind.TextFileGenerator.Options
 {
     public class EmptyValueProvider : IValueProvider
     {

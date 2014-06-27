@@ -42,20 +42,20 @@
   <ItemGroup>
     <Compile Include="Generator.cs" />
     <Compile Include="Options\GeneratorOptions.cs" />
-    <Compile Include="Options\IParameter.cs" />
     <Compile Include="Options\ListSerializer.cs" />
-    <Compile Include="Parameters\ConstantValueProvider.cs" />
-    <Compile Include="Parameters\CounterValueProvider.cs" />
-    <Compile Include="Parameters\EmptyValueProvider.cs" />
-    <Compile Include="Parameters\IValueProvider.cs" />
-    <Compile Include="Parameters\Parameter.cs" />
-    <Compile Include="Parameters\RandomNumberValueProvider.cs" />
-    <Compile Include="Parameters\RandomTextValueProvider.cs" />
+    <Compile Include="Options\ConstantValueProvider.cs" />
+    <Compile Include="Options\CounterValueProvider.cs" />
+    <Compile Include="Options\EmptyValueProvider.cs" />
+    <Compile Include="Options\IValueProvider.cs" />
+    <Compile Include="Options\Parameter.cs" />
+    <Compile Include="Options\RandomNumberValueProvider.cs" />
+    <Compile Include="Options\RandomTextValueProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Options\Section.cs" />
     <Compile Include="Options\SectionList.cs" />
     <Compile Include="Options\SeparatorType.cs" />
     <Compile Include="Serialization\Entities.cs" />
+    <Compile Include="Serialization\EntityCreator.cs" />
     <Compile Include="Serialization\OptionsSerializer.cs" />
   </ItemGroup>
   <ItemGroup>

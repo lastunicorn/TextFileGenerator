@@ -1,14 +1,11 @@
 using System.Globalization;
-using DustInTheWind.TextFileGenerator.Options;
 
-namespace DustInTheWind.TextFileGenerator.Parameters
+namespace DustInTheWind.TextFileGenerator.Options
 {
-    public class CounterParameter : IParameter
+    public class CounterValueProvider : IValueProvider
     {
         private int nextValue;
         private int startValue;
-
-        public string Key { get; set; }
 
         public int StartValue
         {
@@ -24,7 +21,7 @@ namespace DustInTheWind.TextFileGenerator.Parameters
 
         public string Format { get; set; }
 
-        public CounterParameter()
+        public CounterValueProvider()
         {
             StartValue = 1;
             Step = 1;

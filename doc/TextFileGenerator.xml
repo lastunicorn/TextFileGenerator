@@ -8,20 +8,18 @@
 
 		<section name="Body" count="100" separator="&#13;&#10;" separatorType="Infix">
 			<template>My email address is {email}. This is a test abc {p1}; def {p2}; ghi {p3}</template>
-			<parameters>
-				<parameter key="email">
-					<constant value="me@alez.ro" />
-				</parameter>
-				<parameter key="p1">
-					<counter format="000" startValue="0" step="1" />
-				</parameter>
-				<parameter key="p2">
-					<randomNumber format="000" minValue="0" maxValue="100" />
-				</parameter>
-				<parameter key="p3">
-					<randomText minLength="0" maxLength="100" />
-				</parameter>
-			</parameters>
+			<parameter key="email">
+				<constant value="me@alez.ro" />
+			</parameter>
+			<parameter key="p1">
+				<counter format="000" startValue="0" step="1" />
+			</parameter>
+			<parameter key="p2">
+				<randomNumber format="000" minValue="0" maxValue="100" />
+			</parameter>
+			<parameter key="p3">
+				<randomText minLength="0" maxLength="100" />
+			</parameter>
 		</section>
 
 		<section name="Row" count="100" separator="&#13;&#10;" separatorType="Infix">

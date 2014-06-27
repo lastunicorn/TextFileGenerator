@@ -7,7 +7,7 @@ using NUnit.Framework;
 namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerTests
 {
     [TestFixture]
-    public class ParameterElementTests
+    public class ParameterConstantElementTests
     {
         private OptionsSerializer optionsSerializer;
         private MemoryStream actualStream;
@@ -27,64 +27,76 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerT
         }
 
         [Test]
-        public void parameter_element_contains_key_attribute()
+        public void parameter_element_contains_constant_element_if_Parameter_has_a_ConstantValueProvider()
         {
             GeneratorOptions generatorOptions = new GeneratorOptions();
             Section section = new Section();
             section.Parameters.Add(new Parameter
             {
                 Key = "key1",
-                ValueProvider = new EmptyValueProvider()
+                ValueProvider = new ConstantValueProvider()
             });
             generatorOptions.Sections.Add(section);
 
             XmlAsserter xmlAsserter = SerializeAndCreateNavigatorOnResult(generatorOptions);
 
             xmlAsserter.AddNamespace("alez", "http://alez.ro/TextFileGenerator");
-            xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section/alez:parameter/@key", 1);
-            xmlAsserter.AssertText("/alez:textFileGenerator/alez:sections/alez:section/alez:parameter/@key", "key1");
+            xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section/alez:parameter/alez:constant", 1);
         }
 
         [Test]
-        public void parameter_element_contains_randomNumber_element_if_Parameter_has_a_RandomNumberValueProvider()
+        public void constant_element_contains_value_attribute_if_Value_was_set()
         {
             GeneratorOptions generatorOptions = new GeneratorOptions();
             Section section = new Section();
             section.Parameters.Add(new Parameter
             {
                 Key = "key1",
-                ValueProvider = new RandomNumberValueProvider()
+                ValueProvider = new ConstantValueProvider { Value = "some text" }
             });
             generatorOptions.Sections.Add(section);
 
             XmlAsserter xmlAsserter = SerializeAndCreateNavigatorOnResult(generatorOptions);
 
             xmlAsserter.AddNamespace("alez", "http://alez.ro/TextFileGenerator");
-            xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section/alez:parameter/alez:randomNumber", 1);
+            xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section/alez:parameter/alez:constant/@value", 1);
+            xmlAsserter.AssertText("/alez:textFileGenerator/alez:sections/alez:section/alez:parameter/alez:constant/@value", "some text");
         }
 
         [Test]
-        public void parameter_element_contains_randomText_element_if_Parameter_has_a_RandomTextValueProvider()
+        public void constant_element_does_not_contain_value_attribute_if_Value_was_not_set()
         {
-            GeneratorOptions generatorOptions = CreateOptionsWithOneSection();
-            generatorOptions.Sections[0].Parameters.Add(new Parameter
+            GeneratorOptions generatorOptions = new GeneratorOptions();
+            Section section = new Section();
+            section.Parameters.Add(new Parameter
             {
                 Key = "key1",
-                ValueProvider = new RandomTextValueProvider()
+                ValueProvider = new ConstantValueProvider()
             });
+            generatorOptions.Sections.Add(section);
 
             XmlAsserter xmlAsserter = SerializeAndCreateNavigatorOnResult(generatorOptions);
 
             xmlAsserter.AddNamespace("alez", "http://alez.ro/TextFileGenerator");
-            xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section/alez:parameter/alez:randomText", 1);
+            xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section/alez:parameter/alez:constant/@value", 0);
         }
 
-        private GeneratorOptions CreateOptionsWithOneSection()
+        [Test]
+        public void constant_element_does_not_contain_value_attribute_if_Value_was_set_to_empty_string()
         {
             GeneratorOptions generatorOptions = new GeneratorOptions();
-            generatorOptions.Sections.Add(new Section());
+            Section section = new Section();
+            section.Parameters.Add(new Parameter
+            {
+                Key = "key1",
+                ValueProvider = new ConstantValueProvider { Value = string.Empty }
+            });
+            generatorOptions.Sections.Add(section);
 
-            return generatorOptions;
+            XmlAsserter xmlAsserter = SerializeAndCreateNavigatorOnResult(generatorOptions);
+
+            xmlAsserter.AddNamespace("alez", "http://alez.ro/TextFileGenerator");
+            xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section/alez:parameter/alez:constant/@value", 0);
         }
 
         private XmlAsserter SerializeAndCreateNavigatorOnResult(GeneratorOptions generatorOptions)

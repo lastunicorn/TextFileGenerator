@@ -49,7 +49,7 @@ namespace DustInTheWind.TextFileGenerator.Serialization {
         
         private object[] itemsField;
         
-        private parameter[] parametersField;
+        private parameter[] parameterField;
         
         private string nameField;
         
@@ -78,13 +78,13 @@ namespace DustInTheWind.TextFileGenerator.Serialization {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlArrayItemAttribute("parameter", IsNullable=false)]
-        public parameter[] parameters {
+        [System.Xml.Serialization.XmlElementAttribute("parameter")]
+        public parameter[] parameter {
             get {
-                return this.parametersField;
+                return this.parameterField;
             }
             set {
-                this.parametersField = value;
+                this.parameterField = value;
             }
         }
         
@@ -185,8 +185,13 @@ namespace DustInTheWind.TextFileGenerator.Serialization {
         
         private string valueField;
         
+        public parameterConstant() {
+            this.valueField = "";
+        }
+        
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute("")]
         public string value {
             get {
                 return this.valueField;
@@ -388,29 +393,6 @@ namespace DustInTheWind.TextFileGenerator.Serialization {
             }
             set {
                 this.sectionField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://alez.ro/TextFileGenerator")]
-    [System.Xml.Serialization.XmlRootAttribute(Namespace="http://alez.ro/TextFileGenerator", IsNullable=false)]
-    public partial class parameters {
-        
-        private parameter[] parameterField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("parameter")]
-        public parameter[] parameter {
-            get {
-                return this.parameterField;
-            }
-            set {
-                this.parameterField = value;
             }
         }
     }

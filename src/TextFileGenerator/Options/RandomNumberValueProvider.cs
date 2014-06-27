@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Globalization;
-using DustInTheWind.TextFileGenerator.Options;
 
-namespace DustInTheWind.TextFileGenerator.Parameters
+namespace DustInTheWind.TextFileGenerator.Options
 {
-    public class RandomNumberParameter : IParameter
+    public class RandomNumberValueProvider : IValueProvider
     {
         private readonly Random random;
 
@@ -14,15 +13,13 @@ namespace DustInTheWind.TextFileGenerator.Parameters
 
         public string Format { get; set; }
 
-        public RandomNumberParameter()
+        public RandomNumberValueProvider()
         {
             random = new Random();
 
             MinValue = 0;
             MaxValue = 100;
         }
-
-        public string Key { get; set; }
 
         public string GetValue()
         {

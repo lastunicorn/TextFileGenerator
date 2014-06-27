@@ -1,4 +1,4 @@
-﻿using DustInTheWind.TextFileGenerator.Parameters;
+﻿using DustInTheWind.TextFileGenerator.Options;
 using NUnit.Framework;
 
 namespace DustInTheWind.TextFileGenerator.Tests.Parameters

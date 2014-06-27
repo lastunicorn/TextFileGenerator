@@ -1,12 +1,8 @@
-using DustInTheWind.TextFileGenerator.Options;
-
-namespace DustInTheWind.TextFileGenerator.Parameters
+﻿namespace DustInTheWind.TextFileGenerator.Options
 {
-    public class ConstantParameter : IParameter
+    public class ConstantValueProvider : IValueProvider
     {
         private string value;
-
-        public string Key { get; set; }
 
         public string Value
         {

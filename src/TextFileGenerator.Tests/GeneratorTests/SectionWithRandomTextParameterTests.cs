@@ -1,6 +1,5 @@
 ﻿using System.IO;
 using DustInTheWind.TextFileGenerator.Options;
-using DustInTheWind.TextFileGenerator.Parameters;
 using NUnit.Framework;
 
 namespace DustInTheWind.TextFileGenerator.Tests.GeneratorTests
@@ -18,7 +17,11 @@ namespace DustInTheWind.TextFileGenerator.Tests.GeneratorTests
             };
             section.Parameters.AddRange(new[]
             {
-                new Parameter("param1", new RandomTextValueProvider { MinLength = 10, MaxLength = 100 })
+                new Parameter
+                {
+                    Key ="param1",
+                    ValueProvider = new RandomTextValueProvider { MinLength = 10, MaxLength = 100 }
+                }
             });
             options.Sections.Add(section);
 

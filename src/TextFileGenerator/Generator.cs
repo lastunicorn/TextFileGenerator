@@ -36,7 +36,7 @@ namespace DustInTheWind.TextFileGenerator
 
                 string text = section.Template;
 
-                foreach (IParameter parameter in section.Parameters)
+                foreach (Parameter parameter in section.Parameters)
                 {
                     string key = "{" + parameter.Key + "}";
                     string value = parameter.GetValue();
