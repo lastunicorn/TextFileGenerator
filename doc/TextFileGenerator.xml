@@ -2,11 +2,11 @@
 <textFileGenerator xmlns="http://alez.ro/TextFileGenerator" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="namespace-to-use TextFileGenerator.xsd">
 	<sections>
 
-		<section name="Header" count="1" separator="" separatorType="Infix">
+		<section name="Header" repeat="1" separator="" separatorType="Infix">
 			<template>This is a file.&#13;&#10;===============&#13;&#10;&#13;&#10;</template>
 		</section>
 
-		<section name="Body" count="100" separator="&#13;&#10;" separatorType="Infix">
+		<section name="Body" repeat="100" separator="&#D;&#A;" separatorType="Infix">
 			<template>My email address is {email}. This is a test abc {p1}; def {p2}; ghi {p3}</template>
 			<parameter key="email">
 				<constant value="me@alez.ro" />
@@ -22,8 +22,8 @@
 			</parameter>
 		</section>
 
-		<section name="Row" count="100" separator="&#13;&#10;" separatorType="Infix">
-			<section name="Cell" count="50" separator="," separatorType="Infix">
+		<section name="Row" repeat="100" separator="&#D;&#A;" separatorType="Infix">
+			<section name="Cell" repeat="50" separator="," separatorType="Infix">
 				<template>call_${rowIndex}_${cellIndex}</template>
 				<parameter key="cellIndex">
 					<counter format="000" />
@@ -34,7 +34,7 @@
 			</parameter>
 		</section>
 
-		<section name="Footer" count="1" separator="" separatorType="Infix">
+		<section name="Footer" repeat="1" separator="" separatorType="Infix">
 			<template>Copyleft lastunicorn.</template>
 		</section>
 

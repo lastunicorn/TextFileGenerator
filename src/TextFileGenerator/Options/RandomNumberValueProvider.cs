@@ -17,7 +17,7 @@ namespace DustInTheWind.TextFileGenerator.Options
         {
             random = new Random();
 
-            MinValue = 0;
+            MinValue = 1;
             MaxValue = 100;
         }
 

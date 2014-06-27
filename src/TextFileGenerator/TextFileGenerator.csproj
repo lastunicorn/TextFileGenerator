@@ -55,8 +55,10 @@
     <Compile Include="Options\SectionList.cs" />
     <Compile Include="Options\SeparatorType.cs" />
     <Compile Include="Serialization\Entities.cs" />
-    <Compile Include="Serialization\EntityCreator.cs" />
+    <Compile Include="Serialization\EntityTranslators\GeneratorOptionsTranslator.cs" />
     <Compile Include="Serialization\OptionsSerializer.cs" />
+    <Compile Include="Serialization\EntityTranslators\ParameterTranslator.cs" />
+    <Compile Include="Serialization\EntityTranslators\SectionTranslator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Serialization\TextFileGenerator.xsd">

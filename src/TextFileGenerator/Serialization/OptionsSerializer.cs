@@ -2,6 +2,7 @@
 using System.Xml;
 using System.Xml.Serialization;
 using DustInTheWind.TextFileGenerator.Options;
+using DustInTheWind.TextFileGenerator.Serialization.EntityTranslators;
 
 namespace DustInTheWind.TextFileGenerator.Serialization
 {
@@ -9,7 +10,7 @@ namespace DustInTheWind.TextFileGenerator.Serialization
     {
         public void Serialize(Stream outputStream, GeneratorOptions generatorOptions)
         {
-            var textFileGenerator = new EntityCreator(generatorOptions).Create();
+            var textFileGenerator = new GeneratorOptionsTranslator(generatorOptions).Create();
 
             XmlWriterSettings settings = new XmlWriterSettings();
             settings.Indent = true;

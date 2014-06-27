@@ -46,24 +46,6 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerT
         }
 
         [Test]
-        public void parameter_element_contains_randomNumber_element_if_Parameter_has_a_RandomNumberValueProvider()
-        {
-            GeneratorOptions generatorOptions = new GeneratorOptions();
-            Section section = new Section();
-            section.Parameters.Add(new Parameter
-            {
-                Key = "key1",
-                ValueProvider = new RandomNumberValueProvider()
-            });
-            generatorOptions.Sections.Add(section);
-
-            XmlAsserter xmlAsserter = SerializeAndCreateNavigatorOnResult(generatorOptions);
-
-            xmlAsserter.AddNamespace("alez", "http://alez.ro/TextFileGenerator");
-            xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section/alez:parameter/alez:randomNumber", 1);
-        }
-
-        [Test]
         public void parameter_element_contains_randomText_element_if_Parameter_has_a_RandomTextValueProvider()
         {
             GeneratorOptions generatorOptions = CreateOptionsWithOneSection();
