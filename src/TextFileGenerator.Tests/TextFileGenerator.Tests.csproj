@@ -43,14 +43,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GeneratorTests\SectionWithRandomTextParameterTests.cs" />
-    <Compile Include="GeneratorTests\SectionWithRandomNumberParameterTests.cs" />
-    <Compile Include="GeneratorTests\SectionWithCounterParameterTests.cs" />
+    <Compile Include="GeneratorTests\GeneratingSubsectionsTests.cs" />
+    <Compile Include="GeneratorTests\GeneratingSectionWithRandomTextParameterTests.cs" />
+    <Compile Include="GeneratorTests\GeneratingSectionWithRandomNumberParameterTests.cs" />
+    <Compile Include="GeneratorTests\GeneratingSectionWithCounterParameterTests.cs" />
     <Compile Include="Parameters\CounterValueProviderTests.cs" />
-    <Compile Include="GeneratorTests\SectionWithConstantParameterTests.cs" />
-    <Compile Include="GeneratorTests\MultipleParameterlessSectionTests.cs" />
-    <Compile Include="GeneratorTests\OneParameterlessSectionTests.cs" />
+    <Compile Include="GeneratorTests\GeneratingSectionWithConstantParameterTests.cs" />
+    <Compile Include="GeneratorTests\GeneratingSectionsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Serialization\OptionsSerializerTests\ParameterRandomTextElementTests.cs" />
     <Compile Include="Serialization\OptionsSerializerTests\ParameterRandomNumberElementTests.cs" />
     <Compile Include="Serialization\OptionsSerializerTests\ParameterCounterElementTests.cs" />
     <Compile Include="Serialization\OptionsSerializerTests\ParameterConstantElementTests.cs" />

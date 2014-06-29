@@ -11,12 +11,16 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerT
     {
         private OptionsSerializer optionsSerializer;
         private MemoryStream actualStream;
+        private GeneratorOptions generatorOptions;
 
         [SetUp]
         public void SetUp()
         {
             optionsSerializer = new OptionsSerializer();
             actualStream = new MemoryStream();
+
+            generatorOptions = new GeneratorOptions();
+            generatorOptions.Sections.Add(new Section());
         }
 
         [TearDown]
@@ -29,47 +33,20 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerT
         [Test]
         public void parameter_element_contains_key_attribute()
         {
-            GeneratorOptions generatorOptions = new GeneratorOptions();
-            Section section = new Section();
-            section.Parameters.Add(new Parameter
+            generatorOptions.Sections[0].Parameters.Add(new Parameter
             {
                 Key = "key1",
                 ValueProvider = new EmptyValueProvider()
             });
-            generatorOptions.Sections.Add(section);
 
-            XmlAsserter xmlAsserter = SerializeAndCreateNavigatorOnResult(generatorOptions);
+            XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
             xmlAsserter.AddNamespace("alez", "http://alez.ro/TextFileGenerator");
             xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section/alez:parameter/@key", 1);
             xmlAsserter.AssertText("/alez:textFileGenerator/alez:sections/alez:section/alez:parameter/@key", "key1");
         }
 
-        [Test]
-        public void parameter_element_contains_randomText_element_if_Parameter_has_a_RandomTextValueProvider()
-        {
-            GeneratorOptions generatorOptions = CreateOptionsWithOneSection();
-            generatorOptions.Sections[0].Parameters.Add(new Parameter
-            {
-                Key = "key1",
-                ValueProvider = new RandomTextValueProvider()
-            });
-
-            XmlAsserter xmlAsserter = SerializeAndCreateNavigatorOnResult(generatorOptions);
-
-            xmlAsserter.AddNamespace("alez", "http://alez.ro/TextFileGenerator");
-            xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section/alez:parameter/alez:randomText", 1);
-        }
-
-        private GeneratorOptions CreateOptionsWithOneSection()
-        {
-            GeneratorOptions generatorOptions = new GeneratorOptions();
-            generatorOptions.Sections.Add(new Section());
-
-            return generatorOptions;
-        }
-
-        private XmlAsserter SerializeAndCreateNavigatorOnResult(GeneratorOptions generatorOptions)
+        private XmlAsserter PerformTestAndCreateAsserterOnResult()
         {
             optionsSerializer.Serialize(actualStream, generatorOptions);
 

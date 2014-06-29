@@ -17,9 +17,9 @@ namespace DustInTheWind.TextFileGenerator
 
         public void Generate(TextWriter textWriter)
         {
-            for (int i = 0; i < options.Sections.Count; i++)
+            foreach (Section section in options.Sections)
             {
-                WriteSection(textWriter, options.Sections[i]);
+                WriteSection(textWriter, section);
             }
 
             textWriter.Flush();
@@ -34,6 +34,17 @@ namespace DustInTheWind.TextFileGenerator
                 if (existsSeparator)
                     WriteSeparatorBeforeItem(textWriter, section.Separator, section.SeparatorType, i);
 
+                WriteSectionContent(textWriter, section);
+
+                if (existsSeparator)
+                    WriteSeparatorAfterItem(textWriter, section.Separator, section.SeparatorType);
+            }
+        }
+
+        private static void WriteSectionContent(TextWriter textWriter, Section section)
+        {
+            if (section.Template != null)
+            {
                 string text = section.Template;
 
                 foreach (Parameter parameter in section.Parameters)
@@ -45,9 +56,13 @@ namespace DustInTheWind.TextFileGenerator
                 }
 
                 textWriter.Write(text);
-
-                if (existsSeparator)
-                    WriteSeparatorAfterItem(textWriter, section.Separator, section.SeparatorType);
+            }
+            else
+            {
+                foreach (Section subSection in section.Sections)
+                {
+                    WriteSection(textWriter, subSection);
+                }
             }
         }
 

@@ -41,9 +41,21 @@ namespace DustInTheWind.TextFileGenerator.Serialization.EntityTranslators
             }
 
             if (valueProviderType == typeof(RandomTextValueProvider))
-                return new parameterRandomText();
+            {
+                RandomTextValueProvider sourceValueProvider = (RandomTextValueProvider)sourceParameter.ValueProvider;
+                return CreateRandomTextValueProvider(sourceValueProvider);
+            }
 
             return null;
+        }
+
+        private static parameterRandomText CreateRandomTextValueProvider(RandomTextValueProvider sourceValueProvider)
+        {
+            return new parameterRandomText
+            {
+                minLength = sourceValueProvider.MinLength.ToString(CultureInfo.InvariantCulture),
+                maxLength = sourceValueProvider.MaxLength.ToString(CultureInfo.InvariantCulture)
+            };
         }
 
         private static parameterRandomNumber CreateRandomNumberValueProvider(RandomNumberValueProvider sourceValueProvider)

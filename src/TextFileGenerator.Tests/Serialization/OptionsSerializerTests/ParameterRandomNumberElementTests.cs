@@ -11,12 +11,16 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerT
     {
         private OptionsSerializer optionsSerializer;
         private MemoryStream actualStream;
+        private GeneratorOptions generatorOptions;
 
         [SetUp]
         public void SetUp()
         {
             optionsSerializer = new OptionsSerializer();
             actualStream = new MemoryStream();
+
+            generatorOptions = new GeneratorOptions();
+            generatorOptions.Sections.Add(new Section());
         }
 
         [TearDown]
@@ -29,16 +33,13 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerT
         [Test]
         public void parameter_element_contains_randomNumber_element_if_Parameter_has_a_RandomNumberValueProvider()
         {
-            GeneratorOptions generatorOptions = new GeneratorOptions();
-            Section section = new Section();
-            section.Parameters.Add(new Parameter
+            generatorOptions.Sections[0].Parameters.Add(new Parameter
             {
                 Key = "key1",
                 ValueProvider = new RandomNumberValueProvider()
             });
-            generatorOptions.Sections.Add(section);
 
-            XmlAsserter xmlAsserter = SerializeAndCreateNavigatorOnResult(generatorOptions);
+            XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
             xmlAsserter.AddNamespace("alez", "http://alez.ro/TextFileGenerator");
             xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section/alez:parameter/alez:randomNumber", 1);
@@ -47,16 +48,13 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerT
         [Test]
         public void randomNumber_element_contains_format_attribute_if_Format_was_set()
         {
-            GeneratorOptions generatorOptions = new GeneratorOptions();
-            Section section = new Section();
-            section.Parameters.Add(new Parameter
+            generatorOptions.Sections[0].Parameters.Add(new Parameter
             {
                 Key = "key1",
                 ValueProvider = new RandomNumberValueProvider { Format = "###" }
             });
-            generatorOptions.Sections.Add(section);
 
-            XmlAsserter xmlAsserter = SerializeAndCreateNavigatorOnResult(generatorOptions);
+            XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
             xmlAsserter.AddNamespace("alez", "http://alez.ro/TextFileGenerator");
             xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section/alez:parameter/alez:randomNumber/@format", 1);
@@ -66,16 +64,13 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerT
         [Test]
         public void randomNumber_element_does_not_contain_format_attribute_if_Format_was_not_set()
         {
-            GeneratorOptions generatorOptions = new GeneratorOptions();
-            Section section = new Section();
-            section.Parameters.Add(new Parameter
+            generatorOptions.Sections[0].Parameters.Add(new Parameter
             {
                 Key = "key1",
                 ValueProvider = new RandomNumberValueProvider()
             });
-            generatorOptions.Sections.Add(section);
 
-            XmlAsserter xmlAsserter = SerializeAndCreateNavigatorOnResult(generatorOptions);
+            XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
             xmlAsserter.AddNamespace("alez", "http://alez.ro/TextFileGenerator");
             xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section/alez:parameter/alez:randomNumber/@format", 0);
@@ -84,16 +79,13 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerT
         [Test]
         public void randomNumber_element_contains_minValue_attribute_if_MinValue_was_set()
         {
-            GeneratorOptions generatorOptions = new GeneratorOptions();
-            Section section = new Section();
-            section.Parameters.Add(new Parameter
+            generatorOptions.Sections[0].Parameters.Add(new Parameter
             {
                 Key = "key1",
                 ValueProvider = new RandomNumberValueProvider { MinValue = 5 }
             });
-            generatorOptions.Sections.Add(section);
 
-            XmlAsserter xmlAsserter = SerializeAndCreateNavigatorOnResult(generatorOptions);
+            XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
             xmlAsserter.AddNamespace("alez", "http://alez.ro/TextFileGenerator");
             xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section/alez:parameter/alez:randomNumber/@minValue", 1);
@@ -103,16 +95,13 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerT
         [Test]
         public void randomNumber_element_does_not_contain_minValue_attribute_if_MinValue_was_not_set()
         {
-            GeneratorOptions generatorOptions = new GeneratorOptions();
-            Section section = new Section();
-            section.Parameters.Add(new Parameter
+            generatorOptions.Sections[0].Parameters.Add(new Parameter
             {
                 Key = "key1",
                 ValueProvider = new RandomNumberValueProvider()
             });
-            generatorOptions.Sections.Add(section);
 
-            XmlAsserter xmlAsserter = SerializeAndCreateNavigatorOnResult(generatorOptions);
+            XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
             xmlAsserter.AddNamespace("alez", "http://alez.ro/TextFileGenerator");
             xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section/alez:parameter/alez:randomNumber/@minValue", 0);
@@ -121,16 +110,13 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerT
         [Test]
         public void randomNumber_element_does_not_contain_minValue_attribute_if_MinValue_was_set_to_1()
         {
-            GeneratorOptions generatorOptions = new GeneratorOptions();
-            Section section = new Section();
-            section.Parameters.Add(new Parameter
+            generatorOptions.Sections[0].Parameters.Add(new Parameter
             {
                 Key = "key1",
-                ValueProvider = new RandomNumberValueProvider { MinValue = 1}
+                ValueProvider = new RandomNumberValueProvider { MinValue = 1 }
             });
-            generatorOptions.Sections.Add(section);
 
-            XmlAsserter xmlAsserter = SerializeAndCreateNavigatorOnResult(generatorOptions);
+            XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
             xmlAsserter.AddNamespace("alez", "http://alez.ro/TextFileGenerator");
             xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section/alez:parameter/alez:randomNumber/@minValue", 0);
@@ -139,16 +125,13 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerT
         [Test]
         public void randomNumber_element_contains_maxValue_attribute_if_MaxValue_was_set()
         {
-            GeneratorOptions generatorOptions = new GeneratorOptions();
-            Section section = new Section();
-            section.Parameters.Add(new Parameter
+            generatorOptions.Sections[0].Parameters.Add(new Parameter
             {
                 Key = "key1",
                 ValueProvider = new RandomNumberValueProvider { MaxValue = 3 }
             });
-            generatorOptions.Sections.Add(section);
 
-            XmlAsserter xmlAsserter = SerializeAndCreateNavigatorOnResult(generatorOptions);
+            XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
             xmlAsserter.AddNamespace("alez", "http://alez.ro/TextFileGenerator");
             xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section/alez:parameter/alez:randomNumber/@maxValue", 1);
@@ -158,16 +141,13 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerT
         [Test]
         public void randomNumber_element_does_not_contain_maxValue_attribute_if_MaxValue_was_not_set()
         {
-            GeneratorOptions generatorOptions = new GeneratorOptions();
-            Section section = new Section();
-            section.Parameters.Add(new Parameter
+            generatorOptions.Sections[0].Parameters.Add(new Parameter
             {
                 Key = "key1",
                 ValueProvider = new RandomNumberValueProvider()
             });
-            generatorOptions.Sections.Add(section);
 
-            XmlAsserter xmlAsserter = SerializeAndCreateNavigatorOnResult(generatorOptions);
+            XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
             xmlAsserter.AddNamespace("alez", "http://alez.ro/TextFileGenerator");
             xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section/alez:parameter/alez:randomNumber/@maxValue", 0);
@@ -176,22 +156,19 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerT
         [Test]
         public void randomNumber_element_does_not_contain_maxValue_attribute_if_MaxValue_was_set_to_100()
         {
-            GeneratorOptions generatorOptions = new GeneratorOptions();
-            Section section = new Section();
-            section.Parameters.Add(new Parameter
+            generatorOptions.Sections[0].Parameters.Add(new Parameter
             {
                 Key = "key1",
                 ValueProvider = new RandomNumberValueProvider { MaxValue = 100 }
             });
-            generatorOptions.Sections.Add(section);
 
-            XmlAsserter xmlAsserter = SerializeAndCreateNavigatorOnResult(generatorOptions);
+            XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
             xmlAsserter.AddNamespace("alez", "http://alez.ro/TextFileGenerator");
             xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section/alez:parameter/alez:randomNumber/@maxValue", 0);
         }
 
-        private XmlAsserter SerializeAndCreateNavigatorOnResult(GeneratorOptions generatorOptions)
+        private XmlAsserter PerformTestAndCreateAsserterOnResult()
         {
             optionsSerializer.Serialize(actualStream, generatorOptions);
 

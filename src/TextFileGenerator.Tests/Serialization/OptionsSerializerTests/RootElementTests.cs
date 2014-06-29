@@ -31,13 +31,13 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerT
         {
             GeneratorOptions generatorOptions = new GeneratorOptions();
 
-            XmlAsserter xmlAsserter = SerializeAndCreateNavigatorOnResult(generatorOptions);
+            XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult(generatorOptions);
 
             xmlAsserter.AddNamespace("alez", "http://alez.ro/TextFileGenerator");
             xmlAsserter.AssertNodeCount("/alez:textFileGenerator", 1);
         }
 
-        private XmlAsserter SerializeAndCreateNavigatorOnResult(GeneratorOptions generatorOptions)
+        private XmlAsserter PerformTestAndCreateAsserterOnResult(GeneratorOptions generatorOptions)
         {
             optionsSerializer.Serialize(actualStream, generatorOptions);
 

@@ -5,29 +5,31 @@ using NUnit.Framework;
 namespace DustInTheWind.TextFileGenerator.Tests.GeneratorTests
 {
     [TestFixture]
-    public class MultipleParameterlessSectionTests
+    public class GeneratingSectionWithRandomNumberParameterTests
     {
         [Test]
-        public void writes_both_section_templates_if_two_sections_are_declared()
+        public void test()
         {
             GeneratorOptions options = new GeneratorOptions();
-            Section section1 = new Section
+            options.Sections.Add(new Section
             {
-                Template = "section1"
-            };
-            Section section2 = new Section
+                Template = "test {param1}"
+            });
+            options.Sections[0].Parameters.AddRange(new []
             {
-                Template = "section2"
-            };
-            options.Sections.Add(section1);
-            options.Sections.Add(section2);
+                new Parameter
+                {
+                    Key = "param1", 
+                    ValueProvider = new RandomNumberValueProvider { Format = "000", MinValue = 10, MaxValue = 100 }
+                }
+            });
 
             string actual = PerformTest(options);
 
-            Assert.That(actual, Is.EqualTo("section1section2"));
+            Assert.That(actual, Contains.Substring("test "));
         }
 
-        private static string PerformTest(GeneratorOptions options)
+        private  string PerformTest(GeneratorOptions options)
         {
             Generator generator = new Generator(options);
 

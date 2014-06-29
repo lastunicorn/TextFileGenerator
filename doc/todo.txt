@@ -1,4 +1,4 @@
-create serializer that writes xml generator configuration files.
+update the generator to generate child sections.
 create deserializer that reads xml generator configuration files.
 create ui where the user can create sections (without parameters).
 change ui to allow user to create parameters.

@@ -11,12 +11,15 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerT
     {
         private OptionsSerializer optionsSerializer;
         private MemoryStream actualStream;
+        private GeneratorOptions generatorOptions;
 
         [SetUp]
         public void SetUp()
         {
             optionsSerializer = new OptionsSerializer();
             actualStream = new MemoryStream();
+
+            generatorOptions = new GeneratorOptions();
         }
 
         [TearDown]
@@ -29,13 +32,12 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerT
         [Test]
         public void section_element_renders_name_attribute_if_Name_is_set()
         {
-            GeneratorOptions generatorOptions = new GeneratorOptions();
             generatorOptions.Sections.Add(new Section
             {
                 Name = "Section1"
             });
 
-            XmlAsserter xmlAsserter = PerformTestAndCreateNavigatorOnResult(generatorOptions);
+            XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
             xmlAsserter.AddNamespace("alez", "http://alez.ro/TextFileGenerator");
             xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section/@name", 1);
@@ -45,10 +47,9 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerT
         [Test]
         public void section_element_does_not_render_name_attribute_if_Name_is__not_set()
         {
-            GeneratorOptions generatorOptions = new GeneratorOptions();
             generatorOptions.Sections.Add(new Section());
 
-            XmlAsserter xmlAsserter = PerformTestAndCreateNavigatorOnResult(generatorOptions);
+            XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
             xmlAsserter.AddNamespace("alez", "http://alez.ro/TextFileGenerator");
             xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section/@name", 0);
@@ -57,13 +58,12 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerT
         [Test]
         public void section_element_contains_repeat_attribute_if_RepeatCount_is_greater_then_1()
         {
-            GeneratorOptions generatorOptions = new GeneratorOptions();
             generatorOptions.Sections.Add(new Section
             {
                 RepeatCount = 2
             });
 
-            XmlAsserter xmlAsserter = PerformTestAndCreateNavigatorOnResult(generatorOptions);
+            XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
             xmlAsserter.AddNamespace("alez", "http://alez.ro/TextFileGenerator");
             xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section/@repeat", 1);
@@ -73,13 +73,12 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerT
         [Test]
         public void section_element_does_not_contain_repeat_attribute_if_RepeatCount_is_1()
         {
-            GeneratorOptions generatorOptions = new GeneratorOptions();
             generatorOptions.Sections.Add(new Section
             {
                 RepeatCount = 1
             });
 
-            XmlAsserter xmlAsserter = PerformTestAndCreateNavigatorOnResult(generatorOptions);
+            XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
             xmlAsserter.AddNamespace("alez", "http://alez.ro/TextFileGenerator");
             xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section/@count", 0);
@@ -88,13 +87,12 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerT
         [Test]
         public void section_element_contains_separator_attribute_if_Separator_is_not_null()
         {
-            GeneratorOptions generatorOptions = new GeneratorOptions();
             generatorOptions.Sections.Add(new Section
             {
                 Separator = ";"
             });
 
-            XmlAsserter xmlAsserter = PerformTestAndCreateNavigatorOnResult(generatorOptions);
+            XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
             xmlAsserter.AddNamespace("alez", "http://alez.ro/TextFileGenerator");
             xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section/@separator", 1);
@@ -104,10 +102,9 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerT
         [Test]
         public void section_element_does_not_contain_separator_attribute_if_Separator_is_null()
         {
-            GeneratorOptions generatorOptions = new GeneratorOptions();
             generatorOptions.Sections.Add(new Section());
 
-            XmlAsserter xmlAsserter = PerformTestAndCreateNavigatorOnResult(generatorOptions);
+            XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
             xmlAsserter.AddNamespace("alez", "http://alez.ro/TextFileGenerator");
             xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section/@separator", 0);
@@ -116,13 +113,12 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerT
         [Test]
         public void section_element_contains_separatorType_attribute_if_SeparatorType_is_Postfix()
         {
-            GeneratorOptions generatorOptions = new GeneratorOptions();
             generatorOptions.Sections.Add(new Section
             {
                 SeparatorType = SeparatorType.Postfix
             });
 
-            XmlAsserter xmlAsserter = PerformTestAndCreateNavigatorOnResult(generatorOptions);
+            XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
             xmlAsserter.AddNamespace("alez", "http://alez.ro/TextFileGenerator");
             xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section/@separatorType", 1);
@@ -132,13 +128,12 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerT
         [Test]
         public void section_element_does_not_contain_separatorType_attribute_if_SeparatorType_is_Infix()
         {
-            GeneratorOptions generatorOptions = new GeneratorOptions();
             generatorOptions.Sections.Add(new Section
             {
                 SeparatorType = SeparatorType.Infix
             });
 
-            XmlAsserter xmlAsserter = PerformTestAndCreateNavigatorOnResult(generatorOptions);
+            XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
             xmlAsserter.AddNamespace("alez", "http://alez.ro/TextFileGenerator");
             xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section/@separatorType", 0);
@@ -147,13 +142,12 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerT
         [Test]
         public void section_element_contains_template_child_if_Template_is_set()
         {
-            GeneratorOptions generatorOptions = new GeneratorOptions();
             generatorOptions.Sections.Add(new Section
             {
                 Template = "some template"
             });
 
-            XmlAsserter xmlAsserter = PerformTestAndCreateNavigatorOnResult(generatorOptions);
+            XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
             xmlAsserter.AddNamespace("alez", "http://alez.ro/TextFileGenerator");
             xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section/alez:template", 1);
@@ -163,10 +157,9 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerT
         [Test]
         public void section_element_does_not_contain_template_child_if_Template_is_not_set()
         {
-            GeneratorOptions generatorOptions = new GeneratorOptions();
             generatorOptions.Sections.Add(new Section());
 
-            XmlAsserter xmlAsserter = PerformTestAndCreateNavigatorOnResult(generatorOptions);
+            XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
             xmlAsserter.AddNamespace("alez", "http://alez.ro/TextFileGenerator");
             xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section/alez:template", 0);
@@ -175,10 +168,9 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerT
         [Test]
         public void section_element_does_not_contain_parameter_child_if_Parameters_is_not_set()
         {
-            GeneratorOptions generatorOptions = new GeneratorOptions();
             generatorOptions.Sections.Add(new Section());
 
-            XmlAsserter xmlAsserter = PerformTestAndCreateNavigatorOnResult(generatorOptions);
+            XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
             xmlAsserter.AddNamespace("alez", "http://alez.ro/TextFileGenerator");
             xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section/alez:parameter", 0);
@@ -187,7 +179,6 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerT
         [Test]
         public void one_parameter_element_is_created_if_one_Patameter_exists()
         {
-            GeneratorOptions generatorOptions = new GeneratorOptions();
             Section section = new Section();
             section.Parameters.Add(new Parameter
             {
@@ -196,7 +187,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerT
             });
             generatorOptions.Sections.Add(section);
 
-            XmlAsserter xmlAsserter = PerformTestAndCreateNavigatorOnResult(generatorOptions);
+            XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
             xmlAsserter.AddNamespace("alez", "http://alez.ro/TextFileGenerator");
             xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section/alez:parameter", 1);
@@ -205,7 +196,6 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerT
         [Test]
         public void two_parameter_elements_are_created_if_two_Patameters_exists()
         {
-            GeneratorOptions generatorOptions = new GeneratorOptions();
             Section section = new Section();
             section.Parameters.Add(new Parameter
             {
@@ -219,7 +209,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerT
             });
             generatorOptions.Sections.Add(section);
 
-            XmlAsserter xmlAsserter = PerformTestAndCreateNavigatorOnResult(generatorOptions);
+            XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
             xmlAsserter.AddNamespace("alez", "http://alez.ro/TextFileGenerator");
             xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section/alez:parameter", 2);
@@ -228,12 +218,11 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerT
         [Test]
         public void one_subsection_is_rendered_if_one_subsection_exists()
         {
-            GeneratorOptions generatorOptions = new GeneratorOptions();
             Section section = new Section();
             section.Sections.Add(new Section());
             generatorOptions.Sections.Add(section);
 
-            XmlAsserter xmlAsserter = PerformTestAndCreateNavigatorOnResult(generatorOptions);
+            XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
             xmlAsserter.AddNamespace("alez", "http://alez.ro/TextFileGenerator");
             xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section/alez:section", 1);
@@ -242,19 +231,18 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerT
         [Test]
         public void two_subsections_are_rendered_if_two_subsections_exists()
         {
-            GeneratorOptions generatorOptions = new GeneratorOptions();
             Section section = new Section();
             section.Sections.Add(new Section());
             section.Sections.Add(new Section());
             generatorOptions.Sections.Add(section);
 
-            XmlAsserter xmlAsserter = PerformTestAndCreateNavigatorOnResult(generatorOptions);
+            XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
             xmlAsserter.AddNamespace("alez", "http://alez.ro/TextFileGenerator");
             xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section/alez:section", 2);
         }
 
-        private XmlAsserter PerformTestAndCreateNavigatorOnResult(GeneratorOptions generatorOptions)
+        private XmlAsserter PerformTestAndCreateAsserterOnResult()
         {
             optionsSerializer.Serialize(actualStream, generatorOptions);
 
