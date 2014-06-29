@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using System.IO;
+﻿using System.IO;
 using DustInTheWind.TextFileGenerator.Options;
 using NUnit.Framework;
 
@@ -77,11 +76,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.GeneratorTests
                 ms.Position = 0;
 
                 StreamReader sr = new StreamReader(ms);
-                string generatedText = sr.ReadToEnd();
-
-                Trace.Write("Generated text: " + generatedText);
-
-                return generatedText;
+                return sr.ReadToEnd();
             }
         }
     }

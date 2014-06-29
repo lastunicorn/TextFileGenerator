@@ -51,14 +51,15 @@
     <Compile Include="GeneratorTests\GeneratingSectionWithConstantParameterTests.cs" />
     <Compile Include="GeneratorTests\GeneratingSectionsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Serialization\OptionsSerializerTests\ParameterRandomTextElementTests.cs" />
-    <Compile Include="Serialization\OptionsSerializerTests\ParameterRandomNumberElementTests.cs" />
-    <Compile Include="Serialization\OptionsSerializerTests\ParameterCounterElementTests.cs" />
-    <Compile Include="Serialization\OptionsSerializerTests\ParameterConstantElementTests.cs" />
-    <Compile Include="Serialization\OptionsSerializerTests\ParameterElementTests.cs" />
-    <Compile Include="Serialization\OptionsSerializerTests\SectionElementTests.cs" />
-    <Compile Include="Serialization\OptionsSerializerTests\SectionsElementTests.cs" />
-    <Compile Include="Serialization\OptionsSerializerTests\RootElementTests.cs" />
+    <Compile Include="Serialization\OptionsSerializerDeserializationTests\DeserializeSectionElementTests.cs" />
+    <Compile Include="Serialization\OptionsSerializerSerializationTests\ParameterRandomTextElementTests.cs" />
+    <Compile Include="Serialization\OptionsSerializerSerializationTests\ParameterRandomNumberElementTests.cs" />
+    <Compile Include="Serialization\OptionsSerializerSerializationTests\ParameterCounterElementTests.cs" />
+    <Compile Include="Serialization\OptionsSerializerSerializationTests\ParameterConstantElementTests.cs" />
+    <Compile Include="Serialization\OptionsSerializerSerializationTests\ParameterElementTests.cs" />
+    <Compile Include="Serialization\OptionsSerializerSerializationTests\SectionElementTests.cs" />
+    <Compile Include="Serialization\OptionsSerializerSerializationTests\SectionsElementTests.cs" />
+    <Compile Include="Serialization\OptionsSerializerSerializationTests\RootElementTests.cs" />
     <Compile Include="TestingTools\XmlAsserter.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -75,6 +76,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

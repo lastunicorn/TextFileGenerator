@@ -61,9 +61,9 @@
     <Compile Include="Serialization\EntityTranslators\SectionTranslator.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Serialization\TextFileGenerator.xsd">
+    <EmbeddedResource Include="Serialization\TextFileGenerator.xsd">
       <SubType>Designer</SubType>
-    </None>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
