@@ -20,7 +20,7 @@
     <xs:element name="section">
         <xs:complexType>
             <xs:sequence minOccurs="0">
-                <xs:choice>
+                <xs:choice minOccurs="0">
                     <xs:element name="template" type="xs:string"/>
                     <xs:element ref="section" maxOccurs="unbounded"/>
                 </xs:choice>

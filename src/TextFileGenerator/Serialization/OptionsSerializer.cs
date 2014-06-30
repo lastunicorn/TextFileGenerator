@@ -38,7 +38,7 @@ namespace DustInTheWind.TextFileGenerator.Serialization
             };
 
             Assembly assembly = Assembly.GetExecutingAssembly();
-            string resourceName = "DustInTheWind.TextFileGenerator.Serialization.TextFileGenerator.xsd";
+            const string resourceName = "DustInTheWind.TextFileGenerator.Serialization.TextFileGenerator.xsd";
 
             using (Stream stream = assembly.GetManifestResourceStream(resourceName))
             {
@@ -92,12 +92,45 @@ namespace DustInTheWind.TextFileGenerator.Serialization
                         Section destinationSubsection = Translate((section)item);
                         destinationSection.Sections.Add(destinationSubsection);
                     }
-
-                    if (sourceSection.parameter != null)
-                    {
-                        destinationSection.Parameters.Add(new Parameter());
-                    }
                 }
+            }
+
+            if (sourceSection.parameter != null)
+            {
+                parameter sourceParameter = sourceSection.parameter[0];
+
+                Parameter destinationParameter = new Parameter();
+                destinationParameter.Key = sourceParameter.key;
+
+                Type valueProviderType = sourceParameter.Item.GetType();
+
+                if (valueProviderType == typeof(parameterConstant))
+                {
+                    parameterConstant soureceValueProvider = (parameterConstant)sourceParameter.Item;
+
+                    ConstantValueProvider destinationValueProvider = new ConstantValueProvider
+                    {
+                        Value = soureceValueProvider.value
+                    };
+
+                    destinationParameter.ValueProvider = destinationValueProvider;
+                }
+
+                if (valueProviderType == typeof(parameterCounter))
+                {
+                    parameterCounter sourceValueProvider = (parameterCounter)sourceParameter.Item;
+
+                    CounterValueProvider destinationValueProvider = new CounterValueProvider
+                    {
+                        Format = sourceValueProvider.format,
+                        StartValue = int.Parse(sourceValueProvider.startValue),
+                        Step = int.Parse(sourceValueProvider.step)
+                    };
+
+                    destinationParameter.ValueProvider = destinationValueProvider;
+                }
+
+                destinationSection.Parameters.Add(destinationParameter);
             }
 
             return destinationSection;

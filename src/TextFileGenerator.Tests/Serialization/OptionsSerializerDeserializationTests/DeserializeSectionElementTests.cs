@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Text;
 using DustInTheWind.TextFileGenerator.Options;
 using DustInTheWind.TextFileGenerator.Serialization;
@@ -28,16 +27,13 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerD
     </sections>
 </textFileGenerator>";
 
-            //            string xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
-            //<textFileGenerator xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"" xmlns=""http://alez.ro/TextFileGenerator"" />";
-
-            GeneratorOptions options = PerformTest(xml, optionsSerializer);
+            GeneratorOptions options = PerformTest(xml);
 
             Assert.That(options.Sections.Count, Is.EqualTo(1));
         }
 
         [Test]
-        public void deserialized_section_contains_name()
+        public void deserialized_section_contains_Name_if_name_is_Declared_in_xml()
         {
             const string xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <textFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
@@ -46,13 +42,13 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerD
     </sections>
 </textFileGenerator>";
 
-            GeneratorOptions options = PerformTest(xml, optionsSerializer);
+            GeneratorOptions options = PerformTest(xml);
 
             Assert.That(options.Sections[0].Name, Is.EqualTo("name1"));
         }
 
         [Test]
-        public void deserialized_section_contains_repeat_attribute()
+        public void deserialized_section_contains_RepeatCount_value_if_repeat_attribute_is_declared_in_xml()
         {
             const string xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <textFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
@@ -61,7 +57,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerD
     </sections>
 </textFileGenerator>";
 
-            GeneratorOptions options = PerformTest(xml, optionsSerializer);
+            GeneratorOptions options = PerformTest(xml);
 
             Assert.That(options.Sections[0].RepeatCount, Is.EqualTo(7));
         }
@@ -76,13 +72,13 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerD
     </sections>
 </textFileGenerator>";
 
-            GeneratorOptions options = PerformTest(xml, optionsSerializer);
+            GeneratorOptions options = PerformTest(xml);
 
             Assert.That(options.Sections[0].Separator, Is.EqualTo(";"));
         }
 
         [Test]
-        public void deserialized_section_contains_separatorType_attribute()
+        public void deserialized_section_contains_SeparatorType_if_separatorType_attribute_is_declared_in_xml()
         {
             const string xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <textFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
@@ -91,13 +87,13 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerD
     </sections>
 </textFileGenerator>";
 
-            GeneratorOptions options = PerformTest(xml, optionsSerializer);
+            GeneratorOptions options = PerformTest(xml);
 
             Assert.That(options.Sections[0].SeparatorType, Is.EqualTo(SeparatorType.Postfix));
         }
 
         [Test]
-        public void deserialized_section_contains_template_child_element()
+        public void deserialized_section_contains_Template_if_the_template_is_declared_in_xml()
         {
             const string xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <textFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
@@ -108,13 +104,13 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerD
     </sections>
 </textFileGenerator>";
 
-            GeneratorOptions options = PerformTest(xml, optionsSerializer);
+            GeneratorOptions options = PerformTest(xml);
 
             Assert.That(options.Sections[0].Template, Is.EqualTo("template1"));
         }
 
         [Test]
-        public void deserialized_section_contains_one_subsection()
+        public void deserialized_section_contains_one_subsection_if_one_subsection_is_declared_in_xml()
         {
             const string xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <textFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
@@ -126,29 +122,12 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerD
     </sections>
 </textFileGenerator>";
 
-            GeneratorOptions options = PerformTest(xml, optionsSerializer);
+            GeneratorOptions options = PerformTest(xml);
 
             Assert.That(options.Sections[0].Sections.Count, Is.EqualTo(1));
         }
 
-        [Test]
-        public void deserialized_section_contains_one_parameter()
-        {
-            const string xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
-<textFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
-    <sections>
-        <section name=""root"">
-            <parameter key=""key1""/>
-        </section>
-    </sections>
-</textFileGenerator>";
-
-            GeneratorOptions options = PerformTest(xml, optionsSerializer);
-
-            Assert.That(options.Sections[0].Parameters.Count, Is.EqualTo(1));
-        }
-
-        private static GeneratorOptions PerformTest(string xml, OptionsSerializer optionsSerializer)
+        private GeneratorOptions PerformTest(string xml)
         {
             using (MemoryStream ms = new MemoryStream())
             {

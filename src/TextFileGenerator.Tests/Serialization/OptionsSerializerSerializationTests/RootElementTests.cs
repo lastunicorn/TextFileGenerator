@@ -33,7 +33,6 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerS
 
             XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult(generatorOptions);
 
-            xmlAsserter.AddNamespace("alez", "http://alez.ro/TextFileGenerator");
             xmlAsserter.AssertNodeCount("/alez:textFileGenerator", 1);
         }
 
@@ -43,7 +42,10 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerS
 
             actualStream.Position = 0;
 
-            return new XmlAsserter(actualStream);
+            XmlAsserter xmlAsserter = new XmlAsserter(actualStream);
+            xmlAsserter.AddNamespace("alez", "http://alez.ro/TextFileGenerator");
+
+            return xmlAsserter;
         }
     }
 }

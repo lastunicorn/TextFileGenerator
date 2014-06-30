@@ -41,7 +41,6 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerS
 
             XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
-            xmlAsserter.AddNamespace("alez", "http://alez.ro/TextFileGenerator");
             xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section/alez:parameter/alez:randomNumber", 1);
         }
 
@@ -56,7 +55,6 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerS
 
             XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
-            xmlAsserter.AddNamespace("alez", "http://alez.ro/TextFileGenerator");
             xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section/alez:parameter/alez:randomNumber/@format", 1);
             xmlAsserter.AssertText("/alez:textFileGenerator/alez:sections/alez:section/alez:parameter/alez:randomNumber/@format", "###");
         }
@@ -72,7 +70,6 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerS
 
             XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
-            xmlAsserter.AddNamespace("alez", "http://alez.ro/TextFileGenerator");
             xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section/alez:parameter/alez:randomNumber/@format", 0);
         }
 
@@ -87,7 +84,6 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerS
 
             XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
-            xmlAsserter.AddNamespace("alez", "http://alez.ro/TextFileGenerator");
             xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section/alez:parameter/alez:randomNumber/@minValue", 1);
             xmlAsserter.AssertText("/alez:textFileGenerator/alez:sections/alez:section/alez:parameter/alez:randomNumber/@minValue", "5");
         }
@@ -103,7 +99,6 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerS
 
             XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
-            xmlAsserter.AddNamespace("alez", "http://alez.ro/TextFileGenerator");
             xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section/alez:parameter/alez:randomNumber/@minValue", 0);
         }
 
@@ -118,7 +113,6 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerS
 
             XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
-            xmlAsserter.AddNamespace("alez", "http://alez.ro/TextFileGenerator");
             xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section/alez:parameter/alez:randomNumber/@minValue", 0);
         }
 
@@ -133,7 +127,6 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerS
 
             XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
-            xmlAsserter.AddNamespace("alez", "http://alez.ro/TextFileGenerator");
             xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section/alez:parameter/alez:randomNumber/@maxValue", 1);
             xmlAsserter.AssertText("/alez:textFileGenerator/alez:sections/alez:section/alez:parameter/alez:randomNumber/@maxValue", "3");
         }
@@ -149,7 +142,6 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerS
 
             XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
-            xmlAsserter.AddNamespace("alez", "http://alez.ro/TextFileGenerator");
             xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section/alez:parameter/alez:randomNumber/@maxValue", 0);
         }
 
@@ -164,7 +156,6 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerS
 
             XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
-            xmlAsserter.AddNamespace("alez", "http://alez.ro/TextFileGenerator");
             xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section/alez:parameter/alez:randomNumber/@maxValue", 0);
         }
 
@@ -174,7 +165,10 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerS
 
             actualStream.Position = 0;
 
-            return new XmlAsserter(actualStream);
+            XmlAsserter xmlAsserter = new XmlAsserter(actualStream);
+            xmlAsserter.AddNamespace("alez", "http://alez.ro/TextFileGenerator");
+
+            return xmlAsserter;
         }
     }
 }

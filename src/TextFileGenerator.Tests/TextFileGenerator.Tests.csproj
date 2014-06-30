@@ -51,6 +51,9 @@
     <Compile Include="GeneratorTests\GeneratingSectionWithConstantParameterTests.cs" />
     <Compile Include="GeneratorTests\GeneratingSectionsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Serialization\OptionsSerializerDeserializationTests\DeserializeParameterConterElementTests.cs" />
+    <Compile Include="Serialization\OptionsSerializerDeserializationTests\DeserializeParameterConstantElementTests.cs" />
+    <Compile Include="Serialization\OptionsSerializerDeserializationTests\DeserializeParameterElementTests.cs" />
     <Compile Include="Serialization\OptionsSerializerDeserializationTests\DeserializeSectionElementTests.cs" />
     <Compile Include="Serialization\OptionsSerializerSerializationTests\ParameterRandomTextElementTests.cs" />
     <Compile Include="Serialization\OptionsSerializerSerializationTests\ParameterRandomNumberElementTests.cs" />
