@@ -7,7 +7,7 @@ using NUnit.Framework;
 namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerDeserializationTests
 {
     [TestFixture]
-    public class DeserializeParameterConstantElementTests
+    public class DeserializeParameterTests
     {
         private OptionsSerializer optionsSerializer;
 
@@ -15,6 +15,44 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerD
         public void SetUp()
         {
             optionsSerializer = new OptionsSerializer();
+        }
+
+        [Test]
+        public void deserialized_section_contains_one_parameter_if_one_parameter_is_declared_in_xml()
+        {
+            const string xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
+<textFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
+    <sections>
+        <section name=""root"">
+            <parameter key=""key1"">
+                <constant value=""value1""/>
+            </parameter>
+        </section>
+    </sections>
+</textFileGenerator>";
+
+            GeneratorOptions options = PerformTest(xml);
+
+            Assert.That(options.Sections[0].Parameters.Count, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void deserialized_parameter_contains_the_key()
+        {
+            const string xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
+<textFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
+    <sections>
+        <section name=""root"">
+            <parameter key=""key1"">
+                <constant value=""value1""/>
+            </parameter>
+        </section>
+    </sections>
+</textFileGenerator>";
+
+            GeneratorOptions options = PerformTest(xml);
+
+            Assert.That(options.Sections[0].Parameters[0].Key, Is.EqualTo("key1"));
         }
 
         [Test]
@@ -37,14 +75,14 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerD
         }
 
         [Test]
-        public void deserialized_ConstantValueProvider_contains_the_value__declared_in_xml()
+        public void deserialized_parameter_contains_CounterValueProvider()
         {
             const string xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <textFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
     <sections>
         <section name=""root"">
             <parameter key=""key1"">
-                <constant value=""value1""/>
+                <counter/>
             </parameter>
         </section>
     </sections>
@@ -52,8 +90,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerD
 
             GeneratorOptions options = PerformTest(xml);
 
-            ConstantValueProvider valueProvider = (ConstantValueProvider)options.Sections[0].Parameters[0].ValueProvider;
-            Assert.That(valueProvider.Value, Is.EqualTo("value1"));
+            Assert.That(options.Sections[0].Parameters[0].ValueProvider, Is.TypeOf<CounterValueProvider>());
         }
 
         private GeneratorOptions PerformTest(string xml)

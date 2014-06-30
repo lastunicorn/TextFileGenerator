@@ -7,7 +7,7 @@ using NUnit.Framework;
 namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerDeserializationTests
 {
     [TestFixture]
-    public class DeserializeSectionElementTests
+    public class DeserializeSectionTests
     {
         private OptionsSerializer optionsSerializer;
 

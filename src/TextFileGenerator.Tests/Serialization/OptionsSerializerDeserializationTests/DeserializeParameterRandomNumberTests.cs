@@ -7,7 +7,7 @@ using NUnit.Framework;
 namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerDeserializationTests
 {
     [TestFixture]
-    public class DeserializeParameterCounterElementTests
+    public class DeserializeParameterRandomNumberTests
     {
         private OptionsSerializer optionsSerializer;
 
@@ -18,14 +18,14 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerD
         }
 
         [Test]
-        public void deserialized_parameter_contains_CounterValueProvider()
+        public void deserialized_parameter_contains_RandomNumberValueProvider()
         {
             const string xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <textFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
     <sections>
         <section name=""root"">
             <parameter key=""key1"">
-                <counter/>
+                <randomNumber/>
             </parameter>
         </section>
     </sections>
@@ -33,18 +33,18 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerD
 
             GeneratorOptions options = PerformTest(xml);
 
-            Assert.That(options.Sections[0].Parameters[0].ValueProvider, Is.TypeOf<CounterValueProvider>());
+            Assert.That(options.Sections[0].Parameters[0].ValueProvider, Is.TypeOf<RandomNumberValueProvider>());
         }
 
         [Test]
-        public void deserialized_CounterValueProvider_contains_the_format_declared_in_xml()
+        public void deserialized_RandomNumberValueProvider_contains_the_format_declared_in_xml()
         {
             const string xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <textFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
     <sections>
         <section name=""root"">
             <parameter key=""key1"">
-                <counter format=""0000""/>
+                <randomNumber format=""00""/>
             </parameter>
         </section>
     </sections>
@@ -52,19 +52,19 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerD
 
             GeneratorOptions options = PerformTest(xml);
 
-            CounterValueProvider valueProvider = (CounterValueProvider)options.Sections[0].Parameters[0].ValueProvider;
-            Assert.That(valueProvider.Format, Is.EqualTo("0000"));
+            RandomNumberValueProvider valueProvider = (RandomNumberValueProvider)options.Sections[0].Parameters[0].ValueProvider;
+            Assert.That(valueProvider.Format, Is.EqualTo("00"));
         }
 
         [Test]
-        public void deserialized_CounterValueProvider_contains_the_startValue_declared_in_xml()
+        public void deserialized_RandomNumberValueProvider_contains_the_minValue_declared_in_xml()
         {
             const string xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <textFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
     <sections>
         <section name=""root"">
             <parameter key=""key1"">
-                <counter startValue=""7""/>
+                <randomNumber minValue=""3""/>
             </parameter>
         </section>
     </sections>
@@ -72,19 +72,19 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerD
 
             GeneratorOptions options = PerformTest(xml);
 
-            CounterValueProvider valueProvider = (CounterValueProvider)options.Sections[0].Parameters[0].ValueProvider;
-            Assert.That(valueProvider.StartValue, Is.EqualTo(7));
+            RandomNumberValueProvider valueProvider = (RandomNumberValueProvider)options.Sections[0].Parameters[0].ValueProvider;
+            Assert.That(valueProvider.MinValue, Is.EqualTo(3));
         }
 
         [Test]
-        public void deserialized_CounterValueProvider_contains_the_step_declared_in_xml()
+        public void deserialized_RandomNumberValueProvider_contains_the_maxValue_declared_in_xml()
         {
             const string xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <textFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
     <sections>
         <section name=""root"">
             <parameter key=""key1"">
-                <counter step=""9""/>
+                <randomNumber maxValue=""5""/>
             </parameter>
         </section>
     </sections>
@@ -92,8 +92,8 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerD
 
             GeneratorOptions options = PerformTest(xml);
 
-            CounterValueProvider valueProvider = (CounterValueProvider)options.Sections[0].Parameters[0].ValueProvider;
-            Assert.That(valueProvider.Step, Is.EqualTo(9));
+            RandomNumberValueProvider valueProvider = (RandomNumberValueProvider)options.Sections[0].Parameters[0].ValueProvider;
+            Assert.That(valueProvider.MaxValue, Is.EqualTo(5));
         }
 
         private GeneratorOptions PerformTest(string xml)

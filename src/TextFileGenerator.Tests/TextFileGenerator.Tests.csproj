@@ -51,18 +51,20 @@
     <Compile Include="GeneratorTests\GeneratingSectionWithConstantParameterTests.cs" />
     <Compile Include="GeneratorTests\GeneratingSectionsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Serialization\OptionsSerializerDeserializationTests\DeserializeParameterConterElementTests.cs" />
-    <Compile Include="Serialization\OptionsSerializerDeserializationTests\DeserializeParameterConstantElementTests.cs" />
-    <Compile Include="Serialization\OptionsSerializerDeserializationTests\DeserializeParameterElementTests.cs" />
-    <Compile Include="Serialization\OptionsSerializerDeserializationTests\DeserializeSectionElementTests.cs" />
-    <Compile Include="Serialization\OptionsSerializerSerializationTests\ParameterRandomTextElementTests.cs" />
-    <Compile Include="Serialization\OptionsSerializerSerializationTests\ParameterRandomNumberElementTests.cs" />
-    <Compile Include="Serialization\OptionsSerializerSerializationTests\ParameterCounterElementTests.cs" />
-    <Compile Include="Serialization\OptionsSerializerSerializationTests\ParameterConstantElementTests.cs" />
-    <Compile Include="Serialization\OptionsSerializerSerializationTests\ParameterElementTests.cs" />
-    <Compile Include="Serialization\OptionsSerializerSerializationTests\SectionElementTests.cs" />
-    <Compile Include="Serialization\OptionsSerializerSerializationTests\SectionsElementTests.cs" />
-    <Compile Include="Serialization\OptionsSerializerSerializationTests\RootElementTests.cs" />
+    <Compile Include="Serialization\OptionsSerializerDeserializationTests\DeserializeParameterRandomTextTests.cs" />
+    <Compile Include="Serialization\OptionsSerializerDeserializationTests\DeserializeParameterRandomNumberTests.cs" />
+    <Compile Include="Serialization\OptionsSerializerDeserializationTests\DeserializeParameterConterTests.cs" />
+    <Compile Include="Serialization\OptionsSerializerDeserializationTests\DeserializeParameterConstantTests.cs" />
+    <Compile Include="Serialization\OptionsSerializerDeserializationTests\DeserializeParameterTests.cs" />
+    <Compile Include="Serialization\OptionsSerializerDeserializationTests\DeserializeSectionTests.cs" />
+    <Compile Include="Serialization\OptionsSerializerSerializationTests\SerializeParameterRandomTextTests.cs" />
+    <Compile Include="Serialization\OptionsSerializerSerializationTests\SerializeParameterRandomNumberTests.cs" />
+    <Compile Include="Serialization\OptionsSerializerSerializationTests\SerializeParameterCounterTests.cs" />
+    <Compile Include="Serialization\OptionsSerializerSerializationTests\SerializeParameterConstantTests.cs" />
+    <Compile Include="Serialization\OptionsSerializerSerializationTests\SerializeParameterTests.cs" />
+    <Compile Include="Serialization\OptionsSerializerSerializationTests\SerializeSectionTests.cs" />
+    <Compile Include="Serialization\OptionsSerializerSerializationTests\SerializeSectionsTests.cs" />
+    <Compile Include="Serialization\OptionsSerializerSerializationTests\SerializeRootTests.cs" />
     <Compile Include="TestingTools\XmlAsserter.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -7,7 +7,7 @@ using NUnit.Framework;
 namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerSerializationTests
 {
     [TestFixture]
-    public class ParameterConstantElementTests
+    public class SerializeParameterConstantTests
     {
         private OptionsSerializer optionsSerializer;
         private MemoryStream actualStream;

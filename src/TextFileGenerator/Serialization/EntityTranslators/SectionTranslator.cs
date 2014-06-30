@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using DustInTheWind.TextFileGenerator.Options;
@@ -33,7 +34,7 @@ namespace DustInTheWind.TextFileGenerator.Serialization.EntityTranslators
                 }
             }
 
-            CreateAndAddParameters(destinationSection, sourceSection.Parameters);
+            CreateParameters(destinationSection, sourceSection.Parameters);
 
             return destinationSection;
         }
@@ -54,7 +55,7 @@ namespace DustInTheWind.TextFileGenerator.Serialization.EntityTranslators
             }
         }
 
-        private static void CreateAndAddParameters(section destinationSection, IList<Parameter> sourceParameters)
+        private static void CreateParameters(section destinationSection, IList<Parameter> sourceParameters)
         {
             if (sourceParameters.Count == 0)
                 return;
@@ -67,6 +68,68 @@ namespace DustInTheWind.TextFileGenerator.Serialization.EntityTranslators
                 parameter destinationParameter = ParameterTranslator.CreateParameter(sourceParameter);
 
                 destinationSection.parameter[i] = destinationParameter;
+            }
+        }
+
+        public static Section Translate(section sourceSection)
+        {
+            Section destinationSection = new Section
+            {
+                Name = sourceSection.name,
+                RepeatCount = int.Parse(sourceSection.repeat),
+                Separator = sourceSection.separator,
+                SeparatorType = Translate(sourceSection.separatorType),
+            };
+
+            if (sourceSection.Items != null && sourceSection.Items.Length > 0)
+            {
+                foreach (object item in sourceSection.Items)
+                {
+                    if (item == null)
+                        continue;
+
+                    Type itemType = item.GetType();
+
+                    if (itemType == typeof(string))
+                        destinationSection.Template = (string)item;
+
+                    if (itemType == typeof(section))
+                    {
+                        Section destinationSubsection = Translate((section)item);
+                        destinationSection.Sections.Add(destinationSubsection);
+                    }
+                }
+            }
+
+            CreateParameters(destinationSection, sourceSection.parameter);
+
+            return destinationSection;
+        }
+
+        private static void CreateParameters(Section destinationSection, parameter[] sourceParameters)
+        {
+            if (sourceParameters == null)
+                return;
+
+            Parameter destinationParameter = ParameterTranslator.CreateParameter(sourceParameters[0]);
+            destinationSection.Parameters.Add(destinationParameter);
+        }
+
+        private static SeparatorType Translate(separatorType sourceSeparatorType)
+        {
+            switch (sourceSeparatorType)
+            {
+                case separatorType.Infix:
+                    return SeparatorType.Infix;
+
+                case separatorType.Prefix:
+                    return SeparatorType.Prefix;
+
+                case separatorType.Postfix:
+                    return SeparatorType.Postfix;
+
+                default:
+                    return SeparatorType.Infix;
             }
         }
     }

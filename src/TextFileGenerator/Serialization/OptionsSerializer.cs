@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Xml;
 using System.Xml.Schema;
@@ -13,7 +15,7 @@ namespace DustInTheWind.TextFileGenerator.Serialization
     {
         public void Serialize(Stream outputStream, GeneratorOptions generatorOptions)
         {
-            textFileGenerator textFileGenerator = new GeneratorOptionsTranslator(generatorOptions).Create();
+            textFileGenerator textFileGenerator = OptionsTranslator.Translate(generatorOptions);
 
             XmlWriterSettings settings = new XmlWriterSettings
             {
@@ -49,108 +51,9 @@ namespace DustInTheWind.TextFileGenerator.Serialization
             using (XmlReader xmlReader = XmlReader.Create(inputStream, settings))
             {
                 XmlSerializer serializer = new XmlSerializer(typeof(textFileGenerator));
-                textFileGenerator textFileGenerator = (textFileGenerator)serializer.Deserialize(xmlReader);
+                textFileGenerator sourceOptions = (textFileGenerator)serializer.Deserialize(xmlReader);
 
-                GeneratorOptions generatorOptions = new GeneratorOptions();
-
-                if (textFileGenerator.sections != null)
-                    foreach (section sourceSection in textFileGenerator.sections)
-                    {
-                        Section destinationSection = Translate(sourceSection);
-
-                        generatorOptions.Sections.Add(destinationSection);
-                    }
-
-                return generatorOptions;
-            }
-        }
-
-        private static Section Translate(section sourceSection)
-        {
-            Section destinationSection = new Section
-            {
-                Name = sourceSection.name,
-                RepeatCount = int.Parse(sourceSection.repeat),
-                Separator = sourceSection.separator,
-                SeparatorType = Translate(sourceSection.separatorType),
-            };
-
-            if (sourceSection.Items != null && sourceSection.Items.Length > 0)
-            {
-                foreach (object item in sourceSection.Items)
-                {
-                    if (item == null)
-                        continue;
-
-                    Type itemType = item.GetType();
-
-                    if (itemType == typeof(string))
-                        destinationSection.Template = (string)item;
-
-                    if (itemType == typeof(section))
-                    {
-                        Section destinationSubsection = Translate((section)item);
-                        destinationSection.Sections.Add(destinationSubsection);
-                    }
-                }
-            }
-
-            if (sourceSection.parameter != null)
-            {
-                parameter sourceParameter = sourceSection.parameter[0];
-
-                Parameter destinationParameter = new Parameter();
-                destinationParameter.Key = sourceParameter.key;
-
-                Type valueProviderType = sourceParameter.Item.GetType();
-
-                if (valueProviderType == typeof(parameterConstant))
-                {
-                    parameterConstant soureceValueProvider = (parameterConstant)sourceParameter.Item;
-
-                    ConstantValueProvider destinationValueProvider = new ConstantValueProvider
-                    {
-                        Value = soureceValueProvider.value
-                    };
-
-                    destinationParameter.ValueProvider = destinationValueProvider;
-                }
-
-                if (valueProviderType == typeof(parameterCounter))
-                {
-                    parameterCounter sourceValueProvider = (parameterCounter)sourceParameter.Item;
-
-                    CounterValueProvider destinationValueProvider = new CounterValueProvider
-                    {
-                        Format = sourceValueProvider.format,
-                        StartValue = int.Parse(sourceValueProvider.startValue),
-                        Step = int.Parse(sourceValueProvider.step)
-                    };
-
-                    destinationParameter.ValueProvider = destinationValueProvider;
-                }
-
-                destinationSection.Parameters.Add(destinationParameter);
-            }
-
-            return destinationSection;
-        }
-
-        private static SeparatorType Translate(separatorType sourceSeparatorType)
-        {
-            switch (sourceSeparatorType)
-            {
-                case separatorType.Infix:
-                    return SeparatorType.Infix;
-
-                case separatorType.Prefix:
-                    return SeparatorType.Prefix;
-
-                case separatorType.Postfix:
-                    return SeparatorType.Postfix;
-
-                default:
-                    return SeparatorType.Infix;
+                return OptionsTranslator.Translate(sourceOptions);
             }
         }
     }

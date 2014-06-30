@@ -7,20 +7,16 @@ using NUnit.Framework;
 namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerSerializationTests
 {
     [TestFixture]
-    public class ParameterElementTests
+    public class SerializeRootTests
     {
         private OptionsSerializer optionsSerializer;
         private MemoryStream actualStream;
-        private GeneratorOptions generatorOptions;
 
         [SetUp]
         public void SetUp()
         {
             optionsSerializer = new OptionsSerializer();
             actualStream = new MemoryStream();
-
-            generatorOptions = new GeneratorOptions();
-            generatorOptions.Sections.Add(new Section());
         }
 
         [TearDown]
@@ -31,21 +27,16 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerS
         }
 
         [Test]
-        public void parameter_element_contains_key_attribute()
+        public void root_element_textFileGenerator_is_created_in_correct_namespace()
         {
-            generatorOptions.Sections[0].Parameters.Add(new Parameter
-            {
-                Key = "key1",
-                ValueProvider = new EmptyValueProvider()
-            });
+            GeneratorOptions generatorOptions = new GeneratorOptions();
 
-            XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
+            XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult(generatorOptions);
 
-            xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section/alez:parameter/@key", 1);
-            xmlAsserter.AssertText("/alez:textFileGenerator/alez:sections/alez:section/alez:parameter/@key", "key1");
+            xmlAsserter.AssertNodeCount("/alez:textFileGenerator", 1);
         }
 
-        private XmlAsserter PerformTestAndCreateAsserterOnResult()
+        private XmlAsserter PerformTestAndCreateAsserterOnResult(GeneratorOptions generatorOptions)
         {
             optionsSerializer.Serialize(actualStream, generatorOptions);
 
