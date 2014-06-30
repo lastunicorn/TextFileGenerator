@@ -15,6 +15,12 @@ namespace DustInTheWind.TextFileGenerator
             this.options = options;
         }
 
+        public void Generate(Stream outputStream)
+        {
+            TextWriter textWriter = new StreamWriter(outputStream);
+            Generate(textWriter);
+        }
+
         public void Generate(TextWriter textWriter)
         {
             foreach (Section section in options.Sections)

@@ -20,7 +20,7 @@
     <xs:element name="section">
         <xs:complexType>
             <xs:sequence minOccurs="0">
-                <xs:choice minOccurs="0">
+                <xs:choice>
                     <xs:element name="template" type="xs:string"/>
                     <xs:element ref="section" maxOccurs="unbounded"/>
                 </xs:choice>
@@ -38,15 +38,15 @@
             <xs:choice>
                 <xs:element name="randomText">
                     <xs:complexType>
-                        <xs:attribute name="minLength" type="xs:positiveInteger" default="1" />
-                        <xs:attribute name="maxLength" type="xs:positiveInteger" default="100" />
+                        <xs:attribute name="minLength" type="xs:integer" default="1" />
+                        <xs:attribute name="maxLength" type="xs:integer" default="100" />
                     </xs:complexType>
                 </xs:element>
                 <xs:element name="randomNumber">
                     <xs:complexType>
                         <xs:attribute name="format" type="xs:string" default="" />
-                        <xs:attribute name="minValue" type="xs:positiveInteger" default="1" />
-                        <xs:attribute name="maxValue" type="xs:positiveInteger" default="100" />
+                        <xs:attribute name="minValue" type="xs:integer" default="1" />
+                        <xs:attribute name="maxValue" type="xs:integer" default="100" />
                     </xs:complexType>
                 </xs:element>
                 <xs:element name="counter">

@@ -24,6 +24,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerD
 <textFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
     <sections>
         <section name=""root"">
+            <template/>
             <parameter key=""key1"">
                 <constant value=""value1""/>
             </parameter>
@@ -43,6 +44,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerD
 <textFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
     <sections>
         <section name=""root"">
+            <template/>
             <parameter key=""key1"">
                 <constant value=""value1""/>
             </parameter>

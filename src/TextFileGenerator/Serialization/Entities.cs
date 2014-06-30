@@ -292,7 +292,7 @@ namespace DustInTheWind.TextFileGenerator.Serialization {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(DataType="positiveInteger")]
+        [System.Xml.Serialization.XmlAttributeAttribute(DataType="integer")]
         [System.ComponentModel.DefaultValueAttribute("1")]
         public string minValue {
             get {
@@ -304,7 +304,7 @@ namespace DustInTheWind.TextFileGenerator.Serialization {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(DataType="positiveInteger")]
+        [System.Xml.Serialization.XmlAttributeAttribute(DataType="integer")]
         [System.ComponentModel.DefaultValueAttribute("100")]
         public string maxValue {
             get {
@@ -334,7 +334,7 @@ namespace DustInTheWind.TextFileGenerator.Serialization {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(DataType="positiveInteger")]
+        [System.Xml.Serialization.XmlAttributeAttribute(DataType="integer")]
         [System.ComponentModel.DefaultValueAttribute("1")]
         public string minLength {
             get {
@@ -346,7 +346,7 @@ namespace DustInTheWind.TextFileGenerator.Serialization {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(DataType="positiveInteger")]
+        [System.Xml.Serialization.XmlAttributeAttribute(DataType="integer")]
         [System.ComponentModel.DefaultValueAttribute("100")]
         public string maxLength {
             get {

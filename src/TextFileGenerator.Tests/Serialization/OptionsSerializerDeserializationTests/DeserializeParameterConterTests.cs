@@ -24,6 +24,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerD
 <textFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
     <sections>
         <section name=""root"">
+            <template/>
             <parameter key=""key1"">
                 <counter/>
             </parameter>
@@ -43,6 +44,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerD
 <textFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
     <sections>
         <section name=""root"">
+            <template/>
             <parameter key=""key1"">
                 <counter format=""0000""/>
             </parameter>
@@ -63,6 +65,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerD
 <textFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
     <sections>
         <section name=""root"">
+            <template/>
             <parameter key=""key1"">
                 <counter startValue=""7""/>
             </parameter>
@@ -83,6 +86,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerD
 <textFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
     <sections>
         <section name=""root"">
+            <template/>
             <parameter key=""key1"">
                 <counter step=""9""/>
             </parameter>

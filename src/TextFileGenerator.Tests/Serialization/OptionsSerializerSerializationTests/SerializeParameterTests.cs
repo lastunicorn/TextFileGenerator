@@ -45,6 +45,26 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerS
             xmlAsserter.AssertText("/alez:textFileGenerator/alez:sections/alez:section/alez:parameter/@key", "key1");
         }
 
+        [Test]
+        public void serialize_two_parameters_of_different_type()
+        {
+            generatorOptions.Sections[0].Template = "template1";
+            generatorOptions.Sections[0].Parameters.Add(new Parameter
+            {
+                Key = "key1",
+                ValueProvider = new ConstantValueProvider()
+            });
+            generatorOptions.Sections[0].Parameters.Add(new Parameter
+            {
+                Key = "key2",
+                ValueProvider = new CounterValueProvider()
+            });
+
+            XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
+
+            xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section/alez:parameter/count()", 2);
+        }
+
         private XmlAsserter PerformTestAndCreateAsserterOnResult()
         {
             optionsSerializer.Serialize(actualStream, generatorOptions);

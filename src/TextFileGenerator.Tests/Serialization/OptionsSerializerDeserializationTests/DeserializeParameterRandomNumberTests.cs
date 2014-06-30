@@ -24,6 +24,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerD
 <textFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
     <sections>
         <section name=""root"">
+            <template/>
             <parameter key=""key1"">
                 <randomNumber/>
             </parameter>
@@ -43,6 +44,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerD
 <textFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
     <sections>
         <section name=""root"">
+            <template/>
             <parameter key=""key1"">
                 <randomNumber format=""00""/>
             </parameter>
@@ -63,6 +65,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerD
 <textFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
     <sections>
         <section name=""root"">
+            <template/>
             <parameter key=""key1"">
                 <randomNumber minValue=""3""/>
             </parameter>
@@ -83,6 +86,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerD
 <textFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
     <sections>
         <section name=""root"">
+            <template/>
             <parameter key=""key1"">
                 <randomNumber maxValue=""5""/>
             </parameter>
