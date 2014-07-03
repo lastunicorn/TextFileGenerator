@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using DustInTheWind.TextFileGenerator.Options;
 
 namespace DustInTheWind.TextFileGenerator.Serialization.EntityTranslators
@@ -106,13 +107,13 @@ namespace DustInTheWind.TextFileGenerator.Serialization.EntityTranslators
             return destinationSection;
         }
 
-        private static void CreateParameters(Section destinationSection, parameter[] sourceParameters)
+        private static void CreateParameters(Section destinationSection, IEnumerable<parameter> sourceParameters)
         {
             if (sourceParameters == null)
                 return;
 
-            Parameter destinationParameter = ParameterTranslator.CreateParameter(sourceParameters[0]);
-            destinationSection.Parameters.Add(destinationParameter);
+            IEnumerable<Parameter> destinationParameters = sourceParameters.Select(ParameterTranslator.CreateParameter);
+            destinationSection.Parameters.AddRange(destinationParameters);
         }
 
         private static SeparatorType Translate(separatorType sourceSeparatorType)

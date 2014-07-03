@@ -110,6 +110,23 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerD
         }
 
         [Test]
+        public void deserialized_section_contains_Template_if_the_template_is_crlf()
+        {
+            const string xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
+<textFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
+    <sections>
+        <section>
+            <template>&#13;&#10;</template>
+        </section>
+    </sections>
+</textFileGenerator>";
+
+            GeneratorOptions options = PerformTest(xml);
+
+            Assert.That(options.Sections[0].Template, Is.EqualTo("\r\n"));
+        }
+
+        [Test]
         public void deserialized_section_contains_one_subsection_if_one_subsection_is_declared_in_xml()
         {
             const string xml = @"<?xml version=""1.0"" encoding=""utf-8""?>

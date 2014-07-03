@@ -100,26 +100,11 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerD
         [Test]
         public void section_contains_two_parameters_of_different_types()
         {
-//            const string xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
-//<textFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
-//    <sections>
-//        <section name=""root"">
-//            <template/>
-//            <parameter key=""key1"">
-//                <constant/>
-//            </parameter>
-//            <parameter key=""key2"">
-//                <constant/>
-//            </parameter>
-//        </section>
-//    </sections>
-//</textFileGenerator>";
-
             const string xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <textFileGenerator xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"" xmlns=""http://alez.ro/TextFileGenerator"">
     <sections>
         <section>
-            <template>template1</template>
+            <template/>
             <parameter key=""key1"">
                 <constant />
             </parameter>

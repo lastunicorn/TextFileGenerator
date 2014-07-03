@@ -48,7 +48,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.GeneratorTests
         }
 
         [Test]
-        public void if_both_Template_and_Subsections_are_declared_only_Template_is_rantered()
+        public void if_both_Template_and_Subsections_are_declared_only_Template_is_randered()
         {
             options.Sections.Add(new Section
             {
@@ -62,6 +62,25 @@ namespace DustInTheWind.TextFileGenerator.Tests.GeneratorTests
             string actual = PerformTest();
 
             Assert.That(actual, Is.EqualTo("Template"));
+        }
+
+        [Test]
+        public void parameter_declared_in_section_is_available_in_the_subsection()
+        {
+            options.Sections.Add(new Section());
+            options.Sections[0].Parameters.Add(new Parameter
+            {
+                Key = "param1",
+                ValueProvider = new ConstantValueProvider { Value = "value1" }
+            });
+            options.Sections[0].Sections.Add(new Section
+            {
+                Template = "{param1}"
+            });
+
+            string actual = PerformTest();
+
+            Assert.That(actual, Is.EqualTo("value1"));
         }
 
         private string PerformTest()

@@ -34,9 +34,9 @@ namespace DustInTheWind.TextFileGenerator.Serialization
         {
             XmlReaderSettings settings = new XmlReaderSettings
             {
-                IgnoreWhitespace = true,
+                IgnoreWhitespace = false,
                 ConformanceLevel = ConformanceLevel.Document,
-                ValidationType = ValidationType.Schema,
+                ValidationType = ValidationType.Schema
             };
 
             Assembly assembly = Assembly.GetExecutingAssembly();

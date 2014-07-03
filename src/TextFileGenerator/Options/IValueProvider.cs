@@ -2,6 +2,8 @@
 {
     public interface IValueProvider
     {
-        string GetValue();
+        string GetNextValue();
+        string GetCurrentValue();
+        void Reset();
     }
 }

@@ -10,9 +10,18 @@
             set { this.value = value; }
         }
 
-        public string GetValue()
+        public string GetNextValue()
         {
             return value;
+        }
+
+        public string GetCurrentValue()
+        {
+            return value;
+        }
+
+        public void Reset()
+        {
         }
     }
 }

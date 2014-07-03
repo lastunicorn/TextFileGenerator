@@ -6,6 +6,7 @@ namespace DustInTheWind.TextFileGenerator.Options
     public class RandomNumberValueProvider : IValueProvider
     {
         private readonly Random random;
+        private string currentValue;
 
         public int MinValue { get; set; }
 
@@ -19,17 +20,33 @@ namespace DustInTheWind.TextFileGenerator.Options
 
             MinValue = 1;
             MaxValue = 100;
+
+            currentValue = string.Empty;
         }
 
-        public string GetValue()
+        public string GetNextValue()
+        {
+            GenerateNextValue();
+            return currentValue;
+        }
+
+        private void GenerateNextValue()
         {
             int value = random.Next(MinValue, MaxValue + 1);
 
-            string valueAsString = Format != null
+            currentValue = Format != null
                 ? value.ToString(Format, CultureInfo.CurrentCulture)
                 : value.ToString(CultureInfo.CurrentCulture);
+        }
 
-            return valueAsString;
+        public string GetCurrentValue()
+        {
+            return currentValue;
+        }
+
+        public void Reset()
+        {
+            currentValue = string.Empty;
         }
     }
 }

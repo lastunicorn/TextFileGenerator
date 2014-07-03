@@ -8,12 +8,25 @@ namespace DustInTheWind.TextFileGenerator.Options
 
         public IValueProvider ValueProvider { get; set; }
 
-        public string GetValue()
+        public string GetNextValue()
         {
             if (ValueProvider == null)
                 throw new Exception("ValueProvider was not set.");
 
-            return ValueProvider.GetValue();
+            return ValueProvider.GetNextValue();
+        }
+
+        public string GetCurrentValue()
+        {
+            if (ValueProvider == null)
+                throw new Exception("ValueProvider was not set.");
+
+            return ValueProvider.GetCurrentValue();
+        }
+
+        public void Reset()
+        {
+            ValueProvider.Reset();
         }
     }
 }

@@ -2,9 +2,18 @@
 {
     public class EmptyValueProvider : IValueProvider
     {
-        public string GetValue()
+        public string GetNextValue()
         {
             return string.Empty;
+        }
+
+        public string GetCurrentValue()
+        {
+            return string.Empty;
+        }
+
+        public void Reset()
+        {
         }
     }
 }

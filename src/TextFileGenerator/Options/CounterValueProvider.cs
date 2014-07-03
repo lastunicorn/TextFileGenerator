@@ -4,8 +4,10 @@ namespace DustInTheWind.TextFileGenerator.Options
 {
     public class CounterValueProvider : IValueProvider
     {
-        private int nextValue;
+        private int currentValue;
         private int startValue;
+        private string currentValueAsString;
+        private bool isFirst;
 
         public int StartValue
         {
@@ -13,7 +15,8 @@ namespace DustInTheWind.TextFileGenerator.Options
             set
             {
                 startValue = value;
-                nextValue = value;
+                currentValue = value;
+                isFirst = true;
             }
         }
 
@@ -25,17 +28,37 @@ namespace DustInTheWind.TextFileGenerator.Options
         {
             StartValue = 1;
             Step = 1;
+            isFirst = true;
         }
 
-        public string GetValue()
+        public string GetNextValue()
         {
-            string currentValue = Format != null
-                ? nextValue.ToString(Format, CultureInfo.CurrentCulture)
-                : nextValue.ToString(CultureInfo.CurrentCulture);
+            GenerateNextValue();
 
-            nextValue += Step;
+            return currentValueAsString;
+        }
 
-            return currentValue;
+        private void GenerateNextValue()
+        {
+            if (isFirst)
+                isFirst = false;
+            else
+                currentValue += Step;
+
+            currentValueAsString = Format != null
+                ? currentValue.ToString(Format, CultureInfo.CurrentCulture)
+                : currentValue.ToString(CultureInfo.CurrentCulture);
+        }
+
+        public string GetCurrentValue()
+        {
+            return currentValueAsString;
+        }
+
+        public void Reset()
+        {
+            currentValue = startValue;
+            isFirst = true;
         }
     }
 }
