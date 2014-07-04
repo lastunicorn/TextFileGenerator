@@ -1,4 +1,4 @@
 TextFileGenerator
 =================
 
-A small tool that generates text files containing repetitive sections.
+A command line tool that can generate huge text files.
