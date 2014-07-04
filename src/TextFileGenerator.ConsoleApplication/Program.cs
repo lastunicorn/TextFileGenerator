@@ -26,30 +26,70 @@ namespace DustInTheWind.TextFileGenerator.ConsoleApplication
     {
         static void Main(string[] args)
         {
+            WriteHeader();
+
             try
             {
-                GeneratorOptions options = ReadOptionsFile("TextFileGenerator.xml");
-                GenerateFile("TextFileGenerator.txt", options);
+                ValidateArguments(args);
+
+                string optionsFileName = args[0];
+                GeneratorOptions options = ReadOptionsFile(optionsFileName);
+
+                string outputFileName = GenerateOutputFileName(optionsFileName);
+                GenerateFile(outputFileName, options);
             }
             catch (Exception ex)
             {
                 Console.WriteLine();
-
-                ConsoleWrite(ex, ConsoleColor.Red);
+                ConsoleWrite(ex.ToString(), ConsoleColor.Red);
             }
 
+            Pause();
+        }
+
+        private static void Pause()
+        {
             Console.WriteLine();
             Console.Write("Press any key to continue...");
 
             Console.ReadKey(false);
         }
 
-        private static void ConsoleWrite(Exception ex, ConsoleColor color)
+        private static void ValidateArguments(string[] args)
+        {
+            if (args.Length == 0)
+            {
+                WriteUsageHelp();
+                throw new Exception("Error: insufficient parameters.");
+            }
+        }
+
+        private static string GenerateOutputFileName(string optionsFileName)
+        {
+            string directoryPath = Path.GetDirectoryName(optionsFileName);
+            string outputFileName = Path.GetFileNameWithoutExtension(optionsFileName) + ".output.txt";
+
+            return Path.Combine(directoryPath, outputFileName);
+        }
+
+        private static void WriteUsageHelp()
+        {
+            Console.WriteLine("Usage: TextFileGenerator.exe <optionsFileName>");
+        }
+
+        private static void WriteHeader()
+        {
+            Console.WriteLine("TextFileGenerator v1.0");
+            Console.WriteLine("===============================================================================");
+            Console.WriteLine();
+        }
+
+        private static void ConsoleWrite(string text, ConsoleColor color)
         {
             ConsoleColor oldColor = Console.ForegroundColor;
 
             Console.ForegroundColor = color;
-            Console.WriteLine(ex);
+            Console.WriteLine(text);
 
             Console.ForegroundColor = oldColor;
         }
@@ -75,7 +115,7 @@ namespace DustInTheWind.TextFileGenerator.ConsoleApplication
         {
             Stopwatch stopwatch = new Stopwatch();
 
-            Console.Write("Generating file... ");
+            Console.Write("Generating file " + outputFileName + "... ");
 
             Generator generator = new Generator(options);
 
