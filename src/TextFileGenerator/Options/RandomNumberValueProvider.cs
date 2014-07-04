@@ -24,7 +24,7 @@ namespace DustInTheWind.TextFileGenerator.Options
             currentValue = string.Empty;
         }
 
-        public string GetNextValue()
+        public string MoveToNextValue()
         {
             GenerateNextValue();
             return currentValue;
@@ -39,9 +39,9 @@ namespace DustInTheWind.TextFileGenerator.Options
                 : value.ToString(CultureInfo.CurrentCulture);
         }
 
-        public string GetCurrentValue()
+        public string CurrentValue
         {
-            return currentValue;
+            get { return currentValue; }
         }
 
         public void Reset()

@@ -65,7 +65,6 @@
     <Compile Include="Serialization\OptionsSerializerSerializationTests\SerializeSectionTests.cs" />
     <Compile Include="Serialization\OptionsSerializerSerializationTests\SerializeSectionsTests.cs" />
     <Compile Include="Serialization\OptionsSerializerSerializationTests\SerializeRootTests.cs" />
-    <Compile Include="Serialization\Tests.cs" />
     <Compile Include="TestingTools\XmlAsserter.cs" />
   </ItemGroup>
   <ItemGroup>

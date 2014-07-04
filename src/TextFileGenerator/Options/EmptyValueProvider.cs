@@ -2,14 +2,14 @@
 {
     public class EmptyValueProvider : IValueProvider
     {
-        public string GetNextValue()
+        public string MoveToNextValue()
         {
             return string.Empty;
         }
 
-        public string GetCurrentValue()
+        public string CurrentValue
         {
-            return string.Empty;
+            get { return string.Empty; }
         }
 
         public void Reset()

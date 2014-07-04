@@ -136,7 +136,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerS
         {
             generatorOptions.Sections.Add(new Section
             {
-                Template = "some template"
+                Template = new Template { Value = "some template" }
             });
 
             XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();

@@ -13,7 +13,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.GeneratorTests
             GeneratorOptions options = new GeneratorOptions();
             options.Sections.Add(new Section
             {
-                Template = "test {param1}"
+                Template = new Template { Value = "test {param1}" }
             });
             options.Sections[0].Parameters.AddRange(new[]
             {

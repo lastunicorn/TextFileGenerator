@@ -21,7 +21,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.GeneratorTests
             options.Sections.Add(new Section());
             options.Sections[0].Sections.Add(new Section
             {
-                Template = "subsection"
+                Template = new Template { Value = "subsection" }
             });
 
             string actual = PerformTest();
@@ -35,11 +35,11 @@ namespace DustInTheWind.TextFileGenerator.Tests.GeneratorTests
             options.Sections.Add(new Section());
             options.Sections[0].Sections.Add(new Section
             {
-                Template = "subsection1"
+                Template = new Template { Value = "subsection1" }
             });
             options.Sections[0].Sections.Add(new Section
             {
-                Template = "subsection2"
+                Template = new Template { Value = "subsection2" }
             });
 
             string actual = PerformTest();
@@ -52,11 +52,11 @@ namespace DustInTheWind.TextFileGenerator.Tests.GeneratorTests
         {
             options.Sections.Add(new Section
             {
-                Template = "Template"
+                Template = new Template { Value = "Template" }
             });
             options.Sections[0].Sections.Add(new Section
             {
-                Template = "Subtemplate"
+                Template = new Template { Value = "Subtemplate" }
             });
 
             string actual = PerformTest();
@@ -75,7 +75,27 @@ namespace DustInTheWind.TextFileGenerator.Tests.GeneratorTests
             });
             options.Sections[0].Sections.Add(new Section
             {
-                Template = "{param1}"
+                Template = new Template { Value = "{param1}" }
+            });
+
+            string actual = PerformTest();
+
+            Assert.That(actual, Is.EqualTo("value1"));
+        }
+
+        [Test]
+        public void parameter_declared_in_section_is_available_in_the_subsubsection()
+        {
+            options.Sections.Add(new Section());
+            options.Sections[0].Parameters.Add(new Parameter
+            {
+                Key = "param1",
+                ValueProvider = new ConstantValueProvider { Value = "value1" }
+            });
+            options.Sections[0].Sections.Add(new Section());
+            options.Sections[0].Sections[0].Sections.Add(new Section
+            {
+                Template = new Template { Value = "{param1}" }
             });
 
             string actual = PerformTest();

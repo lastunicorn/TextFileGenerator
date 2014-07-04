@@ -50,26 +50,21 @@
     <Compile Include="Options\Parameter.cs" />
     <Compile Include="Options\RandomNumberValueProvider.cs" />
     <Compile Include="Options\RandomTextValueProvider.cs" />
+    <Compile Include="Options\SectionParameterList.cs" />
+    <Compile Include="Options\Template.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Options\Section.cs" />
     <Compile Include="Options\SectionList.cs" />
     <Compile Include="Options\SeparatorType.cs" />
+    <Compile Include="SectionGenerator.cs" />
     <Compile Include="Serialization\Entities.cs" />
     <Compile Include="Serialization\EntityTranslators\OptionsTranslator.cs" />
     <Compile Include="Serialization\OptionsSerializer.cs" />
     <Compile Include="Serialization\EntityTranslators\ParameterTranslator.cs" />
     <Compile Include="Serialization\EntityTranslators\SectionTranslator.cs" />
-    <Compile Include="Serialization\MyRoot.cs">
-      <DependentUpon>MyRoot.xsd</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Serialization\TextFileGenerator.xsd">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Serialization\MyRoot.xsd">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>

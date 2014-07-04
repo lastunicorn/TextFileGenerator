@@ -20,9 +20,9 @@ namespace DustInTheWind.TextFileGenerator.Tests.GeneratorTests
         {
             options.Sections.Add(new Section
             {
-                Template = "test {param1}"
+                Template = new Template { Value = "test {param1}" }
             });
-            options.Sections[0].Parameters.AddRange(new []
+            options.Sections[0].Parameters.AddRange(new[]
             {
                 new Parameter
                 {
@@ -41,10 +41,10 @@ namespace DustInTheWind.TextFileGenerator.Tests.GeneratorTests
         {
             options.Sections.Add(new Section
             {
-                Template = "test{param1}",
+                Template = new Template { Value = "test{param1}" },
                 RepeatCount = 2
             });
-            options.Sections[0].Parameters.AddRange(new []
+            options.Sections[0].Parameters.AddRange(new[]
             {
                 new Parameter
                 {
@@ -63,9 +63,9 @@ namespace DustInTheWind.TextFileGenerator.Tests.GeneratorTests
         {
             options.Sections.Add(new Section
             {
-                Template = "test {param1} {param2}"
+                Template = new Template { Value = "test {param1} {param2}" }
             });
-            options.Sections[0].Parameters.AddRange(new []
+            options.Sections[0].Parameters.AddRange(new[]
             {
                 new Parameter
                 {

@@ -4,29 +4,47 @@ namespace DustInTheWind.TextFileGenerator.Options
 {
     public class Parameter
     {
+        private IValueProvider valueProvider;
         public string Key { get; set; }
 
-        public IValueProvider ValueProvider { get; set; }
-
-        public string GetNextValue()
+        public IValueProvider ValueProvider
         {
-            if (ValueProvider == null)
-                throw new Exception("ValueProvider was not set.");
+            get { return valueProvider; }
+            set
+            {
+                if (value == null)
+                    throw new ArgumentNullException("value");
 
-            return ValueProvider.GetNextValue();
+                valueProvider = value;
+            }
         }
 
-        public string GetCurrentValue()
+        public Parameter()
         {
-            if (ValueProvider == null)
-                throw new Exception("ValueProvider was not set.");
+            valueProvider = new EmptyValueProvider();
+        }
 
-            return ValueProvider.GetCurrentValue();
+        public string CurrentValue
+        {
+            get
+            {
+                return valueProvider.CurrentValue;
+            }
+        }
+
+        public string NextValue
+        {
+            get { return valueProvider.MoveToNextValue(); }
+        }
+
+        public void MoveToNextValue()
+        {
+            valueProvider.MoveToNextValue();
         }
 
         public void Reset()
         {
-            ValueProvider.Reset();
+            valueProvider.Reset();
         }
     }
 }

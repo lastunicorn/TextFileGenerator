@@ -48,7 +48,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerS
         [Test]
         public void serialize_two_parameters_of_different_type()
         {
-            generatorOptions.Sections[0].Template = "template1";
+            generatorOptions.Sections[0].Template = new Template { Value = "template1" };
             generatorOptions.Sections[0].Parameters.Add(new Parameter
             {
                 Key = "key1",

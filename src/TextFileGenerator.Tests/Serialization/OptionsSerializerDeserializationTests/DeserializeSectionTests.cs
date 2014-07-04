@@ -106,7 +106,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerD
 
             GeneratorOptions options = PerformTest(xml);
 
-            Assert.That(options.Sections[0].Template, Is.EqualTo("template1"));
+            Assert.That(options.Sections[0].Template.Value, Is.EqualTo("template1"));
         }
 
         [Test]
@@ -123,7 +123,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerD
 
             GeneratorOptions options = PerformTest(xml);
 
-            Assert.That(options.Sections[0].Template, Is.EqualTo("\r\n"));
+            Assert.That(options.Sections[0].Template.Value, Is.EqualTo("\r\n"));
         }
 
         [Test]

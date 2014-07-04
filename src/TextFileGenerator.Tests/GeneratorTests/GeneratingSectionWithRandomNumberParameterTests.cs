@@ -13,9 +13,9 @@ namespace DustInTheWind.TextFileGenerator.Tests.GeneratorTests
             GeneratorOptions options = new GeneratorOptions();
             options.Sections.Add(new Section
             {
-                Template = "test {param1}"
+                Template = new Template { Value = "test {param1}" }
             });
-            options.Sections[0].Parameters.AddRange(new []
+            options.Sections[0].Parameters.AddRange(new[]
             {
                 new Parameter
                 {
@@ -29,7 +29,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.GeneratorTests
             Assert.That(actual, Contains.Substring("test "));
         }
 
-        private  string PerformTest(GeneratorOptions options)
+        private string PerformTest(GeneratorOptions options)
         {
             Generator generator = new Generator(options);
 

@@ -16,13 +16,11 @@ namespace DustInTheWind.TextFileGenerator.ConsoleApplication
 
             Console.WriteLine("Reading options...");
 
-            stopwatch.Start();
             using (Stream inputStream = File.OpenRead("TextFileGenerator.xml"))
             {
                 OptionsSerializer serializer = new OptionsSerializer();
                 options = serializer.Deserialize(inputStream);
             }
-            stopwatch.Stop();
 
             Console.WriteLine("Read options: " + stopwatch.Elapsed);
 

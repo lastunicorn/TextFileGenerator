@@ -20,7 +20,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.GeneratorTests
         {
             options.Sections.Add(new Section
             {
-                Template = "test"
+                Template = new Template { Value = "test" }
             });
 
             string actual = PerformTest();
@@ -33,7 +33,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.GeneratorTests
         {
             options.Sections.Add(new Section
             {
-                Template = "test",
+                Template = new Template { Value = "test" },
                 RepeatCount = 2
             });
 
@@ -47,7 +47,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.GeneratorTests
         {
             options.Sections.Add(new Section
             {
-                Template = "test",
+                Template = new Template { Value = "test" },
                 RepeatCount = 2,
                 Separator = ";"
             });
@@ -62,7 +62,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.GeneratorTests
         {
             options.Sections.Add(new Section
             {
-                Template = "test",
+                Template = new Template { Value = "test" },
                 RepeatCount = 2,
                 Separator = ";",
                 SeparatorType = SeparatorType.Postfix
@@ -78,7 +78,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.GeneratorTests
         {
             options.Sections.Add(new Section
             {
-                Template = "test",
+                Template = new Template { Value = "test" },
                 RepeatCount = 2,
                 Separator = ";",
                 SeparatorType = SeparatorType.Prefix
@@ -94,11 +94,11 @@ namespace DustInTheWind.TextFileGenerator.Tests.GeneratorTests
         {
             options.Sections.Add(new Section
             {
-                Template = "section1"
+                Template = new Template { Value = "section1" }
             });
             options.Sections.Add(new Section
             {
-                Template = "section2"
+                Template = new Template { Value = "section2" }
             });
 
             string actual = PerformTest();

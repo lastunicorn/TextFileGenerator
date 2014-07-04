@@ -22,7 +22,7 @@ namespace DustInTheWind.TextFileGenerator.Serialization.EntityTranslators
             {
                 destinationSection.Items = new object[]
                 {
-                    sourceSection.Template
+                    sourceSection.Template.Value
                 };
             }
             else if (sourceSection.Sections.Count > 0)
@@ -92,7 +92,10 @@ namespace DustInTheWind.TextFileGenerator.Serialization.EntityTranslators
                     Type itemType = item.GetType();
 
                     if (itemType == typeof(string))
-                        destinationSection.Template = (string)item;
+                        destinationSection.Template = new Template
+                        {
+                            Value = (string)item
+                        };
 
                     if (itemType == typeof(section))
                     {

@@ -1,5 +1,5 @@
-update the generator to generate child sections.
-create deserializer that reads xml generator configuration files.
+bug: section's parameters are not available to subsubsections.
+create command line app.
 create ui where the user can create sections (without parameters).
 change ui to allow user to create parameters.
 expose an api to be used programatically.

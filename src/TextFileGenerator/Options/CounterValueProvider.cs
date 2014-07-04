@@ -31,7 +31,7 @@ namespace DustInTheWind.TextFileGenerator.Options
             isFirst = true;
         }
 
-        public string GetNextValue()
+        public string MoveToNextValue()
         {
             GenerateNextValue();
 
@@ -50,9 +50,9 @@ namespace DustInTheWind.TextFileGenerator.Options
                 : currentValue.ToString(CultureInfo.CurrentCulture);
         }
 
-        public string GetCurrentValue()
+        public string CurrentValue
         {
-            return currentValueAsString;
+            get { return currentValueAsString; }
         }
 
         public void Reset()

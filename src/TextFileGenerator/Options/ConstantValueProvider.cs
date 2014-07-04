@@ -10,14 +10,14 @@
             set { this.value = value; }
         }
 
-        public string GetNextValue()
+        public string MoveToNextValue()
         {
             return value;
         }
 
-        public string GetCurrentValue()
+        public string CurrentValue
         {
-            return value;
+            get { return value; }
         }
 
         public void Reset()
