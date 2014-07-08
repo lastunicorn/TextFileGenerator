@@ -16,7 +16,7 @@
 
 using System;
 
-namespace DustInTheWind.TextFileGenerator.ConsoleApplication
+namespace DustInTheWind.TextFileGenerator.ConsoleApplication.Flows
 {
     class MainView
     {
@@ -54,47 +54,6 @@ namespace DustInTheWind.TextFileGenerator.ConsoleApplication
             Console.WriteLine(text);
 
             Console.ForegroundColor = oldColor;
-        }
-
-        private void ConsoleWrite(string text, ConsoleColor color)
-        {
-            ConsoleColor oldColor = Console.ForegroundColor;
-
-            Console.ForegroundColor = color;
-            Console.Write(text);
-
-            Console.ForegroundColor = oldColor;
-        }
-
-        public void DisplayOptionFileReading(string optionsFileName)
-        {
-            Console.Write("Reading options from ");
-            ConsoleWrite(optionsFileName, ConsoleColor.Green);
-            Console.Write("... ");
-        }
-
-        public void DisplayOptionFileReadingDone()
-        {
-            Console.WriteLine("Done!");
-        }
-
-        public void DisplayOutputFileGenerating(string outputFileName)
-        {
-            Console.Write("Generating file ");
-            ConsoleWrite(outputFileName, ConsoleColor.Green);
-            Console.Write("... ");
-        }
-
-        public void DisplayOutputFileGenerateDone()
-        {
-            Console.WriteLine("Done!");
-        }
-
-        public void DisplayElapsedTime(TimeSpan elapsed)
-        {
-            Console.WriteLine();
-            Console.Write("Elapsed time: ");
-            ConsoleWriteLine(elapsed.ToString(), ConsoleColor.Green);
         }
     }
 }

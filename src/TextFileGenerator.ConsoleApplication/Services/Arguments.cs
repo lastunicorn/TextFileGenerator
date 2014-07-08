@@ -14,14 +14,25 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace DustInTheWind.TextFileGenerator.ConsoleApplication
+using System;
+
+namespace DustInTheWind.TextFileGenerator.ConsoleApplication.Services
 {
-    class Program
+    class Arguments
     {
-        static void Main(string[] args)
+        private readonly string[] args;
+
+        public Arguments(string[] args)
         {
-            Bootstrapper bootstrapper = new Bootstrapper();
-            bootstrapper.Run(args);
+            if (args == null)
+                throw new ArgumentNullException("args");
+
+            this.args = args;
+        }
+
+        public string OptionsFileName
+        {
+            get { return args.Length > 0 ? args[0] : null; }
         }
     }
 }

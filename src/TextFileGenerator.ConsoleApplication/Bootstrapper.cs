@@ -14,14 +14,37 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using DustInTheWind.TextFileGenerator.ConsoleApplication.Flows;
+using DustInTheWind.TextFileGenerator.ConsoleApplication.Services;
+
 namespace DustInTheWind.TextFileGenerator.ConsoleApplication
 {
-    class Program
+    class Bootstrapper
     {
-        static void Main(string[] args)
+        private Arguments arguments;
+        private MainFlow mainFlow;
+
+        public void Run(string[] args)
         {
-            Bootstrapper bootstrapper = new Bootstrapper();
-            bootstrapper.Run(args);
+            CreateArgumentsService(args);
+            CreateUi();
+            StartUi();
+        }
+
+        private void CreateArgumentsService(string[] args)
+        {
+            arguments = new Arguments(args);
+        }
+
+        private void CreateUi()
+        {
+            MainView view = new MainView();
+            mainFlow = new MainFlow(view, arguments);
+        }
+
+        private void StartUi()
+        {
+            mainFlow.Start();
         }
     }
 }

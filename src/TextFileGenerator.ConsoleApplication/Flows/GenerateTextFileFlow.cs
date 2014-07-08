@@ -17,58 +17,33 @@
 using System;
 using System.Diagnostics;
 using System.IO;
+using DustInTheWind.TextFileGenerator.ConsoleApplication.Services;
 using DustInTheWind.TextFileGenerator.Options;
 using DustInTheWind.TextFileGenerator.Serialization;
 
-namespace DustInTheWind.TextFileGenerator.ConsoleApplication
+namespace DustInTheWind.TextFileGenerator.ConsoleApplication.Flows
 {
-    class MainPresenter
+    class GenerateTextFileFlow
     {
-        private readonly MainView view;
+        private readonly GenerateTextFileView view;
+        private readonly Arguments arguments;
 
-        public MainPresenter(MainView view)
+        public GenerateTextFileFlow(GenerateTextFileView view, Arguments arguments)
         {
-            if (view == null) throw new ArgumentNullException("view");
+            if (view == null)
+                throw new ArgumentNullException("view");
+
+            if (arguments == null)
+                throw new ArgumentNullException("arguments");
+
             this.view = view;
+            this.arguments = arguments;
         }
 
-        public void Start(String[] args)
+        public void Start()
         {
-            view.WriteHeader();
-
-            try
-            {
-                ValidateArguments(args);
-
-                string optionsFileName = args[0];
-                GeneratorOptions options = ReadOptionsFile(optionsFileName);
-
-                string outputFileName = GenerateOutputFileName(optionsFileName);
-                GenerateFile(outputFileName, options);
-            }
-            catch (Exception ex)
-            {
-                view.DisplayError(ex);
-            }
-
-            view.Pause();
-        }
-
-        private void ValidateArguments(string[] args)
-        {
-            if (args.Length == 0)
-            {
-                view.WriteUsageHelp();
-                throw new Exception("Insufficient arguments.");
-            }
-        }
-
-        private static string GenerateOutputFileName(string optionsFileName)
-        {
-            string directoryPath = Path.GetDirectoryName(optionsFileName);
-            string outputFileName = Path.GetFileNameWithoutExtension(optionsFileName) + ".output.txt";
-
-            return Path.Combine(directoryPath, outputFileName);
+            GeneratorOptions options = ReadOptionsFile(arguments.OptionsFileName);
+            GenerateTextFile(options);
         }
 
         private GeneratorOptions ReadOptionsFile(string optionsFileName)
@@ -88,8 +63,10 @@ namespace DustInTheWind.TextFileGenerator.ConsoleApplication
             return options;
         }
 
-        private void GenerateFile(string outputFileName, GeneratorOptions options)
+        private void GenerateTextFile(GeneratorOptions options)
         {
+            string outputFileName = GenerateOutputFileName(arguments.OptionsFileName);
+
             Stopwatch stopwatch = new Stopwatch();
 
             view.DisplayOutputFileGenerating(outputFileName);
@@ -106,6 +83,14 @@ namespace DustInTheWind.TextFileGenerator.ConsoleApplication
             view.DisplayOutputFileGenerateDone();
 
             view.DisplayElapsedTime(stopwatch.Elapsed);
+        }
+
+        private static string GenerateOutputFileName(string optionsFileName)
+        {
+            string directoryPath = Path.GetDirectoryName(optionsFileName);
+            string outputFileName = Path.GetFileNameWithoutExtension(optionsFileName) + ".output.txt";
+
+            return Path.Combine(directoryPath, outputFileName);
         }
     }
 }

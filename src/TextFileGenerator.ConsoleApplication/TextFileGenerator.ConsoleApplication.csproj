@@ -41,8 +41,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MainPresenter.cs" />
-    <Compile Include="MainView.cs" />
+    <Compile Include="Services\Arguments.cs" />
+    <Compile Include="Bootstrapper.cs" />
+    <Compile Include="Flows\GenerateTextFileFlow.cs" />
+    <Compile Include="Flows\GenerateTextFileView.cs" />
+    <Compile Include="Flows\MainFlow.cs" />
+    <Compile Include="Flows\MainView.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
