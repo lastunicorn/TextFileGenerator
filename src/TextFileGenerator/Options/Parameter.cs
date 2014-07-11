@@ -15,6 +15,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using DustInTheWind.TextFileGenerator.Options.ValueProviders;
 
 namespace DustInTheWind.TextFileGenerator.Options
 {

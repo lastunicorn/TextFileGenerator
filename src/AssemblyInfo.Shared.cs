@@ -14,22 +14,17 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace DustInTheWind.TextFileGenerator.Options
-{
-    public class EmptyValueProvider : IValueProvider
-    {
-        public string MoveToNextValue()
-        {
-            return string.Empty;
-        }
+using System.Reflection;
 
-        public string CurrentValue
-        {
-            get { return string.Empty; }
-        }
-
-        public void Reset()
-        {
-        }
-    }
-}
+// Version information for an assembly consists of the following four values:
+//
+//      Major Version
+//      Minor Version 
+//      Build Number
+//      Revision
+//
+// You can specify all the values or you can default the Build and Revision Numbers 
+// by using the '*' as shown below:
+// [assembly: AssemblyVersion("1.0.*")]
+[assembly: AssemblyVersion("1.0.0.*")]
+//[assembly: AssemblyFileVersion("1.0.0.0")]

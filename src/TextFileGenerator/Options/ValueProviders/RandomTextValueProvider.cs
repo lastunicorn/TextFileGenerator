@@ -1,4 +1,4 @@
-﻿// TextFileGenerator
+// TextFileGenerator
 // Copyright (C) 2009-2011 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -15,27 +15,28 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using System.Globalization;
 
-namespace DustInTheWind.TextFileGenerator.Options
+namespace DustInTheWind.TextFileGenerator.Options.ValueProviders
 {
-    public class RandomNumberValueProvider : IValueProvider
+    public class RandomTextValueProvider : IValueProvider
     {
         private readonly Random random;
         private string currentValue;
 
-        public int MinValue { get; set; }
+        public int MinLength { get; set; }
 
-        public int MaxValue { get; set; }
+        public int MaxLength { get; set; }
 
-        public string Format { get; set; }
+        public string AvailableChars { get; set; }
 
-        public RandomNumberValueProvider()
+        public RandomTextValueProvider()
         {
             random = new Random();
 
-            MinValue = 1;
-            MaxValue = 100;
+            MinLength = 1;
+            MaxLength = 100;
+
+            AvailableChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
 
             currentValue = string.Empty;
         }
@@ -46,15 +47,6 @@ namespace DustInTheWind.TextFileGenerator.Options
             return currentValue;
         }
 
-        private void GenerateNextValue()
-        {
-            int value = random.Next(MinValue, MaxValue + 1);
-
-            currentValue = Format != null
-                ? value.ToString(Format, CultureInfo.CurrentCulture)
-                : value.ToString(CultureInfo.CurrentCulture);
-        }
-
         public string CurrentValue
         {
             get { return currentValue; }
@@ -63,6 +55,27 @@ namespace DustInTheWind.TextFileGenerator.Options
         public void Reset()
         {
             currentValue = string.Empty;
+        }
+
+        private void GenerateNextValue()
+        {
+            int length = random.Next(MinLength, MaxLength + 1);
+            char[] randomChars = GenerateRandomChars(length);
+
+            currentValue = new string(randomChars);
+        }
+
+        private char[] GenerateRandomChars(int length)
+        {
+            char[] randomChars = new char[length];
+
+            for (int i = 0; i < length; i++)
+            {
+                int charIndex = random.Next(AvailableChars.Length);
+                randomChars[i] = AvailableChars[charIndex];
+            }
+
+            return randomChars;
         }
     }
 }

@@ -40,16 +40,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\AssemblyInfo.Shared.cs">
+      <Link>Properties\AssemblyInfo.Shared.cs</Link>
+    </Compile>
     <Compile Include="Generator.cs" />
     <Compile Include="Options\GeneratorOptions.cs" />
     <Compile Include="Options\ListSerializer.cs" />
-    <Compile Include="Options\ConstantValueProvider.cs" />
-    <Compile Include="Options\CounterValueProvider.cs" />
-    <Compile Include="Options\EmptyValueProvider.cs" />
-    <Compile Include="Options\IValueProvider.cs" />
+    <Compile Include="Options\ValueProviders\ConstantValueProvider.cs" />
+    <Compile Include="Options\ValueProviders\CounterValueProvider.cs" />
+    <Compile Include="Options\ValueProviders\EmptyValueProvider.cs" />
+    <Compile Include="Options\ValueProviders\IValueProvider.cs" />
     <Compile Include="Options\Parameter.cs" />
-    <Compile Include="Options\RandomNumberValueProvider.cs" />
-    <Compile Include="Options\RandomTextValueProvider.cs" />
+    <Compile Include="Options\ValueProviders\RandomNumberValueProvider.cs" />
+    <Compile Include="Options\ValueProviders\RandomTextValueProvider.cs" />
     <Compile Include="Options\SectionParameterList.cs" />
     <Compile Include="Options\Template.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

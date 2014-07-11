@@ -16,7 +16,7 @@
 
 using System.Globalization;
 
-namespace DustInTheWind.TextFileGenerator.Options
+namespace DustInTheWind.TextFileGenerator.Options.ValueProviders
 {
     public class CounterValueProvider : IValueProvider
     {
