@@ -1,4 +1,7 @@
 TextFileGenerator
 =================
 
-It is a small tool that generates text files containing repetitive sections.
+it is a small tool that generates text files containing repetitive sections.
+
+from time to time, i need huge text files (csv, xml, etc.) to test the performance of applications that i create. i used to make small tools to generate those files.
+instead of doing every time a specific tool, recently, i decided to make a configurable tool so that i'll be able to generate those files more easily when i need them. this is that tool. :)
