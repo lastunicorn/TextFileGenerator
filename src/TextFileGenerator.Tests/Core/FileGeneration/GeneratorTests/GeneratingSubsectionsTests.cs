@@ -4,7 +4,7 @@ using DustInTheWind.TextFileGenerator.FileDescription.ValueProviders;
 using DustInTheWind.TextFileGenerator.FileGeneration;
 using NUnit.Framework;
 
-namespace DustInTheWind.TextFileGenerator.Tests.GeneratorTests
+namespace DustInTheWind.TextFileGenerator.Tests.Core.FileGeneration.GeneratorTests
 {
     [TestFixture]
     public class GeneratingSubsectionsTests

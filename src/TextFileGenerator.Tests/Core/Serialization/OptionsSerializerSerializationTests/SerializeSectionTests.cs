@@ -21,7 +21,7 @@ using DustInTheWind.TextFileGenerator.Serialization;
 using DustInTheWind.TextFileGenerator.Tests.TestingTools;
 using NUnit.Framework;
 
-namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerSerializationTests
+namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerializerSerializationTests
 {
     [TestFixture]
     public class SerializeSectionTests

@@ -20,22 +20,19 @@ using DustInTheWind.TextFileGenerator.Serialization;
 using DustInTheWind.TextFileGenerator.Tests.TestingTools;
 using NUnit.Framework;
 
-namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerSerializationTests
+namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerializerSerializationTests
 {
     [TestFixture]
-    public class SerializeSectionsTests
+    public class SerializeRootTests
     {
         private FileDescriptorSerializer fileDescriptorSerializer;
         private MemoryStream actualStream;
-        private FileDescriptor fileDescriptor;
 
         [SetUp]
         public void SetUp()
         {
             fileDescriptorSerializer = new FileDescriptorSerializer();
             actualStream = new MemoryStream();
-
-            fileDescriptor = new FileDescriptor();
         }
 
         [TearDown]
@@ -46,35 +43,16 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerS
         }
 
         [Test]
-        public void sections_element_is_not_created_if_it_contains_no_section()
+        public void root_element_textFileGenerator_is_created_in_correct_namespace()
         {
-            XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
+            FileDescriptor fileDescriptor = new FileDescriptor();
 
-            xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections", 0);
+            XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult(fileDescriptor);
+
+            xmlAsserter.AssertNodeCount("/alez:textFileGenerator", 1);
         }
 
-        [Test]
-        public void sections_element_contains_one_child_if_one_section_is_declared()
-        {
-            fileDescriptor.Sections.Add(new Section());
-
-            XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
-
-            xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section", 1);
-        }
-
-        [Test]
-        public void sections_element_contains_two_children_if_two_sections_are_declared()
-        {
-            fileDescriptor.Sections.Add(new Section());
-            fileDescriptor.Sections.Add(new Section());
-
-            XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
-
-            xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section", 2);
-        }
-
-        private XmlAsserter PerformTestAndCreateAsserterOnResult()
+        private XmlAsserter PerformTestAndCreateAsserterOnResult(FileDescriptor fileDescriptor)
         {
             fileDescriptorSerializer.Serialize(actualStream, fileDescriptor);
 

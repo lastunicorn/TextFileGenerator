@@ -17,7 +17,7 @@
 using DustInTheWind.TextFileGenerator.FileDescription.ValueProviders;
 using NUnit.Framework;
 
-namespace DustInTheWind.TextFileGenerator.Tests.Parameters
+namespace DustInTheWind.TextFileGenerator.Tests.Core.FileDescription.ValueProviders
 {
     [TestFixture]
     public class CounterValueProviderTests

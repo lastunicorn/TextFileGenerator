@@ -21,10 +21,10 @@ using DustInTheWind.TextFileGenerator.FileDescription.ValueProviders;
 using DustInTheWind.TextFileGenerator.Serialization;
 using NUnit.Framework;
 
-namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerDeserializationTests
+namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerializerDeserializationTests
 {
     [TestFixture]
-    public class DeserializeParameterCounterTests
+    public class DeserializeParameterTests
     {
         private FileDescriptorSerializer fileDescriptorSerializer;
 
@@ -32,6 +32,66 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerD
         public void SetUp()
         {
             fileDescriptorSerializer = new FileDescriptorSerializer();
+        }
+
+        [Test]
+        public void deserialized_section_contains_one_parameter_if_one_parameter_is_declared_in_xml()
+        {
+            const string xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
+<textFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
+    <sections>
+        <section name=""root"">
+            <text/>
+            <parameter name=""key1"">
+                <constant value=""value1""/>
+            </parameter>
+        </section>
+    </sections>
+</textFileGenerator>";
+
+            FileDescriptor options = PerformTest(xml);
+
+            Assert.That(options.Sections[0].Parameters.Count, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void deserialized_parameter_contains_the_key()
+        {
+            const string xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
+<textFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
+    <sections>
+        <section name=""root"">
+            <text/>
+            <parameter name=""key1"">
+                <constant value=""value1""/>
+            </parameter>
+        </section>
+    </sections>
+</textFileGenerator>";
+
+            FileDescriptor options = PerformTest(xml);
+
+            Assert.That(options.Sections[0].Parameters[0].Name, Is.EqualTo("key1"));
+        }
+
+        [Test]
+        public void deserialized_parameter_contains_ConstantValueProvider()
+        {
+            const string xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
+<textFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
+    <sections>
+        <section name=""root"">
+            <text/>
+            <parameter name=""key1"">
+                <constant value=""value1""/>
+            </parameter>
+        </section>
+    </sections>
+</textFileGenerator>";
+
+            FileDescriptor options = PerformTest(xml);
+
+            Assert.That(options.Sections[0].Parameters[0].ValueProvider, Is.TypeOf<ConstantValueProvider>());
         }
 
         [Test]
@@ -55,15 +115,18 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerD
         }
 
         [Test]
-        public void deserialized_CounterValueProvider_contains_the_format_declared_in_xml()
+        public void section_contains_two_parameters_of_different_types()
         {
             const string xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
-<textFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
+<textFileGenerator xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"" xmlns=""http://alez.ro/TextFileGenerator"">
     <sections>
-        <section name=""root"">
+        <section>
             <text/>
             <parameter name=""key1"">
-                <counter format=""0000""/>
+                <constant />
+            </parameter>
+            <parameter name=""key2"">
+                <counter />
             </parameter>
         </section>
     </sections>
@@ -71,50 +134,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerD
 
             FileDescriptor options = PerformTest(xml);
 
-            CounterValueProvider valueProvider = (CounterValueProvider)options.Sections[0].Parameters[0].ValueProvider;
-            Assert.That(valueProvider.Format, Is.EqualTo("0000"));
-        }
-
-        [Test]
-        public void deserialized_CounterValueProvider_contains_the_startValue_declared_in_xml()
-        {
-            const string xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
-<textFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
-    <sections>
-        <section name=""root"">
-            <text/>
-            <parameter name=""key1"">
-                <counter startValue=""7""/>
-            </parameter>
-        </section>
-    </sections>
-</textFileGenerator>";
-
-            FileDescriptor options = PerformTest(xml);
-
-            CounterValueProvider valueProvider = (CounterValueProvider)options.Sections[0].Parameters[0].ValueProvider;
-            Assert.That(valueProvider.StartValue, Is.EqualTo(7));
-        }
-
-        [Test]
-        public void deserialized_CounterValueProvider_contains_the_step_declared_in_xml()
-        {
-            const string xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
-<textFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
-    <sections>
-        <section name=""root"">
-            <text/>
-            <parameter name=""key1"">
-                <counter step=""9""/>
-            </parameter>
-        </section>
-    </sections>
-</textFileGenerator>";
-
-            FileDescriptor options = PerformTest(xml);
-
-            CounterValueProvider valueProvider = (CounterValueProvider)options.Sections[0].Parameters[0].ValueProvider;
-            Assert.That(valueProvider.Step, Is.EqualTo(9));
+            Assert.That(options.Sections[0].Parameters.Count, Is.EqualTo(2));
         }
 
         private FileDescriptor PerformTest(string xml)

@@ -20,10 +20,10 @@ using DustInTheWind.TextFileGenerator.FileDescription.ValueProviders;
 using DustInTheWind.TextFileGenerator.FileGeneration;
 using NUnit.Framework;
 
-namespace DustInTheWind.TextFileGenerator.Tests.GeneratorTests
+namespace DustInTheWind.TextFileGenerator.Tests.Core.FileGeneration.GeneratorTests
 {
     [TestFixture]
-    public class GeneratingSectionWithRandomTextParameterTests
+    public class GeneratingSectionWithRandomNumberParameterTests
     {
         [Test]
         public void test()
@@ -37,19 +37,17 @@ namespace DustInTheWind.TextFileGenerator.Tests.GeneratorTests
             {
                 new Parameter
                 {
-                    Name ="param1",
-                    ValueProvider = new RandomTextValueProvider { MinLength = 10, MaxLength = 100 }
+                    Name = "param1", 
+                    ValueProvider = new RandomNumberValueProvider { Format = "000", MinValue = 10, MaxValue = 100 }
                 }
             });
 
             string actual = PerformTest(options);
 
             Assert.That(actual, Contains.Substring("test "));
-            Assert.That(actual.Length, Is.GreaterThanOrEqualTo(15));
-            Assert.That(actual.Length, Is.LessThanOrEqualTo(105));
         }
 
-        private static string PerformTest(FileDescriptor options)
+        private string PerformTest(FileDescriptor options)
         {
             Generator generator = new Generator(options);
 

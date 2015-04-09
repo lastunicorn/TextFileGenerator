@@ -21,10 +21,10 @@ using DustInTheWind.TextFileGenerator.Serialization;
 using DustInTheWind.TextFileGenerator.Tests.TestingTools;
 using NUnit.Framework;
 
-namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerSerializationTests
+namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerializerSerializationTests
 {
     [TestFixture]
-    public class SerializeParameterRandomNumberTests
+    public class SerializeParameterCounterTests
     {
         private FileDescriptorSerializer fileDescriptorSerializer;
         private MemoryStream actualStream;
@@ -48,132 +48,133 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerS
         }
 
         [Test]
-        public void parameter_element_contains_randomNumber_element_if_Parameter_has_a_RandomNumberValueProvider()
+        public void parameter_element_contains_counter_element_if_Parameter_has_a_CounterValueProvider()
         {
             fileDescriptor.Sections[0].Parameters.Add(new Parameter
             {
                 Name = "key1",
-                ValueProvider = new RandomNumberValueProvider()
+                ValueProvider = new CounterValueProvider()
             });
 
             XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
-            xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section/alez:parameter/alez:randomNumber", 1);
+            xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section/alez:parameter/alez:counter", 1);
         }
 
         [Test]
-        public void randomNumber_element_contains_format_attribute_if_Format_was_set()
+        public void constant_element_contans_format_attribute_if_Format_was_set()
         {
             fileDescriptor.Sections[0].Parameters.Add(new Parameter
             {
                 Name = "key1",
-                ValueProvider = new RandomNumberValueProvider { Format = "###" }
+                ValueProvider = new CounterValueProvider { Format = "###" }
             });
 
             XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
-            xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section/alez:parameter/alez:randomNumber/@format", 1);
-            xmlAsserter.AssertText("/alez:textFileGenerator/alez:sections/alez:section/alez:parameter/alez:randomNumber/@format", "###");
+            xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section/alez:parameter/alez:counter/@format", 1);
+            xmlAsserter.AssertText("/alez:textFileGenerator/alez:sections/alez:section/alez:parameter/alez:counter/@format", "###");
         }
 
         [Test]
-        public void randomNumber_element_does_not_contain_format_attribute_if_Format_was_not_set()
+        public void constant_element_does_not_contan_format_attribute_if_Format_was_not_set()
         {
             fileDescriptor.Sections[0].Parameters.Add(new Parameter
             {
                 Name = "key1",
-                ValueProvider = new RandomNumberValueProvider()
+                ValueProvider = new CounterValueProvider()
             });
 
             XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
-            xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section/alez:parameter/alez:randomNumber/@format", 0);
+            xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section/alez:parameter/alez:counter/@format", 0);
         }
 
         [Test]
-        public void randomNumber_element_contains_minValue_attribute_if_MinValue_was_set()
+        public void constant_element_contans_startValue_attribute_if_StartValue_was_set()
         {
             fileDescriptor.Sections[0].Parameters.Add(new Parameter
             {
                 Name = "key1",
-                ValueProvider = new RandomNumberValueProvider { MinValue = 5 }
+                ValueProvider = new CounterValueProvider { StartValue = 10 }
             });
 
             XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
-            xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section/alez:parameter/alez:randomNumber/@minValue", 1);
-            xmlAsserter.AssertText("/alez:textFileGenerator/alez:sections/alez:section/alez:parameter/alez:randomNumber/@minValue", "5");
+            xmlAsserter.AddNamespace("alez", "http://alez.ro/TextFileGenerator");
+            xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section/alez:parameter/alez:counter/@startValue", 1);
+            xmlAsserter.AssertText("/alez:textFileGenerator/alez:sections/alez:section/alez:parameter/alez:counter/@startValue", "10");
         }
 
         [Test]
-        public void randomNumber_element_does_not_contain_minValue_attribute_if_MinValue_was_not_set()
+        public void constant_element_does_not_contan_startValue_attribute_if_StartValue_was_not_set()
         {
             fileDescriptor.Sections[0].Parameters.Add(new Parameter
             {
                 Name = "key1",
-                ValueProvider = new RandomNumberValueProvider()
+                ValueProvider = new CounterValueProvider()
             });
 
             XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
-            xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section/alez:parameter/alez:randomNumber/@minValue", 0);
+            xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section/alez:parameter/alez:counter/@startValue", 0);
         }
 
         [Test]
-        public void randomNumber_element_does_not_contain_minValue_attribute_if_MinValue_was_set_to_1()
+        public void constant_element_does_not_contan_startValue_attribute_if_StartValue_was_set_to_1()
         {
             fileDescriptor.Sections[0].Parameters.Add(new Parameter
             {
                 Name = "key1",
-                ValueProvider = new RandomNumberValueProvider { MinValue = 1 }
+                ValueProvider = new CounterValueProvider { StartValue = 1 }
             });
 
             XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
-            xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section/alez:parameter/alez:randomNumber/@minValue", 0);
+            xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section/alez:parameter/alez:counter/@startValue", 0);
         }
 
         [Test]
-        public void randomNumber_element_contains_maxValue_attribute_if_MaxValue_was_set()
+        public void constant_element_contans_step_attribute_if_Step_was_set()
         {
             fileDescriptor.Sections[0].Parameters.Add(new Parameter
             {
                 Name = "key1",
-                ValueProvider = new RandomNumberValueProvider { MaxValue = 3 }
+                ValueProvider = new CounterValueProvider { Step = 4 }
             });
 
             XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
-            xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section/alez:parameter/alez:randomNumber/@maxValue", 1);
-            xmlAsserter.AssertText("/alez:textFileGenerator/alez:sections/alez:section/alez:parameter/alez:randomNumber/@maxValue", "3");
+            xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section/alez:parameter/alez:counter/@step", 1);
+            xmlAsserter.AssertText("/alez:textFileGenerator/alez:sections/alez:section/alez:parameter/alez:counter/@step", "4");
         }
 
         [Test]
-        public void randomNumber_element_does_not_contain_maxValue_attribute_if_MaxValue_was_not_set()
+        public void constant_element_does_not_contan_step_attribute_if_Step_was_not_set()
         {
             fileDescriptor.Sections[0].Parameters.Add(new Parameter
             {
                 Name = "key1",
-                ValueProvider = new RandomNumberValueProvider()
+                ValueProvider = new CounterValueProvider()
             });
 
             XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
-            xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section/alez:parameter/alez:randomNumber/@maxValue", 0);
+            xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section/alez:parameter/alez:counter/@step", 0);
         }
 
         [Test]
-        public void randomNumber_element_does_not_contain_maxValue_attribute_if_MaxValue_was_set_to_100()
+        public void constant_element_does_not_contan_step_attribute_if_Step_was_set_to_1()
         {
             fileDescriptor.Sections[0].Parameters.Add(new Parameter
             {
                 Name = "key1",
-                ValueProvider = new RandomNumberValueProvider { MaxValue = 100 }
+                ValueProvider = new CounterValueProvider { Step = 1 }
             });
 
             XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
-            xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section/alez:parameter/alez:randomNumber/@maxValue", 0);
+            xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section/alez:parameter/alez:counter/@step", 0);
         }
 
         private XmlAsserter PerformTestAndCreateAsserterOnResult()

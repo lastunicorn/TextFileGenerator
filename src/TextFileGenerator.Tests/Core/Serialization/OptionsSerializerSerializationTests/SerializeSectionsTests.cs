@@ -16,15 +16,14 @@
 
 using System.IO;
 using DustInTheWind.TextFileGenerator.FileDescription;
-using DustInTheWind.TextFileGenerator.FileDescription.ValueProviders;
 using DustInTheWind.TextFileGenerator.Serialization;
 using DustInTheWind.TextFileGenerator.Tests.TestingTools;
 using NUnit.Framework;
 
-namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerSerializationTests
+namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerializerSerializationTests
 {
     [TestFixture]
-    public class SerializeParameterConstantTests
+    public class SerializeSectionsTests
     {
         private FileDescriptorSerializer fileDescriptorSerializer;
         private MemoryStream actualStream;
@@ -37,7 +36,6 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerS
             actualStream = new MemoryStream();
 
             fileDescriptor = new FileDescriptor();
-            fileDescriptor.Sections.Add(new Section());
         }
 
         [TearDown]
@@ -48,60 +46,32 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerS
         }
 
         [Test]
-        public void parameter_element_contains_constant_element_if_Parameter_has_a_ConstantValueProvider()
+        public void sections_element_is_not_created_if_it_contains_no_section()
         {
-            fileDescriptor.Sections[0].Parameters.Add(new Parameter
-            {
-                Name = "key1",
-                ValueProvider = new ConstantValueProvider()
-            });
-
             XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
-            xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section/alez:parameter/alez:constant", 1);
+            xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections", 0);
         }
 
         [Test]
-        public void constant_element_contains_value_attribute_if_Value_was_set()
+        public void sections_element_contains_one_child_if_one_section_is_declared()
         {
-            fileDescriptor.Sections[0].Parameters.Add(new Parameter
-            {
-                Name = "key1",
-                ValueProvider = new ConstantValueProvider { Value = "some text" }
-            });
+            fileDescriptor.Sections.Add(new Section());
 
             XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
-            xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section/alez:parameter/alez:constant/@value", 1);
-            xmlAsserter.AssertText("/alez:textFileGenerator/alez:sections/alez:section/alez:parameter/alez:constant/@value", "some text");
+            xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section", 1);
         }
 
         [Test]
-        public void constant_element_does_not_contain_value_attribute_if_Value_was_not_set()
+        public void sections_element_contains_two_children_if_two_sections_are_declared()
         {
-            fileDescriptor.Sections[0].Parameters.Add(new Parameter
-            {
-                Name = "key1",
-                ValueProvider = new ConstantValueProvider()
-            });
+            fileDescriptor.Sections.Add(new Section());
+            fileDescriptor.Sections.Add(new Section());
 
             XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
-            xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section/alez:parameter/alez:constant/@value", 0);
-        }
-
-        [Test]
-        public void constant_element_does_not_contain_value_attribute_if_Value_was_set_to_empty_string()
-        {
-            fileDescriptor.Sections[0].Parameters.Add(new Parameter
-            {
-                Name = "key1",
-                ValueProvider = new ConstantValueProvider { Value = string.Empty }
-            });
-
-            XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
-
-            xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section/alez:parameter/alez:constant/@value", 0);
+            xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section", 2);
         }
 
         private XmlAsserter PerformTestAndCreateAsserterOnResult()
