@@ -15,38 +15,24 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using DustInTheWind.TextFileGenerator.ConsoleApplication.Properties;
 
 namespace DustInTheWind.TextFileGenerator.ConsoleApplication.Flows
 {
-    class MainView
+    internal class ScaffoldView
     {
-        public void Pause()
+        public void DisplayOutputFileGenerateDone(string outputFileName)
         {
-            Console.WriteLine();
-            Console.Write("Press any key to continue...");
-
-            Console.ReadKey(false);
+            Console.Write(Resources.ScaffoldView_Success);
+            ConsoleWrite(outputFileName, ConsoleColor.Green);
         }
 
-        public void DisplayError(Exception ex)
-        {
-            Console.WriteLine();
-            ConsoleWriteLine(ex.ToString(), ConsoleColor.Red);
-        }
-
-        public void WriteHeader()
-        {
-            Console.WriteLine("TextFileGenerator v1.0");
-            Console.WriteLine("===============================================================================");
-            Console.WriteLine();
-        }
-
-        private void ConsoleWriteLine(string text, ConsoleColor color)
+        private static void ConsoleWrite(string text, ConsoleColor color)
         {
             ConsoleColor oldColor = Console.ForegroundColor;
 
             Console.ForegroundColor = color;
-            Console.WriteLine(text);
+            Console.Write(text);
 
             Console.ForegroundColor = oldColor;
         }

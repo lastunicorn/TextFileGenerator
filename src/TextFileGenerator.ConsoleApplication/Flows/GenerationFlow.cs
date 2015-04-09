@@ -17,40 +17,39 @@
 using System;
 using System.Diagnostics;
 using System.IO;
-using DustInTheWind.TextFileGenerator.ConsoleApplication.Services;
 using DustInTheWind.TextFileGenerator.FileDescription;
 using DustInTheWind.TextFileGenerator.FileGeneration;
 using DustInTheWind.TextFileGenerator.Serialization;
 
 namespace DustInTheWind.TextFileGenerator.ConsoleApplication.Flows
 {
-    class GenerateTextFileFlow
+    class GenerationFlow : IFlow
     {
-        private readonly GenerateTextFileView view;
-        private readonly Arguments arguments;
+        private readonly GenerationView view;
+        private readonly string descriptorFileName;
 
-        public GenerateTextFileFlow(GenerateTextFileView view, Arguments arguments)
+        public GenerationFlow(GenerationView view, string descriptorFileName)
         {
             if (view == null) throw new ArgumentNullException("view");
-            if (arguments == null) throw new ArgumentNullException("arguments");
+            if (descriptorFileName == null) throw new ArgumentNullException("descriptorFileName");
 
             this.view = view;
-            this.arguments = arguments;
+            this.descriptorFileName = descriptorFileName;
         }
 
         public void Start()
         {
-            FileDescriptor fileDescriptor = ReadDescriptorFile(arguments.OptionsFileName);
+            FileDescriptor fileDescriptor = ReadDescriptorFile();
             GenerateTextFile(fileDescriptor);
         }
 
-        private FileDescriptor ReadDescriptorFile(string fileName)
+        private FileDescriptor ReadDescriptorFile()
         {
             FileDescriptor fileDescriptor;
 
-            view.DisplayOptionFileReading(fileName);
+            view.DisplayOptionFileReading(descriptorFileName);
 
-            using (Stream inputStream = File.OpenRead(fileName))
+            using (Stream inputStream = File.OpenRead(descriptorFileName))
             {
                 FileDescriptorSerializer serializer = new FileDescriptorSerializer();
                 fileDescriptor = serializer.Deserialize(inputStream);
@@ -63,19 +62,26 @@ namespace DustInTheWind.TextFileGenerator.ConsoleApplication.Flows
 
         private void GenerateTextFile(FileDescriptor fileDescriptor)
         {
-            string outputFileName = GenerateOutputFileName(arguments.OptionsFileName);
+            string outputFileName = GenerateOutputFileName();
 
             Stopwatch stopwatch = new Stopwatch();
 
             view.DisplayOutputFileGenerating(outputFileName);
 
-            Generator generator = new Generator(fileDescriptor);
-
-            using (Stream outputStream = File.Create(outputFileName))
+            using (ConsoleSpinner consoleSpinner = new ConsoleSpinner())
             {
-                stopwatch.Start();
-                generator.Generate(outputStream);
-                stopwatch.Stop();
+                consoleSpinner.Start();
+
+                Generator generator = new Generator(fileDescriptor);
+
+                using (Stream outputStream = File.Create(outputFileName))
+                {
+                    stopwatch.Start();
+                    generator.Generate(outputStream);
+                    stopwatch.Stop();
+                }
+
+                consoleSpinner.Stop();
             }
 
             view.DisplayOutputFileGenerateDone();
@@ -83,10 +89,10 @@ namespace DustInTheWind.TextFileGenerator.ConsoleApplication.Flows
             view.DisplayElapsedTime(stopwatch.Elapsed);
         }
 
-        private static string GenerateOutputFileName(string optionsFileName)
+        private string GenerateOutputFileName()
         {
-            string directoryPath = Path.GetDirectoryName(optionsFileName);
-            string outputFileName = Path.GetFileNameWithoutExtension(optionsFileName) + ".output.txt";
+            string directoryPath = Path.GetDirectoryName(descriptorFileName);
+            string outputFileName = Path.GetFileNameWithoutExtension(descriptorFileName) + ".output.txt";
 
             return Path.Combine(directoryPath, outputFileName);
         }

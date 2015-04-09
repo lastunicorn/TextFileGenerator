@@ -100,7 +100,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.FileDescription.ValueProvid
         }
 
         [Test]
-        public void returns_formated_value_if_Format_is_set()
+        public void returns_001_as_first_value_if_Format_is_set_to_000()
         {
             counterParameter.Format = "000";
             string firstValue = counterParameter.MoveToNextValue();

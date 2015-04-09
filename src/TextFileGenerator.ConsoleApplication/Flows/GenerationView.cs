@@ -18,14 +18,9 @@ using System;
 
 namespace DustInTheWind.TextFileGenerator.ConsoleApplication.Flows
 {
-    class GenerateTextFileView
+    class GenerationView
     {
-        public void WriteUsageHelp()
-        {
-            Console.WriteLine("Usage: TextFileGenerator.exe <optionsFileName>");
-        }
-
-        private void ConsoleWriteLine(string text, ConsoleColor color)
+        private static void ConsoleWriteLine(string text, ConsoleColor color)
         {
             ConsoleColor oldColor = Console.ForegroundColor;
 
@@ -35,7 +30,7 @@ namespace DustInTheWind.TextFileGenerator.ConsoleApplication.Flows
             Console.ForegroundColor = oldColor;
         }
 
-        private void ConsoleWrite(string text, ConsoleColor color)
+        private static void ConsoleWrite(string text, ConsoleColor color)
         {
             ConsoleColor oldColor = Console.ForegroundColor;
 

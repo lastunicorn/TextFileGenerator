@@ -39,10 +39,23 @@
     <Compile Include="..\AssemblyInfo.Shared.cs">
       <Link>Properties\AssemblyInfo.Shared.cs</Link>
     </Compile>
+    <Compile Include="Flows\ConsoleSpinner.cs" />
+    <Compile Include="Flows\DisplayUsageFlow.cs" />
+    <Compile Include="Flows\DisplayUsageView.cs" />
+    <Compile Include="Flows\ScaffoldFlow.cs" />
+    <Compile Include="Flows\IFlow.cs" />
+    <Compile Include="Flows\ScaffoldView.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Services\Argument.cs" />
+    <Compile Include="Services\ArgumentParser.cs" />
     <Compile Include="Services\Arguments.cs" />
     <Compile Include="Bootstrapper.cs" />
-    <Compile Include="Flows\GenerateTextFileFlow.cs" />
-    <Compile Include="Flows\GenerateTextFileView.cs" />
+    <Compile Include="Flows\GenerationFlow.cs" />
+    <Compile Include="Flows\GenerationView.cs" />
     <Compile Include="Flows\MainFlow.cs" />
     <Compile Include="Flows\MainView.cs" />
     <Compile Include="Program.cs" />
@@ -56,6 +69,13 @@
       <Project>{943ad7a9-3ae1-47fe-92c5-b542d3a9d732}</Project>
       <Name>TextFileGenerator</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Scaffold.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

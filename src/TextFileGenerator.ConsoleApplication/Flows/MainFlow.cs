@@ -42,30 +42,24 @@ namespace DustInTheWind.TextFileGenerator.ConsoleApplication.Flows
 
             try
             {
-                if (arguments.OptionsFileName != null)
-                    StartGenerateFlow();
-                else
-                    DisplayUsage();
+                IFlow flow = ChooseFlow();
+                flow.Start();
             }
             catch (Exception ex)
             {
                 view.DisplayError(ex);
             }
-
-            view.Pause();
         }
 
-        private void StartGenerateFlow()
+        private IFlow ChooseFlow()
         {
-            GenerateTextFileView generateTextFileView = new GenerateTextFileView();
-            GenerateTextFileFlow generateTextFileFlow = new GenerateTextFileFlow(generateTextFileView, arguments);
+            if (arguments.DescriptorFileName != null)
+                return new GenerationFlow(new GenerationView(), arguments.DescriptorFileName);
 
-            generateTextFileFlow.Start();
-        }
+            if (arguments.GenerateScaffold)
+                return new ScaffoldFlow(new ScaffoldView());
 
-        private void DisplayUsage()
-        {
-            view.WriteUsageHelp();
+            return new DisplayUsageFlow(new DisplayUsageView());
         }
     }
 }
