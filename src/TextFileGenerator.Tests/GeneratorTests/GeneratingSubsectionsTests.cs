@@ -1,6 +1,6 @@
 ﻿using System.IO;
-using DustInTheWind.TextFileGenerator.Options;
-using DustInTheWind.TextFileGenerator.Options.ValueProviders;
+using DustInTheWind.TextFileGenerator.FileDescription;
+using DustInTheWind.TextFileGenerator.FileDescription.ValueProviders;
 using NUnit.Framework;
 
 namespace DustInTheWind.TextFileGenerator.Tests.GeneratorTests
@@ -8,12 +8,12 @@ namespace DustInTheWind.TextFileGenerator.Tests.GeneratorTests
     [TestFixture]
     public class GeneratingSubsectionsTests
     {
-        private GeneratorOptions options;
+        private FileDescriptor options;
 
         [SetUp]
         public void SetUp()
         {
-            options = new GeneratorOptions();
+            options = new FileDescriptor();
         }
 
         [Test]

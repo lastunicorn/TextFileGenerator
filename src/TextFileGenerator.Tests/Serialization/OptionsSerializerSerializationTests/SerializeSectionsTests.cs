@@ -15,7 +15,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System.IO;
-using DustInTheWind.TextFileGenerator.Options;
+using DustInTheWind.TextFileGenerator.FileDescription;
 using DustInTheWind.TextFileGenerator.Serialization;
 using DustInTheWind.TextFileGenerator.Tests.TestingTools;
 using NUnit.Framework;
@@ -27,7 +27,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerS
     {
         private OptionsSerializer optionsSerializer;
         private MemoryStream actualStream;
-        private GeneratorOptions generatorOptions;
+        private FileDescriptor fileDescriptor;
 
         [SetUp]
         public void SetUp()
@@ -35,7 +35,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerS
             optionsSerializer = new OptionsSerializer();
             actualStream = new MemoryStream();
 
-            generatorOptions = new GeneratorOptions();
+            fileDescriptor = new FileDescriptor();
         }
 
         [TearDown]
@@ -56,7 +56,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerS
         [Test]
         public void sections_element_contains_one_child_if_one_section_is_declared()
         {
-            generatorOptions.Sections.Add(new Section());
+            fileDescriptor.Sections.Add(new Section());
 
             XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
@@ -66,8 +66,8 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerS
         [Test]
         public void sections_element_contains_two_children_if_two_sections_are_declared()
         {
-            generatorOptions.Sections.Add(new Section());
-            generatorOptions.Sections.Add(new Section());
+            fileDescriptor.Sections.Add(new Section());
+            fileDescriptor.Sections.Add(new Section());
 
             XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
@@ -76,7 +76,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerS
 
         private XmlAsserter PerformTestAndCreateAsserterOnResult()
         {
-            optionsSerializer.Serialize(actualStream, generatorOptions);
+            optionsSerializer.Serialize(actualStream, fileDescriptor);
 
             actualStream.Position = 0;
 

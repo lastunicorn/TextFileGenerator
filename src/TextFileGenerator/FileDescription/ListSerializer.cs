@@ -18,7 +18,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace DustInTheWind.TextFileGenerator.Options
+namespace DustInTheWind.TextFileGenerator.FileDescription
 {
     internal class ListSerializer<T>
     {

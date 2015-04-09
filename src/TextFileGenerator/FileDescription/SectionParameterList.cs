@@ -1,4 +1,4 @@
-// TextFileGenerator
+﻿// TextFileGenerator
 // Copyright (C) 2009-2011 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -14,12 +14,18 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace DustInTheWind.TextFileGenerator.Options
+using System.Collections.Generic;
+
+namespace DustInTheWind.TextFileGenerator.FileDescription
 {
-    public enum SeparatorType
+    public class SectionParameterList : List<Parameter>
     {
-        Infix = 0,
-        Prefix = 1,
-        Postfix = 2
+        public void MoveAllToNextValue()
+        {
+            foreach (Parameter parameter in this)
+            {
+                parameter.MoveToNextValue();
+            }
+        }
     }
 }

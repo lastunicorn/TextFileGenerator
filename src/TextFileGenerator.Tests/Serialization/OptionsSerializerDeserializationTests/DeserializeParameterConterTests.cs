@@ -16,8 +16,8 @@
 
 using System.IO;
 using System.Text;
-using DustInTheWind.TextFileGenerator.Options;
-using DustInTheWind.TextFileGenerator.Options.ValueProviders;
+using DustInTheWind.TextFileGenerator.FileDescription;
+using DustInTheWind.TextFileGenerator.FileDescription.ValueProviders;
 using DustInTheWind.TextFileGenerator.Serialization;
 using NUnit.Framework;
 
@@ -49,7 +49,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerD
     </sections>
 </textFileGenerator>";
 
-            GeneratorOptions options = PerformTest(xml);
+            FileDescriptor options = PerformTest(xml);
 
             Assert.That(options.Sections[0].Parameters[0].ValueProvider, Is.TypeOf<CounterValueProvider>());
         }
@@ -69,7 +69,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerD
     </sections>
 </textFileGenerator>";
 
-            GeneratorOptions options = PerformTest(xml);
+            FileDescriptor options = PerformTest(xml);
 
             CounterValueProvider valueProvider = (CounterValueProvider)options.Sections[0].Parameters[0].ValueProvider;
             Assert.That(valueProvider.Format, Is.EqualTo("0000"));
@@ -90,7 +90,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerD
     </sections>
 </textFileGenerator>";
 
-            GeneratorOptions options = PerformTest(xml);
+            FileDescriptor options = PerformTest(xml);
 
             CounterValueProvider valueProvider = (CounterValueProvider)options.Sections[0].Parameters[0].ValueProvider;
             Assert.That(valueProvider.StartValue, Is.EqualTo(7));
@@ -111,13 +111,13 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerD
     </sections>
 </textFileGenerator>";
 
-            GeneratorOptions options = PerformTest(xml);
+            FileDescriptor options = PerformTest(xml);
 
             CounterValueProvider valueProvider = (CounterValueProvider)options.Sections[0].Parameters[0].ValueProvider;
             Assert.That(valueProvider.Step, Is.EqualTo(9));
         }
 
-        private GeneratorOptions PerformTest(string xml)
+        private FileDescriptor PerformTest(string xml)
         {
             using (MemoryStream ms = new MemoryStream())
             {

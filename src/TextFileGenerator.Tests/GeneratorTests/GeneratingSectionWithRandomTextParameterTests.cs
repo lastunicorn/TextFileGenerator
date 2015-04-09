@@ -15,8 +15,8 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System.IO;
-using DustInTheWind.TextFileGenerator.Options;
-using DustInTheWind.TextFileGenerator.Options.ValueProviders;
+using DustInTheWind.TextFileGenerator.FileDescription;
+using DustInTheWind.TextFileGenerator.FileDescription.ValueProviders;
 using NUnit.Framework;
 
 namespace DustInTheWind.TextFileGenerator.Tests.GeneratorTests
@@ -27,7 +27,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.GeneratorTests
         [Test]
         public void test()
         {
-            GeneratorOptions options = new GeneratorOptions();
+            FileDescriptor options = new FileDescriptor();
             options.Sections.Add(new Section
             {
                 Template = new Template { Value = "test {param1}" }
@@ -48,7 +48,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.GeneratorTests
             Assert.That(actual.Length, Is.LessThanOrEqualTo(105));
         }
 
-        private static string PerformTest(GeneratorOptions options)
+        private static string PerformTest(FileDescriptor options)
         {
             Generator generator = new Generator(options);
 

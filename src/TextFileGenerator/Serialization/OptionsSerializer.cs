@@ -19,16 +19,16 @@ using System.Reflection;
 using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
-using DustInTheWind.TextFileGenerator.Options;
+using DustInTheWind.TextFileGenerator.FileDescription;
 using DustInTheWind.TextFileGenerator.Serialization.EntityTranslators;
 
 namespace DustInTheWind.TextFileGenerator.Serialization
 {
     public class OptionsSerializer
     {
-        public void Serialize(Stream outputStream, GeneratorOptions generatorOptions)
+        public void Serialize(Stream outputStream, FileDescriptor fileDescriptor)
         {
-            textFileGenerator textFileGenerator = OptionsTranslator.Translate(generatorOptions);
+            textFileGenerator textFileGenerator = OptionsTranslator.Translate(fileDescriptor);
 
             XmlWriterSettings settings = new XmlWriterSettings
             {
@@ -43,7 +43,7 @@ namespace DustInTheWind.TextFileGenerator.Serialization
             }
         }
 
-        public GeneratorOptions Deserialize(Stream inputStream)
+        public FileDescriptor Deserialize(Stream inputStream)
         {
             XmlReaderSettings settings = new XmlReaderSettings
             {

@@ -1,4 +1,4 @@
-// TextFileGenerator
+﻿// TextFileGenerator
 // Copyright (C) 2009-2011 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -14,25 +14,22 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System.Collections.Generic;
-
-namespace DustInTheWind.TextFileGenerator.Options
+namespace DustInTheWind.TextFileGenerator.FileDescription.ValueProviders
 {
-    public class Section
+    public class EmptyValueProvider : IValueProvider
     {
-        public string Name { get; set; }
-        public Template Template { get; set; }
-        public int RepeatCount { get; set; }
-        public string Separator { get; set; }
-        public SeparatorType SeparatorType { get; set; }
-        public SectionParameterList Parameters { get; private set; }
-        public List<Section> Sections { get; private set; }
-
-        public Section()
+        public string MoveToNextValue()
         {
-            RepeatCount = 1;
-            Parameters = new SectionParameterList();
-            Sections = new List<Section>();
+            return string.Empty;
+        }
+
+        public string CurrentValue
+        {
+            get { return string.Empty; }
+        }
+
+        public void Reset()
+        {
         }
     }
 }

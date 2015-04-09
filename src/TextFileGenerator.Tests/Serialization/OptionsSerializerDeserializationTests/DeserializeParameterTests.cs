@@ -16,8 +16,8 @@
 
 using System.IO;
 using System.Text;
-using DustInTheWind.TextFileGenerator.Options;
-using DustInTheWind.TextFileGenerator.Options.ValueProviders;
+using DustInTheWind.TextFileGenerator.FileDescription;
+using DustInTheWind.TextFileGenerator.FileDescription.ValueProviders;
 using DustInTheWind.TextFileGenerator.Serialization;
 using NUnit.Framework;
 
@@ -49,7 +49,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerD
     </sections>
 </textFileGenerator>";
 
-            GeneratorOptions options = PerformTest(xml);
+            FileDescriptor options = PerformTest(xml);
 
             Assert.That(options.Sections[0].Parameters.Count, Is.EqualTo(1));
         }
@@ -69,7 +69,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerD
     </sections>
 </textFileGenerator>";
 
-            GeneratorOptions options = PerformTest(xml);
+            FileDescriptor options = PerformTest(xml);
 
             Assert.That(options.Sections[0].Parameters[0].Key, Is.EqualTo("key1"));
         }
@@ -89,7 +89,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerD
     </sections>
 </textFileGenerator>";
 
-            GeneratorOptions options = PerformTest(xml);
+            FileDescriptor options = PerformTest(xml);
 
             Assert.That(options.Sections[0].Parameters[0].ValueProvider, Is.TypeOf<ConstantValueProvider>());
         }
@@ -109,7 +109,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerD
     </sections>
 </textFileGenerator>";
 
-            GeneratorOptions options = PerformTest(xml);
+            FileDescriptor options = PerformTest(xml);
 
             Assert.That(options.Sections[0].Parameters[0].ValueProvider, Is.TypeOf<CounterValueProvider>());
         }
@@ -132,12 +132,12 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerD
     </sections>
 </textFileGenerator>";
 
-            GeneratorOptions options = PerformTest(xml);
+            FileDescriptor options = PerformTest(xml);
 
             Assert.That(options.Sections[0].Parameters.Count, Is.EqualTo(2));
         }
 
-        private GeneratorOptions PerformTest(string xml)
+        private FileDescriptor PerformTest(string xml)
         {
             using (MemoryStream ms = new MemoryStream())
             {

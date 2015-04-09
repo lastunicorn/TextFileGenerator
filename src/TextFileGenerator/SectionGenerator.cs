@@ -17,7 +17,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using DustInTheWind.TextFileGenerator.Options;
+using DustInTheWind.TextFileGenerator.FileDescription;
 
 namespace DustInTheWind.TextFileGenerator
 {

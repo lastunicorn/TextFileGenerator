@@ -16,15 +16,15 @@
 
 using System;
 using System.IO;
-using DustInTheWind.TextFileGenerator.Options;
+using DustInTheWind.TextFileGenerator.FileDescription;
 
 namespace DustInTheWind.TextFileGenerator
 {
     public class Generator
     {
-        private readonly GeneratorOptions options;
+        private readonly FileDescriptor options;
 
-        public Generator(GeneratorOptions options)
+        public Generator(FileDescriptor options)
         {
             if (options == null) throw new ArgumentNullException("options");
 

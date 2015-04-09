@@ -15,8 +15,8 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System.IO;
-using DustInTheWind.TextFileGenerator.Options;
-using DustInTheWind.TextFileGenerator.Options.ValueProviders;
+using DustInTheWind.TextFileGenerator.FileDescription;
+using DustInTheWind.TextFileGenerator.FileDescription.ValueProviders;
 using DustInTheWind.TextFileGenerator.Serialization;
 using DustInTheWind.TextFileGenerator.Tests.TestingTools;
 using NUnit.Framework;
@@ -28,7 +28,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerS
     {
         private OptionsSerializer optionsSerializer;
         private MemoryStream actualStream;
-        private GeneratorOptions generatorOptions;
+        private FileDescriptor fileDescriptor;
 
         [SetUp]
         public void SetUp()
@@ -36,8 +36,8 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerS
             optionsSerializer = new OptionsSerializer();
             actualStream = new MemoryStream();
 
-            generatorOptions = new GeneratorOptions();
-            generatorOptions.Sections.Add(new Section());
+            fileDescriptor = new FileDescriptor();
+            fileDescriptor.Sections.Add(new Section());
         }
 
         [TearDown]
@@ -50,7 +50,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerS
         [Test]
         public void parameter_element_contains_key_attribute()
         {
-            generatorOptions.Sections[0].Parameters.Add(new Parameter
+            fileDescriptor.Sections[0].Parameters.Add(new Parameter
             {
                 Key = "key1",
                 ValueProvider = new EmptyValueProvider()
@@ -65,13 +65,13 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerS
         [Test]
         public void serialize_two_parameters_of_different_type()
         {
-            generatorOptions.Sections[0].Template = new Template { Value = "template1" };
-            generatorOptions.Sections[0].Parameters.Add(new Parameter
+            fileDescriptor.Sections[0].Template = new Template { Value = "template1" };
+            fileDescriptor.Sections[0].Parameters.Add(new Parameter
             {
                 Key = "key1",
                 ValueProvider = new ConstantValueProvider()
             });
-            generatorOptions.Sections[0].Parameters.Add(new Parameter
+            fileDescriptor.Sections[0].Parameters.Add(new Parameter
             {
                 Key = "key2",
                 ValueProvider = new CounterValueProvider()
@@ -84,7 +84,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerS
 
         private XmlAsserter PerformTestAndCreateAsserterOnResult()
         {
-            optionsSerializer.Serialize(actualStream, generatorOptions);
+            optionsSerializer.Serialize(actualStream, fileDescriptor);
 
             actualStream.Position = 0;
 

@@ -1,4 +1,4 @@
-﻿// TextFileGenerator
+// TextFileGenerator
 // Copyright (C) 2009-2011 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -16,16 +16,23 @@
 
 using System.Collections.Generic;
 
-namespace DustInTheWind.TextFileGenerator.Options
+namespace DustInTheWind.TextFileGenerator.FileDescription
 {
-    public class SectionParameterList : List<Parameter>
+    public class Section
     {
-        public void MoveAllToNextValue()
+        public string Name { get; set; }
+        public Template Template { get; set; }
+        public int RepeatCount { get; set; }
+        public string Separator { get; set; }
+        public SeparatorType SeparatorType { get; set; }
+        public SectionParameterList Parameters { get; private set; }
+        public List<Section> Sections { get; private set; }
+
+        public Section()
         {
-            foreach (Parameter parameter in this)
-            {
-                parameter.MoveToNextValue();
-            }
+            RepeatCount = 1;
+            Parameters = new SectionParameterList();
+            Sections = new List<Section>();
         }
     }
 }

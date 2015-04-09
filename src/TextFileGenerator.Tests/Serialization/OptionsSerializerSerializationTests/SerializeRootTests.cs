@@ -15,7 +15,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System.IO;
-using DustInTheWind.TextFileGenerator.Options;
+using DustInTheWind.TextFileGenerator.FileDescription;
 using DustInTheWind.TextFileGenerator.Serialization;
 using DustInTheWind.TextFileGenerator.Tests.TestingTools;
 using NUnit.Framework;
@@ -45,16 +45,16 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerS
         [Test]
         public void root_element_textFileGenerator_is_created_in_correct_namespace()
         {
-            GeneratorOptions generatorOptions = new GeneratorOptions();
+            FileDescriptor fileDescriptor = new FileDescriptor();
 
-            XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult(generatorOptions);
+            XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult(fileDescriptor);
 
             xmlAsserter.AssertNodeCount("/alez:textFileGenerator", 1);
         }
 
-        private XmlAsserter PerformTestAndCreateAsserterOnResult(GeneratorOptions generatorOptions)
+        private XmlAsserter PerformTestAndCreateAsserterOnResult(FileDescriptor fileDescriptor)
         {
-            optionsSerializer.Serialize(actualStream, generatorOptions);
+            optionsSerializer.Serialize(actualStream, fileDescriptor);
 
             actualStream.Position = 0;
 

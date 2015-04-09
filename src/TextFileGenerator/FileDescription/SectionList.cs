@@ -14,22 +14,11 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace DustInTheWind.TextFileGenerator.Options.ValueProviders
+using System.Collections.Generic;
+
+namespace DustInTheWind.TextFileGenerator.FileDescription
 {
-    public class EmptyValueProvider : IValueProvider
+    public class SectionList : List<Section>
     {
-        public string MoveToNextValue()
-        {
-            return string.Empty;
-        }
-
-        public string CurrentValue
-        {
-            get { return string.Empty; }
-        }
-
-        public void Reset()
-        {
-        }
     }
 }

@@ -16,13 +16,13 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using DustInTheWind.TextFileGenerator.Options;
+using DustInTheWind.TextFileGenerator.FileDescription;
 
 namespace DustInTheWind.TextFileGenerator.Serialization.EntityTranslators
 {
     public class OptionsTranslator
     {
-        public static textFileGenerator Translate(GeneratorOptions sourceOptions)
+        public static textFileGenerator Translate(FileDescriptor sourceOptions)
         {
             textFileGenerator destinationOptions = new textFileGenerator();
 
@@ -45,16 +45,16 @@ namespace DustInTheWind.TextFileGenerator.Serialization.EntityTranslators
             }
         }
 
-        public static GeneratorOptions Translate(textFileGenerator sourceOptions)
+        public static FileDescriptor Translate(textFileGenerator sourceOptions)
         {
-            GeneratorOptions destinationOptions = new GeneratorOptions();
+            FileDescriptor destinationOptions = new FileDescriptor();
 
             CreateSections(destinationOptions, sourceOptions.sections);
 
             return destinationOptions;
         }
 
-        private static void CreateSections(GeneratorOptions destinationOptions, IEnumerable<section> sourceSections)
+        private static void CreateSections(FileDescriptor destinationOptions, IEnumerable<section> sourceSections)
         {
             if (sourceSections == null)
                 return;

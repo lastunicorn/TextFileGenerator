@@ -15,8 +15,8 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System.IO;
-using DustInTheWind.TextFileGenerator.Options;
-using DustInTheWind.TextFileGenerator.Options.ValueProviders;
+using DustInTheWind.TextFileGenerator.FileDescription;
+using DustInTheWind.TextFileGenerator.FileDescription.ValueProviders;
 using DustInTheWind.TextFileGenerator.Serialization;
 using DustInTheWind.TextFileGenerator.Tests.TestingTools;
 using NUnit.Framework;
@@ -28,7 +28,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerS
     {
         private OptionsSerializer optionsSerializer;
         private MemoryStream actualStream;
-        private GeneratorOptions generatorOptions;
+        private FileDescriptor fileDescriptor;
 
         [SetUp]
         public void SetUp()
@@ -36,7 +36,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerS
             optionsSerializer = new OptionsSerializer();
             actualStream = new MemoryStream();
 
-            generatorOptions = new GeneratorOptions();
+            fileDescriptor = new FileDescriptor();
         }
 
         [TearDown]
@@ -49,7 +49,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerS
         [Test]
         public void section_element_renders_name_attribute_if_Name_is_set()
         {
-            generatorOptions.Sections.Add(new Section
+            fileDescriptor.Sections.Add(new Section
             {
                 Name = "Section1"
             });
@@ -63,7 +63,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerS
         [Test]
         public void section_element_does_not_render_name_attribute_if_Name_is__not_set()
         {
-            generatorOptions.Sections.Add(new Section());
+            fileDescriptor.Sections.Add(new Section());
 
             XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
@@ -73,7 +73,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerS
         [Test]
         public void section_element_contains_repeat_attribute_if_RepeatCount_is_greater_then_1()
         {
-            generatorOptions.Sections.Add(new Section
+            fileDescriptor.Sections.Add(new Section
             {
                 RepeatCount = 2
             });
@@ -87,7 +87,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerS
         [Test]
         public void section_element_does_not_contain_repeat_attribute_if_RepeatCount_is_1()
         {
-            generatorOptions.Sections.Add(new Section
+            fileDescriptor.Sections.Add(new Section
             {
                 RepeatCount = 1
             });
@@ -100,7 +100,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerS
         [Test]
         public void section_element_contains_separator_attribute_if_Separator_is_not_null()
         {
-            generatorOptions.Sections.Add(new Section
+            fileDescriptor.Sections.Add(new Section
             {
                 Separator = ";"
             });
@@ -114,7 +114,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerS
         [Test]
         public void section_element_does_not_contain_separator_attribute_if_Separator_is_null()
         {
-            generatorOptions.Sections.Add(new Section());
+            fileDescriptor.Sections.Add(new Section());
 
             XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
@@ -124,7 +124,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerS
         [Test]
         public void section_element_contains_separatorType_attribute_if_SeparatorType_is_Postfix()
         {
-            generatorOptions.Sections.Add(new Section
+            fileDescriptor.Sections.Add(new Section
             {
                 SeparatorType = SeparatorType.Postfix
             });
@@ -138,7 +138,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerS
         [Test]
         public void section_element_does_not_contain_separatorType_attribute_if_SeparatorType_is_Infix()
         {
-            generatorOptions.Sections.Add(new Section
+            fileDescriptor.Sections.Add(new Section
             {
                 SeparatorType = SeparatorType.Infix
             });
@@ -151,7 +151,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerS
         [Test]
         public void section_element_contains_template_child_if_Template_is_set()
         {
-            generatorOptions.Sections.Add(new Section
+            fileDescriptor.Sections.Add(new Section
             {
                 Template = new Template { Value = "some template" }
             });
@@ -165,7 +165,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerS
         [Test]
         public void section_element_does_not_contain_template_child_if_Template_is_not_set()
         {
-            generatorOptions.Sections.Add(new Section());
+            fileDescriptor.Sections.Add(new Section());
 
             XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
@@ -175,7 +175,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerS
         [Test]
         public void section_element_does_not_contain_parameter_child_if_Parameters_is_not_set()
         {
-            generatorOptions.Sections.Add(new Section());
+            fileDescriptor.Sections.Add(new Section());
 
             XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
@@ -191,7 +191,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerS
                 Key = "key1",
                 ValueProvider = new EmptyValueProvider()
             });
-            generatorOptions.Sections.Add(section);
+            fileDescriptor.Sections.Add(section);
 
             XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
@@ -212,7 +212,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerS
                 Key = "key2",
                 ValueProvider = new EmptyValueProvider()
             });
-            generatorOptions.Sections.Add(section);
+            fileDescriptor.Sections.Add(section);
 
             XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
@@ -224,7 +224,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerS
         {
             Section section = new Section();
             section.Sections.Add(new Section());
-            generatorOptions.Sections.Add(section);
+            fileDescriptor.Sections.Add(section);
 
             XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
@@ -237,7 +237,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerS
             Section section = new Section();
             section.Sections.Add(new Section());
             section.Sections.Add(new Section());
-            generatorOptions.Sections.Add(section);
+            fileDescriptor.Sections.Add(section);
 
             XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
@@ -246,7 +246,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerS
 
         private XmlAsserter PerformTestAndCreateAsserterOnResult()
         {
-            optionsSerializer.Serialize(actualStream, generatorOptions);
+            optionsSerializer.Serialize(actualStream, fileDescriptor);
 
             actualStream.Position = 0;
 

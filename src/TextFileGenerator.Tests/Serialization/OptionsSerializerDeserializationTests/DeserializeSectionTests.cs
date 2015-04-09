@@ -16,7 +16,7 @@
 
 using System.IO;
 using System.Text;
-using DustInTheWind.TextFileGenerator.Options;
+using DustInTheWind.TextFileGenerator.FileDescription;
 using DustInTheWind.TextFileGenerator.Serialization;
 using NUnit.Framework;
 
@@ -43,7 +43,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerD
     </sections>
 </textFileGenerator>";
 
-            GeneratorOptions options = PerformTest(xml);
+            FileDescriptor options = PerformTest(xml);
 
             Assert.That(options.Sections.Count, Is.EqualTo(1));
         }
@@ -58,7 +58,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerD
     </sections>
 </textFileGenerator>";
 
-            GeneratorOptions options = PerformTest(xml);
+            FileDescriptor options = PerformTest(xml);
 
             Assert.That(options.Sections[0].Name, Is.EqualTo("name1"));
         }
@@ -73,7 +73,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerD
     </sections>
 </textFileGenerator>";
 
-            GeneratorOptions options = PerformTest(xml);
+            FileDescriptor options = PerformTest(xml);
 
             Assert.That(options.Sections[0].RepeatCount, Is.EqualTo(7));
         }
@@ -88,7 +88,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerD
     </sections>
 </textFileGenerator>";
 
-            GeneratorOptions options = PerformTest(xml);
+            FileDescriptor options = PerformTest(xml);
 
             Assert.That(options.Sections[0].Separator, Is.EqualTo(";"));
         }
@@ -103,7 +103,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerD
     </sections>
 </textFileGenerator>";
 
-            GeneratorOptions options = PerformTest(xml);
+            FileDescriptor options = PerformTest(xml);
 
             Assert.That(options.Sections[0].SeparatorType, Is.EqualTo(SeparatorType.Postfix));
         }
@@ -120,7 +120,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerD
     </sections>
 </textFileGenerator>";
 
-            GeneratorOptions options = PerformTest(xml);
+            FileDescriptor options = PerformTest(xml);
 
             Assert.That(options.Sections[0].Template.Value, Is.EqualTo("template1"));
         }
@@ -137,7 +137,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerD
     </sections>
 </textFileGenerator>";
 
-            GeneratorOptions options = PerformTest(xml);
+            FileDescriptor options = PerformTest(xml);
 
             Assert.That(options.Sections[0].Template.Value, Is.EqualTo("\r\n"));
         }
@@ -155,12 +155,12 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerD
     </sections>
 </textFileGenerator>";
 
-            GeneratorOptions options = PerformTest(xml);
+            FileDescriptor options = PerformTest(xml);
 
             Assert.That(options.Sections[0].Sections.Count, Is.EqualTo(1));
         }
 
-        private GeneratorOptions PerformTest(string xml)
+        private FileDescriptor PerformTest(string xml)
         {
             using (MemoryStream ms = new MemoryStream())
             {

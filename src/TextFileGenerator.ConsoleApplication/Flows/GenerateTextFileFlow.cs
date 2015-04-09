@@ -18,7 +18,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using DustInTheWind.TextFileGenerator.ConsoleApplication.Services;
-using DustInTheWind.TextFileGenerator.Options;
+using DustInTheWind.TextFileGenerator.FileDescription;
 using DustInTheWind.TextFileGenerator.Serialization;
 
 namespace DustInTheWind.TextFileGenerator.ConsoleApplication.Flows
@@ -30,11 +30,8 @@ namespace DustInTheWind.TextFileGenerator.ConsoleApplication.Flows
 
         public GenerateTextFileFlow(GenerateTextFileView view, Arguments arguments)
         {
-            if (view == null)
-                throw new ArgumentNullException("view");
-
-            if (arguments == null)
-                throw new ArgumentNullException("arguments");
+            if (view == null) throw new ArgumentNullException("view");
+            if (arguments == null) throw new ArgumentNullException("arguments");
 
             this.view = view;
             this.arguments = arguments;
@@ -42,17 +39,17 @@ namespace DustInTheWind.TextFileGenerator.ConsoleApplication.Flows
 
         public void Start()
         {
-            GeneratorOptions options = ReadOptionsFile(arguments.OptionsFileName);
-            GenerateTextFile(options);
+            FileDescriptor fileDescriptor = ReadDescriptorFile(arguments.OptionsFileName);
+            GenerateTextFile(fileDescriptor);
         }
 
-        private GeneratorOptions ReadOptionsFile(string optionsFileName)
+        private FileDescriptor ReadDescriptorFile(string fileName)
         {
-            GeneratorOptions options;
+            FileDescriptor options;
 
-            view.DisplayOptionFileReading(optionsFileName);
+            view.DisplayOptionFileReading(fileName);
 
-            using (Stream inputStream = File.OpenRead(optionsFileName))
+            using (Stream inputStream = File.OpenRead(fileName))
             {
                 OptionsSerializer serializer = new OptionsSerializer();
                 options = serializer.Deserialize(inputStream);
@@ -63,7 +60,7 @@ namespace DustInTheWind.TextFileGenerator.ConsoleApplication.Flows
             return options;
         }
 
-        private void GenerateTextFile(GeneratorOptions options)
+        private void GenerateTextFile(FileDescriptor fileDescriptor)
         {
             string outputFileName = GenerateOutputFileName(arguments.OptionsFileName);
 
@@ -71,7 +68,7 @@ namespace DustInTheWind.TextFileGenerator.ConsoleApplication.Flows
 
             view.DisplayOutputFileGenerating(outputFileName);
 
-            Generator generator = new Generator(options);
+            Generator generator = new Generator(fileDescriptor);
 
             using (Stream outputStream = File.Create(outputFileName))
             {
