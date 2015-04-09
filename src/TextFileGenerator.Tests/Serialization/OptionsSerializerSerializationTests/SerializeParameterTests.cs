@@ -52,28 +52,28 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerS
         {
             fileDescriptor.Sections[0].Parameters.Add(new Parameter
             {
-                Key = "key1",
+                Name = "key1",
                 ValueProvider = new EmptyValueProvider()
             });
 
             XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
-            xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section/alez:parameter/@key", 1);
-            xmlAsserter.AssertText("/alez:textFileGenerator/alez:sections/alez:section/alez:parameter/@key", "key1");
+            xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section/alez:parameter/@name", 1);
+            xmlAsserter.AssertText("/alez:textFileGenerator/alez:sections/alez:section/alez:parameter/@name", "key1");
         }
 
         [Test]
         public void serialize_two_parameters_of_different_type()
         {
-            fileDescriptor.Sections[0].Template = new Template { Value = "template1" };
+            fileDescriptor.Sections[0].SectionText = new SectionText { Value = "template1" };
             fileDescriptor.Sections[0].Parameters.Add(new Parameter
             {
-                Key = "key1",
+                Name = "key1",
                 ValueProvider = new ConstantValueProvider()
             });
             fileDescriptor.Sections[0].Parameters.Add(new Parameter
             {
-                Key = "key2",
+                Name = "key2",
                 ValueProvider = new CounterValueProvider()
             });
 

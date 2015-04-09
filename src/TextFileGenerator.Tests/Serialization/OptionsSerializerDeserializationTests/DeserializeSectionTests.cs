@@ -99,13 +99,13 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerD
             const string xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <textFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
     <sections>
-        <section separatorType=""Postfix""/>
+        <section separatorLocation=""Postfix""/>
     </sections>
 </textFileGenerator>";
 
             FileDescriptor options = PerformTest(xml);
 
-            Assert.That(options.Sections[0].SeparatorType, Is.EqualTo(SeparatorType.Postfix));
+            Assert.That(options.Sections[0].SeparatorLocation, Is.EqualTo(SeparatorLocation.Postfix));
         }
 
         [Test]
@@ -115,14 +115,14 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerD
 <textFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
     <sections>
         <section>
-            <template>template1</template>
+            <text>template1</text>
         </section>
     </sections>
 </textFileGenerator>";
 
             FileDescriptor options = PerformTest(xml);
 
-            Assert.That(options.Sections[0].Template.Value, Is.EqualTo("template1"));
+            Assert.That(options.Sections[0].SectionText.Value, Is.EqualTo("template1"));
         }
 
         [Test]
@@ -132,14 +132,14 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerD
 <textFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
     <sections>
         <section>
-            <template>&#13;&#10;</template>
+            <text>&#13;&#10;</text>
         </section>
     </sections>
 </textFileGenerator>";
 
             FileDescriptor options = PerformTest(xml);
 
-            Assert.That(options.Sections[0].Template.Value, Is.EqualTo("\r\n"));
+            Assert.That(options.Sections[0].SectionText.Value, Is.EqualTo("\r\n"));
         }
 
         [Test]

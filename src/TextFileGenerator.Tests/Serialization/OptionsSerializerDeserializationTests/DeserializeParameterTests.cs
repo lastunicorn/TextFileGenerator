@@ -41,8 +41,8 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerD
 <textFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
     <sections>
         <section name=""root"">
-            <template/>
-            <parameter key=""key1"">
+            <text/>
+            <parameter name=""key1"">
                 <constant value=""value1""/>
             </parameter>
         </section>
@@ -61,8 +61,8 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerD
 <textFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
     <sections>
         <section name=""root"">
-            <template/>
-            <parameter key=""key1"">
+            <text/>
+            <parameter name=""key1"">
                 <constant value=""value1""/>
             </parameter>
         </section>
@@ -71,7 +71,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerD
 
             FileDescriptor options = PerformTest(xml);
 
-            Assert.That(options.Sections[0].Parameters[0].Key, Is.EqualTo("key1"));
+            Assert.That(options.Sections[0].Parameters[0].Name, Is.EqualTo("key1"));
         }
 
         [Test]
@@ -81,8 +81,8 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerD
 <textFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
     <sections>
         <section name=""root"">
-            <template/>
-            <parameter key=""key1"">
+            <text/>
+            <parameter name=""key1"">
                 <constant value=""value1""/>
             </parameter>
         </section>
@@ -101,8 +101,8 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerD
 <textFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
     <sections>
         <section name=""root"">
-            <template/>
-            <parameter key=""key1"">
+            <text/>
+            <parameter name=""key1"">
                 <counter/>
             </parameter>
         </section>
@@ -121,11 +121,11 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerD
 <textFileGenerator xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"" xmlns=""http://alez.ro/TextFileGenerator"">
     <sections>
         <section>
-            <template/>
-            <parameter key=""key1"">
+            <text/>
+            <parameter name=""key1"">
                 <constant />
             </parameter>
-            <parameter key=""key2"">
+            <parameter name=""key2"">
                 <counter />
             </parameter>
         </section>

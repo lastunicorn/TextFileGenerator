@@ -18,7 +18,7 @@ using System.Collections.Generic;
 
 namespace DustInTheWind.TextFileGenerator.FileDescription
 {
-    public class Template
+    public class SectionText
     {
         public string Value { get; set; }
 
@@ -66,7 +66,7 @@ namespace DustInTheWind.TextFileGenerator.FileDescription
 
         private static string FormatParameterKey(Parameter parameter)
         {
-            return "{" + parameter.Key + "}";
+            return "{" + parameter.Name + "}";
         }
     }
 }

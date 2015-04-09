@@ -22,7 +22,7 @@ namespace DustInTheWind.TextFileGenerator.FileDescription
     public class Parameter
     {
         private IValueProvider valueProvider;
-        public string Key { get; set; }
+        public string Name { get; set; }
 
         public IValueProvider ValueProvider
         {

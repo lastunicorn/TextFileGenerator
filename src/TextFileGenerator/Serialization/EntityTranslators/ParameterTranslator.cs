@@ -27,7 +27,7 @@ namespace DustInTheWind.TextFileGenerator.Serialization.EntityTranslators
         {
             return new parameter
             {
-                key = sourceParameter.Key,
+                name = sourceParameter.Name,
                 Item = CreateValueProvider(sourceParameter)
             };
         }
@@ -106,7 +106,7 @@ namespace DustInTheWind.TextFileGenerator.Serialization.EntityTranslators
         public static Parameter CreateParameter(parameter sourceParameter)
         {
             Parameter destinationParameter = new Parameter();
-            destinationParameter.Key = sourceParameter.key;
+            destinationParameter.Name = sourceParameter.name;
 
             Type valueProviderType = sourceParameter.Item.GetType();
 

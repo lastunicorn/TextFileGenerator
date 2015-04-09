@@ -126,13 +126,13 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerS
         {
             fileDescriptor.Sections.Add(new Section
             {
-                SeparatorType = SeparatorType.Postfix
+                SeparatorLocation = SeparatorLocation.Postfix
             });
 
             XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
-            xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section/@separatorType", 1);
-            xmlAsserter.AssertText("/alez:textFileGenerator/alez:sections/alez:section/@separatorType", "Postfix");
+            xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section/@separatorLocation", 1);
+            xmlAsserter.AssertText("/alez:textFileGenerator/alez:sections/alez:section/@separatorLocation", "Postfix");
         }
 
         [Test]
@@ -140,12 +140,12 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerS
         {
             fileDescriptor.Sections.Add(new Section
             {
-                SeparatorType = SeparatorType.Infix
+                SeparatorLocation = SeparatorLocation.Infix
             });
 
             XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
-            xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section/@separatorType", 0);
+            xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section/@separatorLocation", 0);
         }
 
         [Test]
@@ -153,13 +153,13 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerS
         {
             fileDescriptor.Sections.Add(new Section
             {
-                Template = new Template { Value = "some template" }
+                SectionText = new SectionText { Value = "some template" }
             });
 
             XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
-            xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section/alez:template", 1);
-            xmlAsserter.AssertText("/alez:textFileGenerator/alez:sections/alez:section/alez:template", "some template");
+            xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section/alez:text", 1);
+            xmlAsserter.AssertText("/alez:textFileGenerator/alez:sections/alez:section/alez:text", "some template");
         }
 
         [Test]
@@ -188,7 +188,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerS
             Section section = new Section();
             section.Parameters.Add(new Parameter
             {
-                Key = "key1",
+                Name = "key1",
                 ValueProvider = new EmptyValueProvider()
             });
             fileDescriptor.Sections.Add(section);
@@ -204,12 +204,12 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerS
             Section section = new Section();
             section.Parameters.Add(new Parameter
             {
-                Key = "key1",
+                Name = "key1",
                 ValueProvider = new EmptyValueProvider()
             });
             section.Parameters.Add(new Parameter
             {
-                Key = "key2",
+                Name = "key2",
                 ValueProvider = new EmptyValueProvider()
             });
             fileDescriptor.Sections.Add(section);

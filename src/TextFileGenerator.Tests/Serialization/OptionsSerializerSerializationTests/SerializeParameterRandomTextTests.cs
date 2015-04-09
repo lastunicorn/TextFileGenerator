@@ -52,7 +52,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerS
         {
             fileDescriptor.Sections[0].Parameters.Add(new Parameter
             {
-                Key = "key1",
+                Name = "key1",
                 ValueProvider = new RandomTextValueProvider()
             });
 
@@ -66,7 +66,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerS
         {
             fileDescriptor.Sections[0].Parameters.Add(new Parameter
             {
-                Key = "key1",
+                Name = "key1",
                 ValueProvider = new RandomTextValueProvider { MinLength = 5 }
             });
 
@@ -81,7 +81,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerS
         {
             fileDescriptor.Sections[0].Parameters.Add(new Parameter
             {
-                Key = "key1",
+                Name = "key1",
                 ValueProvider = new RandomTextValueProvider()
             });
 
@@ -95,7 +95,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerS
         {
             fileDescriptor.Sections[0].Parameters.Add(new Parameter
             {
-                Key = "key1",
+                Name = "key1",
                 ValueProvider = new RandomTextValueProvider { MinLength = 1 }
             });
 
@@ -109,7 +109,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerS
         {
             fileDescriptor.Sections[0].Parameters.Add(new Parameter
             {
-                Key = "key1",
+                Name = "key1",
                 ValueProvider = new RandomTextValueProvider { MaxLength = 3 }
             });
 
@@ -124,7 +124,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerS
         {
             fileDescriptor.Sections[0].Parameters.Add(new Parameter
             {
-                Key = "key1",
+                Name = "key1",
                 ValueProvider = new RandomTextValueProvider()
             });
 
@@ -138,7 +138,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerS
         {
             fileDescriptor.Sections[0].Parameters.Add(new Parameter
             {
-                Key = "key1",
+                Name = "key1",
                 ValueProvider = new RandomTextValueProvider { MaxLength = 100 }
             });
 

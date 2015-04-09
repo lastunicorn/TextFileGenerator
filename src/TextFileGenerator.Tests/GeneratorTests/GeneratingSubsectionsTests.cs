@@ -23,7 +23,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.GeneratorTests
             options.Sections.Add(new Section());
             options.Sections[0].Sections.Add(new Section
             {
-                Template = new Template { Value = "subsection" }
+                SectionText = new SectionText { Value = "subsection" }
             });
 
             string actual = PerformTest();
@@ -37,11 +37,11 @@ namespace DustInTheWind.TextFileGenerator.Tests.GeneratorTests
             options.Sections.Add(new Section());
             options.Sections[0].Sections.Add(new Section
             {
-                Template = new Template { Value = "subsection1" }
+                SectionText = new SectionText { Value = "subsection1" }
             });
             options.Sections[0].Sections.Add(new Section
             {
-                Template = new Template { Value = "subsection2" }
+                SectionText = new SectionText { Value = "subsection2" }
             });
 
             string actual = PerformTest();
@@ -54,11 +54,11 @@ namespace DustInTheWind.TextFileGenerator.Tests.GeneratorTests
         {
             options.Sections.Add(new Section
             {
-                Template = new Template { Value = "Template" }
+                SectionText = new SectionText { Value = "Template" }
             });
             options.Sections[0].Sections.Add(new Section
             {
-                Template = new Template { Value = "Subtemplate" }
+                SectionText = new SectionText { Value = "Subtemplate" }
             });
 
             string actual = PerformTest();
@@ -72,12 +72,12 @@ namespace DustInTheWind.TextFileGenerator.Tests.GeneratorTests
             options.Sections.Add(new Section());
             options.Sections[0].Parameters.Add(new Parameter
             {
-                Key = "param1",
+                Name = "param1",
                 ValueProvider = new ConstantValueProvider { Value = "value1" }
             });
             options.Sections[0].Sections.Add(new Section
             {
-                Template = new Template { Value = "{param1}" }
+                SectionText = new SectionText { Value = "{param1}" }
             });
 
             string actual = PerformTest();
@@ -91,13 +91,13 @@ namespace DustInTheWind.TextFileGenerator.Tests.GeneratorTests
             options.Sections.Add(new Section());
             options.Sections[0].Parameters.Add(new Parameter
             {
-                Key = "param1",
+                Name = "param1",
                 ValueProvider = new ConstantValueProvider { Value = "value1" }
             });
             options.Sections[0].Sections.Add(new Section());
             options.Sections[0].Sections[0].Sections.Add(new Section
             {
-                Template = new Template { Value = "{param1}" }
+                SectionText = new SectionText { Value = "{param1}" }
             });
 
             string actual = PerformTest();

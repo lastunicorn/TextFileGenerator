@@ -31,14 +31,14 @@ namespace DustInTheWind.TextFileGenerator.Serialization.EntityTranslators
                 name = sourceSection.Name,
                 repeat = sourceSection.RepeatCount.ToString(CultureInfo.InvariantCulture),
                 separator = sourceSection.Separator,
-                separatorType = Translate(sourceSection.SeparatorType)
+                separatorLocation = Translate(sourceSection.SeparatorLocation)
             };
 
-            if (sourceSection.Template != null)
+            if (sourceSection.SectionText != null)
             {
                 destinationSection.Items = new object[]
                 {
-                    sourceSection.Template.Value
+                    sourceSection.SectionText.Value
                 };
             }
             else if (sourceSection.Sections.Count > 0)
@@ -56,19 +56,19 @@ namespace DustInTheWind.TextFileGenerator.Serialization.EntityTranslators
             return destinationSection;
         }
 
-        private static separatorType Translate(SeparatorType value)
+        private static separatorLocation Translate(FileDescription.SeparatorLocation value)
         {
             switch (value)
             {
                 default:
-                case SeparatorType.Infix:
-                    return separatorType.Infix;
+                case FileDescription.SeparatorLocation.Infix:
+                    return separatorLocation.Infix;
 
-                case SeparatorType.Prefix:
-                    return separatorType.Prefix;
+                case FileDescription.SeparatorLocation.Prefix:
+                    return separatorLocation.Prefix;
 
-                case SeparatorType.Postfix:
-                    return separatorType.Postfix;
+                case FileDescription.SeparatorLocation.Postfix:
+                    return separatorLocation.Postfix;
             }
         }
 
@@ -95,7 +95,7 @@ namespace DustInTheWind.TextFileGenerator.Serialization.EntityTranslators
                 Name = sourceSection.name,
                 RepeatCount = int.Parse(sourceSection.repeat),
                 Separator = sourceSection.separator,
-                SeparatorType = Translate(sourceSection.separatorType),
+                SeparatorLocation = Translate(sourceSection.separatorLocation),
             };
 
             if (sourceSection.Items != null && sourceSection.Items.Length > 0)
@@ -108,7 +108,7 @@ namespace DustInTheWind.TextFileGenerator.Serialization.EntityTranslators
                     Type itemType = item.GetType();
 
                     if (itemType == typeof(string))
-                        destinationSection.Template = new Template
+                        destinationSection.SectionText = new SectionText
                         {
                             Value = (string)item
                         };
@@ -135,21 +135,21 @@ namespace DustInTheWind.TextFileGenerator.Serialization.EntityTranslators
             destinationSection.Parameters.AddRange(destinationParameters);
         }
 
-        private static SeparatorType Translate(separatorType sourceSeparatorType)
+        private static FileDescription.SeparatorLocation Translate(separatorLocation sourceSeparatorType)
         {
             switch (sourceSeparatorType)
             {
-                case separatorType.Infix:
-                    return SeparatorType.Infix;
+                case separatorLocation.Infix:
+                    return FileDescription.SeparatorLocation.Infix;
 
-                case separatorType.Prefix:
-                    return SeparatorType.Prefix;
+                case separatorLocation.Prefix:
+                    return FileDescription.SeparatorLocation.Prefix;
 
-                case separatorType.Postfix:
-                    return SeparatorType.Postfix;
+                case separatorLocation.Postfix:
+                    return FileDescription.SeparatorLocation.Postfix;
 
                 default:
-                    return SeparatorType.Infix;
+                    return FileDescription.SeparatorLocation.Infix;
             }
         }
     }

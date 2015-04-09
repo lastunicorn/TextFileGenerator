@@ -38,13 +38,13 @@ namespace DustInTheWind.TextFileGenerator.Tests.GeneratorTests
         {
             options.Sections.Add(new Section
             {
-                Template = new Template { Value = "test {param1}" }
+                SectionText = new SectionText { Value = "test {param1}" }
             });
             options.Sections[0].Parameters.AddRange(new[]
             {
                 new Parameter
                 {
-                    Key ="param1",
+                    Name ="param1",
                     ValueProvider = new CounterValueProvider { StartValue = 10, Step = 2 }
                 }
             });
@@ -59,14 +59,14 @@ namespace DustInTheWind.TextFileGenerator.Tests.GeneratorTests
         {
             options.Sections.Add(new Section
             {
-                Template = new Template { Value = "test{param1}" },
+                SectionText = new SectionText { Value = "test{param1}" },
                 RepeatCount = 2
             });
             options.Sections[0].Parameters.AddRange(new[]
             {
                 new Parameter
                 {
-                    Key ="param1",
+                    Name ="param1",
                     ValueProvider = new CounterValueProvider { StartValue = 10, Step = 2 }
                 }
             });
@@ -81,18 +81,18 @@ namespace DustInTheWind.TextFileGenerator.Tests.GeneratorTests
         {
             options.Sections.Add(new Section
             {
-                Template = new Template { Value = "test {param1} {param2}" }
+                SectionText = new SectionText { Value = "test {param1} {param2}" }
             });
             options.Sections[0].Parameters.AddRange(new[]
             {
                 new Parameter
                 {
-                    Key ="param1",
+                    Name ="param1",
                     ValueProvider = new ConstantValueProvider { Value = "alez" }
                 },
                 new Parameter
                 {
-                    Key ="param2",
+                    Name ="param2",
                     ValueProvider = new CounterValueProvider { StartValue = 10, Step = 2 }
                 }
             });

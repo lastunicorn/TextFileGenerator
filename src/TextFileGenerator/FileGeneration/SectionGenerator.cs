@@ -35,18 +35,18 @@ namespace DustInTheWind.TextFileGenerator.FileGeneration
             for (int i = 0; i < section.RepeatCount; i++)
             {
                 if (existsSeparator)
-                    WriteSeparatorBeforeItem(textWriter, section.Separator, section.SeparatorType, i);
+                    WriteSeparatorBeforeItem(textWriter, section.Separator, section.SeparatorLocation, i);
 
                 WriteSectionContent(textWriter, section, additionalParameters);
 
                 if (existsSeparator)
-                    WriteSeparatorAfterItem(textWriter, section.Separator, section.SeparatorType);
+                    WriteSeparatorAfterItem(textWriter, section.Separator, section.SeparatorLocation);
             }
         }
 
         private static void WriteSectionContent(TextWriter textWriter, Section section, IEnumerable<Parameter> additionalParameters)
         {
-            if (section.Template != null)
+            if (section.SectionText != null)
                 WriteSectionTemplate(textWriter, section, additionalParameters);
             else
                 WriteSubsections(textWriter, section, additionalParameters);
@@ -54,7 +54,7 @@ namespace DustInTheWind.TextFileGenerator.FileGeneration
 
         private static void WriteSectionTemplate(TextWriter textWriter, Section section, IEnumerable<Parameter> additionalParameters)
         {
-            string text = section.Template.Format(section.Parameters, additionalParameters);
+            string text = section.SectionText.Format(section.Parameters, additionalParameters);
             textWriter.Write(text);
         }
 
@@ -81,18 +81,18 @@ namespace DustInTheWind.TextFileGenerator.FileGeneration
             return parameters.Concat(additionalParameters);
         }
 
-        private static void WriteSeparatorAfterItem(TextWriter textWriter, string separator, SeparatorType separatorType)
+        private static void WriteSeparatorAfterItem(TextWriter textWriter, string separator, SeparatorLocation separatorLocation)
         {
-            bool shouldWriteSeparatorAfterSection = separatorType == SeparatorType.Postfix;
+            bool shouldWriteSeparatorAfterSection = separatorLocation == SeparatorLocation.Postfix;
 
             if (shouldWriteSeparatorAfterSection)
                 textWriter.Write(separator);
         }
 
-        private static void WriteSeparatorBeforeItem(TextWriter textWriter, string separator, SeparatorType separatorType, int i)
+        private static void WriteSeparatorBeforeItem(TextWriter textWriter, string separator, SeparatorLocation separatorLocation, int i)
         {
-            bool shouldWriteSeparatorBeforeSection = separatorType == SeparatorType.Prefix ||
-                                                     (separatorType == SeparatorType.Infix && i > 0);
+            bool shouldWriteSeparatorBeforeSection = separatorLocation == SeparatorLocation.Prefix ||
+                                                     (separatorLocation == SeparatorLocation.Infix && i > 0);
 
             if (shouldWriteSeparatorBeforeSection)
                 textWriter.Write(separator);

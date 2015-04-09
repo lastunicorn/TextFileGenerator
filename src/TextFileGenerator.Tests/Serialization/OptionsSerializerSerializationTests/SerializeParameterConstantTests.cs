@@ -52,7 +52,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerS
         {
             fileDescriptor.Sections[0].Parameters.Add(new Parameter
             {
-                Key = "key1",
+                Name = "key1",
                 ValueProvider = new ConstantValueProvider()
             });
 
@@ -66,7 +66,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerS
         {
             fileDescriptor.Sections[0].Parameters.Add(new Parameter
             {
-                Key = "key1",
+                Name = "key1",
                 ValueProvider = new ConstantValueProvider { Value = "some text" }
             });
 
@@ -81,7 +81,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerS
         {
             fileDescriptor.Sections[0].Parameters.Add(new Parameter
             {
-                Key = "key1",
+                Name = "key1",
                 ValueProvider = new ConstantValueProvider()
             });
 
@@ -95,7 +95,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerS
         {
             fileDescriptor.Sections[0].Parameters.Add(new Parameter
             {
-                Key = "key1",
+                Name = "key1",
                 ValueProvider = new ConstantValueProvider { Value = string.Empty }
             });
 

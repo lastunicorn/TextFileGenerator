@@ -31,13 +31,13 @@ namespace DustInTheWind.TextFileGenerator.Tests.GeneratorTests
             FileDescriptor options = new FileDescriptor();
             options.Sections.Add(new Section
             {
-                Template = new Template { Value = "test {param1}" }
+                SectionText = new SectionText { Value = "test {param1}" }
             });
             options.Sections[0].Parameters.AddRange(new[]
             {
                 new Parameter
                 {
-                    Key = "param1", 
+                    Name = "param1", 
                     ValueProvider = new RandomNumberValueProvider { Format = "000", MinValue = 10, MaxValue = 100 }
                 }
             });

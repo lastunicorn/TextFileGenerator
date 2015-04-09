@@ -40,7 +40,6 @@
     </Compile>
     <Compile Include="FileGeneration\Generator.cs" />
     <Compile Include="FileDescription\FileDescriptor.cs" />
-    <Compile Include="FileDescription\ListSerializer.cs" />
     <Compile Include="FileDescription\ValueProviders\ConstantValueProvider.cs" />
     <Compile Include="FileDescription\ValueProviders\CounterValueProvider.cs" />
     <Compile Include="FileDescription\ValueProviders\EmptyValueProvider.cs" />
@@ -49,10 +48,10 @@
     <Compile Include="FileDescription\ValueProviders\RandomNumberValueProvider.cs" />
     <Compile Include="FileDescription\ValueProviders\RandomTextValueProvider.cs" />
     <Compile Include="FileDescription\SectionParameterList.cs" />
-    <Compile Include="FileDescription\Template.cs" />
+    <Compile Include="FileDescription\SectionText.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FileDescription\Section.cs" />
-    <Compile Include="FileDescription\SeparatorType.cs" />
+    <Compile Include="FileDescription\SeparatorLocation.cs" />
     <Compile Include="FileGeneration\SectionGenerator.cs" />
     <Compile Include="Serialization\Entities.cs" />
     <Compile Include="Serialization\EntityTranslators\OptionsTranslator.cs" />

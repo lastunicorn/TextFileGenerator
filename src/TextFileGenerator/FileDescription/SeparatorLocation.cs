@@ -16,7 +16,7 @@
 
 namespace DustInTheWind.TextFileGenerator.FileDescription
 {
-    public enum SeparatorType
+    public enum SeparatorLocation
     {
         Infix = 0,
         Prefix = 1,

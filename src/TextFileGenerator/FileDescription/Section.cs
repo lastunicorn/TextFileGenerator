@@ -21,10 +21,10 @@ namespace DustInTheWind.TextFileGenerator.FileDescription
     public class Section
     {
         public string Name { get; set; }
-        public Template Template { get; set; }
+        public SectionText SectionText { get; set; }
         public int RepeatCount { get; set; }
         public string Separator { get; set; }
-        public SeparatorType SeparatorType { get; set; }
+        public SeparatorLocation SeparatorLocation { get; set; }
         public SectionParameterList Parameters { get; private set; }
         public List<Section> Sections { get; private set; }
 
