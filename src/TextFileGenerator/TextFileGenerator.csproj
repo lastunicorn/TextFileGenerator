@@ -32,18 +32,13 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Web" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\AssemblyInfo.Shared.cs">
       <Link>Properties\AssemblyInfo.Shared.cs</Link>
     </Compile>
-    <Compile Include="Generator.cs" />
+    <Compile Include="FileGeneration\Generator.cs" />
     <Compile Include="FileDescription\FileDescriptor.cs" />
     <Compile Include="FileDescription\ListSerializer.cs" />
     <Compile Include="FileDescription\ValueProviders\ConstantValueProvider.cs" />
@@ -57,12 +52,11 @@
     <Compile Include="FileDescription\Template.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FileDescription\Section.cs" />
-    <Compile Include="FileDescription\SectionList.cs" />
     <Compile Include="FileDescription\SeparatorType.cs" />
-    <Compile Include="SectionGenerator.cs" />
+    <Compile Include="FileGeneration\SectionGenerator.cs" />
     <Compile Include="Serialization\Entities.cs" />
     <Compile Include="Serialization\EntityTranslators\OptionsTranslator.cs" />
-    <Compile Include="Serialization\OptionsSerializer.cs" />
+    <Compile Include="Serialization\FileDescriptorSerializer.cs" />
     <Compile Include="Serialization\EntityTranslators\ParameterTranslator.cs" />
     <Compile Include="Serialization\EntityTranslators\SectionTranslator.cs" />
   </ItemGroup>

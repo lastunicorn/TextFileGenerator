@@ -18,22 +18,16 @@ namespace DustInTheWind.TextFileGenerator.FileDescription.ValueProviders
 {
     public class ConstantValueProvider : IValueProvider
     {
-        private string value;
-
-        public string Value
-        {
-            get { return value; }
-            set { this.value = value; }
-        }
+        public string Value { get; set; }
 
         public string MoveToNextValue()
         {
-            return value;
+            return Value;
         }
 
         public string CurrentValue
         {
-            get { return value; }
+            get { return Value; }
         }
 
         public void Reset()

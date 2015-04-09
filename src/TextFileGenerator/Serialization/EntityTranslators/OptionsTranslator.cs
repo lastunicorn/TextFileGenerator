@@ -47,11 +47,11 @@ namespace DustInTheWind.TextFileGenerator.Serialization.EntityTranslators
 
         public static FileDescriptor Translate(textFileGenerator sourceOptions)
         {
-            FileDescriptor destinationOptions = new FileDescriptor();
+            FileDescriptor fileDescriptor = new FileDescriptor();
 
-            CreateSections(destinationOptions, sourceOptions.sections);
+            CreateSections(fileDescriptor, sourceOptions.sections);
 
-            return destinationOptions;
+            return fileDescriptor;
         }
 
         private static void CreateSections(FileDescriptor destinationOptions, IEnumerable<section> sourceSections)

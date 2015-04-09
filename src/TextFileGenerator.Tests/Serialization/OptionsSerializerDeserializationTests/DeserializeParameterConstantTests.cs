@@ -26,12 +26,12 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerD
     [TestFixture]
     public class DeserializeParameterConstantTests
     {
-        private OptionsSerializer optionsSerializer;
+        private FileDescriptorSerializer fileDescriptorSerializer;
 
         [SetUp]
         public void SetUp()
         {
-            optionsSerializer = new OptionsSerializer();
+            fileDescriptorSerializer = new FileDescriptorSerializer();
         }
 
         [Test]
@@ -85,7 +85,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerD
 
                 ms.Position = 0;
 
-                return optionsSerializer.Deserialize(ms);
+                return fileDescriptorSerializer.Deserialize(ms);
             }
         }
     }

@@ -26,14 +26,14 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerS
     [TestFixture]
     public class SerializeParameterRandomNumberTests
     {
-        private OptionsSerializer optionsSerializer;
+        private FileDescriptorSerializer fileDescriptorSerializer;
         private MemoryStream actualStream;
         private FileDescriptor fileDescriptor;
 
         [SetUp]
         public void SetUp()
         {
-            optionsSerializer = new OptionsSerializer();
+            fileDescriptorSerializer = new FileDescriptorSerializer();
             actualStream = new MemoryStream();
 
             fileDescriptor = new FileDescriptor();
@@ -178,7 +178,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Serialization.OptionsSerializerS
 
         private XmlAsserter PerformTestAndCreateAsserterOnResult()
         {
-            optionsSerializer.Serialize(actualStream, fileDescriptor);
+            fileDescriptorSerializer.Serialize(actualStream, fileDescriptor);
 
             actualStream.Position = 0;
 

@@ -43,10 +43,7 @@ namespace DustInTheWind.TextFileGenerator.FileDescription
 
         public string CurrentValue
         {
-            get
-            {
-                return valueProvider.CurrentValue;
-            }
+            get { return valueProvider.CurrentValue; }
         }
 
         public string NextValue

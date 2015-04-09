@@ -24,7 +24,7 @@ using DustInTheWind.TextFileGenerator.Serialization.EntityTranslators;
 
 namespace DustInTheWind.TextFileGenerator.Serialization
 {
-    public class OptionsSerializer
+    public class FileDescriptorSerializer
     {
         public void Serialize(Stream outputStream, FileDescriptor fileDescriptor)
         {

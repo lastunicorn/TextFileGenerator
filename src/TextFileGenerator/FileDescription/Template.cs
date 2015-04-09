@@ -29,17 +29,17 @@ namespace DustInTheWind.TextFileGenerator.FileDescription
 
             string text = Value;
 
-            text = FormatUsingParameters(text, parameters);
-            text = FormatUsingAdditionalParameters(text, additionalParameters);
+            if (parameters != null)
+                text = FormatUsingParameters(text, parameters);
+
+            if (additionalParameters != null)
+                text = FormatUsingAdditionalParameters(text, additionalParameters);
 
             return text;
         }
 
         private static string FormatUsingParameters(string text, IEnumerable<Parameter> parameters)
         {
-            if (parameters == null)
-                return text;
-
             foreach (Parameter parameter in parameters)
             {
                 string key = FormatParameterKey(parameter);
@@ -53,9 +53,6 @@ namespace DustInTheWind.TextFileGenerator.FileDescription
 
         private static string FormatUsingAdditionalParameters(string text, IEnumerable<Parameter> additionalParameters)
         {
-            if (additionalParameters == null)
-                return text;
-
             foreach (Parameter parameter in additionalParameters)
             {
                 string key = FormatParameterKey(parameter);

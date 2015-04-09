@@ -14,15 +14,17 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using System.Collections.Generic;
+
 namespace DustInTheWind.TextFileGenerator.FileDescription
 {
     public class FileDescriptor
     {
-        public SectionList Sections { get; private set; }
+        public List<Section> Sections { get; private set; }
 
         public FileDescriptor()
         {
-            Sections = new SectionList();
+            Sections = new List<Section>();
         }
     }
 }

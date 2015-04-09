@@ -19,7 +19,7 @@ using System.IO;
 using System.Linq;
 using DustInTheWind.TextFileGenerator.FileDescription;
 
-namespace DustInTheWind.TextFileGenerator
+namespace DustInTheWind.TextFileGenerator.FileGeneration
 {
     public class SectionGenerator
     {

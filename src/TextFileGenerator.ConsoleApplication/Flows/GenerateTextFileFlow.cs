@@ -19,6 +19,7 @@ using System.Diagnostics;
 using System.IO;
 using DustInTheWind.TextFileGenerator.ConsoleApplication.Services;
 using DustInTheWind.TextFileGenerator.FileDescription;
+using DustInTheWind.TextFileGenerator.FileGeneration;
 using DustInTheWind.TextFileGenerator.Serialization;
 
 namespace DustInTheWind.TextFileGenerator.ConsoleApplication.Flows
@@ -45,19 +46,19 @@ namespace DustInTheWind.TextFileGenerator.ConsoleApplication.Flows
 
         private FileDescriptor ReadDescriptorFile(string fileName)
         {
-            FileDescriptor options;
+            FileDescriptor fileDescriptor;
 
             view.DisplayOptionFileReading(fileName);
 
             using (Stream inputStream = File.OpenRead(fileName))
             {
-                OptionsSerializer serializer = new OptionsSerializer();
-                options = serializer.Deserialize(inputStream);
+                FileDescriptorSerializer serializer = new FileDescriptorSerializer();
+                fileDescriptor = serializer.Deserialize(inputStream);
             }
 
             view.DisplayOptionFileReadingDone();
 
-            return options;
+            return fileDescriptor;
         }
 
         private void GenerateTextFile(FileDescriptor fileDescriptor)
