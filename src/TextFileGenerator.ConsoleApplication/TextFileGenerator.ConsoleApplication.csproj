@@ -39,12 +39,12 @@
     <Compile Include="..\AssemblyInfo.Shared.cs">
       <Link>Properties\AssemblyInfo.Shared.cs</Link>
     </Compile>
-    <Compile Include="Flows\ConsoleSpinner.cs" />
+    <Compile Include="Services\EmbededResources.cs" />
+    <Compile Include="Services\ConsoleSpinner.cs" />
     <Compile Include="Flows\DisplayUsageFlow.cs" />
-    <Compile Include="Flows\DisplayUsageView.cs" />
     <Compile Include="Flows\ScaffoldFlow.cs" />
     <Compile Include="Flows\IFlow.cs" />
-    <Compile Include="Flows\ScaffoldView.cs" />
+    <Compile Include="Services\UserInterface.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -55,9 +55,7 @@
     <Compile Include="Services\Arguments.cs" />
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Flows\GenerationFlow.cs" />
-    <Compile Include="Flows\GenerationView.cs" />
     <Compile Include="Flows\MainFlow.cs" />
-    <Compile Include="Flows\MainView.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -76,6 +74,9 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Scaffold.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Usage.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

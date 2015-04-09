@@ -1,4 +1,4 @@
-// TextFileGenerator
+﻿// TextFileGenerator
 // Copyright (C) 2009-2011 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -14,15 +14,17 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
-
-namespace DustInTheWind.TextFileGenerator.ConsoleApplication.Flows
+namespace DustInTheWind.TextFileGenerator.ConsoleApplication.Services
 {
-    internal class DisplayUsageView
+    class Argument
     {
-        public void WriteUsageHelp()
+        public string Id { get; private set; }
+        public string Value { get; private set; }
+
+        public Argument(string id, string value)
         {
-            Console.WriteLine("Usage: TextFileGenerator.exe <optionsFileName>");
+            Id = id;
+            Value = value;
         }
     }
 }

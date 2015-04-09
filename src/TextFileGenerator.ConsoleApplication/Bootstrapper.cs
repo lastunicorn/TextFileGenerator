@@ -14,6 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using System.Collections.Generic;
 using DustInTheWind.TextFileGenerator.ConsoleApplication.Flows;
 using DustInTheWind.TextFileGenerator.ConsoleApplication.Services;
 
@@ -24,22 +25,22 @@ namespace DustInTheWind.TextFileGenerator.ConsoleApplication
         private Arguments arguments;
         private MainFlow mainFlow;
 
-        public void Run(string[] args)
+        public void Run(IReadOnlyList<string> args)
         {
             CreateArgumentsService(args);
             CreateUi();
             StartUi();
         }
 
-        private void CreateArgumentsService(string[] args)
+        private void CreateArgumentsService(IReadOnlyList<string> args)
         {
             arguments = new Arguments(args);
         }
 
         private void CreateUi()
         {
-            MainView view = new MainView();
-            mainFlow = new MainFlow(view, arguments);
+            UserInterface ui = new UserInterface();
+            mainFlow = new MainFlow(ui, arguments);
         }
 
         private void StartUi()

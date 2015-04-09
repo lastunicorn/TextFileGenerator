@@ -16,36 +16,44 @@
 
 using System;
 using System.IO;
+using DustInTheWind.TextFileGenerator.ConsoleApplication.Properties;
 using DustInTheWind.TextFileGenerator.ConsoleApplication.Services;
 
 namespace DustInTheWind.TextFileGenerator.ConsoleApplication.Flows
 {
-    internal class DisplayUsageFlow : IFlow
+    internal class ScaffoldFlow : IFlow
     {
         private readonly UserInterface ui;
 
-        public DisplayUsageFlow(UserInterface ui)
+        public ScaffoldFlow(UserInterface ui)
         {
             if (ui == null) throw new ArgumentNullException("ui");
-
             this.ui = ui;
         }
 
         public void Start()
         {
-            WriteUsageHelp();
+            const string outputFileName = "file.xml";
+
+            using (Stream outputStream = File.Create(outputFileName))
+            {
+                using (Stream inputStream = EmbededResources.GetScaffoldStream())
+                {
+                    if (inputStream == null)
+                        throw new Exception("The 'scaffold' embeded file could not be found.");
+
+                    inputStream.CopyTo(outputStream);
+                }
+            }
+
+            DisplayOutputFileGenerateDone(outputFileName);
         }
 
-        public void WriteUsageHelp()
+        public void DisplayOutputFileGenerateDone(string outputFileName)
         {
-            using (Stream stream = EmbededResources.GetUsageStream())
-            {
-                if (stream == null)
-                    throw new Exception("The 'usage' embeded file could not be found.");
-
-                StreamReader reader = new StreamReader(stream);
-                ui.WriteLine(reader.ReadToEnd());
-            }
+            ui.Write(Resources.ScaffoldView_Success);
+            ui.WriteEnhanced(outputFileName);
+            ui.WriteLine();
         }
     }
 }

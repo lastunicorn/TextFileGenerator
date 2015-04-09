@@ -1,0 +1,4 @@
+﻿Usage: TextFileGenerator.exe <descriptorFileName>
+       TextFileGenerator.exe [options]
+
+-x     generates the scaffold file: "file.xml"

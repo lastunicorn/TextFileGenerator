@@ -21,24 +21,24 @@ namespace DustInTheWind.TextFileGenerator.ConsoleApplication.Flows
 {
     class MainFlow
     {
-        private readonly MainView view;
+        private readonly UserInterface ui;
         private readonly Arguments arguments;
 
-        public MainFlow(MainView view, Arguments arguments)
+        public MainFlow(UserInterface ui, Arguments arguments)
         {
-            if (view == null)
-                throw new ArgumentNullException("view");
+            if (ui == null)
+                throw new ArgumentNullException("ui");
 
             if (arguments == null)
                 throw new ArgumentNullException("arguments");
 
-            this.view = view;
+            this.ui = ui;
             this.arguments = arguments;
         }
 
         public void Start()
         {
-            view.WriteHeader();
+            WriteHeader();
 
             try
             {
@@ -47,19 +47,26 @@ namespace DustInTheWind.TextFileGenerator.ConsoleApplication.Flows
             }
             catch (Exception ex)
             {
-                view.DisplayError(ex);
+                ui.DisplayError(ex);
             }
         }
 
         private IFlow ChooseFlow()
         {
             if (arguments.DescriptorFileName != null)
-                return new GenerationFlow(new GenerationView(), arguments.DescriptorFileName);
+                return new GenerationFlow(ui, arguments.DescriptorFileName);
 
             if (arguments.GenerateScaffold)
-                return new ScaffoldFlow(new ScaffoldView());
+                return new ScaffoldFlow(ui);
 
-            return new DisplayUsageFlow(new DisplayUsageView());
+            return new DisplayUsageFlow(ui);
+        }
+
+        public void WriteHeader()
+        {
+            ui.WriteLine("TextFileGenerator v1.0");
+            ui.WriteLine("===============================================================================");
+            ui.WriteLine();
         }
     }
 }

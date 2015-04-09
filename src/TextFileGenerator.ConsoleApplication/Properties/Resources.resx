@@ -120,4 +120,7 @@
   <data name="ScaffoldView_Success" xml:space="preserve">
     <value>Scaffold file created successfully: </value>
   </data>
+  <data name="UserInterface_PauseMessage" xml:space="preserve">
+    <value>Press any key to continue...</value>
+  </data>
 </root>

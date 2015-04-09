@@ -17,6 +17,7 @@
 using System;
 using System.Diagnostics;
 using System.IO;
+using DustInTheWind.TextFileGenerator.ConsoleApplication.Services;
 using DustInTheWind.TextFileGenerator.FileDescription;
 using DustInTheWind.TextFileGenerator.FileGeneration;
 using DustInTheWind.TextFileGenerator.Serialization;
@@ -25,15 +26,15 @@ namespace DustInTheWind.TextFileGenerator.ConsoleApplication.Flows
 {
     class GenerationFlow : IFlow
     {
-        private readonly GenerationView view;
+        private readonly UserInterface ui;
         private readonly string descriptorFileName;
 
-        public GenerationFlow(GenerationView view, string descriptorFileName)
+        public GenerationFlow(UserInterface ui, string descriptorFileName)
         {
-            if (view == null) throw new ArgumentNullException("view");
+            if (ui == null) throw new ArgumentNullException("ui");
             if (descriptorFileName == null) throw new ArgumentNullException("descriptorFileName");
 
-            this.view = view;
+            this.ui = ui;
             this.descriptorFileName = descriptorFileName;
         }
 
@@ -47,7 +48,7 @@ namespace DustInTheWind.TextFileGenerator.ConsoleApplication.Flows
         {
             FileDescriptor fileDescriptor;
 
-            view.DisplayOptionFileReading(descriptorFileName);
+            DisplayOptionFileReading(descriptorFileName);
 
             using (Stream inputStream = File.OpenRead(descriptorFileName))
             {
@@ -55,7 +56,7 @@ namespace DustInTheWind.TextFileGenerator.ConsoleApplication.Flows
                 fileDescriptor = serializer.Deserialize(inputStream);
             }
 
-            view.DisplayOptionFileReadingDone();
+            DisplayOk();
 
             return fileDescriptor;
         }
@@ -66,27 +67,31 @@ namespace DustInTheWind.TextFileGenerator.ConsoleApplication.Flows
 
             Stopwatch stopwatch = new Stopwatch();
 
-            view.DisplayOutputFileGenerating(outputFileName);
+            DisplayOutputFileGenerating(outputFileName);
 
             using (ConsoleSpinner consoleSpinner = new ConsoleSpinner())
             {
                 consoleSpinner.Start();
 
-                Generator generator = new Generator(fileDescriptor);
-
-                using (Stream outputStream = File.Create(outputFileName))
+                try
                 {
-                    stopwatch.Start();
-                    generator.Generate(outputStream);
-                    stopwatch.Stop();
-                }
+                    Generator generator = new Generator(fileDescriptor);
 
-                consoleSpinner.Stop();
+                    using (Stream outputStream = File.Create(outputFileName))
+                    {
+                        stopwatch.Start();
+                        generator.Generate(outputStream);
+                        stopwatch.Stop();
+                    }
+                }
+                finally
+                {
+                    consoleSpinner.Stop();
+                }
             }
 
-            view.DisplayOutputFileGenerateDone();
-
-            view.DisplayElapsedTime(stopwatch.Elapsed);
+            DisplayOk();
+            DisplayElapsedTime(stopwatch.Elapsed);
         }
 
         private string GenerateOutputFileName()
@@ -95,6 +100,32 @@ namespace DustInTheWind.TextFileGenerator.ConsoleApplication.Flows
             string outputFileName = Path.GetFileNameWithoutExtension(descriptorFileName) + ".output.txt";
 
             return Path.Combine(directoryPath, outputFileName);
+        }
+
+        public void DisplayOptionFileReading(string optionsFileName)
+        {
+            ui.Write("Reading options from ");
+            ui.WriteEnhanced(optionsFileName);
+            ui.Write(" ");
+        }
+
+        public void DisplayOk()
+        {
+            ui.WriteLine("[Done]");
+        }
+
+        public void DisplayOutputFileGenerating(string outputFileName)
+        {
+            ui.Write("Generating file ");
+            ui.WriteEnhanced(outputFileName);
+            ui.Write(" ");
+        }
+
+        public void DisplayElapsedTime(TimeSpan elapsed)
+        {
+            ui.WriteLine();
+            ui.Write("Elapsed time: ");
+            ui.WriteLineEnhanced(elapsed.ToString());
         }
     }
 }

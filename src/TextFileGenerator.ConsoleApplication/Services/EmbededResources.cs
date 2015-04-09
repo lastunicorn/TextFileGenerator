@@ -14,27 +14,25 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
-using DustInTheWind.TextFileGenerator.ConsoleApplication.Properties;
+using System.IO;
+using System.Reflection;
 
-namespace DustInTheWind.TextFileGenerator.ConsoleApplication.Flows
+namespace DustInTheWind.TextFileGenerator.ConsoleApplication.Services
 {
-    internal class ScaffoldView
+    static class EmbededResources
     {
-        public void DisplayOutputFileGenerateDone(string outputFileName)
+        public static Stream GetScaffoldStream()
         {
-            Console.Write(Resources.ScaffoldView_Success);
-            ConsoleWrite(outputFileName, ConsoleColor.Green);
+            const string resourcePath = "DustInTheWind.TextFileGenerator.ConsoleApplication.Scaffold.xml";
+            Assembly assembly = Assembly.GetExecutingAssembly();
+            return assembly.GetManifestResourceStream(resourcePath);
         }
 
-        private static void ConsoleWrite(string text, ConsoleColor color)
+        public static Stream GetUsageStream()
         {
-            ConsoleColor oldColor = Console.ForegroundColor;
-
-            Console.ForegroundColor = color;
-            Console.Write(text);
-
-            Console.ForegroundColor = oldColor;
+            const string resourcePath = "DustInTheWind.TextFileGenerator.ConsoleApplication.Usage.txt";
+            Assembly assembly = Assembly.GetExecutingAssembly();
+            return assembly.GetManifestResourceStream(resourcePath);
         }
     }
 }
