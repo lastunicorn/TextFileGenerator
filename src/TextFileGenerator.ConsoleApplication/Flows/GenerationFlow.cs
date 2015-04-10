@@ -102,10 +102,10 @@ namespace DustInTheWind.TextFileGenerator.ConsoleApplication.Flows
             return Path.Combine(directoryPath, outputFileName);
         }
 
-        public void DisplayOptionFileReading(string optionsFileName)
+        public void DisplayOptionFileReading(string descriptorFileName)
         {
-            ui.Write("Reading options from ");
-            ui.WriteEnhanced(optionsFileName);
+            ui.Write("Reading description file ");
+            ui.WriteEnhanced(descriptorFileName);
             ui.Write(" ");
         }
 

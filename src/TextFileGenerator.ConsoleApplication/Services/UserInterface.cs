@@ -52,7 +52,7 @@ namespace DustInTheWind.TextFileGenerator.ConsoleApplication.Services
         public void DisplayError(Exception ex)
         {
             Console.WriteLine();
-            ConsoleWriteLine(ex.Message, ErrorColor);
+            ConsoleWriteLine(ex.ToString(), ErrorColor);
         }
 
         public void Pause()
