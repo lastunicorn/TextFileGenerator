@@ -35,9 +35,9 @@ namespace DustInTheWind.TextFileGenerator.FileGeneration
 
         public void WriteSection(Section section, IEnumerable<Parameter> additionalParameters = null)
         {
-            bool existsSeparator = !string.IsNullOrEmpty(section.Separator);
-
             section.Parameters.ResetAll();
+
+            bool existsSeparator = !string.IsNullOrEmpty(section.Separator);
 
             for (int i = 0; i < section.RepeatCount; i++)
             {
@@ -48,6 +48,8 @@ namespace DustInTheWind.TextFileGenerator.FileGeneration
 
                 if (existsSeparator)
                     WriteSeparatorAfterItem(section.Separator, section.SeparatorLocation);
+
+                section.Parameters.MoveAllToNextValue();
             }
         }
 
@@ -67,8 +69,6 @@ namespace DustInTheWind.TextFileGenerator.FileGeneration
 
         private void WriteSubsections(Section section, IEnumerable<Parameter> additionalParameters)
         {
-            section.Parameters.MoveAllToNextValue();
-
             IEnumerable<Parameter> calculatedAdditionalParameters = ConcatenateAdditionalParameters(section.Parameters, additionalParameters);
 
             foreach (Section subSection in section.Sections)

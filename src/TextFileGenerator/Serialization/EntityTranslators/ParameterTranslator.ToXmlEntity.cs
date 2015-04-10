@@ -29,19 +29,19 @@ namespace DustInTheWind.TextFileGenerator.Serialization.EntityTranslators
             {
                 name = sourceParameter.Name,
                 Item = CreateValueProvider(sourceParameter),
-                changeAt = CalculateChangeAt(sourceParameter)
+                valuePersistence = CalculateValuePersistence(sourceParameter)
             };
         }
 
-        private static parameterChangeAt CalculateChangeAt(Parameter sourceParameter)
+        private static parameterValuePersistence CalculateValuePersistence(Parameter sourceParameter)
         {
             switch (sourceParameter.ValueChangeMode)
             {
                 case ValueChangeMode.Auto:
-                    return parameterChangeAt.EachRequest;
+                    return parameterValuePersistence.None;
 
                 case ValueChangeMode.Manual:
-                    return parameterChangeAt.SectionIteration;
+                    return parameterValuePersistence.Section;
 
                 default:
                     throw new ArgumentOutOfRangeException();

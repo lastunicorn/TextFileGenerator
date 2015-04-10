@@ -15,11 +15,21 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
 
 namespace DustInTheWind.TextFileGenerator.FileDescription
 {
     public class SectionText
     {
+        private readonly Regex regex;
+
+        public SectionText()
+        {
+            regex = new Regex(@"{([^{}]*)}");
+        }
+
         public string Value { get; set; }
 
         public string Format(IEnumerable<Parameter> parameters, IEnumerable<Parameter> additionalParameters)
@@ -38,35 +48,69 @@ namespace DustInTheWind.TextFileGenerator.FileDescription
             return text;
         }
 
-        private static string FormatUsingParameters(string text, IEnumerable<Parameter> parameters)
+        private string FormatUsingParameters(string text, IEnumerable<Parameter> parameters)
         {
-            foreach (Parameter parameter in parameters)
+            return regex.Replace(text, match =>
             {
-                string key = FormatParameterKey(parameter);
-                string value = parameter.NextValue;
+                string value = parameters
+                     .Where(x => x.Name == match.Groups[1].Value)
+                     .Select(x => x.NextValue)
+                     .FirstOrDefault();
 
-                text = text.Replace(key, value);
-            }
+                return value ?? match.Groups[0].Value;
+            });
 
-            return text;
+            //foreach (Parameter parameter in parameters)
+            //{
+            //    string key = FormatParameterKey(parameter);
+            //    string value = parameter.NextValue;
+
+            //    //StringBuilder sb = new StringBuilder();
+
+            //    //int i1 = 0;
+            //    //int i2 = 0;
+
+            //    //while (true)
+            //    //{
+            //    //    i2 = text.IndexOf(key);
+
+            //    //    if (pos == -1)
+            //    //        break;
+
+            //    //    sb.Append(text.Substring())
+            //    //}
+            //    text = text.Replace(key, value);
+            //}
+
+            //return text;
         }
 
-        private static string FormatUsingAdditionalParameters(string text, IEnumerable<Parameter> additionalParameters)
+        private string FormatUsingAdditionalParameters(string text, IEnumerable<Parameter> parameters)
         {
-            foreach (Parameter parameter in additionalParameters)
+            return regex.Replace(text, match =>
             {
-                string key = FormatParameterKey(parameter);
-                string value = parameter.CurrentValue;
+                string value = parameters
+                     .Where(x => x.Name == match.Groups[1].Value)
+                     .Select(x => x.NextValue)
+                     .FirstOrDefault();
 
-                text = text.Replace(key, value);
-            }
+                return value ?? match.Groups[0].Value;
+            });
 
-            return text;
+            //foreach (Parameter parameter in additionalParameters)
+            //{
+            //    string key = FormatParameterKey(parameter);
+            //    string value = parameter.CurrentValue;
+
+            //    text = text.Replace(key, value);
+            //}
+
+            //return text;
         }
 
-        private static string FormatParameterKey(Parameter parameter)
-        {
-            return "{" + parameter.Name + "}";
-        }
+        //private static string FormatParameterKey(Parameter parameter)
+        //{
+        //    return "{" + parameter.Name + "}";
+        //}
     }
 }

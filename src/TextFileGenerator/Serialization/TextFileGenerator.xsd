@@ -68,7 +68,7 @@
                 </xs:element>
             </xs:choice>
             <xs:attribute name="name" type="xs:string" use="required" />
-            <xs:attribute name="changeAt" type="parameterChangeAt" default="EachRequest" />
+            <xs:attribute name="valuePersistence" type="parameterValuePersistence" default="None" />
         </xs:complexType>
     </xs:element>
 
@@ -80,10 +80,10 @@
         </xs:restriction>
     </xs:simpleType>
 
-    <xs:simpleType name="parameterChangeAt">
+    <xs:simpleType name="parameterValuePersistence">
         <xs:restriction base="xs:string">
-            <xs:enumeration value="EachRequest"/>
-            <xs:enumeration value="SectionIteration"/>
+            <xs:enumeration value="None"/>
+            <xs:enumeration value="Section"/>
         </xs:restriction>
     </xs:simpleType>
 

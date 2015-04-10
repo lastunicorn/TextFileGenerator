@@ -12,18 +12,18 @@ namespace DustInTheWind.TextFileGenerator.Serialization.EntityTranslators
             {
                 Name = sourceParameter.name,
                 ValueProvider = CreateValueProvider(sourceParameter),
-                ValueChangeMode = CalculateValueChangeMode(sourceParameter)
+                ValueChangeMode = CalculateValuePersistence(sourceParameter)
             };
         }
 
-        private static ValueChangeMode CalculateValueChangeMode(parameter sourceParameter)
+        private static ValueChangeMode CalculateValuePersistence(parameter sourceParameter)
         {
-            switch (sourceParameter.changeAt)
+            switch (sourceParameter.valuePersistence)
             {
-                case parameterChangeAt.EachRequest:
+                case parameterValuePersistence.None:
                     return ValueChangeMode.Auto;
 
-                case parameterChangeAt.SectionIteration:
+                case parameterValuePersistence.Section:
                     return ValueChangeMode.Manual;
 
                 default:

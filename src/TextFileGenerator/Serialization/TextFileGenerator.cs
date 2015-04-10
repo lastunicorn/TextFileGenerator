@@ -149,10 +149,10 @@ namespace DustInTheWind.TextFileGenerator.Serialization {
         
         private string nameField;
         
-        private parameterChangeAt changeAtField;
+        private parameterValuePersistence valuePersistenceField;
         
         public parameter() {
-            this.changeAtField = parameterChangeAt.EachRequest;
+            this.valuePersistenceField = parameterValuePersistence.None;
         }
         
         /// <remarks/>
@@ -182,13 +182,13 @@ namespace DustInTheWind.TextFileGenerator.Serialization {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        [System.ComponentModel.DefaultValueAttribute(parameterChangeAt.EachRequest)]
-        public parameterChangeAt changeAt {
+        [System.ComponentModel.DefaultValueAttribute(parameterValuePersistence.None)]
+        public parameterValuePersistence valuePersistence {
             get {
-                return this.changeAtField;
+                return this.valuePersistenceField;
             }
             set {
-                this.changeAtField = value;
+                this.valuePersistenceField = value;
             }
         }
     }
@@ -380,13 +380,13 @@ namespace DustInTheWind.TextFileGenerator.Serialization {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.17929")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://alez.ro/TextFileGenerator")]
-    public enum parameterChangeAt {
+    public enum parameterValuePersistence {
         
         /// <remarks/>
-        EachRequest,
+        None,
         
         /// <remarks/>
-        SectionIteration,
+        Section,
     }
     
     /// <remarks/>

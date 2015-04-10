@@ -42,6 +42,8 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.FileDescription.ValueProvid
             Assert.That(counterValueProvider.StartValue, Is.EqualTo(1));
         }
 
+        // ------------------------------------------------------------------
+
         [Test]
         public void returns_1_as_first_value()
         {
@@ -54,7 +56,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.FileDescription.ValueProvid
         public void returns_2_as_second_value()
         {
             counterValueProvider.GetNextValue();
-            
+
             string secondValue = counterValueProvider.GetNextValue();
 
             Assert.That(secondValue, Is.EqualTo("2"));
@@ -112,6 +114,18 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.FileDescription.ValueProvid
             string firstValue = counterValueProvider.GetNextValue();
 
             Assert.That(firstValue, Is.EqualTo("001"));
+        }
+
+        [Test]
+        public void after_Reset_returns_1()
+        {
+            counterValueProvider.GetNextValue();
+            counterValueProvider.GetNextValue();
+            counterValueProvider.Reset();
+
+            string actual = counterValueProvider.GetNextValue();
+
+            Assert.That(actual, Is.EqualTo("1"));
         }
     }
 }
