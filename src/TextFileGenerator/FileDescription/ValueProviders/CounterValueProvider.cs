@@ -20,9 +20,8 @@ namespace DustInTheWind.TextFileGenerator.FileDescription.ValueProviders
 {
     public class CounterValueProvider : IValueProvider
     {
-        private int currentValue;
+        private int currentNumber;
         private int startValue;
-        private string currentValueAsString;
         private bool isFirst;
 
         public int StartValue
@@ -31,14 +30,14 @@ namespace DustInTheWind.TextFileGenerator.FileDescription.ValueProviders
             set
             {
                 startValue = value;
-                currentValue = value;
+                currentNumber = value;
                 isFirst = true;
             }
         }
 
         public int Step { get; set; }
-
         public string Format { get; set; }
+        public string CurrentValue { get; private set; }
 
         public CounterValueProvider()
         {
@@ -47,11 +46,9 @@ namespace DustInTheWind.TextFileGenerator.FileDescription.ValueProviders
             isFirst = true;
         }
 
-        public string MoveToNextValue()
+        public void MoveToNextValue()
         {
             GenerateNextValue();
-
-            return currentValueAsString;
         }
 
         private void GenerateNextValue()
@@ -59,21 +56,16 @@ namespace DustInTheWind.TextFileGenerator.FileDescription.ValueProviders
             if (isFirst)
                 isFirst = false;
             else
-                currentValue += Step;
+                currentNumber += Step;
 
-            currentValueAsString = Format != null
-                ? currentValue.ToString(Format, CultureInfo.CurrentCulture)
-                : currentValue.ToString(CultureInfo.CurrentCulture);
-        }
-
-        public string CurrentValue
-        {
-            get { return currentValueAsString; }
+            CurrentValue = Format != null
+                ? currentNumber.ToString(Format, CultureInfo.CurrentCulture)
+                : currentNumber.ToString(CultureInfo.CurrentCulture);
         }
 
         public void Reset()
         {
-            currentValue = startValue;
+            currentNumber = startValue;
             isFirst = true;
         }
     }

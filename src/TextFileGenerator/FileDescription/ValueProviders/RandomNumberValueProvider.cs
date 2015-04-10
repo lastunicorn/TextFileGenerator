@@ -22,13 +22,11 @@ namespace DustInTheWind.TextFileGenerator.FileDescription.ValueProviders
     public class RandomNumberValueProvider : IValueProvider
     {
         private readonly Random random;
-        private string currentValue;
 
         public int MinValue { get; set; }
-
         public int MaxValue { get; set; }
-
         public string Format { get; set; }
+        public string CurrentValue { get; private set; }
 
         public RandomNumberValueProvider()
         {
@@ -37,32 +35,26 @@ namespace DustInTheWind.TextFileGenerator.FileDescription.ValueProviders
             MinValue = 1;
             MaxValue = 100;
 
-            currentValue = string.Empty;
+            CurrentValue = string.Empty;
         }
 
-        public string MoveToNextValue()
+        public void MoveToNextValue()
         {
             GenerateNextValue();
-            return currentValue;
         }
 
         private void GenerateNextValue()
         {
             int value = random.Next(MinValue, MaxValue + 1);
 
-            currentValue = Format != null
+            CurrentValue = Format != null
                 ? value.ToString(Format, CultureInfo.CurrentCulture)
                 : value.ToString(CultureInfo.CurrentCulture);
         }
 
-        public string CurrentValue
-        {
-            get { return currentValue; }
-        }
-
         public void Reset()
         {
-            currentValue = string.Empty;
+            CurrentValue = string.Empty;
         }
     }
 }

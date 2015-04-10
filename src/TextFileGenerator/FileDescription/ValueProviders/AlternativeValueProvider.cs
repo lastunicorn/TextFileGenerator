@@ -27,7 +27,7 @@ namespace DustInTheWind.TextFileGenerator.FileDescription.ValueProviders
             this.valueProvider1 = valueProvider1;
         }
 
-        public string MoveToNextValue()
+        public void MoveToNextValue()
         {
             throw new NotImplementedException();
         }

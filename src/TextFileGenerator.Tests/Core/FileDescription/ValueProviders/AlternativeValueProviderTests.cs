@@ -21,7 +21,7 @@ using NUnit.Framework;
 namespace DustInTheWind.TextFileGenerator.Tests.Core.FileDescription.ValueProviders
 {
     [TestFixture]
-    public class Tests
+    public class AlternativeValueProviderTests
     {
         private Mock<IValueProvider> valueProvider1;
         private Mock<IValueProvider> valueProvider2;

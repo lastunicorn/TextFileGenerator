@@ -20,9 +20,8 @@ namespace DustInTheWind.TextFileGenerator.FileDescription.ValueProviders
     {
         public string Value { get; set; }
 
-        public string MoveToNextValue()
+        public void MoveToNextValue()
         {
-            return Value;
         }
 
         public string CurrentValue

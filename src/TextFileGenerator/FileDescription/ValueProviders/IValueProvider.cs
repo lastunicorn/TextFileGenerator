@@ -18,7 +18,7 @@ namespace DustInTheWind.TextFileGenerator.FileDescription.ValueProviders
 {
     public interface IValueProvider
     {
-        string MoveToNextValue();
+        void MoveToNextValue();
         string CurrentValue { get; }
         void Reset();
     }

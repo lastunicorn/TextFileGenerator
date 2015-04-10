@@ -18,9 +18,20 @@ namespace DustInTheWind.TextFileGenerator.FileDescription.ValueProviders
 {
     public class EmptyValueProvider : IValueProvider
     {
-        public string MoveToNextValue()
+        public static IValueProvider Value { get; private set; }
+
+        static EmptyValueProvider()
         {
-            return string.Empty;
+            Value = new EmptyValueProvider();
+        }
+
+        private EmptyValueProvider()
+        {
+
+        }
+
+        public void MoveToNextValue()
+        {
         }
 
         public string CurrentValue

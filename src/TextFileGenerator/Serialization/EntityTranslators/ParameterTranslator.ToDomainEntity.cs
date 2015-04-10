@@ -8,36 +8,42 @@ namespace DustInTheWind.TextFileGenerator.Serialization.EntityTranslators
     {
         public static Parameter ToDomainEntity(parameter sourceParameter)
         {
-            Parameter destinationParameter = new Parameter();
-            destinationParameter.Name = sourceParameter.name;
+            return new Parameter
+            {
+                Name = sourceParameter.name,
+                ValueProvider = CreateValueProvider(sourceParameter)
+            };
+        }
 
+        private static IValueProvider CreateValueProvider(parameter sourceParameter)
+        {
             Type valueProviderType = sourceParameter.Item.GetType();
 
             if (valueProviderType == typeof(parameterConstant))
             {
                 parameterConstant sourceValueProvider = (parameterConstant)sourceParameter.Item;
-                destinationParameter.ValueProvider = CreateConstantValueProvider(sourceValueProvider);
+                return CreateConstantValueProvider(sourceValueProvider);
             }
 
             if (valueProviderType == typeof(parameterCounter))
             {
                 parameterCounter sourceValueProvider = (parameterCounter)sourceParameter.Item;
-                destinationParameter.ValueProvider = CreateCounterValueProvider(sourceValueProvider);
+                return CreateCounterValueProvider(sourceValueProvider);
             }
 
             if (valueProviderType == typeof(parameterRandomNumber))
             {
                 parameterRandomNumber sourceValueProvider = (parameterRandomNumber)sourceParameter.Item;
-                destinationParameter.ValueProvider = CreateRandomNumberValueProvider(sourceValueProvider);
+                return CreateRandomNumberValueProvider(sourceValueProvider);
             }
 
             if (valueProviderType == typeof(parameterRandomText))
             {
                 parameterRandomText sourceValueProvider = (parameterRandomText)sourceParameter.Item;
-                destinationParameter.ValueProvider = CreateRandomTextValueProvider(sourceValueProvider);
+                return CreateRandomTextValueProvider(sourceValueProvider);
             }
 
-            return destinationParameter;
+            return null;
         }
 
         private static RandomTextValueProvider CreateRandomTextValueProvider(parameterRandomText sourceValueProvider)

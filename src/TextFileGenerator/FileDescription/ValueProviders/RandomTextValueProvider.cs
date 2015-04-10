@@ -21,13 +21,11 @@ namespace DustInTheWind.TextFileGenerator.FileDescription.ValueProviders
     public class RandomTextValueProvider : IValueProvider
     {
         private readonly Random random;
-        private string currentValue;
 
         public int MinLength { get; set; }
-
         public int MaxLength { get; set; }
-
         public string AvailableChars { get; set; }
+        public string CurrentValue { get; private set; }
 
         public RandomTextValueProvider()
         {
@@ -38,23 +36,17 @@ namespace DustInTheWind.TextFileGenerator.FileDescription.ValueProviders
 
             AvailableChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
 
-            currentValue = string.Empty;
+            CurrentValue = string.Empty;
         }
 
-        public string MoveToNextValue()
+        public void MoveToNextValue()
         {
             GenerateNextValue();
-            return currentValue;
-        }
-
-        public string CurrentValue
-        {
-            get { return currentValue; }
         }
 
         public void Reset()
         {
-            currentValue = string.Empty;
+            CurrentValue = string.Empty;
         }
 
         private void GenerateNextValue()
@@ -62,7 +54,7 @@ namespace DustInTheWind.TextFileGenerator.FileDescription.ValueProviders
             int length = random.Next(MinLength, MaxLength + 1);
             char[] randomChars = GenerateRandomChars(length);
 
-            currentValue = new string(randomChars);
+            CurrentValue = new string(randomChars);
         }
 
         private char[] GenerateRandomChars(int length)

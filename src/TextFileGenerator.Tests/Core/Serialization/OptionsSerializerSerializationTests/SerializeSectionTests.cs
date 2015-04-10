@@ -189,7 +189,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
             section.Parameters.Add(new Parameter
             {
                 Name = "key1",
-                ValueProvider = new EmptyValueProvider()
+                ValueProvider = EmptyValueProvider.Value
             });
             fileDescriptor.Sections.Add(section);
 
@@ -205,12 +205,12 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
             section.Parameters.Add(new Parameter
             {
                 Name = "key1",
-                ValueProvider = new EmptyValueProvider()
+                ValueProvider = EmptyValueProvider.Value
             });
             section.Parameters.Add(new Parameter
             {
                 Name = "key2",
-                ValueProvider = new EmptyValueProvider()
+                ValueProvider = EmptyValueProvider.Value
             });
             fileDescriptor.Sections.Add(section);
 

@@ -45,7 +45,9 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.FileDescription.ValueProvid
         [Test]
         public void returns_1_as_first_value()
         {
-            string firstValue = counterParameter.MoveToNextValue();
+            counterParameter.MoveToNextValue();
+
+            string firstValue = counterParameter.CurrentValue;
 
             Assert.That(firstValue, Is.EqualTo("1"));
         }
@@ -53,8 +55,10 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.FileDescription.ValueProvid
         [Test]
         public void returns_2_as_second_value()
         {
-            string firstValue = counterParameter.MoveToNextValue();
-            string secondValue = counterParameter.MoveToNextValue();
+            counterParameter.MoveToNextValue();
+            counterParameter.MoveToNextValue();
+
+            string secondValue = counterParameter.CurrentValue;
 
             Assert.That(secondValue, Is.EqualTo("2"));
         }
@@ -62,9 +66,11 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.FileDescription.ValueProvid
         [Test]
         public void returns_3_as_third_value()
         {
-            string firstValue = counterParameter.MoveToNextValue();
-            string secondValue = counterParameter.MoveToNextValue();
-            string thirdValue = counterParameter.MoveToNextValue();
+            counterParameter.MoveToNextValue();
+            counterParameter.MoveToNextValue();
+            counterParameter.MoveToNextValue();
+
+            string thirdValue = counterParameter.CurrentValue;
 
             Assert.That(thirdValue, Is.EqualTo("3"));
         }
@@ -73,7 +79,9 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.FileDescription.ValueProvid
         public void returns_10_as_first_value_if_StartValue_is_set_to_10()
         {
             counterParameter.StartValue = 10;
-            string firstValue = counterParameter.MoveToNextValue();
+            counterParameter.MoveToNextValue();
+
+            string firstValue = counterParameter.CurrentValue;
 
             Assert.That(firstValue, Is.EqualTo("10"));
         }
@@ -82,8 +90,10 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.FileDescription.ValueProvid
         public void returns_11_as_second_value_if_StartValue_is_set_to_10()
         {
             counterParameter.StartValue = 10;
-            string firstValue = counterParameter.MoveToNextValue();
-            string secondValue = counterParameter.MoveToNextValue();
+            counterParameter.MoveToNextValue();
+            counterParameter.MoveToNextValue();
+
+            string secondValue = counterParameter.CurrentValue;
 
             Assert.That(secondValue, Is.EqualTo("11"));
         }
@@ -93,8 +103,10 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.FileDescription.ValueProvid
         {
             counterParameter.StartValue = 10;
             counterParameter.Step = 5;
-            string firstValue = counterParameter.MoveToNextValue();
-            string secondValue = counterParameter.MoveToNextValue();
+            counterParameter.MoveToNextValue();
+            counterParameter.MoveToNextValue();
+
+            string secondValue = counterParameter.CurrentValue;
 
             Assert.That(secondValue, Is.EqualTo("15"));
         }
@@ -103,7 +115,9 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.FileDescription.ValueProvid
         public void returns_001_as_first_value_if_Format_is_set_to_000()
         {
             counterParameter.Format = "000";
-            string firstValue = counterParameter.MoveToNextValue();
+            counterParameter.MoveToNextValue();
+
+            string firstValue = counterParameter.CurrentValue;
 
             Assert.That(firstValue, Is.EqualTo("001"));
         }

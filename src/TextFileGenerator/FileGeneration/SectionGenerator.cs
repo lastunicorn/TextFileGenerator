@@ -14,6 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -23,51 +24,55 @@ namespace DustInTheWind.TextFileGenerator.FileGeneration
 {
     public class SectionGenerator
     {
-        public static void WriteSection(TextWriter textWriter, Section section, IEnumerable<Parameter> additionalParameters)
+        private readonly TextWriter textWriter;
+
+        public SectionGenerator(TextWriter textWriter)
+        {
+            if (textWriter == null) throw new ArgumentNullException("textWriter");
+
+            this.textWriter = textWriter;
+        }
+
+        public void WriteSection(Section section, IEnumerable<Parameter> additionalParameters = null)
         {
             bool existsSeparator = !string.IsNullOrEmpty(section.Separator);
 
-            foreach (Parameter parameter in section.Parameters)
-            {
-                parameter.Reset();
-            }
+            section.Parameters.ResetAll();
 
             for (int i = 0; i < section.RepeatCount; i++)
             {
                 if (existsSeparator)
-                    WriteSeparatorBeforeItem(textWriter, section.Separator, section.SeparatorLocation, i);
+                    WriteSeparatorBeforeItem(section.Separator, section.SeparatorLocation, i);
 
-                WriteSectionContent(textWriter, section, additionalParameters);
+                WriteSectionContent(section, additionalParameters);
 
                 if (existsSeparator)
-                    WriteSeparatorAfterItem(textWriter, section.Separator, section.SeparatorLocation);
+                    WriteSeparatorAfterItem(section.Separator, section.SeparatorLocation);
             }
         }
 
-        private static void WriteSectionContent(TextWriter textWriter, Section section, IEnumerable<Parameter> additionalParameters)
+        private void WriteSectionContent(Section section, IEnumerable<Parameter> additionalParameters)
         {
             if (section.SectionText != null)
-                WriteSectionTemplate(textWriter, section, additionalParameters);
+                WriteSectionText(section, additionalParameters);
             else
-                WriteSubsections(textWriter, section, additionalParameters);
+                WriteSubsections(section, additionalParameters);
         }
 
-        private static void WriteSectionTemplate(TextWriter textWriter, Section section, IEnumerable<Parameter> additionalParameters)
+        private void WriteSectionText(Section section, IEnumerable<Parameter> additionalParameters)
         {
             string text = section.SectionText.Format(section.Parameters, additionalParameters);
             textWriter.Write(text);
         }
 
-        private static void WriteSubsections(TextWriter textWriter, Section section, IEnumerable<Parameter> additionalParameters)
+        private void WriteSubsections(Section section, IEnumerable<Parameter> additionalParameters)
         {
             section.Parameters.MoveAllToNextValue();
 
             IEnumerable<Parameter> calculatedAdditionalParameters = ConcatenateAdditionalParameters(section.Parameters, additionalParameters);
 
             foreach (Section subSection in section.Sections)
-            {
-                WriteSection(textWriter, subSection, calculatedAdditionalParameters);
-            }
+                WriteSection(subSection, calculatedAdditionalParameters);
         }
 
         private static IEnumerable<Parameter> ConcatenateAdditionalParameters(IEnumerable<Parameter> parameters, IEnumerable<Parameter> additionalParameters)
@@ -81,7 +86,7 @@ namespace DustInTheWind.TextFileGenerator.FileGeneration
             return parameters.Concat(additionalParameters);
         }
 
-        private static void WriteSeparatorAfterItem(TextWriter textWriter, string separator, SeparatorLocation separatorLocation)
+        private void WriteSeparatorAfterItem(string separator, SeparatorLocation separatorLocation)
         {
             bool shouldWriteSeparatorAfterSection = separatorLocation == SeparatorLocation.Postfix;
 
@@ -89,7 +94,7 @@ namespace DustInTheWind.TextFileGenerator.FileGeneration
                 textWriter.Write(separator);
         }
 
-        private static void WriteSeparatorBeforeItem(TextWriter textWriter, string separator, SeparatorLocation separatorLocation, int i)
+        private void WriteSeparatorBeforeItem(string separator, SeparatorLocation separatorLocation, int i)
         {
             bool shouldWriteSeparatorBeforeSection = separatorLocation == SeparatorLocation.Prefix ||
                                                      (separatorLocation == SeparatorLocation.Infix && i > 0);

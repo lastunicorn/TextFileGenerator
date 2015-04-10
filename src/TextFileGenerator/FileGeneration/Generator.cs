@@ -22,13 +22,13 @@ namespace DustInTheWind.TextFileGenerator.FileGeneration
 {
     public class Generator
     {
-        private readonly FileDescriptor options;
+        private readonly FileDescriptor fileDescriptor;
 
-        public Generator(FileDescriptor options)
+        public Generator(FileDescriptor fileDescriptor)
         {
-            if (options == null) throw new ArgumentNullException("options");
+            if (fileDescriptor == null) throw new ArgumentNullException("fileDescriptor");
 
-            this.options = options;
+            this.fileDescriptor = fileDescriptor;
         }
 
         public void Generate(Stream outputStream)
@@ -37,12 +37,12 @@ namespace DustInTheWind.TextFileGenerator.FileGeneration
             Generate(textWriter);
         }
 
-        public void Generate(TextWriter textWriter)
+        private void Generate(TextWriter textWriter)
         {
-            foreach (Section section in options.Sections)
-            {
-                SectionGenerator.WriteSection(textWriter, section, null);
-            }
+            SectionGenerator sectionGenerator = new SectionGenerator(textWriter);
+
+            foreach (Section section in fileDescriptor.Sections)
+                sectionGenerator.WriteSection(section);
 
             textWriter.Flush();
         }

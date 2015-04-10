@@ -129,8 +129,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.FileGeneration.GeneratorTes
 
             using (MemoryStream ms = new MemoryStream())
             {
-                StreamWriter sw = new StreamWriter(ms);
-                generator.Generate(sw);
+                generator.Generate(ms);
 
                 ms.Position = 0;
 

@@ -23,9 +23,13 @@ namespace DustInTheWind.TextFileGenerator.FileDescription
         public void MoveAllToNextValue()
         {
             foreach (Parameter parameter in this)
-            {
                 parameter.MoveToNextValue();
-            }
+        }
+
+        public void ResetAll()
+        {
+            foreach (Parameter parameter in this)
+                parameter.Reset();
         }
     }
 }

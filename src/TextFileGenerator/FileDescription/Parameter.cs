@@ -29,8 +29,7 @@ namespace DustInTheWind.TextFileGenerator.FileDescription
             get { return valueProvider; }
             set
             {
-                if (value == null)
-                    throw new ArgumentNullException("value");
+                if (value == null) throw new ArgumentNullException("value");
 
                 valueProvider = value;
             }
@@ -38,7 +37,7 @@ namespace DustInTheWind.TextFileGenerator.FileDescription
 
         public Parameter()
         {
-            valueProvider = new EmptyValueProvider();
+            valueProvider = EmptyValueProvider.Value;
         }
 
         public string CurrentValue
@@ -48,7 +47,11 @@ namespace DustInTheWind.TextFileGenerator.FileDescription
 
         public string NextValue
         {
-            get { return valueProvider.MoveToNextValue(); }
+            get
+            {
+                valueProvider.MoveToNextValue();
+                return valueProvider.CurrentValue;
+            }
         }
 
         public void MoveToNextValue()

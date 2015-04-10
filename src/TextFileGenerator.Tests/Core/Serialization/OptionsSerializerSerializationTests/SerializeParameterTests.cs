@@ -53,7 +53,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
             fileDescriptor.Sections[0].Parameters.Add(new Parameter
             {
                 Name = "key1",
-                ValueProvider = new EmptyValueProvider()
+                ValueProvider = EmptyValueProvider.Value
             });
 
             XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();

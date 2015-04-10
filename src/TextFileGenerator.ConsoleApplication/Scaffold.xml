@@ -1,4 +1,6 @@
 <?xml version="1.0"?>
 <textFileGenerator xmlns="http://alez.ro/TextFileGenerator">
-	
+  <sections>
+    <!-- write sections here -->
+  </sections>
 </textFileGenerator>
