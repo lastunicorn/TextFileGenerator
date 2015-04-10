@@ -28,8 +28,24 @@ namespace DustInTheWind.TextFileGenerator.Serialization.EntityTranslators
             return new parameter
             {
                 name = sourceParameter.Name,
-                Item = CreateValueProvider(sourceParameter)
+                Item = CreateValueProvider(sourceParameter),
+                changeAt = CalculateChangeAt(sourceParameter)
             };
+        }
+
+        private static parameterChangeAt CalculateChangeAt(Parameter sourceParameter)
+        {
+            switch (sourceParameter.ValueChangeMode)
+            {
+                case ValueChangeMode.Auto:
+                    return parameterChangeAt.EachRequest;
+
+                case ValueChangeMode.Manual:
+                    return parameterChangeAt.SectionIteration;
+
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
 
         private static object CreateValueProvider(Parameter sourceParameter)
