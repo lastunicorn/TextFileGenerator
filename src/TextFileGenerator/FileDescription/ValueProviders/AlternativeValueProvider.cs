@@ -27,14 +27,9 @@ namespace DustInTheWind.TextFileGenerator.FileDescription.ValueProviders
             this.valueProvider1 = valueProvider1;
         }
 
-        public void MoveToNextValue()
+        public string GetNextValue()
         {
-            throw new NotImplementedException();
-        }
-
-        public string CurrentValue
-        {
-            get { return valueProvider1.CurrentValue; }
+            return valueProvider1.GetNextValue();
         }
 
         public void Reset()

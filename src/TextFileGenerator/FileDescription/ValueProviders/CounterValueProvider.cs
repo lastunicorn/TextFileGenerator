@@ -37,7 +37,7 @@ namespace DustInTheWind.TextFileGenerator.FileDescription.ValueProviders
 
         public int Step { get; set; }
         public string Format { get; set; }
-        public string CurrentValue { get; private set; }
+        private string currentValue;
 
         public CounterValueProvider()
         {
@@ -46,9 +46,10 @@ namespace DustInTheWind.TextFileGenerator.FileDescription.ValueProviders
             isFirst = true;
         }
 
-        public void MoveToNextValue()
+        public string GetNextValue()
         {
             GenerateNextValue();
+            return currentValue;
         }
 
         private void GenerateNextValue()
@@ -58,7 +59,7 @@ namespace DustInTheWind.TextFileGenerator.FileDescription.ValueProviders
             else
                 currentNumber += Step;
 
-            CurrentValue = Format != null
+            currentValue = Format != null
                 ? currentNumber.ToString(Format, CultureInfo.CurrentCulture)
                 : currentNumber.ToString(CultureInfo.CurrentCulture);
         }

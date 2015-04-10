@@ -25,7 +25,7 @@ namespace DustInTheWind.TextFileGenerator.FileDescription.ValueProviders
         public int MinLength { get; set; }
         public int MaxLength { get; set; }
         public string AvailableChars { get; set; }
-        public string CurrentValue { get; private set; }
+        private string currentValue;
 
         public RandomTextValueProvider()
         {
@@ -36,17 +36,13 @@ namespace DustInTheWind.TextFileGenerator.FileDescription.ValueProviders
 
             AvailableChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
 
-            CurrentValue = string.Empty;
+            currentValue = string.Empty;
         }
 
-        public void MoveToNextValue()
+        public string GetNextValue()
         {
             GenerateNextValue();
-        }
-
-        public void Reset()
-        {
-            CurrentValue = string.Empty;
+            return currentValue;
         }
 
         private void GenerateNextValue()
@@ -54,7 +50,7 @@ namespace DustInTheWind.TextFileGenerator.FileDescription.ValueProviders
             int length = random.Next(MinLength, MaxLength + 1);
             char[] randomChars = GenerateRandomChars(length);
 
-            CurrentValue = new string(randomChars);
+            currentValue = new string(randomChars);
         }
 
         private char[] GenerateRandomChars(int length)
@@ -68,6 +64,11 @@ namespace DustInTheWind.TextFileGenerator.FileDescription.ValueProviders
             }
 
             return randomChars;
+        }
+
+        public void Reset()
+        {
+            currentValue = string.Empty;
         }
     }
 }

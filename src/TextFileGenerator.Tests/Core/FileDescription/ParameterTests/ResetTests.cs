@@ -14,36 +14,34 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using DustInTheWind.TextFileGenerator.FileDescription;
 using DustInTheWind.TextFileGenerator.FileDescription.ValueProviders;
 using Moq;
 using NUnit.Framework;
 
-namespace DustInTheWind.TextFileGenerator.Tests.Core.FileDescription.ValueProviders
+namespace DustInTheWind.TextFileGenerator.Tests.Core.FileDescription.ParameterTests
 {
     [TestFixture]
-    public class AlternativeValueProviderTests
+    public class ResetTests
     {
-        private Mock<IValueProvider> valueProvider1;
-        private Mock<IValueProvider> valueProvider2;
-        private AlternativeValueProvider alternativeValueProvider;
+        private Parameter parameter;
+        private Mock<IValueProvider> valueProvider;
 
         [SetUp]
         public void SetUp()
         {
-            valueProvider1 = new Mock<IValueProvider>();
-            valueProvider2 = new Mock<IValueProvider>();
-            alternativeValueProvider = new AlternativeValueProvider(valueProvider1.Object, valueProvider2.Object);
+            parameter = new Parameter();
+
+            valueProvider = new Mock<IValueProvider>();
+            parameter.ValueProvider = valueProvider.Object;
         }
 
         [Test]
-        public void first_value_is_retrieved_from_valueProvider1()
+        public void resets_the_ValueProvider()
         {
-            valueProvider1.Setup(x => x.GetNextValue()).Returns("value1");
+            parameter.Reset();
 
-            string actual = alternativeValueProvider.GetNextValue();
-
-            valueProvider1.Verify(x => x.GetNextValue(), Times.Once());
-            Assert.That(actual, Is.EqualTo("value1"));
+            valueProvider.Verify(x => x.Reset(), Times.Once());
         }
     }
 }

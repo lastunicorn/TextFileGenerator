@@ -21,8 +21,11 @@ namespace DustInTheWind.TextFileGenerator.FileDescription
 {
     public class Parameter
     {
+        private bool isNew;
         private IValueProvider valueProvider;
+
         public string Name { get; set; }
+        public ValueChangeMode ValueChangeMode { get; set; }
 
         public IValueProvider ValueProvider
         {
@@ -38,25 +41,28 @@ namespace DustInTheWind.TextFileGenerator.FileDescription
         public Parameter()
         {
             valueProvider = EmptyValueProvider.Value;
+            isNew = true;
         }
 
-        public string CurrentValue
-        {
-            get { return valueProvider.CurrentValue; }
-        }
+        public string CurrentValue { get; private set; }
 
         public string NextValue
         {
             get
             {
-                valueProvider.MoveToNextValue();
-                return valueProvider.CurrentValue;
+                if (isNew || ValueChangeMode == ValueChangeMode.Auto)
+                {
+                    CurrentValue = valueProvider.GetNextValue();
+                    isNew = false;
+                }
+
+                return CurrentValue;
             }
         }
 
         public void MoveToNextValue()
         {
-            valueProvider.MoveToNextValue();
+            CurrentValue = valueProvider.GetNextValue();
         }
 
         public void Reset()
