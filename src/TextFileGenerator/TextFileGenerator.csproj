@@ -53,11 +53,15 @@
     <Compile Include="FileDescription\Section.cs" />
     <Compile Include="FileDescription\SeparatorLocation.cs" />
     <Compile Include="FileGeneration\SectionGenerator.cs" />
-    <Compile Include="Serialization\Entities.cs" />
-    <Compile Include="Serialization\EntityTranslators\OptionsTranslator.cs" />
-    <Compile Include="Serialization\FileDescriptorSerializer.cs" />
-    <Compile Include="Serialization\EntityTranslators\ParameterTranslator.cs" />
-    <Compile Include="Serialization\EntityTranslators\SectionTranslator.cs" />
+    <Compile Include="Serialization\FileDescriptorSerializer.Deserialize.cs" />
+    <Compile Include="Serialization\XmlEntities.cs" />
+    <Compile Include="Serialization\EntityTranslators\DescriptorTranslator.ToDomainEntity.cs" />
+    <Compile Include="Serialization\EntityTranslators\DescriptorTranslator.ToXmlEntity.cs" />
+    <Compile Include="Serialization\EntityTranslators\ParameterTranslator.ToDomainEntity.cs" />
+    <Compile Include="Serialization\EntityTranslators\SectionTranslator.ToDomainEntity.cs" />
+    <Compile Include="Serialization\FileDescriptorSerializer.Serialize.cs" />
+    <Compile Include="Serialization\EntityTranslators\ParameterTranslator.ToXmlEntity.cs" />
+    <Compile Include="Serialization\EntityTranslators\SectionTranslator.ToXmlEntity.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Serialization\TextFileGenerator.xsd">
