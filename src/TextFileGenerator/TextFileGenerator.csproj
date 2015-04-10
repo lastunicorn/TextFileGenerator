@@ -38,6 +38,7 @@
     <Compile Include="..\AssemblyInfo.Shared.cs">
       <Link>Properties\AssemblyInfo.Shared.cs</Link>
     </Compile>
+    <Compile Include="FileDescription\ValueProviders\AlternativeValueProvider.cs" />
     <Compile Include="FileGeneration\Generator.cs" />
     <Compile Include="FileDescription\FileDescriptor.cs" />
     <Compile Include="FileDescription\ValueProviders\ConstantValueProvider.cs" />
