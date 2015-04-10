@@ -19,6 +19,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using DustInTheWind.TextFileGenerator.FileDescription;
+using DustInTheWind.TextFileGenerator.Serialization;
 
 namespace DustInTheWind.TextFileGenerator.FileGeneration
 {
@@ -55,24 +56,24 @@ namespace DustInTheWind.TextFileGenerator.FileGeneration
 
         private void WriteSectionContent(Section section, IEnumerable<Parameter> additionalParameters)
         {
+            IEnumerable<Parameter> allParameters = ConcatenateAdditionalParameters(section.Parameters, additionalParameters);
+
             if (section.SectionText != null)
-                WriteSectionText(section, additionalParameters);
+                WriteSectionText(section.SectionText, allParameters);
             else
-                WriteSubsections(section, additionalParameters);
+                WriteSubsections(section.Sections, allParameters);
         }
 
-        private void WriteSectionText(Section section, IEnumerable<Parameter> additionalParameters)
+        private void WriteSectionText(SectionText sectionText, IEnumerable<Parameter> parameters)
         {
-            string text = section.SectionText.Format(section.Parameters, additionalParameters);
+            string text = sectionText.Format(parameters);
             textWriter.Write(text);
         }
 
-        private void WriteSubsections(Section section, IEnumerable<Parameter> additionalParameters)
+        private void WriteSubsections(IEnumerable<Section> sections, IEnumerable<Parameter> parameters)
         {
-            IEnumerable<Parameter> calculatedAdditionalParameters = ConcatenateAdditionalParameters(section.Parameters, additionalParameters);
-
-            foreach (Section subSection in section.Sections)
-                WriteSection(subSection, calculatedAdditionalParameters);
+            foreach (Section subSection in sections)
+                WriteSection(subSection, parameters);
         }
 
         private static IEnumerable<Parameter> ConcatenateAdditionalParameters(IEnumerable<Parameter> parameters, IEnumerable<Parameter> additionalParameters)

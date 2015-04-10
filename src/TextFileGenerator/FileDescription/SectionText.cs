@@ -14,25 +14,25 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 
 namespace DustInTheWind.TextFileGenerator.FileDescription
 {
     public class SectionText
     {
-        private readonly Regex regex;
+        //private readonly Regex regex;
 
-        public SectionText()
-        {
-            regex = new Regex(@"{([^{}]*)}");
-        }
+        //public SectionText()
+        //{
+        //    regex = new Regex(@"{([^{}]*)}");
+        //}
 
         public string Value { get; set; }
 
-        public string Format(IEnumerable<Parameter> parameters, IEnumerable<Parameter> additionalParameters)
+        public string Format(IEnumerable<Parameter> parameters)
         {
             if (Value == null)
                 return string.Empty;
@@ -42,75 +42,67 @@ namespace DustInTheWind.TextFileGenerator.FileDescription
             if (parameters != null)
                 text = FormatUsingParameters(text, parameters);
 
-            if (additionalParameters != null)
-                text = FormatUsingAdditionalParameters(text, additionalParameters);
+            return text;
+        }
+
+        //private string FormatUsingParameters(string text, IEnumerable<Parameter> parameters)
+        //{
+        //    return regex.Replace(text, match =>
+        //    {
+        //        string value = parameters
+        //             .Where(x => x.Name == match.Groups[1].Value)
+        //             .Select(x => x.NextValue)
+        //             .FirstOrDefault();
+
+        //        return value ?? match.Groups[0].Value;
+        //    });
+        //}
+
+        private string FormatUsingParameters(string text, IEnumerable<Parameter> parameters)
+        {
+            foreach (Parameter parameter in parameters)
+            {
+                string key = FormatParameterKey(parameter);
+                string value = parameter.NextValue;
+
+                text = text.Replace(key, value);
+            }
 
             return text;
         }
 
-        private string FormatUsingParameters(string text, IEnumerable<Parameter> parameters)
-        {
-            return regex.Replace(text, match =>
-            {
-                string value = parameters
-                     .Where(x => x.Name == match.Groups[1].Value)
-                     .Select(x => x.NextValue)
-                     .FirstOrDefault();
-
-                return value ?? match.Groups[0].Value;
-            });
-
-            //foreach (Parameter parameter in parameters)
-            //{
-            //    string key = FormatParameterKey(parameter);
-            //    string value = parameter.NextValue;
-
-            //    //StringBuilder sb = new StringBuilder();
-
-            //    //int i1 = 0;
-            //    //int i2 = 0;
-
-            //    //while (true)
-            //    //{
-            //    //    i2 = text.IndexOf(key);
-
-            //    //    if (pos == -1)
-            //    //        break;
-
-            //    //    sb.Append(text.Substring())
-            //    //}
-            //    text = text.Replace(key, value);
-            //}
-
-            //return text;
-        }
-
-        private string FormatUsingAdditionalParameters(string text, IEnumerable<Parameter> parameters)
-        {
-            return regex.Replace(text, match =>
-            {
-                string value = parameters
-                     .Where(x => x.Name == match.Groups[1].Value)
-                     .Select(x => x.NextValue)
-                     .FirstOrDefault();
-
-                return value ?? match.Groups[0].Value;
-            });
-
-            //foreach (Parameter parameter in additionalParameters)
-            //{
-            //    string key = FormatParameterKey(parameter);
-            //    string value = parameter.CurrentValue;
-
-            //    text = text.Replace(key, value);
-            //}
-
-            //return text;
-        }
-
-        //private static string FormatParameterKey(Parameter parameter)
+        //private string FormatUsingParameters(string text, IEnumerable<Parameter> parameters)
         //{
-        //    return "{" + parameter.Name + "}";
+
+
+        //    foreach (Parameter parameter in parameters)
+        //    {
+        //        string key = FormatParameterKey(parameter);
+        //        string value = parameter.NextValue;
+
+        //        //StringBuilder sb = new StringBuilder();
+
+        //        //int i1 = 0;
+        //        //int i2 = 0;
+
+        //        //while (true)
+        //        //{
+        //        //    i2 = text.IndexOf(key);
+
+        //        //    if (pos == -1)
+        //        //        break;
+
+        //        //    sb.Append(text.Substring())
+        //        //}
+        //        text = text.Replace(key, value);
+        //    }
+
+        //    return text;
         //}
+
+        private static string FormatParameterKey(Parameter parameter)
+        {
+            return string.Format("{{{0}}}", parameter.Name);
+        }
     }
 }
