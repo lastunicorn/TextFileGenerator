@@ -16,9 +16,9 @@
 
 using System.IO;
 using DustInTheWind.TextFileGenerator.FileDescription;
-using DustInTheWind.TextFileGenerator.FileDescription.ValueProviders;
 using DustInTheWind.TextFileGenerator.FileGeneration;
 using DustInTheWind.TextFileGenerator.Templating;
+using DustInTheWind.TextFileGenerator.ValueProviders;
 using NUnit.Framework;
 
 namespace DustInTheWind.TextFileGenerator.Tests.Core.FileGeneration.GeneratorTests

@@ -16,7 +16,7 @@
 
 using System;
 
-namespace DustInTheWind.TextFileGenerator.FileDescription.ValueProviders
+namespace DustInTheWind.TextFileGenerator.ValueProviders
 {
     public class RandomTextValueProvider : IValueProvider
     {

@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using DustInTheWind.TextFileGenerator.FileDescription;
-using DustInTheWind.TextFileGenerator.FileDescription.ValueProviders;
 using DustInTheWind.TextFileGenerator.Templating;
+using DustInTheWind.TextFileGenerator.ValueProviders;
 using NUnit.Framework;
 
-namespace DustInTheWind.TextFileGenerator.Tests.Core.TextTemplateTests
+namespace DustInTheWind.TextFileGenerator.Tests.Core.Templating.TextTemplateTests
 {
     [TestFixture]
     public class OneParameterTests

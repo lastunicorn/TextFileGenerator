@@ -1,7 +1,7 @@
 ﻿using DustInTheWind.TextFileGenerator.Templating;
 using NUnit.Framework;
 
-namespace DustInTheWind.TextFileGenerator.Tests.Core.TextTemplateTests
+namespace DustInTheWind.TextFileGenerator.Tests.Core.Templating.TextTemplateTests
 {
     [TestFixture]
     public class NullParametersTests

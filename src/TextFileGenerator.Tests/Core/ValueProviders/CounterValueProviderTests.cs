@@ -14,10 +14,10 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using DustInTheWind.TextFileGenerator.FileDescription.ValueProviders;
+using DustInTheWind.TextFileGenerator.ValueProviders;
 using NUnit.Framework;
 
-namespace DustInTheWind.TextFileGenerator.Tests.Core.FileDescription.ValueProviders
+namespace DustInTheWind.TextFileGenerator.Tests.Core.ValueProviders
 {
     [TestFixture]
     public class CounterValueProviderTests

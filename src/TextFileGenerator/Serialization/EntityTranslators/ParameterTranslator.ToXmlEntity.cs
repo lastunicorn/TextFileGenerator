@@ -17,7 +17,7 @@
 using System;
 using System.Globalization;
 using DustInTheWind.TextFileGenerator.FileDescription;
-using DustInTheWind.TextFileGenerator.FileDescription.ValueProviders;
+using DustInTheWind.TextFileGenerator.ValueProviders;
 
 namespace DustInTheWind.TextFileGenerator.Serialization.EntityTranslators
 {

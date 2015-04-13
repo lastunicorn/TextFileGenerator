@@ -1,4 +1,4 @@
-﻿// TextFileGenerator
+// TextFileGenerator
 // Copyright (C) 2009-2011 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -14,19 +14,27 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace DustInTheWind.TextFileGenerator.FileDescription.ValueProviders
+using System;
+
+namespace DustInTheWind.TextFileGenerator.ValueProviders
 {
-    public class ConstantValueProvider : IValueProvider
+    public class AlternativeValueProvider : IValueProvider
     {
-        public string Value { get; set; }
+        private readonly IValueProvider valueProvider1;
+
+        public AlternativeValueProvider(IValueProvider valueProvider1, IValueProvider valueProvider2)
+        {
+            this.valueProvider1 = valueProvider1;
+        }
 
         public string GetNextValue()
         {
-            return Value;
+            return valueProvider1.GetNextValue();
         }
 
         public void Reset()
         {
+            throw new NotImplementedException();
         }
     }
 }

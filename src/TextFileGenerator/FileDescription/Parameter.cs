@@ -15,7 +15,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using DustInTheWind.TextFileGenerator.FileDescription.ValueProviders;
+using DustInTheWind.TextFileGenerator.ValueProviders;
 
 namespace DustInTheWind.TextFileGenerator.FileDescription
 {
