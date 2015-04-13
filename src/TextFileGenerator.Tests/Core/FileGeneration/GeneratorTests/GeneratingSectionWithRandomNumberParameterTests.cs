@@ -18,6 +18,7 @@ using System.IO;
 using DustInTheWind.TextFileGenerator.FileDescription;
 using DustInTheWind.TextFileGenerator.FileDescription.ValueProviders;
 using DustInTheWind.TextFileGenerator.FileGeneration;
+using DustInTheWind.TextFileGenerator.Templating;
 using NUnit.Framework;
 
 namespace DustInTheWind.TextFileGenerator.Tests.Core.FileGeneration.GeneratorTests
@@ -31,7 +32,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.FileGeneration.GeneratorTes
             FileDescriptor options = new FileDescriptor();
             options.Sections.Add(new Section
             {
-                SectionText = new SectionText { Value = "test {param1}" }
+                SectionText = new TextTemplate("test {param1}")
             });
             options.Sections[0].Parameters.AddRange(new[]
             {
@@ -47,7 +48,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.FileGeneration.GeneratorTes
             Assert.That(actual, Contains.Substring("test "));
         }
 
-        private string PerformTest(FileDescriptor options)
+        private static string PerformTest(FileDescriptor options)
         {
             Generator generator = new Generator(options);
 

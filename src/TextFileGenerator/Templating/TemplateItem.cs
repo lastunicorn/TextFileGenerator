@@ -1,4 +1,4 @@
-﻿// TextFileGenerator
+// TextFileGenerator
 // Copyright (C) 2009-2011 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -14,32 +14,20 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System.Collections.Generic;
-using DustInTheWind.TextFileGenerator.Templating;
+using System;
 
-namespace DustInTheWind.TextFileGenerator.FileDescription
+namespace DustInTheWind.TextFileGenerator.Templating
 {
-    public class SectionText
+    internal struct TemplateItem
     {
-        private TextTemplate textTemplate;
+        public string Text { get; private set; }
+        public TemplateItemType Type { get; private set; }
 
-        public string Value
+        public TemplateItem(string text, TemplateItemType type)
+            : this()
         {
-            get { return textTemplate.Value; }
-            set
-            {
-                textTemplate = new TextTemplate(value);
-            }
-        }
-
-        public SectionText()
-        {
-            textTemplate = TextTemplate.Empty;
-        }
-
-        public string Format(IEnumerable<Parameter> parameters)
-        {
-            return textTemplate.Format(parameters);
+            Text = text ?? String.Empty;
+            Type = type;
         }
     }
 }

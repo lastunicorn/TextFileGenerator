@@ -18,6 +18,7 @@ using System.IO;
 using DustInTheWind.TextFileGenerator.FileDescription;
 using DustInTheWind.TextFileGenerator.FileDescription.ValueProviders;
 using DustInTheWind.TextFileGenerator.Serialization;
+using DustInTheWind.TextFileGenerator.Templating;
 using DustInTheWind.TextFileGenerator.Tests.TestingTools;
 using NUnit.Framework;
 
@@ -65,7 +66,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
         [Test]
         public void serialize_two_parameters_of_different_type()
         {
-            fileDescriptor.Sections[0].SectionText = new SectionText { Value = "template1" };
+            fileDescriptor.Sections[0].SectionText = new TextTemplate("template1");
             fileDescriptor.Sections[0].Parameters.Add(new Parameter
             {
                 Name = "key1",

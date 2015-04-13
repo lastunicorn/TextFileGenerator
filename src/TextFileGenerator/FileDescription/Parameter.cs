@@ -62,7 +62,8 @@ namespace DustInTheWind.TextFileGenerator.FileDescription
 
         public void MoveToNextValue()
         {
-            CurrentValue = valueProvider.GetNextValue();
+            if (ValueChangeMode == ValueChangeMode.Manual)
+                CurrentValue = valueProvider.GetNextValue();
         }
 
         public void Reset()

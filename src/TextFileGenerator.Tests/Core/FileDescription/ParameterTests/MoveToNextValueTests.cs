@@ -39,6 +39,8 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.FileDescription.ParameterTe
         [Test]
         public void gets_next_value_from_the_ValueProvider()
         {
+            parameter.ValueChangeMode = ValueChangeMode.Manual;
+
             parameter.MoveToNextValue();
 
             valueProvider.Verify(x => x.GetNextValue(), Times.Once());
@@ -47,12 +49,23 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.FileDescription.ParameterTe
         [Test]
         public void sets_the_CurrentValue_property_with_the_value_obtained_from_ValueProvider()
         {
+            parameter.ValueChangeMode = ValueChangeMode.Manual;
             valueProvider.Setup(x => x.GetNextValue()).Returns("value1");
 
             parameter.MoveToNextValue();
 
             string actual = parameter.CurrentValue;
             Assert.That(actual, Is.EqualTo("value1"));
+        }
+
+        [Test]
+        public void does_nothing_if_ValueChangeMode_is_Auto()
+        {
+            parameter.ValueChangeMode = ValueChangeMode.Auto;
+
+            parameter.MoveToNextValue();
+
+            valueProvider.Verify(x => x.GetNextValue(), Times.Never);
         }
     }
 }

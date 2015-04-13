@@ -21,11 +21,11 @@ namespace DustInTheWind.TextFileGenerator.FileDescription.ValueProviders
     public class RandomTextValueProvider : IValueProvider
     {
         private readonly Random random;
+        private string currentValue;
 
         public int MinLength { get; set; }
         public int MaxLength { get; set; }
         public string AvailableChars { get; set; }
-        private string currentValue;
 
         public RandomTextValueProvider()
         {

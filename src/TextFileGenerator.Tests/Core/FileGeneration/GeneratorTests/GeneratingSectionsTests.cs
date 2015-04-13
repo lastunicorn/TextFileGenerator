@@ -17,6 +17,7 @@
 using System.IO;
 using DustInTheWind.TextFileGenerator.FileDescription;
 using DustInTheWind.TextFileGenerator.FileGeneration;
+using DustInTheWind.TextFileGenerator.Templating;
 using NUnit.Framework;
 
 namespace DustInTheWind.TextFileGenerator.Tests.Core.FileGeneration.GeneratorTests
@@ -37,7 +38,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.FileGeneration.GeneratorTes
         {
             options.Sections.Add(new Section
             {
-                SectionText = new SectionText { Value = "test" }
+                SectionText = new TextTemplate("test")
             });
 
             string actual = PerformTest();
@@ -50,7 +51,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.FileGeneration.GeneratorTes
         {
             options.Sections.Add(new Section
             {
-                SectionText = new SectionText { Value = "test" },
+                SectionText = new TextTemplate("test"),
                 RepeatCount = 2
             });
 
@@ -64,7 +65,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.FileGeneration.GeneratorTes
         {
             options.Sections.Add(new Section
             {
-                SectionText = new SectionText { Value = "test" },
+                SectionText = new TextTemplate("test"),
                 RepeatCount = 2,
                 Separator = ";"
             });
@@ -79,7 +80,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.FileGeneration.GeneratorTes
         {
             options.Sections.Add(new Section
             {
-                SectionText = new SectionText { Value = "test" },
+                SectionText = new TextTemplate("test"),
                 RepeatCount = 2,
                 Separator = ";",
                 SeparatorLocation = SeparatorLocation.Postfix
@@ -95,7 +96,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.FileGeneration.GeneratorTes
         {
             options.Sections.Add(new Section
             {
-                SectionText = new SectionText { Value = "test" },
+                SectionText = new TextTemplate("test"),
                 RepeatCount = 2,
                 Separator = ";",
                 SeparatorLocation = SeparatorLocation.Prefix
@@ -111,11 +112,11 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.FileGeneration.GeneratorTes
         {
             options.Sections.Add(new Section
             {
-                SectionText = new SectionText { Value = "section1" }
+                SectionText = new TextTemplate("section1")
             });
             options.Sections.Add(new Section
             {
-                SectionText = new SectionText { Value = "section2" }
+                SectionText = new TextTemplate("section2")
             });
 
             string actual = PerformTest();

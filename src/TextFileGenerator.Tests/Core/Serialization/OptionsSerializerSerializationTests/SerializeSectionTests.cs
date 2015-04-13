@@ -18,6 +18,7 @@ using System.IO;
 using DustInTheWind.TextFileGenerator.FileDescription;
 using DustInTheWind.TextFileGenerator.FileDescription.ValueProviders;
 using DustInTheWind.TextFileGenerator.Serialization;
+using DustInTheWind.TextFileGenerator.Templating;
 using DustInTheWind.TextFileGenerator.Tests.TestingTools;
 using NUnit.Framework;
 
@@ -153,7 +154,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
         {
             fileDescriptor.Sections.Add(new Section
             {
-                SectionText = new SectionText { Value = "some template" }
+                SectionText = new TextTemplate("some template")
             });
 
             XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();

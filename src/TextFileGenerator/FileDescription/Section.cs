@@ -15,13 +15,14 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System.Collections.Generic;
+using DustInTheWind.TextFileGenerator.Templating;
 
 namespace DustInTheWind.TextFileGenerator.FileDescription
 {
     public class Section
     {
         public string Name { get; set; }
-        public SectionText SectionText { get; set; }
+        public TextTemplate SectionText { get; set; }
         public int RepeatCount { get; set; }
         public string Separator { get; set; }
         public SeparatorLocation SeparatorLocation { get; set; }

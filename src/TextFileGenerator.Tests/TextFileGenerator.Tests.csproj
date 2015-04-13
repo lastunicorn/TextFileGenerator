@@ -49,7 +49,9 @@
     <Compile Include="Core\FileDescription\ParameterTests\ResetTests.cs" />
     <Compile Include="Core\FileDescription\ParameterTests\NextValueTests.cs" />
     <Compile Include="Core\FileDescription\ParameterTests\ConstructorTests.cs" />
-    <Compile Include="Core\FileDescription\ParameterTests\ValueProviderTests.cs" />
+    <Compile Include="Core\TextTemplateTests\NoParameterTests.cs" />
+    <Compile Include="Core\TextTemplateTests\OneParameterTests.cs" />
+    <Compile Include="Core\TextTemplateTests\NullParametersTests.cs" />
     <Compile Include="Core\FileDescription\ValueProviders\AlternativeValueProviderTests.cs" />
     <Compile Include="Core\FileGeneration\GeneratorTests\GeneratingSubsectionsTests.cs" />
     <Compile Include="Core\FileGeneration\GeneratorTests\GeneratingSectionWithRandomTextParameterTests.cs" />
@@ -58,6 +60,7 @@
     <Compile Include="Core\FileDescription\ValueProviders\CounterValueProviderTests.cs" />
     <Compile Include="Core\FileGeneration\GeneratorTests\GeneratingSectionWithConstantParameterTests.cs" />
     <Compile Include="Core\FileGeneration\GeneratorTests\GeneratingSectionsTests.cs" />
+    <Compile Include="PerformanceTests\Tests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Core\Serialization\OptionsSerializerDeserializationTests\DeserializeParameterRandomTextTests.cs" />
     <Compile Include="Core\Serialization\OptionsSerializerDeserializationTests\DeserializeParameterRandomNumberTests.cs" />

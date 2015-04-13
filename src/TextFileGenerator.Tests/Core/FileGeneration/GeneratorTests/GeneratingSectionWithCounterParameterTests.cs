@@ -18,6 +18,7 @@ using System.IO;
 using DustInTheWind.TextFileGenerator.FileDescription;
 using DustInTheWind.TextFileGenerator.FileDescription.ValueProviders;
 using DustInTheWind.TextFileGenerator.FileGeneration;
+using DustInTheWind.TextFileGenerator.Templating;
 using NUnit.Framework;
 
 namespace DustInTheWind.TextFileGenerator.Tests.Core.FileGeneration.GeneratorTests
@@ -38,7 +39,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.FileGeneration.GeneratorTes
         {
             options.Sections.Add(new Section
             {
-                SectionText = new SectionText { Value = "test {param1}" }
+                SectionText = new TextTemplate("test {param1}")
             });
             options.Sections[0].Parameters.AddRange(new[]
             {
@@ -59,7 +60,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.FileGeneration.GeneratorTes
         {
             options.Sections.Add(new Section
             {
-                SectionText = new SectionText { Value = "test{param1}" },
+                SectionText = new TextTemplate("test{param1}"),
                 RepeatCount = 2
             });
             options.Sections[0].Parameters.AddRange(new[]
@@ -81,7 +82,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.FileGeneration.GeneratorTes
         {
             options.Sections.Add(new Section
             {
-                SectionText = new SectionText { Value = "test {param1} {param2}" }
+                SectionText = new TextTemplate("test {param1} {param2}")
             });
             options.Sections[0].Parameters.AddRange(new[]
             {

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using DustInTheWind.TextFileGenerator.FileDescription;
+using DustInTheWind.TextFileGenerator.Templating;
 
 namespace DustInTheWind.TextFileGenerator.Serialization.EntityTranslators
 {
@@ -56,10 +57,7 @@ namespace DustInTheWind.TextFileGenerator.Serialization.EntityTranslators
 
                 if (itemType == typeof(string))
                 {
-                    destinationSection.SectionText = new SectionText
-                    {
-                        Value = (string)item
-                    };
+                    destinationSection.SectionText = new TextTemplate((string)item);
                 }
 
                 if (itemType == typeof(section))

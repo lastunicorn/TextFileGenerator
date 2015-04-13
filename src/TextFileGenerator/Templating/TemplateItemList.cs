@@ -14,32 +14,37 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using System;
 using System.Collections.Generic;
-using DustInTheWind.TextFileGenerator.Templating;
 
-namespace DustInTheWind.TextFileGenerator.FileDescription
+namespace DustInTheWind.TextFileGenerator.Templating
 {
-    public class SectionText
+    internal class TemplateItemList : List<TemplateItem>
     {
-        private TextTemplate textTemplate;
-
-        public string Value
+        public void AddTextPart(string text)
         {
-            get { return textTemplate.Value; }
-            set
+            if (String.IsNullOrEmpty(text))
+                return;
+
+            if (Count > 0)
             {
-                textTemplate = new TextTemplate(value);
+                TemplateItem lastPart = this[Count - 1];
+
+                if (lastPart.Type == TemplateItemType.Text)
+                {
+                    RemoveAt(Count - 1);
+                    text = lastPart.Text + text;
+                }
             }
+
+            TemplateItem templateItem = new TemplateItem(text, TemplateItemType.Text);
+            Add(templateItem);
         }
 
-        public SectionText()
+        public void AddParameterPart(string parameterName)
         {
-            textTemplate = TextTemplate.Empty;
-        }
-
-        public string Format(IEnumerable<Parameter> parameters)
-        {
-            return textTemplate.Format(parameters);
+            TemplateItem templateItem = new TemplateItem(parameterName, TemplateItemType.Parameter);
+            Add(templateItem);
         }
     }
 }

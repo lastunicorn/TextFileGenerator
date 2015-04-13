@@ -20,6 +20,7 @@ using System.IO;
 using System.Linq;
 using DustInTheWind.TextFileGenerator.FileDescription;
 using DustInTheWind.TextFileGenerator.Serialization;
+using DustInTheWind.TextFileGenerator.Templating;
 
 namespace DustInTheWind.TextFileGenerator.FileGeneration
 {
@@ -39,13 +40,14 @@ namespace DustInTheWind.TextFileGenerator.FileGeneration
             section.Parameters.ResetAll();
 
             bool existsSeparator = !string.IsNullOrEmpty(section.Separator);
+            IEnumerable<Parameter> allParameters = ConcatenateAdditionalParameters(section.Parameters, additionalParameters);
 
             for (int i = 0; i < section.RepeatCount; i++)
             {
                 if (existsSeparator)
                     WriteSeparatorBeforeItem(section.Separator, section.SeparatorLocation, i);
 
-                WriteSectionContent(section, additionalParameters);
+                WriteSectionContent(section, allParameters);
 
                 if (existsSeparator)
                     WriteSeparatorAfterItem(section.Separator, section.SeparatorLocation);
@@ -54,17 +56,15 @@ namespace DustInTheWind.TextFileGenerator.FileGeneration
             }
         }
 
-        private void WriteSectionContent(Section section, IEnumerable<Parameter> additionalParameters)
+        private void WriteSectionContent(Section section, IEnumerable<Parameter> allParameters)
         {
-            IEnumerable<Parameter> allParameters = ConcatenateAdditionalParameters(section.Parameters, additionalParameters);
-
             if (section.SectionText != null)
                 WriteSectionText(section.SectionText, allParameters);
             else
                 WriteSubsections(section.Sections, allParameters);
         }
 
-        private void WriteSectionText(SectionText sectionText, IEnumerable<Parameter> parameters)
+        private void WriteSectionText(TextTemplate sectionText, IEnumerable<Parameter> parameters)
         {
             string text = sectionText.Format(parameters);
             textWriter.Write(text);
