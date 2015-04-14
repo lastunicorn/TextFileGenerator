@@ -45,5 +45,30 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.ValueProviders
             valueProvider1.Verify(x => x.GetNextValue(), Times.Once());
             Assert.That(actual, Is.EqualTo("value1"));
         }
+
+        [Test]
+        public void second_value_is_retrieved_from_valueProvider2()
+        {
+            valueProvider2.Setup(x => x.GetNextValue()).Returns("value2");
+            alternativeValueProvider.GetNextValue();
+
+            string actual = alternativeValueProvider.GetNextValue();
+
+            valueProvider2.Verify(x => x.GetNextValue(), Times.Once());
+            Assert.That(actual, Is.EqualTo("value2"));
+        }
+
+        [Test]
+        public void third_value_is_retrieved_from_valueProvider1()
+        {
+            string[] values1 = { "value1_1", "value1_2" };
+            int index1 = 0;
+            valueProvider1.Setup(x => x.GetNextValue()).Returns(values1[index1++]);
+
+            string actual = alternativeValueProvider.GetNextValue();
+
+            valueProvider1.Verify(x => x.GetNextValue(), Times.Once());
+            Assert.That(actual, Is.EqualTo("value1"));
+        }
     }
 }

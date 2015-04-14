@@ -17,6 +17,7 @@
 using System;
 using System.Diagnostics;
 using System.IO;
+using DustInTheWind.TextFileGenerator.ConsoleApplication.Properties;
 using DustInTheWind.TextFileGenerator.ConsoleApplication.Services;
 using DustInTheWind.TextFileGenerator.FileDescription;
 using DustInTheWind.TextFileGenerator.FileGeneration;
@@ -65,33 +66,33 @@ namespace DustInTheWind.TextFileGenerator.ConsoleApplication.Flows
         {
             string outputFileName = GenerateOutputFileName();
 
-            Stopwatch stopwatch = new Stopwatch();
-
             DisplayOutputFileGenerating(outputFileName);
 
-            using (ConsoleSpinner consoleSpinner = new ConsoleSpinner())
+            TimeSpan time = Measure(() =>
             {
-                consoleSpinner.Start();
-
-                try
+                ui.ExecuteWithSpinner(() =>
                 {
                     Generator generator = new Generator(fileDescriptor);
 
                     using (Stream outputStream = File.Create(outputFileName))
                     {
-                        stopwatch.Start();
                         generator.Generate(outputStream);
-                        stopwatch.Stop();
                     }
-                }
-                finally
-                {
-                    consoleSpinner.Stop();
-                }
-            }
+                });
+
+            });
 
             DisplayOk();
-            DisplayElapsedTime(stopwatch.Elapsed);
+            DisplayElapsedTime(time);
+        }
+
+        private static TimeSpan Measure(Action action)
+        {
+            Stopwatch stopwatch = Stopwatch.StartNew();
+            action();
+            stopwatch.Stop();
+
+            return stopwatch.Elapsed;
         }
 
         private string GenerateOutputFileName()
@@ -102,29 +103,29 @@ namespace DustInTheWind.TextFileGenerator.ConsoleApplication.Flows
             return Path.Combine(directoryPath, outputFileName);
         }
 
-        public void DisplayOptionFileReading(string descriptorFileName)
+        public void DisplayOptionFileReading(string fileName)
         {
-            ui.Write("Reading description file ");
-            ui.WriteEnhanced(descriptorFileName);
+            ui.Write(Resources.ReadingDescriptionFile);
+            ui.WriteEnhanced(fileName);
             ui.Write(" ");
         }
 
         public void DisplayOk()
         {
-            ui.WriteLine("[Done]");
+            ui.WriteLine(Resources.Done);
         }
 
-        public void DisplayOutputFileGenerating(string outputFileName)
+        public void DisplayOutputFileGenerating(string fileName)
         {
-            ui.Write("Generating file ");
-            ui.WriteEnhanced(outputFileName);
+            ui.Write(Resources.GeneratingFile);
+            ui.WriteEnhanced(fileName);
             ui.Write(" ");
         }
 
         public void DisplayElapsedTime(TimeSpan elapsed)
         {
             ui.WriteLine();
-            ui.Write("Elapsed time: ");
+            ui.Write(Resources.ElapsedTime);
             ui.WriteLineEnhanced(elapsed.ToString());
         }
     }

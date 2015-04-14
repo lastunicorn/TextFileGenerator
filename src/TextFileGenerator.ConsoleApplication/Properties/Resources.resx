@@ -117,10 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ScaffoldView_Success" xml:space="preserve">
+  <data name="ScaffoldFile_Success" xml:space="preserve">
     <value>Scaffold file created successfully: </value>
   </data>
   <data name="UserInterface_PauseMessage" xml:space="preserve">
     <value>Press any key to continue...</value>
+  </data>
+  <data name="ReadingDescriptionFile" xml:space="preserve">
+    <value>Reading description file </value>
+  </data>
+  <data name="Done" xml:space="preserve">
+    <value>[Done]</value>
+  </data>
+  <data name="GeneratingFile" xml:space="preserve">
+    <value>Generating file </value>
+  </data>
+  <data name="ElapsedTime" xml:space="preserve">
+    <value>Elapsed time: </value>
   </data>
 </root>

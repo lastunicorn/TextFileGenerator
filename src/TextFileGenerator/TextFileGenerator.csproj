@@ -38,9 +38,13 @@
     <Compile Include="..\AssemblyInfo.Shared.cs">
       <Link>Properties\AssemblyInfo.Shared.cs</Link>
     </Compile>
-    <Compile Include="FastReplacer.cs" />
-    <Compile Include="FastReplacerSnippet.cs" />
+    <Compile Include="EmbededResources.cs" />
     <Compile Include="FileDescription\ValueChangeMode.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="ValueProviders\AlternativeValueProvider.cs" />
     <Compile Include="FileGeneration\Generator.cs" />
     <Compile Include="FileDescription\FileDescriptor.cs" />
@@ -71,6 +75,10 @@
     <Compile Include="Templating\TemplateItemType.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Serialization\TextFileGenerator.xsd">
       <SubType>Designer</SubType>
     </EmbeddedResource>

@@ -19,7 +19,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using DustInTheWind.TextFileGenerator.FileDescription;
-using DustInTheWind.TextFileGenerator.Serialization;
 using DustInTheWind.TextFileGenerator.Templating;
 
 namespace DustInTheWind.TextFileGenerator.FileGeneration

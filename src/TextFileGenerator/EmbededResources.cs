@@ -14,25 +14,27 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using System;
 using System.IO;
 using System.Reflection;
+using DustInTheWind.TextFileGenerator.Properties;
 
-namespace DustInTheWind.TextFileGenerator.ConsoleApplication.Services
+namespace DustInTheWind.TextFileGenerator
 {
-    static class EmbededResources
+    public static class EmbededResources
     {
-        public static Stream GetScaffoldStream()
+        public static Stream GetEmbededStream(string resourcePath)
         {
-            const string resourcePath = "DustInTheWind.TextFileGenerator.ConsoleApplication.Scaffold.xml";
-            Assembly assembly = Assembly.GetExecutingAssembly();
-            return assembly.GetManifestResourceStream(resourcePath);
-        }
+            Assembly assembly = Assembly.GetCallingAssembly();
+            Stream stream = assembly.GetManifestResourceStream(resourcePath);
 
-        public static Stream GetUsageStream()
-        {
-            const string resourcePath = "DustInTheWind.TextFileGenerator.ConsoleApplication.Usage.txt";
-            Assembly assembly = Assembly.GetExecutingAssembly();
-            return assembly.GetManifestResourceStream(resourcePath);
+            if (stream == null)
+            {
+                string message = string.Format(Resources.EmbededFileNotFoundError, resourcePath);
+                throw new Exception(message);
+            }
+
+            return stream;
         }
     }
 }

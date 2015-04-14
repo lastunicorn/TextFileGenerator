@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using System.Reflection;
 using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
@@ -10,6 +9,8 @@ namespace DustInTheWind.TextFileGenerator.Serialization
 {
     public partial class FileDescriptorSerializer
     {
+        private const string XsdResourcePath = "DustInTheWind.TextFileGenerator.Serialization.TextFileGenerator.xsd";
+
         public FileDescriptor Deserialize(Stream inputStream)
         {
             XmlReaderSettings settings = CreateDeserializationSettings();
@@ -32,21 +33,13 @@ namespace DustInTheWind.TextFileGenerator.Serialization
                 ValidationType = ValidationType.Schema
             };
 
-            using (Stream stream = GetEmbededXmlValidator())
+            using (Stream stream = EmbededResources.GetEmbededStream(XsdResourcePath))
             {
                 XmlSchema xmlSchema = XmlSchema.Read(stream, (sender, args) => { });
                 settings.Schemas.Add(xmlSchema);
             }
 
             return settings;
-        }
-
-        private static Stream GetEmbededXmlValidator()
-        {
-            Assembly assembly = Assembly.GetExecutingAssembly();
-            const string resourceName = "DustInTheWind.TextFileGenerator.Serialization.TextFileGenerator.xsd";
-
-            return assembly.GetManifestResourceStream(resourceName);
         }
     }
 }

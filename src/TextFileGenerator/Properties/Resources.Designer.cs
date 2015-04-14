@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DustInTheWind.TextFileGenerator.ConsoleApplication.Properties {
+namespace DustInTheWind.TextFileGenerator.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace DustInTheWind.TextFileGenerator.ConsoleApplication.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("DustInTheWind.TextFileGenerator.ConsoleApplication.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("DustInTheWind.TextFileGenerator.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,56 +61,11 @@ namespace DustInTheWind.TextFileGenerator.ConsoleApplication.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [Done].
+        ///   Looks up a localized string similar to Embeded file cannot be found: {0}.
         /// </summary>
-        internal static string Done {
+        internal static string EmbededFileNotFoundError {
             get {
-                return ResourceManager.GetString("Done", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Elapsed time: .
-        /// </summary>
-        internal static string ElapsedTime {
-            get {
-                return ResourceManager.GetString("ElapsedTime", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Generating file .
-        /// </summary>
-        internal static string GeneratingFile {
-            get {
-                return ResourceManager.GetString("GeneratingFile", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Reading description file .
-        /// </summary>
-        internal static string ReadingDescriptionFile {
-            get {
-                return ResourceManager.GetString("ReadingDescriptionFile", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Scaffold file created successfully: .
-        /// </summary>
-        internal static string ScaffoldFile_Success {
-            get {
-                return ResourceManager.GetString("ScaffoldFile_Success", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Press any key to continue....
-        /// </summary>
-        internal static string UserInterface_PauseMessage {
-            get {
-                return ResourceManager.GetString("UserInterface_PauseMessage", resourceCulture);
+                return ResourceManager.GetString("EmbededFileNotFoundError", resourceCulture);
             }
         }
     }

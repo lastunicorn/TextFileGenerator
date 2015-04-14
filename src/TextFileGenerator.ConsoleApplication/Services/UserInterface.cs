@@ -63,6 +63,23 @@ namespace DustInTheWind.TextFileGenerator.ConsoleApplication.Services
             Console.ReadKey(false);
         }
 
+        public void ExecuteWithSpinner(Action action)
+        {
+            using (ConsoleSpinner consoleSpinner = new ConsoleSpinner())
+            {
+                consoleSpinner.Start();
+
+                try
+                {
+                    action();
+                }
+                finally
+                {
+                    consoleSpinner.Stop();
+                }
+            }
+        }
+
         private static void ConsoleWriteLine(string text, ConsoleColor color)
         {
             ConsoleColor oldColor = Console.ForegroundColor;

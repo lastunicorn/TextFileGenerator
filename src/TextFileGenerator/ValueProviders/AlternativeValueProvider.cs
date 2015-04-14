@@ -21,15 +21,26 @@ namespace DustInTheWind.TextFileGenerator.ValueProviders
     public class AlternativeValueProvider : IValueProvider
     {
         private readonly IValueProvider valueProvider1;
+        private readonly IValueProvider valueProvider2;
+        private bool isFirstRequest;
 
         public AlternativeValueProvider(IValueProvider valueProvider1, IValueProvider valueProvider2)
         {
             this.valueProvider1 = valueProvider1;
+            this.valueProvider2 = valueProvider2;
+
+            isFirstRequest = true;
         }
 
         public string GetNextValue()
         {
-            return valueProvider1.GetNextValue();
+            string nextValue = isFirstRequest
+                ? valueProvider1.GetNextValue()
+                : valueProvider2.GetNextValue();
+
+            isFirstRequest = false;
+
+            return nextValue;
         }
 
         public void Reset()

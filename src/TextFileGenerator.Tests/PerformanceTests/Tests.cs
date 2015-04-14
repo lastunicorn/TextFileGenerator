@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using DustInTheWind.TextFileGenerator.FileDescription;
 using DustInTheWind.TextFileGenerator.ValueProviders;
-using Moq;
 using NUnit.Framework;
 
 namespace DustInTheWind.TextFileGenerator.Tests.PerformanceTests

@@ -23,6 +23,9 @@ namespace DustInTheWind.TextFileGenerator.ConsoleApplication.Flows
 {
     internal class ScaffoldFlow : IFlow
     {
+        private const string ScaffoldResourceFilePath = "DustInTheWind.TextFileGenerator.ConsoleApplication.Scaffold.xml";
+        private const string ScaffoldDefaultFileName = "file.xml";
+
         private readonly UserInterface ui;
 
         public ScaffoldFlow(UserInterface ui)
@@ -33,25 +36,20 @@ namespace DustInTheWind.TextFileGenerator.ConsoleApplication.Flows
 
         public void Start()
         {
-            const string outputFileName = "file.xml";
-
-            using (Stream outputStream = File.Create(outputFileName))
+            using (Stream outputStream = File.Create(ScaffoldDefaultFileName))
             {
-                using (Stream inputStream = EmbededResources.GetScaffoldStream())
+                using (Stream inputStream = EmbededResources.GetEmbededStream(ScaffoldResourceFilePath))
                 {
-                    if (inputStream == null)
-                        throw new Exception("The 'scaffold' embeded file could not be found.");
-
                     inputStream.CopyTo(outputStream);
                 }
             }
 
-            DisplayOutputFileGenerateDone(outputFileName);
+            DisplayOutputFileGenerateDone(ScaffoldDefaultFileName);
         }
 
         public void DisplayOutputFileGenerateDone(string outputFileName)
         {
-            ui.Write(Resources.ScaffoldView_Success);
+            ui.Write(Resources.ScaffoldFile_Success);
             ui.WriteEnhanced(outputFileName);
             ui.WriteLine();
         }

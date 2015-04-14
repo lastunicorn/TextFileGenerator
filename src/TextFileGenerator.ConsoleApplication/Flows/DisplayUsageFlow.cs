@@ -22,6 +22,7 @@ namespace DustInTheWind.TextFileGenerator.ConsoleApplication.Flows
 {
     internal class DisplayUsageFlow : IFlow
     {
+        private const string UsafeResourceFilePath = "DustInTheWind.TextFileGenerator.ConsoleApplication.Usage.txt";
         private readonly UserInterface ui;
 
         public DisplayUsageFlow(UserInterface ui)
@@ -38,11 +39,8 @@ namespace DustInTheWind.TextFileGenerator.ConsoleApplication.Flows
 
         public void WriteUsageHelp()
         {
-            using (Stream stream = EmbededResources.GetUsageStream())
+            using (Stream stream = EmbededResources.GetEmbededStream(UsafeResourceFilePath))
             {
-                if (stream == null)
-                    throw new Exception("The 'usage' embeded file could not be found.");
-
                 StreamReader reader = new StreamReader(stream);
                 ui.WriteLine(reader.ReadToEnd());
             }

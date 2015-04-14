@@ -15,10 +15,14 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using System.Reflection;
 using DustInTheWind.TextFileGenerator.ConsoleApplication.Services;
 
 namespace DustInTheWind.TextFileGenerator.ConsoleApplication.Flows
 {
+    /// <summary>
+    /// This is a hub that chooses a flow and starts it.
+    /// </summary>
     class MainFlow
     {
         private readonly UserInterface ui;
@@ -26,11 +30,8 @@ namespace DustInTheWind.TextFileGenerator.ConsoleApplication.Flows
 
         public MainFlow(UserInterface ui, Arguments arguments)
         {
-            if (ui == null)
-                throw new ArgumentNullException("ui");
-
-            if (arguments == null)
-                throw new ArgumentNullException("arguments");
+            if (ui == null) throw new ArgumentNullException("ui");
+            if (arguments == null) throw new ArgumentNullException("arguments");
 
             this.ui = ui;
             this.arguments = arguments;
@@ -64,9 +65,18 @@ namespace DustInTheWind.TextFileGenerator.ConsoleApplication.Flows
 
         public void WriteHeader()
         {
-            ui.WriteLine("TextFileGenerator v1.0");
+            Version version = GetVersion();
+
+            ui.WriteLine("TextFileGenerator " + version.ToString(3));
             ui.WriteLine("===============================================================================");
             ui.WriteLine();
+        }
+
+        private static Version GetVersion()
+        {
+            Assembly assembly = Assembly.GetEntryAssembly();
+            AssemblyName assemblyName = assembly.GetName();
+            return assemblyName.Version;
         }
     }
 }
