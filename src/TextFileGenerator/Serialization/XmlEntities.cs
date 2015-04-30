@@ -179,7 +179,7 @@ namespace DustInTheWind.TextFileGenerator.Serialization
 
         public parameter()
         {
-            this.valuePersistenceField = parameterValuePersistence.None;
+            this.valuePersistenceField = parameterValuePersistence.PerRequest;
         }
 
         /// <remarks/>
@@ -215,7 +215,7 @@ namespace DustInTheWind.TextFileGenerator.Serialization
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        [System.ComponentModel.DefaultValueAttribute(parameterValuePersistence.None)]
+        [System.ComponentModel.DefaultValueAttribute(parameterValuePersistence.PerRequest)]
         public parameterValuePersistence valuePersistence
         {
             get
@@ -455,10 +455,10 @@ namespace DustInTheWind.TextFileGenerator.Serialization
     {
 
         /// <remarks/>
-        None,
+        PerRequest,
 
         /// <remarks/>
-        Section,
+        PerSectionStep,
     }
 
     /// <remarks/>

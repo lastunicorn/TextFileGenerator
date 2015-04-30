@@ -1,0 +1,14 @@
+LoadButtonWasClicked
+SaveButtonWasClicked
+GenerateButtonWasClicked
+
+AddSectionButtonWasClicked
+SelectedSectionWasChanged
+SectionNameWasChanged
+TemplateWasChanged
+AddParameterButtonWasClicked
+SelectedParameterWasChanged
+ValueProviderWasChanged
+
+-------------------------------------------
+

@@ -1,0 +1,73 @@
+TextFileGenerator
+
+the app has a console ui.
+i have plans for a gui, but nothing sure until now.
+the console receives, as a sole parameter, an xml file that describes the text file to be generated.
+
+
+1) the xml root element:
++--------------------------------------------------
+| <?xml version="1.0"?>
+| <textFileGenerator xmlns="http://alez.ro/TextFileGenerator" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="namespace-to-use TextFileGenerator.xsd">
+|   ...
+| </textFileGenerator>
++--------------------------------------------------
+
+2) the sections
+the generated text file is assembled as a collection of sections. each section is described by a <section> tag in the xml file.
+
+section's attributes:
+	- name [optional] - identifies the section - currently not used 
+	- repeat [optional] - an integer greater then zero that specifies how many times the section to be rendered.
+	- separator [optional] - a text that separates the instances of the section.
+	- separatorType [optional] - Prefix, Infix, Postfix - specifies how to use the separator text. [need more explanation]
+
+section's content:
+	- a text (static text or dynamically constructed using parameters)
+	- or a list of other sections.
+
+
+a) constant section
++--------------------------------------------------
+| <section>
+|   <template>some text here</template>
+| </section>
++--------------------------------------------------
+
+
+b) section with a parameter (auto-incremented parameter)
++--------------------------------------------------
+| <section>
+|   <template>text plus one parameter: {param_name}</template>
+|   <parameter name="param_name">
+|     <counter/>
+|   </parameter>
+| </section>
++--------------------------------------------------
+
+
+c) section with a parameter (random text parameter)
++--------------------------------------------------
+| <section>
+|   <template>text plus one parameter: {param_name}</template>
+|   <parameter name="param_name">
+|     <randomText/>
+|   </parameter>
+| </section>
++--------------------------------------------------
+
+
+d) section repeated 10 times
++--------------------------------------------------
+| <section repeat="10" separator=";" separatorType="Infix">
+|   <template>text_{param_name}</template>
+|   <parameter name="param_name">
+|     <counter/>
+|   </parameter>
+| </section>
++--------------------------------------------------
+
+in the future:
+- section->template renamed into section->text
+- parameter->key renamed into parameter->name
+- add attribute: parameter->@type that can be counter, randomNumber, randomText, constant. this configuration will create a parameter of the specified type using the default values for each one.
