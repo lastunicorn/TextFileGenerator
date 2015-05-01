@@ -38,10 +38,10 @@ namespace DustInTheWind.TextFileGenerator.Serialization.EntityTranslators
             switch (sourceParameter.ValueChangeMode)
             {
                 case ValueChangeMode.Auto:
-                    return parameterValuePersistence.None;
+                    return parameterValuePersistence.PerRequest;
 
                 case ValueChangeMode.Manual:
-                    return parameterValuePersistence.Section;
+                    return parameterValuePersistence.PerSectionStep;
 
                 default:
                     throw new ArgumentOutOfRangeException();

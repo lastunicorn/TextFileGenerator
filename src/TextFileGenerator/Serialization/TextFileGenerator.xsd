@@ -60,7 +60,7 @@
                 </xs:element>
             </xs:choice>
             <xs:attribute name="name" type="xs:string" use="required" />
-            <xs:attribute name="valuePersistence" type="parameterValuePersistence" default="None" />
+            <xs:attribute name="valuePersistence" type="parameterValuePersistence" default="PerRequest" />
         </xs:complexType>
     </xs:element>
 
@@ -74,8 +74,8 @@
 
     <xs:simpleType name="parameterValuePersistence">
         <xs:restriction base="xs:string">
-            <xs:enumeration value="None"/>
-            <xs:enumeration value="Section"/>
+            <xs:enumeration value="PerRequest"/>
+            <xs:enumeration value="PerSectionStep"/>
         </xs:restriction>
     </xs:simpleType>
 

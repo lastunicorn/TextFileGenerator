@@ -36,10 +36,10 @@ namespace DustInTheWind.TextFileGenerator.Serialization.EntityTranslators
         {
             switch (sourceParameter.valuePersistence)
             {
-                case parameterValuePersistence.None:
+                case parameterValuePersistence.PerRequest:
                     return ValueChangeMode.Auto;
 
-                case parameterValuePersistence.Section:
+                case parameterValuePersistence.PerSectionStep:
                     return ValueChangeMode.Manual;
 
                 default:
