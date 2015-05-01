@@ -33,12 +33,12 @@ namespace DustInTheWind.TextFileGenerator.Serialization.EntityTranslators
 
         private static void CreateSections(textFileGenerator result, IReadOnlyList<Section> sourceSections)
         {
-            result.sections = new section[sourceSections.Count];
+            result.section = new section[sourceSections.Count];
 
             for (int i = 0; i < sourceSections.Count; i++)
             {
                 section destinationSection = SectionTranslator.ToXmlEntity(sourceSections[i]);
-                result.sections[i] = destinationSection;
+                result.section[i] = destinationSection;
             }
         }
     }

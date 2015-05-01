@@ -26,8 +26,8 @@ namespace DustInTheWind.TextFileGenerator.Serialization.EntityTranslators
         {
             FileDescriptor fileDescriptor = new FileDescriptor();
 
-            if (source.sections != null)
-                CreateSections(fileDescriptor, source.sections);
+            if (source.section != null)
+                CreateSections(fileDescriptor, source.section);
 
             return fileDescriptor;
         }
