@@ -32,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CommandLine">
+      <HintPath>..\packages\CommandLineParser.1.9.71\lib\net45\CommandLine.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
   </ItemGroup>
@@ -39,8 +42,8 @@
     <Compile Include="..\AssemblyInfo.Shared.cs">
       <Link>Properties\AssemblyInfo.Shared.cs</Link>
     </Compile>
+    <Compile Include="CommandArguments\Options.cs" />
     <Compile Include="Services\ConsoleSpinner.cs" />
-    <Compile Include="Flows\DisplayUsageFlow.cs" />
     <Compile Include="Flows\ScaffoldFlow.cs" />
     <Compile Include="Flows\IFlow.cs" />
     <Compile Include="Services\UserInterface.cs" />
@@ -49,9 +52,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Services\Argument.cs" />
-    <Compile Include="Services\ArgumentParser.cs" />
-    <Compile Include="Services\Arguments.cs" />
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Flows\GenerationFlow.cs" />
     <Compile Include="Flows\MainFlow.cs" />
@@ -60,6 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TextFileGenerator\TextFileGenerator.csproj">
@@ -73,9 +74,6 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Scaffold.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Usage.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -15,6 +15,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using DustInTheWind.TextFileGenerator.ConsoleApplication.Properties;
@@ -28,15 +29,15 @@ namespace DustInTheWind.TextFileGenerator.ConsoleApplication.Flows
     class GenerationFlow : IFlow
     {
         private readonly UserInterface ui;
-        private readonly string descriptorFileName;
+        private readonly IList<string> descriptorFileNames;
 
-        public GenerationFlow(UserInterface ui, string descriptorFileName)
+        public GenerationFlow(UserInterface ui, IList<string> descriptorFileNames)
         {
             if (ui == null) throw new ArgumentNullException("ui");
-            if (descriptorFileName == null) throw new ArgumentNullException("descriptorFileName");
+            if (descriptorFileNames == null) throw new ArgumentNullException("descriptorFileNames");
 
             this.ui = ui;
-            this.descriptorFileName = descriptorFileName;
+            this.descriptorFileNames = descriptorFileNames;
         }
 
         public void Start()
@@ -49,9 +50,9 @@ namespace DustInTheWind.TextFileGenerator.ConsoleApplication.Flows
         {
             FileDescriptor fileDescriptor;
 
-            DisplayOptionFileReading(descriptorFileName);
+            DisplayOptionFileReading(descriptorFileNames[0]);
 
-            using (Stream inputStream = File.OpenRead(descriptorFileName))
+            using (Stream inputStream = File.OpenRead(descriptorFileNames[0]))
             {
                 FileDescriptorSerializer serializer = new FileDescriptorSerializer();
                 fileDescriptor = serializer.Deserialize(inputStream);
@@ -97,8 +98,8 @@ namespace DustInTheWind.TextFileGenerator.ConsoleApplication.Flows
 
         private string GenerateOutputFileName()
         {
-            string directoryPath = Path.GetDirectoryName(descriptorFileName);
-            string outputFileName = Path.GetFileNameWithoutExtension(descriptorFileName) + ".output.txt";
+            string directoryPath = Path.GetDirectoryName(descriptorFileNames[0]);
+            string outputFileName = Path.GetFileNameWithoutExtension(descriptorFileNames[0]) + ".output.txt";
 
             return Path.Combine(directoryPath, outputFileName);
         }

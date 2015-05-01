@@ -17,7 +17,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace DustInTheWind.TextFileGenerator.ConsoleApplication.Services
+namespace DustInTheWind.TextFileGenerator.ConsoleApplication.CommandArguments
 {
     class ArgumentParser
     {

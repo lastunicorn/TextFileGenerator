@@ -15,7 +15,9 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using System.IO;
 using System.Reflection;
+using DustInTheWind.TextFileGenerator.ConsoleApplication.CommandArguments;
 using DustInTheWind.TextFileGenerator.ConsoleApplication.Services;
 
 namespace DustInTheWind.TextFileGenerator.ConsoleApplication.Flows
@@ -26,9 +28,9 @@ namespace DustInTheWind.TextFileGenerator.ConsoleApplication.Flows
     class MainFlow
     {
         private readonly UserInterface ui;
-        private readonly Arguments arguments;
+        private readonly Options arguments;
 
-        public MainFlow(UserInterface ui, Arguments arguments)
+        public MainFlow(UserInterface ui, Options arguments)
         {
             if (ui == null) throw new ArgumentNullException("ui");
             if (arguments == null) throw new ArgumentNullException("arguments");
@@ -44,7 +46,9 @@ namespace DustInTheWind.TextFileGenerator.ConsoleApplication.Flows
             try
             {
                 IFlow flow = ChooseFlow();
-                flow.Start();
+
+                if (flow != null)
+                    flow.Start();
             }
             catch (Exception ex)
             {
@@ -54,13 +58,13 @@ namespace DustInTheWind.TextFileGenerator.ConsoleApplication.Flows
 
         private IFlow ChooseFlow()
         {
-            if (arguments.DescriptorFileName != null)
-                return new GenerationFlow(ui, arguments.DescriptorFileName);
+            if (arguments.DescriptorFileNames != null && arguments.DescriptorFileNames.Count > 0)
+                return new GenerationFlow(ui, arguments.DescriptorFileNames);
 
             if (arguments.GenerateScaffold)
                 return new ScaffoldFlow(ui);
 
-            return new DisplayUsageFlow(ui);
+            return null;
         }
 
         public void WriteHeader()
