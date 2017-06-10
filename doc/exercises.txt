@@ -1,0 +1,17 @@
+15 min
+
+create a huge csv file that has 50 columns and 100.000 lines - separated by crlf (html encoded: "&#13;&#10;").
+the cells should be separated by ','
+every cell should contain
+	- its coordinates (row index and column index). each coordinate should be padded with zeroes for a total of 6 digits.
+	- a random number between 10 and 99
+	- a random text of exactly 10 characters.
+
+-------------------------------------------
+
+15 min
+
+create a huge csv file that has 50 columns and 100.000 lines - separated by crlf (html encoded: "&#13;&#10;").
+the cells should be separated by ','
+every cell should contain its coordinates (row index and column index). each coordinate should be padded with zeroes for a total of 6 digits.
+also, the even cells should contain a random number between 10 and 99 and the odd cells should contain a random text of exactly 10 characters.

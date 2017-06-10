@@ -21,7 +21,8 @@ namespace DustInTheWind.TextFileGenerator.ValueProviders
 {
     public class RandomNumberValueProvider : IValueProvider
     {
-        private readonly Random random;
+        [ThreadStatic]
+        private static Random random;
 
         public int MinValue { get; set; }
         public int MaxValue { get; set; }
