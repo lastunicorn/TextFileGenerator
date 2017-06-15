@@ -19,7 +19,7 @@ using DustInTheWind.TextFileGenerator.ConsoleApplication.Properties;
 
 namespace DustInTheWind.TextFileGenerator.ConsoleApplication.Services
 {
-    class UserInterface
+    internal class UserInterface
     {
         private const ConsoleColor EnhancedColor = ConsoleColor.Green;
         private const ConsoleColor ErrorColor = ConsoleColor.Red;

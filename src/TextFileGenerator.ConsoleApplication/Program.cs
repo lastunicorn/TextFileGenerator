@@ -16,9 +16,9 @@
 
 namespace DustInTheWind.TextFileGenerator.ConsoleApplication
 {
-    class Program
+    internal static class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             Bootstrapper bootstrapper = new Bootstrapper();
             bootstrapper.Run(args);

@@ -32,7 +32,7 @@ namespace DustInTheWind.TextFileGenerator.FileDescription
             get { return valueProvider; }
             set
             {
-                if (value == null) throw new ArgumentNullException("value");
+                if (value == null) throw new ArgumentNullException(nameof(value));
 
                 valueProvider = value;
             }
@@ -74,7 +74,8 @@ namespace DustInTheWind.TextFileGenerator.FileDescription
 
         public override string ToString()
         {
-            return string.Format("{0} - {1}", Name, ValueProvider.GetType().Name);
+            string typeName = ValueProvider.GetType().Name;
+            return $"{Name} - {typeName}";
         }
     }
 }

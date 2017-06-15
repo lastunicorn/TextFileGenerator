@@ -19,9 +19,9 @@ using System.Threading;
 
 namespace DustInTheWind.TextFileGenerator.ConsoleApplication.Services
 {
-    class ConsoleSpinner : IDisposable
+    internal class ConsoleSpinner : IDisposable
     {
-        bool isDisposed;
+        private bool isDisposed;
         private int counter;
         private readonly string[] sequence;
         private readonly Timer timer;

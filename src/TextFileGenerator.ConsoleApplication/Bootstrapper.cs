@@ -21,7 +21,7 @@ using DustInTheWind.TextFileGenerator.ConsoleApplication.Services;
 
 namespace DustInTheWind.TextFileGenerator.ConsoleApplication
 {
-    class Bootstrapper
+    internal class Bootstrapper
     {
         private Options options;
         private MainFlow mainFlow;

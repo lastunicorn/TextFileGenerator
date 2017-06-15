@@ -31,7 +31,7 @@ namespace DustInTheWind.TextFileGenerator.Templating
             Empty = new TextTemplate(string.Empty);
         }
 
-        public string Value { get; private set; }
+        public string Value { get; }
 
         private TemplateItemList templateItems;
 

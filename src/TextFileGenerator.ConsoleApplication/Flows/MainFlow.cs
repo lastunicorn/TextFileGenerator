@@ -15,7 +15,6 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using System.IO;
 using System.Reflection;
 using DustInTheWind.TextFileGenerator.ConsoleApplication.CommandArguments;
 using DustInTheWind.TextFileGenerator.ConsoleApplication.Services;
@@ -32,8 +31,8 @@ namespace DustInTheWind.TextFileGenerator.ConsoleApplication.Flows
 
         public MainFlow(UserInterface ui, Options arguments)
         {
-            if (ui == null) throw new ArgumentNullException("ui");
-            if (arguments == null) throw new ArgumentNullException("arguments");
+            if (ui == null) throw new ArgumentNullException(nameof(ui));
+            if (arguments == null) throw new ArgumentNullException(nameof(arguments));
 
             this.ui = ui;
             this.arguments = arguments;
@@ -46,9 +45,7 @@ namespace DustInTheWind.TextFileGenerator.ConsoleApplication.Flows
             try
             {
                 IFlow flow = ChooseFlow();
-
-                if (flow != null)
-                    flow.Start();
+                flow?.Start();
             }
             catch (Exception ex)
             {

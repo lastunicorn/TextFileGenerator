@@ -26,15 +26,15 @@ using DustInTheWind.TextFileGenerator.Serialization;
 
 namespace DustInTheWind.TextFileGenerator.ConsoleApplication.Flows
 {
-    class GenerationFlow : IFlow
+    internal class GenerationFlow : IFlow
     {
         private readonly UserInterface ui;
         private readonly IList<string> descriptorFileNames;
 
         public GenerationFlow(UserInterface ui, IList<string> descriptorFileNames)
         {
-            if (ui == null) throw new ArgumentNullException("ui");
-            if (descriptorFileNames == null) throw new ArgumentNullException("descriptorFileNames");
+            if (ui == null) throw new ArgumentNullException(nameof(ui));
+            if (descriptorFileNames == null) throw new ArgumentNullException(nameof(descriptorFileNames));
 
             this.ui = ui;
             this.descriptorFileNames = descriptorFileNames;

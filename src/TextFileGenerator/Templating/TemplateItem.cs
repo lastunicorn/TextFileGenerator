@@ -14,8 +14,6 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
-
 namespace DustInTheWind.TextFileGenerator.Templating
 {
     internal struct TemplateItem
@@ -26,7 +24,7 @@ namespace DustInTheWind.TextFileGenerator.Templating
         public TemplateItem(string text, TemplateItemType type)
             : this()
         {
-            Text = text ?? String.Empty;
+            Text = text ?? string.Empty;
             Type = type;
         }
     }

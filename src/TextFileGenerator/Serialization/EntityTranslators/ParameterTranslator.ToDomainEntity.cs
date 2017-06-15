@@ -107,11 +107,11 @@ namespace DustInTheWind.TextFileGenerator.Serialization.EntityTranslators
             };
         }
 
-        private static ConstantValueProvider CreateConstantValueProvider(parameterConstant soureceValueProvider)
+        private static ConstantValueProvider CreateConstantValueProvider(parameterConstant sourceValueProvider)
         {
             return new ConstantValueProvider
             {
-                Value = soureceValueProvider.value
+                Value = sourceValueProvider.value
             };
         }
     }
