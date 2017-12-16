@@ -74,7 +74,8 @@ namespace DustInTheWind.TextFileGenerator.FileDescription
 
         public override string ToString()
         {
-            return string.Format("{0} - {1}", Name, ValueProvider.GetType().Name);
+            string typeName = ValueProvider.GetType().Name;
+            return $"{Name} - {typeName}";
         }
     }
 }

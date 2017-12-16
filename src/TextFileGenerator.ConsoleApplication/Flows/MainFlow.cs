@@ -46,7 +46,8 @@ namespace DustInTheWind.TextFileGenerator.ConsoleApplication.Flows
             {
                 IFlow flow = ChooseFlow();
 
-                flow?.Start();
+                if (flow != null)
+                    flow.Start();
             }
             catch (Exception ex)
             {

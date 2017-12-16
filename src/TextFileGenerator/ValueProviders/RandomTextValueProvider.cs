@@ -25,7 +25,7 @@ namespace DustInTheWind.TextFileGenerator.ValueProviders
 
         public int MinLength { get; set; }
         public int MaxLength { get; set; }
-        public string AvailableChars { get; set; }
+        public string AvailableChars { get; }
 
         public RandomTextValueProvider()
         {
