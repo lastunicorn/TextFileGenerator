@@ -39,14 +39,12 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
         {
             const string xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <textFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
-    <sections>
-        <section name=""root"">
-            <text/>
-            <parameter name=""key1"">
-                <constant value=""value1""/>
-            </parameter>
-        </section>
-    </sections>
+    <section name=""root"">
+        <text/>
+        <parameter name=""key1"">
+            <constant value=""value1""/>
+        </parameter>
+    </section>
 </textFileGenerator>";
 
             FileDescriptor options = PerformTest(xml);
@@ -59,14 +57,12 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
         {
             const string xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <textFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
-    <sections>
-        <section name=""root"">
-            <text/>
-            <parameter name=""key1"">
-                <constant value=""value1""/>
-            </parameter>
-        </section>
-    </sections>
+    <section name=""root"">
+        <text/>
+        <parameter name=""key1"">
+            <constant value=""value1""/>
+        </parameter>
+    </section>
 </textFileGenerator>";
 
             FileDescriptor options = PerformTest(xml);
@@ -79,14 +75,12 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
         {
             const string xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <textFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
-    <sections>
-        <section name=""root"">
-            <text/>
-            <parameter name=""key1"">
-                <constant value=""value1""/>
-            </parameter>
-        </section>
-    </sections>
+    <section name=""root"">
+        <text/>
+        <parameter name=""key1"">
+            <constant value=""value1""/>
+        </parameter>
+    </section>
 </textFileGenerator>";
 
             FileDescriptor options = PerformTest(xml);
@@ -99,14 +93,12 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
         {
             const string xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <textFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
-    <sections>
-        <section name=""root"">
-            <text/>
-            <parameter name=""key1"">
-                <counter/>
-            </parameter>
-        </section>
-    </sections>
+    <section name=""root"">
+        <text/>
+        <parameter name=""key1"">
+            <counter/>
+        </parameter>
+    </section>
 </textFileGenerator>";
 
             FileDescriptor options = PerformTest(xml);
@@ -119,17 +111,15 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
         {
             const string xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <textFileGenerator xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"" xmlns=""http://alez.ro/TextFileGenerator"">
-    <sections>
-        <section>
-            <text/>
-            <parameter name=""key1"">
-                <constant />
-            </parameter>
-            <parameter name=""key2"">
-                <counter />
-            </parameter>
-        </section>
-    </sections>
+    <section>
+        <text/>
+        <parameter name=""key1"">
+            <constant />
+        </parameter>
+        <parameter name=""key2"">
+            <counter />
+        </parameter>
+    </section>
 </textFileGenerator>";
 
             FileDescriptor options = PerformTest(xml);

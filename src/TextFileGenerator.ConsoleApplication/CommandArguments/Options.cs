@@ -20,7 +20,7 @@ using CommandLine.Text;
 
 namespace DustInTheWind.TextFileGenerator.ConsoleApplication.CommandArguments
 {
-    class Options
+    internal class Options
     {
         [ValueList(typeof(List<string>), MaximumElements = 1)]
         public IList<string> DescriptorFileNames { get; set; }

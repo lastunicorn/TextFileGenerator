@@ -26,8 +26,8 @@ namespace DustInTheWind.TextFileGenerator.FileDescription
         public int RepeatCount { get; set; }
         public string Separator { get; set; }
         public SeparatorLocation SeparatorLocation { get; set; }
-        public ParameterList Parameters { get; private set; }
-        public List<Section> Sections { get; private set; }
+        public ParameterList Parameters { get; }
+        public List<Section> Sections { get; }
 
         public Section()
         {

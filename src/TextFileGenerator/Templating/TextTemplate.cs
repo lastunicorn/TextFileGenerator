@@ -24,14 +24,14 @@ namespace DustInTheWind.TextFileGenerator.Templating
 {
     public class TextTemplate
     {
-        public static TextTemplate Empty { get; private set; }
+        public static TextTemplate Empty { get; }
 
         static TextTemplate()
         {
             Empty = new TextTemplate(string.Empty);
         }
 
-        public string Value { get; private set; }
+        public string Value { get; }
 
         private TemplateItemList templateItems;
 

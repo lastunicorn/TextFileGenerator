@@ -29,7 +29,7 @@ namespace DustInTheWind.TextFileGenerator.FileGeneration
 
         public SectionGenerator(TextWriter textWriter)
         {
-            if (textWriter == null) throw new ArgumentNullException("textWriter");
+            if (textWriter == null) throw new ArgumentNullException(nameof(textWriter));
 
             this.textWriter = textWriter;
         }

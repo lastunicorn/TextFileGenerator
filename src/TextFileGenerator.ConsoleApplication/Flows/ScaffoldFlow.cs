@@ -30,7 +30,7 @@ namespace DustInTheWind.TextFileGenerator.ConsoleApplication.Flows
 
         public ScaffoldFlow(UserInterface ui)
         {
-            if (ui == null) throw new ArgumentNullException("ui");
+            if (ui == null) throw new ArgumentNullException(nameof(ui));
             this.ui = ui;
         }
 

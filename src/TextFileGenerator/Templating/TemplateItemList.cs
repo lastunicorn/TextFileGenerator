@@ -14,7 +14,6 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
 using System.Collections.Generic;
 
 namespace DustInTheWind.TextFileGenerator.Templating
@@ -23,7 +22,7 @@ namespace DustInTheWind.TextFileGenerator.Templating
     {
         public void AddTextPart(string text)
         {
-            if (String.IsNullOrEmpty(text))
+            if (string.IsNullOrEmpty(text))
                 return;
 
             if (Count > 0)

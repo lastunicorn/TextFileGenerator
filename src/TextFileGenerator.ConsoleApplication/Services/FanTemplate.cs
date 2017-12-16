@@ -1,4 +1,4 @@
-﻿// TextFileGenerator
+// TextFileGenerator
 // Copyright (C) 2009-2011 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -14,17 +14,13 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System.Collections.Generic;
-
-namespace DustInTheWind.TextFileGenerator.FileDescription
+namespace DustInTheWind.TextFileGenerator.ConsoleApplication.Services
 {
-    public class FileDescriptor
+    internal class FanTemplate : TemplateBase
     {
-        public List<Section> Sections { get; }
-
-        public FileDescriptor()
+        public FanTemplate()
+            : base(new[] { "+", "x" })
         {
-            Sections = new List<Section>();
         }
     }
 }

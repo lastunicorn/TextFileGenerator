@@ -19,7 +19,7 @@ using DustInTheWind.TextFileGenerator.ConsoleApplication.Properties;
 
 namespace DustInTheWind.TextFileGenerator.ConsoleApplication.Services
 {
-    class UserInterface
+    internal class UserInterface
     {
         private const ConsoleColor EnhancedColor = ConsoleColor.Green;
         private const ConsoleColor ErrorColor = ConsoleColor.Red;
@@ -65,7 +65,7 @@ namespace DustInTheWind.TextFileGenerator.ConsoleApplication.Services
 
         public void ExecuteWithSpinner(Action action)
         {
-            using (ConsoleSpinner consoleSpinner = new ConsoleSpinner())
+            using (ConsoleSpinner consoleSpinner = new ConsoleSpinner(new SquareDotTemplate()))
             {
                 consoleSpinner.Start();
 

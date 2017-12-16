@@ -32,7 +32,7 @@ namespace DustInTheWind.TextFileGenerator.FileDescription
             get { return valueProvider; }
             set
             {
-                if (value == null) throw new ArgumentNullException("value");
+                if (value == null) throw new ArgumentNullException(nameof(value));
 
                 valueProvider = value;
             }

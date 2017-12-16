@@ -26,7 +26,7 @@ namespace DustInTheWind.TextFileGenerator.FileGeneration
 
         public Generator(FileDescriptor fileDescriptor)
         {
-            if (fileDescriptor == null) throw new ArgumentNullException("fileDescriptor");
+            if (fileDescriptor == null) throw new ArgumentNullException(nameof(fileDescriptor));
 
             this.fileDescriptor = fileDescriptor;
         }
