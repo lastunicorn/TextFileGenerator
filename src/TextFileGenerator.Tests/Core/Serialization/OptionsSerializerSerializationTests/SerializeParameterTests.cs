@@ -29,7 +29,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
     {
         private FileDescriptorSerializer fileDescriptorSerializer;
         private MemoryStream actualStream;
-        private FileDescriptor fileDescriptor;
+        private Project project;
 
         [SetUp]
         public void SetUp()
@@ -37,8 +37,8 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
             fileDescriptorSerializer = new FileDescriptorSerializer();
             actualStream = new MemoryStream();
 
-            fileDescriptor = new FileDescriptor();
-            fileDescriptor.Sections.Add(new Section());
+            project = new Project();
+            project.Sections.Add(new Section());
         }
 
         [TearDown]
@@ -51,7 +51,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
         [Test]
         public void parameter_element_contains_key_attribute()
         {
-            fileDescriptor.Sections[0].Parameters.Add(new Parameter
+            project.Sections[0].Parameters.Add(new Parameter
             {
                 Name = "key1",
                 ValueProvider = EmptyValueProvider.Value
@@ -66,13 +66,13 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
         [Test]
         public void serialize_two_parameters_of_different_type()
         {
-            fileDescriptor.Sections[0].SectionText = new TextTemplate("template1");
-            fileDescriptor.Sections[0].Parameters.Add(new Parameter
+            project.Sections[0].SectionText = new TextTemplate("template1");
+            project.Sections[0].Parameters.Add(new Parameter
             {
                 Name = "key1",
                 ValueProvider = new ConstantValueProvider()
             });
-            fileDescriptor.Sections[0].Parameters.Add(new Parameter
+            project.Sections[0].Parameters.Add(new Parameter
             {
                 Name = "key2",
                 ValueProvider = new CounterValueProvider()
@@ -85,7 +85,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
 
         private XmlAsserter PerformTestAndCreateAsserterOnResult()
         {
-            fileDescriptorSerializer.Serialize(actualStream, fileDescriptor);
+            fileDescriptorSerializer.Serialize(actualStream, project);
 
             actualStream.Position = 0;
 

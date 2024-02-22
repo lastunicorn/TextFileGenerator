@@ -29,7 +29,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
     {
         private FileDescriptorSerializer fileDescriptorSerializer;
         private MemoryStream actualStream;
-        private FileDescriptor fileDescriptor;
+        private Project project;
 
         [SetUp]
         public void SetUp()
@@ -37,8 +37,8 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
             fileDescriptorSerializer = new FileDescriptorSerializer();
             actualStream = new MemoryStream();
 
-            fileDescriptor = new FileDescriptor();
-            fileDescriptor.Sections.Add(new Section());
+            project = new Project();
+            project.Sections.Add(new Section());
         }
 
         [TearDown]
@@ -51,7 +51,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
         [Test]
         public void parameter_element_contains_counter_element_if_Parameter_has_a_CounterValueProvider()
         {
-            fileDescriptor.Sections[0].Parameters.Add(new Parameter
+            project.Sections[0].Parameters.Add(new Parameter
             {
                 Name = "key1",
                 ValueProvider = new CounterValueProvider()
@@ -65,7 +65,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
         [Test]
         public void constant_element_contans_format_attribute_if_Format_was_set()
         {
-            fileDescriptor.Sections[0].Parameters.Add(new Parameter
+            project.Sections[0].Parameters.Add(new Parameter
             {
                 Name = "key1",
                 ValueProvider = new CounterValueProvider { Format = "###" }
@@ -80,7 +80,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
         [Test]
         public void constant_element_does_not_contan_format_attribute_if_Format_was_not_set()
         {
-            fileDescriptor.Sections[0].Parameters.Add(new Parameter
+            project.Sections[0].Parameters.Add(new Parameter
             {
                 Name = "key1",
                 ValueProvider = new CounterValueProvider()
@@ -94,7 +94,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
         [Test]
         public void constant_element_contans_startValue_attribute_if_StartValue_was_set()
         {
-            fileDescriptor.Sections[0].Parameters.Add(new Parameter
+            project.Sections[0].Parameters.Add(new Parameter
             {
                 Name = "key1",
                 ValueProvider = new CounterValueProvider { StartValue = 10 }
@@ -110,7 +110,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
         [Test]
         public void constant_element_does_not_contan_startValue_attribute_if_StartValue_was_not_set()
         {
-            fileDescriptor.Sections[0].Parameters.Add(new Parameter
+            project.Sections[0].Parameters.Add(new Parameter
             {
                 Name = "key1",
                 ValueProvider = new CounterValueProvider()
@@ -124,7 +124,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
         [Test]
         public void constant_element_does_not_contan_startValue_attribute_if_StartValue_was_set_to_1()
         {
-            fileDescriptor.Sections[0].Parameters.Add(new Parameter
+            project.Sections[0].Parameters.Add(new Parameter
             {
                 Name = "key1",
                 ValueProvider = new CounterValueProvider { StartValue = 1 }
@@ -138,7 +138,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
         [Test]
         public void constant_element_contans_step_attribute_if_Step_was_set()
         {
-            fileDescriptor.Sections[0].Parameters.Add(new Parameter
+            project.Sections[0].Parameters.Add(new Parameter
             {
                 Name = "key1",
                 ValueProvider = new CounterValueProvider { Step = 4 }
@@ -153,7 +153,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
         [Test]
         public void constant_element_does_not_contan_step_attribute_if_Step_was_not_set()
         {
-            fileDescriptor.Sections[0].Parameters.Add(new Parameter
+            project.Sections[0].Parameters.Add(new Parameter
             {
                 Name = "key1",
                 ValueProvider = new CounterValueProvider()
@@ -167,7 +167,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
         [Test]
         public void constant_element_does_not_contan_step_attribute_if_Step_was_set_to_1()
         {
-            fileDescriptor.Sections[0].Parameters.Add(new Parameter
+            project.Sections[0].Parameters.Add(new Parameter
             {
                 Name = "key1",
                 ValueProvider = new CounterValueProvider { Step = 1 }
@@ -180,7 +180,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
 
         private XmlAsserter PerformTestAndCreateAsserterOnResult()
         {
-            fileDescriptorSerializer.Serialize(actualStream, fileDescriptor);
+            fileDescriptorSerializer.Serialize(actualStream, project);
 
             actualStream.Position = 0;
 

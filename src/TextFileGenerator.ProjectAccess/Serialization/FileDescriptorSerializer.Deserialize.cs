@@ -28,7 +28,7 @@ namespace DustInTheWind.TextFileGenerator.ProjectAccess.Serialization
     {
         private const string XsdResourcePath = "DustInTheWind.TextFileGenerator.ProjectAccess.Serialization.TextFileGenerator.xsd";
 
-        public FileDescriptor Deserialize(Stream inputStream)
+        public Project Deserialize(Stream inputStream)
         {
             XmlReaderSettings settings = CreateDeserializationSettings();
 

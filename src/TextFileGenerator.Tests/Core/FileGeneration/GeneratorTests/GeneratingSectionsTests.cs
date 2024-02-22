@@ -24,18 +24,18 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.FileGeneration.GeneratorTes
     [TestFixture]
     public class GeneratingSectionsTests
     {
-        private FileDescriptor options;
+        private Project project;
 
         [SetUp]
         public void SetUp()
         {
-            options = new FileDescriptor();
+            project = new Project();
         }
 
         [Test]
         public void outputs_the_section_template_of_one_section()
         {
-            options.Sections.Add(new Section
+            project.Sections.Add(new Section
             {
                 SectionText = new TextTemplate("test")
             });
@@ -48,7 +48,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.FileGeneration.GeneratorTes
         [Test]
         public void outputs_section_template_twice_if_one_section_with_RepeatCount_2()
         {
-            options.Sections.Add(new Section
+            project.Sections.Add(new Section
             {
                 SectionText = new TextTemplate("test"),
                 RepeatCount = 2
@@ -62,7 +62,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.FileGeneration.GeneratorTes
         [Test]
         public void outputs_separator_between_two_instances_of_the_section_if_separator_was_set()
         {
-            options.Sections.Add(new Section
+            project.Sections.Add(new Section
             {
                 SectionText = new TextTemplate("test"),
                 RepeatCount = 2,
@@ -77,7 +77,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.FileGeneration.GeneratorTes
         [Test]
         public void outputs_separator_after_each_instance_of_the_section_if_separatorType_is_Postfix()
         {
-            options.Sections.Add(new Section
+            project.Sections.Add(new Section
             {
                 SectionText = new TextTemplate("test"),
                 RepeatCount = 2,
@@ -93,7 +93,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.FileGeneration.GeneratorTes
         [Test]
         public void outputs_separator_before_each_instance_of_the_section_if_separatorType_is_Prefix()
         {
-            options.Sections.Add(new Section
+            project.Sections.Add(new Section
             {
                 SectionText = new TextTemplate("test"),
                 RepeatCount = 2,
@@ -109,11 +109,11 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.FileGeneration.GeneratorTes
         [Test]
         public void writes_two_section_templates_if_two_sections_are_declared()
         {
-            options.Sections.Add(new Section
+            project.Sections.Add(new Section
             {
                 SectionText = new TextTemplate("section1")
             });
-            options.Sections.Add(new Section
+            project.Sections.Add(new Section
             {
                 SectionText = new TextTemplate("section2")
             });
@@ -125,11 +125,10 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.FileGeneration.GeneratorTes
 
         private string PerformTest()
         {
-            Generator generator = new Generator(options);
-
             using (MemoryStream ms = new MemoryStream())
+            using (Output output = new Output(ms))
             {
-                generator.Generate(ms);
+                output.AddSections(project.Sections);
 
                 ms.Position = 0;
 

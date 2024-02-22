@@ -48,7 +48,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
     </section>
 </textFileGenerator>";
 
-            FileDescriptor options = PerformTest(xml);
+            Project options = PerformTest(xml);
 
             Assert.That(options.Sections[0].Parameters[0].ValueProvider, Is.TypeOf<CounterValueProvider>());
         }
@@ -66,7 +66,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
     </section>
 </textFileGenerator>";
 
-            FileDescriptor options = PerformTest(xml);
+            Project options = PerformTest(xml);
 
             CounterValueProvider valueProvider = (CounterValueProvider)options.Sections[0].Parameters[0].ValueProvider;
             Assert.That(valueProvider.Format, Is.EqualTo("0000"));
@@ -85,7 +85,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
     </section>
 </textFileGenerator>";
 
-            FileDescriptor options = PerformTest(xml);
+            Project options = PerformTest(xml);
 
             CounterValueProvider valueProvider = (CounterValueProvider)options.Sections[0].Parameters[0].ValueProvider;
             Assert.That(valueProvider.StartValue, Is.EqualTo(7));
@@ -104,13 +104,13 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
     </section>
 </textFileGenerator>";
 
-            FileDescriptor options = PerformTest(xml);
+            Project options = PerformTest(xml);
 
             CounterValueProvider valueProvider = (CounterValueProvider)options.Sections[0].Parameters[0].ValueProvider;
             Assert.That(valueProvider.Step, Is.EqualTo(9));
         }
 
-        private FileDescriptor PerformTest(string xml)
+        private Project PerformTest(string xml)
         {
             using (MemoryStream ms = new MemoryStream())
             {

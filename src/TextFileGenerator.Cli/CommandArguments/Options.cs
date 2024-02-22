@@ -14,24 +14,22 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System.Collections.Generic;
 using CommandLine;
-using CommandLine.Text;
 
-namespace DustInTheWind.TextFileGenerator.ConsoleApplication.CommandArguments
+namespace DustInTheWind.TextFileGenerator.Cli.CommandArguments
 {
     internal class Options
     {
-        [ValueList(typeof(List<string>), MaximumElements = 1)]
+        [Value(0)]
         public IList<string> DescriptorFileNames { get; set; }
 
-        [Option('t', "template", Required = false, DefaultValue = false, HelpText = "generates the template file.")]
+        [Option('t', "template", Required = false, Default = false, HelpText = "generates the template file.")]
         public bool GenerateScaffold { get; set; }
 
-        [HelpOption]
-        public string GetUsage()
-        {
-            return HelpText.AutoBuild(this, x => HelpText.DefaultParsingErrorsHandler(this, x));
-        }
+        //[HelpOption]
+        //public string GetUsage()
+        //{
+        //    return HelpText.AutoBuild(this, x => HelpText.DefaultParsingErrorsHandler(this, x));
+        //}
     }
 }

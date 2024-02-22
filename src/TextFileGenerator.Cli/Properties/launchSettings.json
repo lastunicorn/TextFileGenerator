@@ -2,7 +2,7 @@
   "profiles": {
     "TextFileGenerator.Cli": {
       "commandName": "Project",
-      "commandLineArgs": "file.xml"
+      "commandLineArgs": "file1.xml"
     }
   }
 }

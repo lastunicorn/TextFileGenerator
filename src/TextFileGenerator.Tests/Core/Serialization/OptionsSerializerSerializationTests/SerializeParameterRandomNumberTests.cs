@@ -29,7 +29,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
     {
         private FileDescriptorSerializer fileDescriptorSerializer;
         private MemoryStream actualStream;
-        private FileDescriptor fileDescriptor;
+        private Project project;
 
         [SetUp]
         public void SetUp()
@@ -37,8 +37,8 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
             fileDescriptorSerializer = new FileDescriptorSerializer();
             actualStream = new MemoryStream();
 
-            fileDescriptor = new FileDescriptor();
-            fileDescriptor.Sections.Add(new Section());
+            project = new Project();
+            project.Sections.Add(new Section());
         }
 
         [TearDown]
@@ -51,7 +51,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
         [Test]
         public void parameter_element_contains_randomNumber_element_if_Parameter_has_a_RandomNumberValueProvider()
         {
-            fileDescriptor.Sections[0].Parameters.Add(new Parameter
+            project.Sections[0].Parameters.Add(new Parameter
             {
                 Name = "key1",
                 ValueProvider = new RandomNumberValueProvider()
@@ -65,7 +65,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
         [Test]
         public void randomNumber_element_contains_format_attribute_if_Format_was_set()
         {
-            fileDescriptor.Sections[0].Parameters.Add(new Parameter
+            project.Sections[0].Parameters.Add(new Parameter
             {
                 Name = "key1",
                 ValueProvider = new RandomNumberValueProvider { Format = "###" }
@@ -80,7 +80,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
         [Test]
         public void randomNumber_element_does_not_contain_format_attribute_if_Format_was_not_set()
         {
-            fileDescriptor.Sections[0].Parameters.Add(new Parameter
+            project.Sections[0].Parameters.Add(new Parameter
             {
                 Name = "key1",
                 ValueProvider = new RandomNumberValueProvider()
@@ -94,7 +94,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
         [Test]
         public void randomNumber_element_contains_minValue_attribute_if_MinValue_was_set()
         {
-            fileDescriptor.Sections[0].Parameters.Add(new Parameter
+            project.Sections[0].Parameters.Add(new Parameter
             {
                 Name = "key1",
                 ValueProvider = new RandomNumberValueProvider { MinValue = 5 }
@@ -109,7 +109,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
         [Test]
         public void randomNumber_element_does_not_contain_minValue_attribute_if_MinValue_was_not_set()
         {
-            fileDescriptor.Sections[0].Parameters.Add(new Parameter
+            project.Sections[0].Parameters.Add(new Parameter
             {
                 Name = "key1",
                 ValueProvider = new RandomNumberValueProvider()
@@ -123,7 +123,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
         [Test]
         public void randomNumber_element_does_not_contain_minValue_attribute_if_MinValue_was_set_to_1()
         {
-            fileDescriptor.Sections[0].Parameters.Add(new Parameter
+            project.Sections[0].Parameters.Add(new Parameter
             {
                 Name = "key1",
                 ValueProvider = new RandomNumberValueProvider { MinValue = 1 }
@@ -137,7 +137,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
         [Test]
         public void randomNumber_element_contains_maxValue_attribute_if_MaxValue_was_set()
         {
-            fileDescriptor.Sections[0].Parameters.Add(new Parameter
+            project.Sections[0].Parameters.Add(new Parameter
             {
                 Name = "key1",
                 ValueProvider = new RandomNumberValueProvider { MaxValue = 3 }
@@ -152,7 +152,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
         [Test]
         public void randomNumber_element_does_not_contain_maxValue_attribute_if_MaxValue_was_not_set()
         {
-            fileDescriptor.Sections[0].Parameters.Add(new Parameter
+            project.Sections[0].Parameters.Add(new Parameter
             {
                 Name = "key1",
                 ValueProvider = new RandomNumberValueProvider()
@@ -166,7 +166,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
         [Test]
         public void randomNumber_element_does_not_contain_maxValue_attribute_if_MaxValue_was_set_to_100()
         {
-            fileDescriptor.Sections[0].Parameters.Add(new Parameter
+            project.Sections[0].Parameters.Add(new Parameter
             {
                 Name = "key1",
                 ValueProvider = new RandomNumberValueProvider { MaxValue = 100 }
@@ -179,7 +179,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
 
         private XmlAsserter PerformTestAndCreateAsserterOnResult()
         {
-            fileDescriptorSerializer.Serialize(actualStream, fileDescriptor);
+            fileDescriptorSerializer.Serialize(actualStream, project);
 
             actualStream.Position = 0;
 

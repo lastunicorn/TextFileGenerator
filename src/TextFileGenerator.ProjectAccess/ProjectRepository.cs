@@ -24,7 +24,7 @@ namespace DustInTheWind.TextFileGenerator.ProjectAccess
 {
     public class ProjectRepository : IProjectRepository
     {
-        public FileDescriptor Get(string fileName)
+        public Project Get(string fileName)
         {
             using (Stream inputStream = File.OpenRead(fileName))
             {

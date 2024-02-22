@@ -29,7 +29,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
     {
         private FileDescriptorSerializer fileDescriptorSerializer;
         private MemoryStream actualStream;
-        private FileDescriptor fileDescriptor;
+        private Project project;
 
         [SetUp]
         public void SetUp()
@@ -37,8 +37,8 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
             fileDescriptorSerializer = new FileDescriptorSerializer();
             actualStream = new MemoryStream();
 
-            fileDescriptor = new FileDescriptor();
-            fileDescriptor.Sections.Add(new Section());
+            project = new Project();
+            project.Sections.Add(new Section());
         }
 
         [TearDown]
@@ -51,7 +51,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
         [Test]
         public void parameter_element_contains_constant_element_if_Parameter_has_a_ConstantValueProvider()
         {
-            fileDescriptor.Sections[0].Parameters.Add(new Parameter
+            project.Sections[0].Parameters.Add(new Parameter
             {
                 Name = "key1",
                 ValueProvider = new ConstantValueProvider()
@@ -65,7 +65,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
         [Test]
         public void constant_element_contains_value_attribute_if_Value_was_set()
         {
-            fileDescriptor.Sections[0].Parameters.Add(new Parameter
+            project.Sections[0].Parameters.Add(new Parameter
             {
                 Name = "key1",
                 ValueProvider = new ConstantValueProvider { Value = "some text" }
@@ -80,7 +80,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
         [Test]
         public void constant_element_does_not_contain_value_attribute_if_Value_was_not_set()
         {
-            fileDescriptor.Sections[0].Parameters.Add(new Parameter
+            project.Sections[0].Parameters.Add(new Parameter
             {
                 Name = "key1",
                 ValueProvider = new ConstantValueProvider()
@@ -94,7 +94,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
         [Test]
         public void constant_element_does_not_contain_value_attribute_if_Value_was_set_to_empty_string()
         {
-            fileDescriptor.Sections[0].Parameters.Add(new Parameter
+            project.Sections[0].Parameters.Add(new Parameter
             {
                 Name = "key1",
                 ValueProvider = new ConstantValueProvider { Value = string.Empty }
@@ -107,7 +107,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
 
         private XmlAsserter PerformTestAndCreateAsserterOnResult()
         {
-            fileDescriptorSerializer.Serialize(actualStream, fileDescriptor);
+            fileDescriptorSerializer.Serialize(actualStream, project);
 
             actualStream.Position = 0;
 

@@ -15,32 +15,30 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using CommandLine;
-using DustInTheWind.TextFileGenerator.ConsoleApplication.CommandArguments;
-using DustInTheWind.TextFileGenerator.ConsoleApplication.Flows;
+using DustInTheWind.TextFileGenerator.Cli.CommandArguments;
+using DustInTheWind.TextFileGenerator.Cli.Flows;
 using DustInTheWind.TextFileGenerator.UserAccess;
 
-namespace DustInTheWind.TextFileGenerator.ConsoleApplication
+namespace DustInTheWind.TextFileGenerator.Cli
 {
     internal class Bootstrapper
     {
-        private Options options;
         private MainFlow mainFlow;
 
         public void Run(string[] args)
         {
-            options = new Options();
-
-            if (!Parser.Default.ParseArguments(args, options))
-                return;
-
-            CreateUi();
-            StartUi();
+            Parser.Default.ParseArguments<Options>(args)
+                .WithParsed(o =>
+                {
+                    CreateUi(o);
+                    StartUi();
+                });
         }
 
-        private void CreateUi()
+        private void CreateUi(Options options)
         {
-            UserInterface ui = new UserInterface();
-            MainView mainView = new MainView();
+            UserInterface ui = new();
+            MainView mainView = new();
 
             mainFlow = new MainFlow(ui, mainView, options);
         }

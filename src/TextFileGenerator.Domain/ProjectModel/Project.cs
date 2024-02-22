@@ -18,7 +18,7 @@ using System.Collections.Generic;
 
 namespace DustInTheWind.TextFileGenerator.Domain.ProjectModel
 {
-    public class FileDescriptor
+    public class Project
     {
         public List<Section> Sections { get; } = new List<Section>();
     }

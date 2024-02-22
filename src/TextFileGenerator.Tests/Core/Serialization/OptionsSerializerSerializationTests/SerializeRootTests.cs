@@ -46,16 +46,16 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
         [Test]
         public void root_element_textFileGenerator_is_created_in_correct_namespace()
         {
-            FileDescriptor fileDescriptor = new FileDescriptor();
+            Project project = new Project();
 
-            XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult(fileDescriptor);
+            XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult(project);
 
             xmlAsserter.AssertNodeCount("/alez:textFileGenerator", 1);
         }
 
-        private XmlAsserter PerformTestAndCreateAsserterOnResult(FileDescriptor fileDescriptor)
+        private XmlAsserter PerformTestAndCreateAsserterOnResult(Project project)
         {
-            fileDescriptorSerializer.Serialize(actualStream, fileDescriptor);
+            fileDescriptorSerializer.Serialize(actualStream, project);
 
             actualStream.Position = 0;
 

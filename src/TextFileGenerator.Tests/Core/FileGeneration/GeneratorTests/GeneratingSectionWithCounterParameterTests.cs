@@ -25,12 +25,12 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.FileGeneration.GeneratorTes
     [TestFixture]
     public class GeneratingSectionWithCounterParameterTests
     {
-        private FileDescriptor options;
+        private Project options;
 
         [SetUp]
         public void SetUp()
         {
-            options = new FileDescriptor();
+            options = new Project();
         }
 
         [Test]
@@ -104,11 +104,10 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.FileGeneration.GeneratorTes
 
         private string PerformTest()
         {
-            Generator generator = new Generator(options);
-
             using (MemoryStream ms = new MemoryStream())
+            using (Output output = new Output(ms))
             {
-                generator.Generate(ms);
+                output.AddSections(options.Sections);
 
                 ms.Position = 0;
 

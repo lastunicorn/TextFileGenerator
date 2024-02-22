@@ -28,7 +28,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.FileGeneration.GeneratorTes
         [Test]
         public void test()
         {
-            FileDescriptor options = new FileDescriptor();
+            Project options = new Project();
             options.Sections.Add(new Section
             {
                 SectionText = new TextTemplate("test {param1}")
@@ -49,13 +49,12 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.FileGeneration.GeneratorTes
             Assert.That(actual.Length, Is.LessThanOrEqualTo(105));
         }
 
-        private static string PerformTest(FileDescriptor options)
+        private static string PerformTest(Project options)
         {
-            Generator generator = new Generator(options);
-
             using (MemoryStream ms = new MemoryStream())
+            using (Output output = new Output(ms))
             {
-                generator.Generate(ms);
+                output.AddSections(options.Sections);
 
                 ms.Position = 0;
 

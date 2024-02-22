@@ -48,7 +48,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
     </section>
 </textFileGenerator>";
 
-            FileDescriptor options = PerformTest(xml);
+            Project options = PerformTest(xml);
 
             Assert.That(options.Sections[0].Parameters.Count, Is.EqualTo(1));
         }
@@ -66,7 +66,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
     </section>
 </textFileGenerator>";
 
-            FileDescriptor options = PerformTest(xml);
+            Project options = PerformTest(xml);
 
             Assert.That(options.Sections[0].Parameters[0].Name, Is.EqualTo("key1"));
         }
@@ -84,7 +84,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
     </section>
 </textFileGenerator>";
 
-            FileDescriptor options = PerformTest(xml);
+            Project options = PerformTest(xml);
 
             Assert.That(options.Sections[0].Parameters[0].ValueProvider, Is.TypeOf<ConstantValueProvider>());
         }
@@ -102,7 +102,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
     </section>
 </textFileGenerator>";
 
-            FileDescriptor options = PerformTest(xml);
+            Project options = PerformTest(xml);
 
             Assert.That(options.Sections[0].Parameters[0].ValueProvider, Is.TypeOf<CounterValueProvider>());
         }
@@ -123,12 +123,12 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
     </section>
 </textFileGenerator>";
 
-            FileDescriptor options = PerformTest(xml);
+            Project options = PerformTest(xml);
 
             Assert.That(options.Sections[0].Parameters.Count, Is.EqualTo(2));
         }
 
-        private FileDescriptor PerformTest(string xml)
+        private Project PerformTest(string xml)
         {
             using (MemoryStream ms = new MemoryStream())
             {

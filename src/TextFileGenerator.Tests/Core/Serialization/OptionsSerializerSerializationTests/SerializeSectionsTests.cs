@@ -28,7 +28,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
     {
         private FileDescriptorSerializer fileDescriptorSerializer;
         private MemoryStream actualStream;
-        private FileDescriptor fileDescriptor;
+        private Project project;
 
         [SetUp]
         public void SetUp()
@@ -36,7 +36,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
             fileDescriptorSerializer = new FileDescriptorSerializer();
             actualStream = new MemoryStream();
 
-            fileDescriptor = new FileDescriptor();
+            project = new Project();
         }
 
         [TearDown]
@@ -57,7 +57,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
         [Test]
         public void sections_element_contains_one_child_if_one_section_is_declared()
         {
-            fileDescriptor.Sections.Add(new Section());
+            project.Sections.Add(new Section());
 
             XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
@@ -67,8 +67,8 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
         [Test]
         public void sections_element_contains_two_children_if_two_sections_are_declared()
         {
-            fileDescriptor.Sections.Add(new Section());
-            fileDescriptor.Sections.Add(new Section());
+            project.Sections.Add(new Section());
+            project.Sections.Add(new Section());
 
             XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
@@ -77,7 +77,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
 
         private XmlAsserter PerformTestAndCreateAsserterOnResult()
         {
-            fileDescriptorSerializer.Serialize(actualStream, fileDescriptor);
+            fileDescriptorSerializer.Serialize(actualStream, project);
 
             actualStream.Position = 0;
 

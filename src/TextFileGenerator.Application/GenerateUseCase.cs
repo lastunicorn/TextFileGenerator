@@ -40,20 +40,20 @@ namespace DustInTheWind.TextFileGenerator.Application
 
         public void Execute()
         {
-            FileDescriptor fileDescriptor = ReadDescriptorFile();
-            GenerateTextFile(fileDescriptor);
+            Project project = ReadDescriptorFile();
+            GenerateTextFile(project);
         }
 
-        private FileDescriptor ReadDescriptorFile()
+        private Project ReadDescriptorFile()
         {
             userInterface.DisplayOptionFileReading(descriptorFileNames[0]);
-            FileDescriptor fileDescriptor = projectRepository.Get(descriptorFileNames[0]);
+            Project project = projectRepository.Get(descriptorFileNames[0]);
             userInterface.DisplayOk();
 
-            return fileDescriptor;
+            return project;
         }
 
-        private void GenerateTextFile(FileDescriptor fileDescriptor)
+        private void GenerateTextFile(Project project)
         {
             string outputFileName = GenerateOutputFileName();
 
@@ -66,8 +66,7 @@ namespace DustInTheWind.TextFileGenerator.Application
                     using (Stream outputStream = File.Create(outputFileName))
                     using (Output output = new Output(outputStream))
                     {
-                        foreach (Section section in fileDescriptor.Sections)
-                            output.AddSection(section);
+                        output.AddSections(project.Sections);
                     }
                 });
 

@@ -10,7 +10,7 @@ using NUnit.Framework;
 namespace DustInTheWind.TextFileGenerator.Tests.PerformanceTests
 {
     [TestFixture]
-    [Ignore]
+    [Explicit]
     public class Tests
     {
         [Test]

@@ -4,6 +4,6 @@ namespace DustInTheWind.TextFileGenerator.Ports.ProjectAccess
 {
     public interface IProjectRepository
     {
-        FileDescriptor Get(string fileName);
+        Project Get(string fileName);
     }
 }

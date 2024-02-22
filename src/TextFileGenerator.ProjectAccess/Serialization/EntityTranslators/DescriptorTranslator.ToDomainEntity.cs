@@ -23,20 +23,20 @@ namespace DustInTheWind.TextFileGenerator.ProjectAccess.Serialization.EntityTran
 {
     public static partial class DescriptorTranslator
     {
-        public static FileDescriptor ToDomainEntity(textFileGenerator source)
+        public static Project ToDomainEntity(textFileGenerator source)
         {
-            FileDescriptor fileDescriptor = new FileDescriptor();
+            Project project = new Project();
 
             if (source.section != null)
-                CreateSections(fileDescriptor, source.section);
+                CreateSections(project, source.section);
 
-            return fileDescriptor;
+            return project;
         }
 
-        private static void CreateSections(FileDescriptor fileDescriptor, IEnumerable<section> sourceSections)
+        private static void CreateSections(Project project, IEnumerable<section> sourceSections)
         {
             IEnumerable<Section> destinationSections = sourceSections.Select(SectionTranslator.ToDomainEntity);
-            fileDescriptor.Sections.AddRange(destinationSections);
+            project.Sections.AddRange(destinationSections);
         }
     }
 }

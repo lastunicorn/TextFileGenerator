@@ -15,7 +15,9 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using DustInTheWind.TextFileGenerator.Domain.ProjectModel;
 
 namespace DustInTheWind.TextFileGenerator.Domain.FileGeneration
@@ -27,7 +29,7 @@ namespace DustInTheWind.TextFileGenerator.Domain.FileGeneration
         public Output(Stream stream)
         {
             if (stream == null) throw new ArgumentNullException(nameof(stream));
-            
+
             textWriter = new StreamWriter(stream);
         }
 
@@ -36,10 +38,23 @@ namespace DustInTheWind.TextFileGenerator.Domain.FileGeneration
             this.textWriter = textWriter ?? throw new ArgumentNullException(nameof(textWriter));
         }
 
+        public void AddSections(IEnumerable<Section> sections)
+        {
+            IEnumerable<OutputSection> outputSections = sections
+                .Select(x => new OutputSection(x));
+
+            foreach (OutputSection outputSection in outputSections)
+                outputSection.Serialize(textWriter);
+
+            textWriter.Flush();
+        }
+
         public void AddSection(Section section)
         {
             OutputSection outputSection = new OutputSection(section);
             outputSection.Serialize(textWriter);
+
+            textWriter.Flush();
         }
 
         public void Flush()

@@ -25,7 +25,7 @@ namespace DustInTheWind.TextFileGenerator.ProjectAccess.Serialization
 {
     public partial class FileDescriptorSerializer
     {
-        public void Serialize(Stream outputStream, FileDescriptor fileDescriptor)
+        public void Serialize(Stream outputStream, Project project)
         {
             XmlWriterSettings settings = CreateSerializationSettings();
 
@@ -33,7 +33,7 @@ namespace DustInTheWind.TextFileGenerator.ProjectAccess.Serialization
             {
                 XmlSerializer serializer = new XmlSerializer(typeof(textFileGenerator));
 
-                textFileGenerator textFileGenerator = DescriptorTranslator.ToXmlEntity(fileDescriptor);
+                textFileGenerator textFileGenerator = DescriptorTranslator.ToXmlEntity(project);
                 serializer.Serialize(sw, textFileGenerator);
             }
         }

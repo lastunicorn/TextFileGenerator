@@ -14,13 +14,12 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
 using DustInTheWind.TextFileGenerator.Application;
-using DustInTheWind.TextFileGenerator.ConsoleApplication.CommandArguments;
+using DustInTheWind.TextFileGenerator.Cli.CommandArguments;
 using DustInTheWind.TextFileGenerator.ProjectAccess;
 using DustInTheWind.TextFileGenerator.UserAccess;
 
-namespace DustInTheWind.TextFileGenerator.ConsoleApplication.Flows
+namespace DustInTheWind.TextFileGenerator.Cli.Flows
 {
     /// <summary>
     /// This is a hub that chooses a flow and starts it.

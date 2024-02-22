@@ -22,12 +22,12 @@ namespace DustInTheWind.TextFileGenerator.ProjectAccess.Serialization.EntityTran
 {
     public static partial class DescriptorTranslator
     {
-        public static textFileGenerator ToXmlEntity(FileDescriptor fileDescriptor)
+        public static textFileGenerator ToXmlEntity(Project project)
         {
             textFileGenerator result = new textFileGenerator();
 
-            if (fileDescriptor.Sections != null && fileDescriptor.Sections.Count > 0)
-                CreateSections(result, fileDescriptor.Sections);
+            if (project.Sections != null && project.Sections.Count > 0)
+                CreateSections(result, project.Sections);
 
             return result;
         }

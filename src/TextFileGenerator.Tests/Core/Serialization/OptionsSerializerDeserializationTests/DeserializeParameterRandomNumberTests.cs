@@ -48,7 +48,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
     </section>
 </textFileGenerator>";
 
-            FileDescriptor options = PerformTest(xml);
+            Project options = PerformTest(xml);
 
             Assert.That(options.Sections[0].Parameters[0].ValueProvider, Is.TypeOf<RandomNumberValueProvider>());
         }
@@ -66,7 +66,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
     </section>
 </textFileGenerator>";
 
-            FileDescriptor options = PerformTest(xml);
+            Project options = PerformTest(xml);
 
             RandomNumberValueProvider valueProvider = (RandomNumberValueProvider)options.Sections[0].Parameters[0].ValueProvider;
             Assert.That(valueProvider.Format, Is.EqualTo("00"));
@@ -85,7 +85,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
     </section>
 </textFileGenerator>";
 
-            FileDescriptor options = PerformTest(xml);
+            Project options = PerformTest(xml);
 
             RandomNumberValueProvider valueProvider = (RandomNumberValueProvider)options.Sections[0].Parameters[0].ValueProvider;
             Assert.That(valueProvider.MinValue, Is.EqualTo(3));
@@ -104,13 +104,13 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
     </section>
 </textFileGenerator>";
 
-            FileDescriptor options = PerformTest(xml);
+            Project options = PerformTest(xml);
 
             RandomNumberValueProvider valueProvider = (RandomNumberValueProvider)options.Sections[0].Parameters[0].ValueProvider;
             Assert.That(valueProvider.MaxValue, Is.EqualTo(5));
         }
 
-        private FileDescriptor PerformTest(string xml)
+        private Project PerformTest(string xml)
         {
             using (MemoryStream ms = new MemoryStream())
             {

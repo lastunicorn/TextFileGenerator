@@ -48,7 +48,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
     </section>
 </textFileGenerator>";
 
-            FileDescriptor options = PerformTest(xml);
+            Project options = PerformTest(xml);
 
             Assert.That(options.Sections[0].Parameters[0].ValueProvider, Is.TypeOf<ConstantValueProvider>());
         }
@@ -66,13 +66,13 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
     </section>
 </textFileGenerator>";
 
-            FileDescriptor options = PerformTest(xml);
+            Project options = PerformTest(xml);
 
             ConstantValueProvider valueProvider = (ConstantValueProvider)options.Sections[0].Parameters[0].ValueProvider;
             Assert.That(valueProvider.Value, Is.EqualTo("value1"));
         }
 
-        private FileDescriptor PerformTest(string xml)
+        private Project PerformTest(string xml)
         {
             using (MemoryStream ms = new MemoryStream())
             {
