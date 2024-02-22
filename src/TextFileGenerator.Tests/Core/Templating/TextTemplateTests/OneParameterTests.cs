@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using DustInTheWind.TextFileGenerator.Domain.ProjectModel;
 using DustInTheWind.TextFileGenerator.FileDescription;
-using DustInTheWind.TextFileGenerator.Templating;
 using DustInTheWind.TextFileGenerator.ValueProviders;
 using NUnit.Framework;
 

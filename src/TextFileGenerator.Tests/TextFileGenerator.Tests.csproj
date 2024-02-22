@@ -83,17 +83,20 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TextFileGenerator\TextFileGenerator.csproj">
-      <Project>{943ad7a9-3ae1-47fe-92c5-b542d3a9d732}</Project>
-      <Name>TextFileGenerator</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="TestFiles\full.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\TextFileGenerator.Domain\TextFileGenerator.Domain.csproj">
+      <Project>{736d1b4c-19fa-45ad-a3ac-6bfc68c0112b}</Project>
+      <Name>TextFileGenerator.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TextFileGenerator.ProjectAccess\TextFileGenerator.ProjectAccess.csproj">
+      <Project>{4819918F-2A8D-4682-B613-9A8737775CAD}</Project>
+      <Name>TextFileGenerator.ProjectAccess</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

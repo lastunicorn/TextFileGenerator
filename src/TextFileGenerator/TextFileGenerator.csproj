@@ -1,99 +1,51 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
-  <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{943AD7A9-3AE1-47FE-92C5-B542D3A9D732}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DustInTheWind.TextFileGenerator</RootNamespace>
-    <AssemblyName>DustInTheWind.TextFileGenerator</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="..\AssemblyInfo.Shared.cs">
-      <Link>Properties\AssemblyInfo.Shared.cs</Link>
-    </Compile>
-    <Compile Include="EmbededResources.cs" />
-    <Compile Include="FileDescription\ValueChangeMode.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="ValueProviders\AlternativeValueProvider.cs" />
-    <Compile Include="FileGeneration\Generator.cs" />
-    <Compile Include="FileDescription\FileDescriptor.cs" />
-    <Compile Include="ValueProviders\ConstantValueProvider.cs" />
-    <Compile Include="ValueProviders\CounterValueProvider.cs" />
-    <Compile Include="ValueProviders\EmptyValueProvider.cs" />
-    <Compile Include="ValueProviders\IValueProvider.cs" />
-    <Compile Include="FileDescription\Parameter.cs" />
-    <Compile Include="ValueProviders\RandomNumberValueProvider.cs" />
-    <Compile Include="ValueProviders\RandomTextValueProvider.cs" />
-    <Compile Include="FileDescription\ParameterList.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="FileDescription\Section.cs" />
-    <Compile Include="FileDescription\SeparatorLocation.cs" />
-    <Compile Include="FileGeneration\SectionGenerator.cs" />
-    <Compile Include="Serialization\FileDescriptorSerializer.Deserialize.cs" />
-    <Compile Include="Serialization\XmlEntities.cs" />
-    <Compile Include="Serialization\EntityTranslators\DescriptorTranslator.ToDomainEntity.cs" />
-    <Compile Include="Serialization\EntityTranslators\DescriptorTranslator.ToXmlEntity.cs" />
-    <Compile Include="Serialization\EntityTranslators\ParameterTranslator.ToDomainEntity.cs" />
-    <Compile Include="Serialization\EntityTranslators\SectionTranslator.ToDomainEntity.cs" />
-    <Compile Include="Serialization\FileDescriptorSerializer.Serialize.cs" />
-    <Compile Include="Serialization\EntityTranslators\ParameterTranslator.ToXmlEntity.cs" />
-    <Compile Include="Serialization\EntityTranslators\SectionTranslator.ToXmlEntity.cs" />
-    <Compile Include="Templating\TextTemplate.cs" />
-    <Compile Include="Templating\TemplateItem.cs" />
-    <Compile Include="Templating\TemplateItemList.cs" />
-    <Compile Include="Templating\TemplateItemType.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Serialization\TextFileGenerator.xsd">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PreBuildEvent>
-    </PreBuildEvent>
-  </PropertyGroup>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+﻿<!--
+TextFileGenerator
+Copyright (C) 2009-2011 Dust in the Wind
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <!--<ImplicitUsings>enable</ImplicitUsings>-->
+        <AssemblyName>DustInTheWind.TextFileGenerator</AssemblyName>
+        <RootNamespace>DustInTheWind.TextFileGenerator</RootNamespace>
+    </PropertyGroup>
+
+    <!--<ItemGroup>
+      <None Remove="Serialization\TextFileGenerator.xsd" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Include="Serialization\TextFileGenerator.xsd" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Compile Update="Resources.Designer.cs">
+            <DependentUpon>Resources.resx</DependentUpon>
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+        </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+        <EmbeddedResource Update="Resources.resx">
+            <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+            <Generator>ResXFileCodeGenerator</Generator>
+        </EmbeddedResource>
+    </ItemGroup>-->
+
 </Project>

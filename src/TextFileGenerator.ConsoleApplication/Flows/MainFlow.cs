@@ -15,66 +15,52 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using System.Reflection;
 using DustInTheWind.TextFileGenerator.ConsoleApplication.CommandArguments;
 using DustInTheWind.TextFileGenerator.ConsoleApplication.Services;
+using DustInTheWind.TextFileGenerator.ProjectAccess;
 
 namespace DustInTheWind.TextFileGenerator.ConsoleApplication.Flows
 {
-    /// <summary>
-    /// This is a hub that chooses a flow and starts it.
-    /// </summary>
-    class MainFlow
+    internal class MainFlow
     {
-        private readonly UserInterface ui;
+        private readonly UserInterface userInterface;
+        private readonly MainView mainView;
         private readonly Options arguments;
 
-        public MainFlow(UserInterface ui, Options arguments)
+        public MainFlow(UserInterface userInterface, MainView mainView, Options arguments)
         {
-            this.ui = ui ?? throw new ArgumentNullException(nameof(ui));
+            this.userInterface = userInterface ?? throw new ArgumentNullException(nameof(userInterface));
+            this.mainView = mainView ?? throw new ArgumentNullException(nameof(mainView));
             this.arguments = arguments ?? throw new ArgumentNullException(nameof(arguments));
         }
 
         public void Start()
         {
-            WriteHeader();
+            mainView.WriteHeader();
 
             try
             {
-                IFlow flow = ChooseFlow();
-                flow?.Start();
+                ExecuteUseCase();
             }
             catch (Exception ex)
             {
-                ui.DisplayError(ex);
+                mainView.DisplayError(ex);
             }
         }
 
-        private IFlow ChooseFlow()
+        private void ExecuteUseCase()
         {
             if (arguments.DescriptorFileNames != null && arguments.DescriptorFileNames.Count > 0)
-                return new GenerationFlow(ui, arguments.DescriptorFileNames);
-
-            if (arguments.GenerateScaffold)
-                return new ScaffoldFlow(ui);
-
-            return null;
-        }
-
-        public void WriteHeader()
-        {
-            Version version = GetVersion();
-
-            ui.WriteLine("TextFileGenerator " + version.ToString(3));
-            ui.WriteLine("===============================================================================");
-            ui.WriteLine();
-        }
-
-        private static Version GetVersion()
-        {
-            Assembly assembly = Assembly.GetEntryAssembly();
-            AssemblyName assemblyName = assembly.GetName();
-            return assemblyName.Version;
+            {
+                ProjectRepository projectRepository = new ProjectRepository();
+                GenerateUseCase generateUseCase = new GenerateUseCase(userInterface, projectRepository, arguments.DescriptorFileNames);
+                generateUseCase.Execute();
+            }
+            else if (arguments.GenerateScaffold)
+            {
+                ScaffoldUseCase scaffoldUseCase = new ScaffoldUseCase(userInterface);
+                scaffoldUseCase.Execute();
+            }
         }
     }
 }

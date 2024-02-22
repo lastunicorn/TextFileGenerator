@@ -40,7 +40,9 @@ namespace DustInTheWind.TextFileGenerator.ConsoleApplication
         private void CreateUi()
         {
             UserInterface ui = new UserInterface();
-            mainFlow = new MainFlow(ui, options);
+            MainView mainView = new MainView();
+
+            mainFlow = new MainFlow(ui, mainView, options);
         }
 
         private void StartUi()

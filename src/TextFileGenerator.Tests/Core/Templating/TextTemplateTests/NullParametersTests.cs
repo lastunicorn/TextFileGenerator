@@ -1,4 +1,4 @@
-﻿using DustInTheWind.TextFileGenerator.Templating;
+﻿using DustInTheWind.TextFileGenerator.Domain.ProjectModel;
 using NUnit.Framework;
 
 namespace DustInTheWind.TextFileGenerator.Tests.Core.Templating.TextTemplateTests

@@ -1,16 +1,32 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34330.188
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextFileGenerator.Tests", "TextFileGenerator.Tests\TextFileGenerator.Tests.csproj", "{98F992E4-42CD-4393-8D92-9284B740FAF1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextFileGenerator", "TextFileGenerator\TextFileGenerator.csproj", "{943AD7A9-3AE1-47FE-92C5-B542D3A9D732}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextFileGenerator.ConsoleApplication", "TextFileGenerator.ConsoleApplication\TextFileGenerator.ConsoleApplication.csproj", "{E03CFEF3-A346-40FD-8923-5E3573A36178}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextFileGenerator.Cli", "TextFileGenerator.ConsoleApplication\TextFileGenerator.Cli.csproj", "{E03CFEF3-A346-40FD-8923-5E3573A36178}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CCD29F5A-6FF7-44F3-B3B8-B2B26DDC514C}"
 	ProjectSection(SolutionItems) = preProject
 		AssemblyInfo.Shared.cs = AssemblyInfo.Shared.cs
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextFileGenerator.Ports.ProjectAccess", "TextFileGenerator.Ports.ProjectAccess\TextFileGenerator.Ports.ProjectAccess.csproj", "{DE871ABE-9949-417F-A1F6-1078B03DDF6E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextFileGenerator.Domain", "TextFileGenerator.Domain\TextFileGenerator.Domain.csproj", "{736D1B4C-19FA-45AD-A3AC-6BFC68C0112B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextFileGenerator.ProjectAccess", "TextFileGenerator.ProjectAccess\TextFileGenerator.ProjectAccess.csproj", "{4819918F-2A8D-4682-B613-9A8737775CAD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ports", "Ports", "{B45FDECE-370A-4241-9FA7-DE2B7632C665}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Adapters", "Adapters", "{A4EB1CE9-5944-4F76-A0A6-85A84B600B1A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextFileGenerator.Application", "TextFileGenerator.Application\TextFileGenerator.Application.csproj", "{BF67EAFF-368B-47A3-9888-A1A75D06F850}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextFileGenerator.Ports.UserAccess", "TextFileGenerator.Ports.UserAccess\TextFileGenerator.Ports.UserAccess.csproj", "{AC775745-72CD-44CE-9250-48951E8B4A9A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextFileGenerator.UserAccess", "TextFileGenerator.UserAccess\TextFileGenerator.UserAccess.csproj", "{200FEBBE-D742-490E-A4CD-A98F336E858E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -22,16 +38,45 @@ Global
 		{98F992E4-42CD-4393-8D92-9284B740FAF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{98F992E4-42CD-4393-8D92-9284B740FAF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{98F992E4-42CD-4393-8D92-9284B740FAF1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{943AD7A9-3AE1-47FE-92C5-B542D3A9D732}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{943AD7A9-3AE1-47FE-92C5-B542D3A9D732}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{943AD7A9-3AE1-47FE-92C5-B542D3A9D732}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{943AD7A9-3AE1-47FE-92C5-B542D3A9D732}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E03CFEF3-A346-40FD-8923-5E3573A36178}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E03CFEF3-A346-40FD-8923-5E3573A36178}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E03CFEF3-A346-40FD-8923-5E3573A36178}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E03CFEF3-A346-40FD-8923-5E3573A36178}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE871ABE-9949-417F-A1F6-1078B03DDF6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE871ABE-9949-417F-A1F6-1078B03DDF6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE871ABE-9949-417F-A1F6-1078B03DDF6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE871ABE-9949-417F-A1F6-1078B03DDF6E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{736D1B4C-19FA-45AD-A3AC-6BFC68C0112B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{736D1B4C-19FA-45AD-A3AC-6BFC68C0112B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{736D1B4C-19FA-45AD-A3AC-6BFC68C0112B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{736D1B4C-19FA-45AD-A3AC-6BFC68C0112B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4819918F-2A8D-4682-B613-9A8737775CAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4819918F-2A8D-4682-B613-9A8737775CAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4819918F-2A8D-4682-B613-9A8737775CAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4819918F-2A8D-4682-B613-9A8737775CAD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF67EAFF-368B-47A3-9888-A1A75D06F850}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF67EAFF-368B-47A3-9888-A1A75D06F850}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF67EAFF-368B-47A3-9888-A1A75D06F850}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF67EAFF-368B-47A3-9888-A1A75D06F850}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC775745-72CD-44CE-9250-48951E8B4A9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC775745-72CD-44CE-9250-48951E8B4A9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC775745-72CD-44CE-9250-48951E8B4A9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC775745-72CD-44CE-9250-48951E8B4A9A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{200FEBBE-D742-490E-A4CD-A98F336E858E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{200FEBBE-D742-490E-A4CD-A98F336E858E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{200FEBBE-D742-490E-A4CD-A98F336E858E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{200FEBBE-D742-490E-A4CD-A98F336E858E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DE871ABE-9949-417F-A1F6-1078B03DDF6E} = {B45FDECE-370A-4241-9FA7-DE2B7632C665}
+		{4819918F-2A8D-4682-B613-9A8737775CAD} = {A4EB1CE9-5944-4F76-A0A6-85A84B600B1A}
+		{AC775745-72CD-44CE-9250-48951E8B4A9A} = {B45FDECE-370A-4241-9FA7-DE2B7632C665}
+		{200FEBBE-D742-490E-A4CD-A98F336E858E} = {A4EB1CE9-5944-4F76-A0A6-85A84B600B1A}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A8AAB80E-A554-4048-9139-EE6A3453643D}
 	EndGlobalSection
 EndGlobal

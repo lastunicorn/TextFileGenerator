@@ -15,9 +15,9 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System.IO;
+using DustInTheWind.TextFileGenerator.Domain.ProjectModel;
 using DustInTheWind.TextFileGenerator.FileDescription;
 using DustInTheWind.TextFileGenerator.FileGeneration;
-using DustInTheWind.TextFileGenerator.Templating;
 using DustInTheWind.TextFileGenerator.ValueProviders;
 using NUnit.Framework;
 
