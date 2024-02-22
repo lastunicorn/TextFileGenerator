@@ -20,11 +20,6 @@ namespace DustInTheWind.TextFileGenerator.FileDescription
 {
     public class FileDescriptor
     {
-        public List<Section> Sections { get; private set; }
-
-        public FileDescriptor()
-        {
-            Sections = new List<Section>();
-        }
+        public List<Section> Sections { get; } = new List<Section>();
     }
 }
