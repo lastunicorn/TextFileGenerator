@@ -15,9 +15,10 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using DustInTheWind.TextFileGenerator.ConsoleApplication.Services;
+using DustInTheWind.TextFileGenerator.Ports.UserAccess;
+using DustInTheWind.TextFileGenerator.UserAccess.Controls;
 
-namespace DustInTheWind.TextFileGenerator.ConsoleApplication.Flows
+namespace DustInTheWind.TextFileGenerator.UserAccess
 {
     public class UserInterface : IUserInterface
     {

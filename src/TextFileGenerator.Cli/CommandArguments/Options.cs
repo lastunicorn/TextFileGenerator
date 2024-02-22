@@ -1,4 +1,4 @@
-// TextFileGenerator
+﻿// TextFileGenerator
 // Copyright (C) 2009-2011 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -14,13 +14,24 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace DustInTheWind.TextFileGenerator.UserAccess.Controls
+using System.Collections.Generic;
+using CommandLine;
+using CommandLine.Text;
+
+namespace DustInTheWind.TextFileGenerator.ConsoleApplication.CommandArguments
 {
-    internal class SquareDotTemplate : TemplateBase
+    internal class Options
     {
-        public SquareDotTemplate()
-            : base(new[] { "[.   ]", "[..  ]", "[... ]", "[....]", "[ ...]", "[  ..]", "[   .]", "[    ]" })
+        [ValueList(typeof(List<string>), MaximumElements = 1)]
+        public IList<string> DescriptorFileNames { get; set; }
+
+        [Option('t', "template", Required = false, DefaultValue = false, HelpText = "generates the template file.")]
+        public bool GenerateScaffold { get; set; }
+
+        [HelpOption]
+        public string GetUsage()
         {
+            return HelpText.AutoBuild(this, x => HelpText.DefaultParsingErrorsHandler(this, x));
         }
     }
 }

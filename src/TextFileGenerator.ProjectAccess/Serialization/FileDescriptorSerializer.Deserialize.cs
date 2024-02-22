@@ -26,7 +26,7 @@ namespace DustInTheWind.TextFileGenerator.ProjectAccess.Serialization
 {
     public partial class FileDescriptorSerializer
     {
-        private const string XsdResourcePath = "DustInTheWind.TextFileGenerator.Serialization.TextFileGenerator.xsd";
+        private const string XsdResourcePath = "DustInTheWind.TextFileGenerator.ProjectAccess.Serialization.TextFileGenerator.xsd";
 
         public FileDescriptor Deserialize(Stream inputStream)
         {

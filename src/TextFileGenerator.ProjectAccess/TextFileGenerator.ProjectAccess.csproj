@@ -29,6 +29,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     </ItemGroup>
 
     <ItemGroup>
+      <None Remove="Serialization\TextFileGenerator.xsd" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Include="Serialization\TextFileGenerator.xsd" />
+    </ItemGroup>
+
+    <ItemGroup>
       <ProjectReference Include="..\TextFileGenerator.Ports.ProjectAccess\TextFileGenerator.Ports.ProjectAccess.csproj" />
     </ItemGroup>
 
