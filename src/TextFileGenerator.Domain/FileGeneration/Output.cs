@@ -20,29 +20,36 @@ using DustInTheWind.TextFileGenerator.Domain.ProjectModel;
 
 namespace DustInTheWind.TextFileGenerator.Domain.FileGeneration
 {
-    public class Generator
+    public class Output : IDisposable
     {
-        private readonly FileDescriptor fileDescriptor;
+        private readonly TextWriter textWriter;
 
-        public Generator(FileDescriptor fileDescriptor)
+        public Output(Stream stream)
         {
-            this.fileDescriptor = fileDescriptor ?? throw new ArgumentNullException(nameof(fileDescriptor));
+            if (stream == null) throw new ArgumentNullException(nameof(stream));
+            
+            textWriter = new StreamWriter(stream);
         }
 
-        public void Generate(Stream outputStream)
+        public Output(TextWriter textWriter)
         {
-            TextWriter textWriter = new StreamWriter(outputStream);
-            Generate(textWriter);
+            this.textWriter = textWriter ?? throw new ArgumentNullException(nameof(textWriter));
         }
 
-        private void Generate(TextWriter textWriter)
+        public void AddSection(Section section)
         {
-            SectionGenerator sectionGenerator = new SectionGenerator(textWriter);
+            OutputSection outputSection = new OutputSection(section);
+            outputSection.Serialize(textWriter);
+        }
 
-            foreach (Section section in fileDescriptor.Sections)
-                sectionGenerator.WriteSection(section);
-
+        public void Flush()
+        {
             textWriter.Flush();
+        }
+
+        public void Dispose()
+        {
+            textWriter?.Dispose();
         }
     }
 }

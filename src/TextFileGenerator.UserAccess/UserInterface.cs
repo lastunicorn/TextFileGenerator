@@ -27,7 +27,7 @@ namespace DustInTheWind.TextFileGenerator.UserAccess
 
         public void DisplayOptionFileReading(string fileName)
         {
-            Write("Reading description file");
+            Write("Reading description file: ");
             WriteEnhanced(fileName);
             Write(" ");
         }
@@ -39,7 +39,7 @@ namespace DustInTheWind.TextFileGenerator.UserAccess
 
         public void DisplayOutputFileGenerating(string fileName)
         {
-            Write("Generating file");
+            Write("Generating file: ");
             WriteEnhanced(fileName);
             Write(" ");
         }
@@ -47,13 +47,13 @@ namespace DustInTheWind.TextFileGenerator.UserAccess
         public void DisplayElapsedTime(TimeSpan elapsed)
         {
             WriteLine();
-            Write("Elapsed time:");
+            Write("Elapsed time: ");
             WriteLineEnhanced(elapsed.ToString());
         }
 
         public void DisplayOutputFileGenerateDone(string outputFileName)
         {
-            Write("Scaffold file created successfully:");
+            Write("Scaffold file created successfully: ");
             WriteEnhanced(outputFileName);
             WriteLine();
         }

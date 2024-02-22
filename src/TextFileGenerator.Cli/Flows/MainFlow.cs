@@ -54,15 +54,15 @@ namespace DustInTheWind.TextFileGenerator.ConsoleApplication.Flows
 
         private void ExecuteUseCase()
         {
-            if (arguments.DescriptorFileNames != null && arguments.DescriptorFileNames.Count > 0)
+            if (arguments.DescriptorFileNames is { Count: > 0 })
             {
-                ProjectRepository projectRepository = new ProjectRepository();
-                GenerateUseCase generateUseCase = new GenerateUseCase(userInterface, projectRepository, arguments.DescriptorFileNames);
+                ProjectRepository projectRepository = new();
+                GenerateUseCase generateUseCase = new(userInterface, projectRepository, arguments.DescriptorFileNames);
                 generateUseCase.Execute();
             }
             else if (arguments.GenerateScaffold)
             {
-                ScaffoldUseCase scaffoldUseCase = new ScaffoldUseCase(userInterface);
+                ScaffoldUseCase scaffoldUseCase = new(userInterface);
                 scaffoldUseCase.Execute();
             }
         }

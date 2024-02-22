@@ -26,8 +26,7 @@ namespace DustInTheWind.TextFileGenerator.ConsoleApplication.CommandArguments
 
         public ArgumentParser(IReadOnlyList<string> args)
         {
-            if (args == null) throw new ArgumentNullException("args");
-            this.args = args;
+            this.args = args ?? throw new ArgumentNullException(nameof(args));
         }
 
         public Argument GetNext()

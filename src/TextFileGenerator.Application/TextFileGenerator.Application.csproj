@@ -33,9 +33,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\TextFileGenerator.Domain\TextFileGenerator.Domain.csproj" />
-      <ProjectReference Include="..\TextFileGenerator.Ports.ProjectAccess\TextFileGenerator.Ports.ProjectAccess.csproj" />
-      <ProjectReference Include="..\TextFileGenerator.Ports.UserAccess\TextFileGenerator.Ports.UserAccess.csproj" />
+      <ProjectReference Include="..\TextFileGenerator.Domain\TextFileGenerator.Domain.csproj" PrivateAssets="All" />
+      <ProjectReference Include="..\TextFileGenerator.Ports.ProjectAccess\TextFileGenerator.Ports.ProjectAccess.csproj" PrivateAssets="All" />
+      <ProjectReference Include="..\TextFileGenerator.Ports.UserAccess\TextFileGenerator.Ports.UserAccess.csproj" PrivateAssets="All" />
     </ItemGroup>
 
 </Project>

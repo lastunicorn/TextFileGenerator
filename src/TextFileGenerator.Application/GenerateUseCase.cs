@@ -63,11 +63,11 @@ namespace DustInTheWind.TextFileGenerator.Application
             {
                 userInterface.ExecuteWithSpinner(() =>
                 {
-                    Generator generator = new Generator(fileDescriptor);
-
                     using (Stream outputStream = File.Create(outputFileName))
+                    using (Output output = new Output(outputStream))
                     {
-                        generator.Generate(outputStream);
+                        foreach (Section section in fileDescriptor.Sections)
+                            output.AddSection(section);
                     }
                 });
 

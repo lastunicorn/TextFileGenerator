@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "TextFileGenerator.Cli": {
+      "commandName": "Project",
+      "commandLineArgs": "file.xml"
+    }
+  }
+}
