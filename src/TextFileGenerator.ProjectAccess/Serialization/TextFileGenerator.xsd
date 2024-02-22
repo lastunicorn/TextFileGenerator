@@ -6,65 +6,65 @@
     attributeFormDefault="unqualified"
     targetNamespace="http://alez.ro/TextFileGenerator" >
 
-    <xs:element name="textFileGenerator">
+    <xs:element name="TextFileGenerator">
         <xs:complexType>
             <xs:sequence>
-              <xs:element ref="section" minOccurs="0" maxOccurs="unbounded" />
+              <xs:element ref="Section" minOccurs="0" maxOccurs="unbounded" />
             </xs:sequence>
         </xs:complexType>
     </xs:element>
 
-    <xs:element name="section">
+    <xs:element name="Section">
         <xs:complexType>
             <xs:sequence minOccurs="0">
                 <xs:choice>
-                    <xs:element name="text" type="xs:string"/>
-                    <xs:element ref="section" maxOccurs="unbounded"/>
+                    <xs:element name="Text" type="xs:string"/>
+                    <xs:element ref="Section" maxOccurs="unbounded"/>
                 </xs:choice>
-                <xs:element ref="parameter" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element ref="Parameter" minOccurs="0" maxOccurs="unbounded"/>
             </xs:sequence>
-            <xs:attribute name="name" form="unqualified" type="xs:string" />
-            <xs:attribute name="repeat" form="unqualified" type="xs:positiveInteger" default="1" />
-            <xs:attribute name="separator" type="xs:string" default="" />
-            <xs:attribute name="separatorLocation" type="separatorLocation" default="Infix" />
+            <xs:attribute name="Name" form="unqualified" type="xs:string" />
+            <xs:attribute name="Repeat" form="unqualified" type="xs:positiveInteger" default="1" />
+            <xs:attribute name="Separator" type="xs:string" default="" />
+            <xs:attribute name="SeparatorLocation" type="SeparatorLocation" default="Infix" />
         </xs:complexType>
     </xs:element>
 
-    <xs:element name="parameter">
+    <xs:element name="Parameter">
         <xs:complexType>
             <xs:choice>
-                <xs:element name="randomText">
+                <xs:element name="RandomText">
                     <xs:complexType>
-                        <xs:attribute name="minLength" type="xs:integer" default="1" />
-                        <xs:attribute name="maxLength" type="xs:integer" default="100" />
+                        <xs:attribute name="MinLength" type="xs:integer" default="1" />
+                        <xs:attribute name="MaxLength" type="xs:integer" default="100" />
                     </xs:complexType>
                 </xs:element>
-                <xs:element name="randomNumber">
+                <xs:element name="RandomNumber">
                     <xs:complexType>
-                        <xs:attribute name="format" type="xs:string" default="" />
-                        <xs:attribute name="minValue" type="xs:integer" default="1" />
-                        <xs:attribute name="maxValue" type="xs:integer" default="100" />
+                        <xs:attribute name="Format" type="xs:string" default="" />
+                        <xs:attribute name="MinValue" type="xs:integer" default="0" />
+                        <xs:attribute name="MaxValue" type="xs:integer" default="99" />
                     </xs:complexType>
                 </xs:element>
-                <xs:element name="counter">
+                <xs:element name="Counter">
                     <xs:complexType>
-                        <xs:attribute name="format" type="xs:string" default="" />
-                        <xs:attribute name="startValue" type="xs:integer" default="1" />
-                        <xs:attribute name="step" type="xs:positiveInteger" default="1" />
+                        <xs:attribute name="Format" type="xs:string" default="" />
+                        <xs:attribute name="StartValue" type="xs:integer" default="1" />
+                        <xs:attribute name="Step" type="xs:positiveInteger" default="1" />
                     </xs:complexType>
                 </xs:element>
-                <xs:element name="constant">
+                <xs:element name="Constant">
                     <xs:complexType>
-                        <xs:attribute name="value" form="unqualified" type="xs:string" default="" />
+                        <xs:attribute name="Value" form="unqualified" type="xs:string" default="" />
                     </xs:complexType>
                 </xs:element>
             </xs:choice>
-            <xs:attribute name="name" type="xs:string" use="required" />
-            <xs:attribute name="valuePersistence" type="parameterValuePersistence" default="PerRequest" />
+            <xs:attribute name="Name" type="xs:string" use="required" />
+            <xs:attribute name="ValuePersistence" type="ParameterValuePersistence" default="PerRequest" />
         </xs:complexType>
     </xs:element>
 
-    <xs:simpleType name="separatorLocation">
+    <xs:simpleType name="SeparatorLocation">
         <xs:restriction base="xs:string">
             <xs:enumeration value="Prefix"/>
             <xs:enumeration value="Infix"/>
@@ -72,7 +72,7 @@
         </xs:restriction>
     </xs:simpleType>
 
-    <xs:simpleType name="parameterValuePersistence">
+    <xs:simpleType name="ParameterValuePersistence">
         <xs:restriction base="xs:string">
             <xs:enumeration value="PerRequest"/>
             <xs:enumeration value="PerSectionStep"/>

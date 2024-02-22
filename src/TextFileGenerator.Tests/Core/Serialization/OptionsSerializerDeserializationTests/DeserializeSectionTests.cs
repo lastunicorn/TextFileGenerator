@@ -18,7 +18,6 @@ using System.IO;
 using System.Text;
 using DustInTheWind.TextFileGenerator.Domain.ProjectModel;
 using DustInTheWind.TextFileGenerator.ProjectAccess.Serialization;
-using DustInTheWind.TextFileGenerator.Serialization;
 using NUnit.Framework;
 
 namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerializerDeserializationTests
@@ -38,9 +37,9 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
         public void deserialize_an_empty_section()
         {
             const string xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
-<textFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
-    <section/>
-</textFileGenerator>";
+<TextFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
+    <Section />
+</TextFileGenerator>";
 
             Project options = PerformTest(xml);
 
@@ -51,9 +50,9 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
         public void deserialized_section_contains_Name_if_name_is_Declared_in_xml()
         {
             const string xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
-<textFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
-    <section name=""name1""/>
-</textFileGenerator>";
+<TextFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
+    <Section Name=""name1""/>
+</TextFileGenerator>";
 
             Project options = PerformTest(xml);
 
@@ -64,9 +63,9 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
         public void deserialized_section_contains_RepeatCount_value_if_repeat_attribute_is_declared_in_xml()
         {
             const string xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
-<textFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
-    <section repeat=""7""/>
-</textFileGenerator>";
+<TextFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
+    <Section Repeat=""7""/>
+</TextFileGenerator>";
 
             Project options = PerformTest(xml);
 
@@ -77,9 +76,9 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
         public void deserialized_section_contains_separator_attribute()
         {
             const string xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
-<textFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
-    <section separator="";""/>
-</textFileGenerator>";
+<TextFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
+    <Section Separator="";""/>
+</TextFileGenerator>";
 
             Project options = PerformTest(xml);
 
@@ -90,9 +89,9 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
         public void deserialized_section_contains_SeparatorType_if_separatorType_attribute_is_declared_in_xml()
         {
             const string xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
-<textFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
-    <section separatorLocation=""Postfix""/>
-</textFileGenerator>";
+<TextFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
+    <Section SeparatorLocation=""Postfix""/>
+</TextFileGenerator>";
 
             Project options = PerformTest(xml);
 
@@ -103,11 +102,11 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
         public void deserialized_section_contains_Template_if_the_template_is_declared_in_xml()
         {
             const string xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
-<textFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
-    <section>
-        <text>template1</text>
-    </section>
-</textFileGenerator>";
+<TextFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
+    <Section>
+        <Text>template1</Text>
+    </Section>
+</TextFileGenerator>";
 
             Project options = PerformTest(xml);
 
@@ -118,11 +117,11 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
         public void deserialized_section_contains_Template_if_the_template_is_crlf()
         {
             const string xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
-<textFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
-    <section>
-        <text>&#13;&#10;</text>
-    </section>
-</textFileGenerator>";
+<TextFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
+    <Section>
+        <Text>&#13;&#10;</Text>
+    </Section>
+</TextFileGenerator>";
 
             Project options = PerformTest(xml);
 
@@ -133,12 +132,12 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
         public void deserialized_section_contains_one_subsection_if_one_subsection_is_declared_in_xml()
         {
             const string xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
-<textFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
-    <section name=""root"">
-        <section name=""child"">
-        </section>
-    </section>
-</textFileGenerator>";
+<TextFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
+    <Section Name=""root"">
+        <Section Name=""child"">
+        </Section>
+    </Section>
+</TextFileGenerator>";
 
             Project options = PerformTest(xml);
 

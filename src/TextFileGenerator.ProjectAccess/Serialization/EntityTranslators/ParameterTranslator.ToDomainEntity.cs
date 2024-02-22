@@ -17,30 +17,35 @@
 using System;
 using DustInTheWind.TextFileGenerator.Domain.ProjectModel;
 using DustInTheWind.TextFileGenerator.Domain.ValueProviders;
-using DustInTheWind.TextFileGenerator.Serialization;
+using XParameter = DustInTheWind.TextFileGenerator.Serialization.Parameter;
+using XParameterValuePersistence = DustInTheWind.TextFileGenerator.Serialization.ParameterValuePersistence;
+using XParameterRandomText = DustInTheWind.TextFileGenerator.Serialization.ParameterRandomText;
+using XParameterRandomNumber = DustInTheWind.TextFileGenerator.Serialization.ParameterRandomNumber;
+using XParameterCounter = DustInTheWind.TextFileGenerator.Serialization.ParameterCounter;
+using XParameterConstant = DustInTheWind.TextFileGenerator.Serialization.ParameterConstant;
 
 namespace DustInTheWind.TextFileGenerator.ProjectAccess.Serialization.EntityTranslators
 {
     public static partial class ParameterTranslator
     {
-        public static Parameter ToDomainEntity(parameter sourceParameter)
+        public static Parameter ToDomainEntity(this XParameter sourceParameter)
         {
             return new Parameter
             {
-                Name = sourceParameter.name,
+                Name = sourceParameter.Name,
                 ValueProvider = CreateValueProvider(sourceParameter),
                 ValueChangeMode = CalculateValuePersistence(sourceParameter)
             };
         }
 
-        private static ValueChangeMode CalculateValuePersistence(parameter sourceParameter)
+        private static ValueChangeMode CalculateValuePersistence(XParameter sourceParameter)
         {
-            switch (sourceParameter.valuePersistence)
+            switch (sourceParameter.ValuePersistence)
             {
-                case parameterValuePersistence.PerRequest:
+                case XParameterValuePersistence.PerRequest:
                     return ValueChangeMode.Auto;
 
-                case parameterValuePersistence.PerSectionStep:
+                case XParameterValuePersistence.PerSectionStep:
                     return ValueChangeMode.Manual;
 
                 default:
@@ -48,71 +53,71 @@ namespace DustInTheWind.TextFileGenerator.ProjectAccess.Serialization.EntityTran
             }
         }
 
-        private static IValueProvider CreateValueProvider(parameter sourceParameter)
+        private static IValueProvider CreateValueProvider(XParameter sourceParameter)
         {
             Type valueProviderType = sourceParameter.Item.GetType();
 
-            if (valueProviderType == typeof(parameterConstant))
+            if (valueProviderType == typeof(XParameterConstant))
             {
-                parameterConstant sourceValueProvider = (parameterConstant)sourceParameter.Item;
+                XParameterConstant sourceValueProvider = (XParameterConstant)sourceParameter.Item;
                 return CreateConstantValueProvider(sourceValueProvider);
             }
 
-            if (valueProviderType == typeof(parameterCounter))
+            if (valueProviderType == typeof(XParameterCounter))
             {
-                parameterCounter sourceValueProvider = (parameterCounter)sourceParameter.Item;
+                XParameterCounter sourceValueProvider = (XParameterCounter)sourceParameter.Item;
                 return CreateCounterValueProvider(sourceValueProvider);
             }
 
-            if (valueProviderType == typeof(parameterRandomNumber))
+            if (valueProviderType == typeof(XParameterRandomNumber))
             {
-                parameterRandomNumber sourceValueProvider = (parameterRandomNumber)sourceParameter.Item;
+                XParameterRandomNumber sourceValueProvider = (XParameterRandomNumber)sourceParameter.Item;
                 return CreateRandomNumberValueProvider(sourceValueProvider);
             }
 
-            if (valueProviderType == typeof(parameterRandomText))
+            if (valueProviderType == typeof(XParameterRandomText))
             {
-                parameterRandomText sourceValueProvider = (parameterRandomText)sourceParameter.Item;
+                XParameterRandomText sourceValueProvider = (XParameterRandomText)sourceParameter.Item;
                 return CreateRandomTextValueProvider(sourceValueProvider);
             }
 
             return null;
         }
 
-        private static RandomTextValueProvider CreateRandomTextValueProvider(parameterRandomText sourceValueProvider)
+        private static RandomTextValueProvider CreateRandomTextValueProvider(XParameterRandomText sourceValueProvider)
         {
             return new RandomTextValueProvider
             {
-                MinLength = int.Parse(sourceValueProvider.minLength),
-                MaxLength = int.Parse(sourceValueProvider.maxLength)
+                MinLength = int.Parse(sourceValueProvider.MinLength),
+                MaxLength = int.Parse(sourceValueProvider.MaxLength)
             };
         }
 
-        private static RandomNumberValueProvider CreateRandomNumberValueProvider(parameterRandomNumber sourceValueProvider)
+        private static RandomNumberValueProvider CreateRandomNumberValueProvider(XParameterRandomNumber sourceValueProvider)
         {
             return new RandomNumberValueProvider
             {
-                Format = sourceValueProvider.format,
-                MinValue = int.Parse(sourceValueProvider.minValue),
-                MaxValue = int.Parse(sourceValueProvider.maxValue)
+                Format = sourceValueProvider.Format,
+                MinValue = int.Parse(sourceValueProvider.MinValue),
+                MaxValue = int.Parse(sourceValueProvider.MaxValue)
             };
         }
 
-        private static CounterValueProvider CreateCounterValueProvider(parameterCounter sourceValueProvider)
+        private static CounterValueProvider CreateCounterValueProvider(XParameterCounter sourceValueProvider)
         {
             return new CounterValueProvider
             {
-                Format = sourceValueProvider.format,
-                StartValue = int.Parse(sourceValueProvider.startValue),
-                Step = int.Parse(sourceValueProvider.step)
+                Format = sourceValueProvider.Format,
+                StartValue = int.Parse(sourceValueProvider.StartValue),
+                Step = int.Parse(sourceValueProvider.Step)
             };
         }
 
-        private static ConstantValueProvider CreateConstantValueProvider(parameterConstant sourceValueProvider)
+        private static ConstantValueProvider CreateConstantValueProvider(XParameterConstant sourceValueProvider)
         {
             return new ConstantValueProvider
             {
-                Value = sourceValueProvider.value
+                Value = sourceValueProvider.Value
             };
         }
     }

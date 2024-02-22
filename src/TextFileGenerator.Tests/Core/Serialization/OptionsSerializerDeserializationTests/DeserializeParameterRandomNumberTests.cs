@@ -19,7 +19,6 @@ using System.Text;
 using DustInTheWind.TextFileGenerator.Domain.ProjectModel;
 using DustInTheWind.TextFileGenerator.Domain.ValueProviders;
 using DustInTheWind.TextFileGenerator.ProjectAccess.Serialization;
-using DustInTheWind.TextFileGenerator.Serialization;
 using NUnit.Framework;
 
 namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerializerDeserializationTests
@@ -39,14 +38,14 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
         public void deserialized_parameter_contains_RandomNumberValueProvider()
         {
             const string xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
-<textFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
-    <section name=""root"">
-        <text/>
-        <parameter name=""key1"">
-            <randomNumber/>
-        </parameter>
-    </section>
-</textFileGenerator>";
+<TextFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
+    <Section Name=""root"">
+        <Text />
+        <Parameter Name=""key1"">
+            <RandomNumber />
+        </Parameter>
+    </Section>
+</TextFileGenerator>";
 
             Project options = PerformTest(xml);
 
@@ -57,14 +56,14 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
         public void deserialized_RandomNumberValueProvider_contains_the_format_declared_in_xml()
         {
             const string xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
-<textFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
-    <section name=""root"">
-        <text/>
-        <parameter name=""key1"">
-            <randomNumber format=""00""/>
-        </parameter>
-    </section>
-</textFileGenerator>";
+<TextFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
+    <Section Name=""root"">
+        <Text />
+        <Parameter Name=""key1"">
+            <RandomNumber Format=""00""/>
+        </Parameter>
+    </Section>
+</TextFileGenerator>";
 
             Project options = PerformTest(xml);
 
@@ -76,14 +75,14 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
         public void deserialized_RandomNumberValueProvider_contains_the_minValue_declared_in_xml()
         {
             const string xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
-<textFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
-    <section name=""root"">
-        <text/>
-        <parameter name=""key1"">
-            <randomNumber minValue=""3""/>
-        </parameter>
-    </section>
-</textFileGenerator>";
+<TextFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
+    <Section Name=""root"">
+        <Text />
+        <Parameter Name=""key1"">
+            <RandomNumber MinValue=""3""/>
+        </Parameter>
+    </Section>
+</TextFileGenerator>";
 
             Project options = PerformTest(xml);
 
@@ -95,14 +94,14 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
         public void deserialized_RandomNumberValueProvider_contains_the_maxValue_declared_in_xml()
         {
             const string xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
-<textFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
-    <section name=""root"">
-        <text/>
-        <parameter name=""key1"">
-            <randomNumber maxValue=""5""/>
-        </parameter>
-    </section>
-</textFileGenerator>";
+<TextFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
+    <Section Name=""root"">
+        <Text />
+        <Parameter Name=""key1"">
+            <RandomNumber MaxValue=""5""/>
+        </Parameter>
+    </Section>
+</TextFileGenerator>";
 
             Project options = PerformTest(xml);
 

@@ -17,7 +17,6 @@
 using System.IO;
 using DustInTheWind.TextFileGenerator.Domain.ProjectModel;
 using DustInTheWind.TextFileGenerator.ProjectAccess.Serialization;
-using DustInTheWind.TextFileGenerator.Serialization;
 using DustInTheWind.TextFileGenerator.Tests.TestingTools;
 using NUnit.Framework;
 
@@ -50,7 +49,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
 
             XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult(project);
 
-            xmlAsserter.AssertNodeCount("/alez:textFileGenerator", 1);
+            xmlAsserter.AssertNodeCount("/alez:TextFileGenerator", 1);
         }
 
         private XmlAsserter PerformTestAndCreateAsserterOnResult(Project project)

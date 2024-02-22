@@ -19,7 +19,6 @@ using System.Text;
 using DustInTheWind.TextFileGenerator.Domain.ProjectModel;
 using DustInTheWind.TextFileGenerator.Domain.ValueProviders;
 using DustInTheWind.TextFileGenerator.ProjectAccess.Serialization;
-using DustInTheWind.TextFileGenerator.Serialization;
 using NUnit.Framework;
 
 namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerializerDeserializationTests
@@ -39,14 +38,14 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
         public void deserialized_parameter_contains_CounterValueProvider()
         {
             const string xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
-<textFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
-    <section name=""root"">
-        <text/>
-        <parameter name=""key1"">
-            <counter/>
-        </parameter>
-    </section>
-</textFileGenerator>";
+<TextFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
+    <Section Name=""root"">
+        <Text />
+        <Parameter Name=""key1"">
+            <Counter/>
+        </Parameter>
+    </Section>
+</TextFileGenerator>";
 
             Project options = PerformTest(xml);
 
@@ -57,14 +56,14 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
         public void deserialized_CounterValueProvider_contains_the_format_declared_in_xml()
         {
             const string xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
-<textFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
-    <section name=""root"">
-        <text/>
-        <parameter name=""key1"">
-            <counter format=""0000""/>
-        </parameter>
-    </section>
-</textFileGenerator>";
+<TextFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
+    <Section Name=""root"">
+        <Text />
+        <Parameter Name=""key1"">
+            <Counter Format=""0000""/>
+        </Parameter>
+    </Section>
+</TextFileGenerator>";
 
             Project options = PerformTest(xml);
 
@@ -76,14 +75,14 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
         public void deserialized_CounterValueProvider_contains_the_startValue_declared_in_xml()
         {
             const string xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
-<textFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
-    <section name=""root"">
-        <text/>
-        <parameter name=""key1"">
-            <counter startValue=""7""/>
-        </parameter>
-    </section>
-</textFileGenerator>";
+<TextFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
+    <Section Name=""root"">
+        <Text />
+        <Parameter Name=""key1"">
+            <Counter StartValue=""7""/>
+        </Parameter>
+    </Section>
+</TextFileGenerator>";
 
             Project options = PerformTest(xml);
 
@@ -95,14 +94,14 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
         public void deserialized_CounterValueProvider_contains_the_step_declared_in_xml()
         {
             const string xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
-<textFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
-    <section name=""root"">
-        <text/>
-        <parameter name=""key1"">
-            <counter step=""9""/>
-        </parameter>
-    </section>
-</textFileGenerator>";
+<TextFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
+    <Section Name=""root"">
+        <Text />
+        <Parameter Name=""key1"">
+            <Counter Step=""9""/>
+        </Parameter>
+    </Section>
+</TextFileGenerator>";
 
             Project options = PerformTest(xml);
 

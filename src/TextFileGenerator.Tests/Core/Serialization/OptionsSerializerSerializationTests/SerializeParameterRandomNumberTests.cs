@@ -18,7 +18,6 @@ using System.IO;
 using DustInTheWind.TextFileGenerator.Domain.ProjectModel;
 using DustInTheWind.TextFileGenerator.Domain.ValueProviders;
 using DustInTheWind.TextFileGenerator.ProjectAccess.Serialization;
-using DustInTheWind.TextFileGenerator.Serialization;
 using DustInTheWind.TextFileGenerator.Tests.TestingTools;
 using NUnit.Framework;
 
@@ -59,7 +58,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
 
             XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
-            xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:section/alez:parameter/alez:randomNumber", 1);
+            xmlAsserter.AssertNodeCount("/alez:TextFileGenerator/alez:Section/alez:Parameter/alez:RandomNumber", 1);
         }
 
         [Test]
@@ -73,8 +72,8 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
 
             XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
-            xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:section/alez:parameter/alez:randomNumber/@format", 1);
-            xmlAsserter.AssertText("/alez:textFileGenerator/alez:section/alez:parameter/alez:randomNumber/@format", "###");
+            xmlAsserter.AssertNodeCount("/alez:TextFileGenerator/alez:Section/alez:Parameter/alez:RandomNumber/@Format", 1);
+            xmlAsserter.AssertText("/alez:TextFileGenerator/alez:Section/alez:Parameter/alez:RandomNumber/@Format", "###");
         }
 
         [Test]
@@ -88,7 +87,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
 
             XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
-            xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:section/alez:parameter/alez:randomNumber/@format", 0);
+            xmlAsserter.AssertNodeCount("/alez:TextFileGenerator/alez:Section/alez:Parameter/alez:RandomNumber/@Format", 0);
         }
 
         [Test]
@@ -102,8 +101,8 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
 
             XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
-            xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:section/alez:parameter/alez:randomNumber/@minValue", 1);
-            xmlAsserter.AssertText("/alez:textFileGenerator/alez:section/alez:parameter/alez:randomNumber/@minValue", "5");
+            xmlAsserter.AssertNodeCount("/alez:TextFileGenerator/alez:Section/alez:Parameter/alez:RandomNumber/@MinValue", 1);
+            xmlAsserter.AssertText("/alez:TextFileGenerator/alez:Section/alez:Parameter/alez:RandomNumber/@MinValue", "5");
         }
 
         [Test]
@@ -117,21 +116,21 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
 
             XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
-            xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:section/alez:parameter/alez:randomNumber/@minValue", 0);
+            xmlAsserter.AssertNodeCount("/alez:TextFileGenerator/alez:Section/alez:Parameter/alez:RandomNumber/@MinValue", 0);
         }
 
         [Test]
-        public void randomNumber_element_does_not_contain_minValue_attribute_if_MinValue_was_set_to_1()
+        public void randomNumber_element_does_not_contain_minValue_attribute_if_MinValue_was_set_to_0()
         {
             project.Sections[0].Parameters.Add(new Parameter
             {
                 Name = "key1",
-                ValueProvider = new RandomNumberValueProvider { MinValue = 1 }
+                ValueProvider = new RandomNumberValueProvider { MinValue = 0 }
             });
 
             XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
-            xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:section/alez:parameter/alez:randomNumber/@minValue", 0);
+            xmlAsserter.AssertNodeCount("/alez:TextFileGenerator/alez:Section/alez:Parameter/alez:RandomNumber/@MinValue", 0);
         }
 
         [Test]
@@ -145,8 +144,8 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
 
             XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
-            xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:section/alez:parameter/alez:randomNumber/@maxValue", 1);
-            xmlAsserter.AssertText("/alez:textFileGenerator/alez:section/alez:parameter/alez:randomNumber/@maxValue", "3");
+            xmlAsserter.AssertNodeCount("/alez:TextFileGenerator/alez:Section/alez:Parameter/alez:RandomNumber/@MaxValue", 1);
+            xmlAsserter.AssertText("/alez:TextFileGenerator/alez:Section/alez:Parameter/alez:RandomNumber/@MaxValue", "3");
         }
 
         [Test]
@@ -160,21 +159,21 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
 
             XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
-            xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:section/alez:parameter/alez:randomNumber/@maxValue", 0);
+            xmlAsserter.AssertNodeCount("/alez:TextFileGenerator/alez:Section/alez:Parameter/alez:RandomNumber/@MaxValue", 0);
         }
 
         [Test]
-        public void randomNumber_element_does_not_contain_maxValue_attribute_if_MaxValue_was_set_to_100()
+        public void randomNumber_element_does_not_contain_maxValue_attribute_if_MaxValue_was_set_to_99()
         {
             project.Sections[0].Parameters.Add(new Parameter
             {
                 Name = "key1",
-                ValueProvider = new RandomNumberValueProvider { MaxValue = 100 }
+                ValueProvider = new RandomNumberValueProvider { MaxValue = 99 }
             });
 
             XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
-            xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:section/alez:parameter/alez:randomNumber/@maxValue", 0);
+            xmlAsserter.AssertNodeCount("/alez:TextFileGenerator/alez:Section/alez:Parameter/alez:RandomNumber/@MaxValue", 0);
         }
 
         private XmlAsserter PerformTestAndCreateAsserterOnResult()

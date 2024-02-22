@@ -18,31 +18,36 @@ using System;
 using System.Globalization;
 using DustInTheWind.TextFileGenerator.Domain.ProjectModel;
 using DustInTheWind.TextFileGenerator.Domain.ValueProviders;
-using DustInTheWind.TextFileGenerator.Serialization;
+using XParameter = DustInTheWind.TextFileGenerator.Serialization.Parameter;
+using XParameterValuePersistence = DustInTheWind.TextFileGenerator.Serialization.ParameterValuePersistence;
+using XParameterRandomText = DustInTheWind.TextFileGenerator.Serialization.ParameterRandomText;
+using XParameterRandomNumber = DustInTheWind.TextFileGenerator.Serialization.ParameterRandomNumber;
+using XParameterCounter = DustInTheWind.TextFileGenerator.Serialization.ParameterCounter;
+using XParameterConstant = DustInTheWind.TextFileGenerator.Serialization.ParameterConstant;
 
 namespace DustInTheWind.TextFileGenerator.ProjectAccess.Serialization.EntityTranslators
 {
     public static partial class ParameterTranslator
     {
-        public static parameter ToXmlEntity(Parameter sourceParameter)
+        public static XParameter ToXmlEntity(this Parameter sourceParameter)
         {
-            return new parameter
+            return new XParameter
             {
-                name = sourceParameter.Name,
+                Name = sourceParameter.Name,
                 Item = CreateValueProvider(sourceParameter),
-                valuePersistence = CalculateValuePersistence(sourceParameter)
+                ValuePersistence = CalculateValuePersistence(sourceParameter)
             };
         }
 
-        private static parameterValuePersistence CalculateValuePersistence(Parameter sourceParameter)
+        private static XParameterValuePersistence CalculateValuePersistence(Parameter sourceParameter)
         {
             switch (sourceParameter.ValueChangeMode)
             {
                 case ValueChangeMode.Auto:
-                    return parameterValuePersistence.PerRequest;
+                    return XParameterValuePersistence.PerRequest;
 
                 case ValueChangeMode.Manual:
-                    return parameterValuePersistence.PerSectionStep;
+                    return XParameterValuePersistence.PerSectionStep;
 
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -83,40 +88,40 @@ namespace DustInTheWind.TextFileGenerator.ProjectAccess.Serialization.EntityTran
             return null;
         }
 
-        private static parameterRandomText CreateRandomTextValueProvider(RandomTextValueProvider sourceValueProvider)
+        private static XParameterRandomText CreateRandomTextValueProvider(RandomTextValueProvider sourceValueProvider)
         {
-            return new parameterRandomText
+            return new XParameterRandomText
             {
-                minLength = sourceValueProvider.MinLength.ToString(CultureInfo.InvariantCulture),
-                maxLength = sourceValueProvider.MaxLength.ToString(CultureInfo.InvariantCulture)
+                MinLength = sourceValueProvider.MinLength.ToString(CultureInfo.InvariantCulture),
+                MaxLength = sourceValueProvider.MaxLength.ToString(CultureInfo.InvariantCulture)
             };
         }
 
-        private static parameterRandomNumber CreateRandomNumberValueProvider(RandomNumberValueProvider sourceValueProvider)
+        private static XParameterRandomNumber CreateRandomNumberValueProvider(RandomNumberValueProvider sourceValueProvider)
         {
-            return new parameterRandomNumber
+            return new XParameterRandomNumber
             {
-                format = sourceValueProvider.Format,
-                minValue = sourceValueProvider.MinValue.ToString(CultureInfo.InvariantCulture),
-                maxValue = sourceValueProvider.MaxValue.ToString(CultureInfo.InvariantCulture)
+                Format = sourceValueProvider.Format,
+                MinValue = sourceValueProvider.MinValue.ToString(CultureInfo.InvariantCulture),
+                MaxValue = sourceValueProvider.MaxValue.ToString(CultureInfo.InvariantCulture)
             };
         }
 
-        private static object CreateCounterValueProvider(CounterValueProvider sourceValueProvider)
+        private static XParameterCounter CreateCounterValueProvider(CounterValueProvider sourceValueProvider)
         {
-            return new parameterCounter
+            return new XParameterCounter
             {
-                format = sourceValueProvider.Format,
-                startValue = sourceValueProvider.StartValue.ToString(CultureInfo.InvariantCulture),
-                step = sourceValueProvider.Step.ToString(CultureInfo.InvariantCulture)
+                Format = sourceValueProvider.Format,
+                StartValue = sourceValueProvider.StartValue.ToString(CultureInfo.InvariantCulture),
+                Step = sourceValueProvider.Step.ToString(CultureInfo.InvariantCulture)
             };
         }
 
-        private static object CreateConstantValueProvider(ConstantValueProvider sourceValueProvider)
+        private static XParameterConstant CreateConstantValueProvider(ConstantValueProvider sourceValueProvider)
         {
-            return new parameterConstant
+            return new XParameterConstant
             {
-                value = sourceValueProvider.Value
+                Value = sourceValueProvider.Value
             };
         }
     }

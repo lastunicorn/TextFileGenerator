@@ -17,20 +17,22 @@
 using System.Collections.Generic;
 using System.Globalization;
 using DustInTheWind.TextFileGenerator.Domain.ProjectModel;
-using DustInTheWind.TextFileGenerator.Serialization;
+using XSection = DustInTheWind.TextFileGenerator.Serialization.Section;
+using XSeparatorLocation = DustInTheWind.TextFileGenerator.Serialization.SeparatorLocation;
+using XParameter = DustInTheWind.TextFileGenerator.Serialization.Parameter;
 
 namespace DustInTheWind.TextFileGenerator.ProjectAccess.Serialization.EntityTranslators
 {
     public static partial class SectionTranslator
     {
-        public static section ToXmlEntity(Section sourceSection)
+        public static XSection ToXmlEntity(this Section sourceSection)
         {
-            section destinationSection = new section
+            XSection destinationSection = new XSection
             {
-                name = sourceSection.Name,
-                repeat = sourceSection.RepeatCount.ToString(CultureInfo.InvariantCulture),
-                separator = sourceSection.Separator,
-                separatorLocation = Translate(sourceSection.SeparatorLocation)
+                Name = sourceSection.Name,
+                Repeat = sourceSection.RepeatCount.ToString(CultureInfo.InvariantCulture),
+                Separator = sourceSection.Separator,
+                SeparatorLocation = Translate(sourceSection.SeparatorLocation)
             };
 
             TranslateContent(destinationSection, sourceSection);
@@ -39,7 +41,7 @@ namespace DustInTheWind.TextFileGenerator.ProjectAccess.Serialization.EntityTran
             return destinationSection;
         }
 
-        private static void TranslateContent(section destinationSection, Section sourceSection)
+        private static void TranslateContent(XSection destinationSection, Section sourceSection)
         {
             if (sourceSection.SectionText != null)
             {
@@ -52,42 +54,40 @@ namespace DustInTheWind.TextFileGenerator.ProjectAccess.Serialization.EntityTran
             {
                 destinationSection.Items = new object[sourceSection.Sections.Count];
 
-                for (int i = 0; i < sourceSection.Sections.Count; i++)
-                {
-                    destinationSection.Items[i] = ToXmlEntity(sourceSection.Sections[i]);
-                }
+                for (int i = 0; i < sourceSection.Sections.Count; i++) 
+                    destinationSection.Items[i] = sourceSection.Sections[i].ToXmlEntity();
             }
         }
 
-        private static separatorLocation Translate(SeparatorLocation value)
+        private static XSeparatorLocation Translate(SeparatorLocation value)
         {
             switch (value)
             {
                 default:
                 case SeparatorLocation.Infix:
-                    return separatorLocation.Infix;
+                    return XSeparatorLocation.Infix;
 
                 case SeparatorLocation.Prefix:
-                    return separatorLocation.Prefix;
+                    return XSeparatorLocation.Prefix;
 
                 case SeparatorLocation.Postfix:
-                    return separatorLocation.Postfix;
+                    return XSeparatorLocation.Postfix;
             }
         }
 
-        private static void CreateParameters(section destinationSection, IList<Parameter> sourceParameters)
+        private static void CreateParameters(XSection destinationSection, IList<Parameter> sourceParameters)
         {
             if (sourceParameters.Count == 0)
                 return;
 
-            destinationSection.parameter = new parameter[sourceParameters.Count];
+            destinationSection.Parameter = new XParameter[sourceParameters.Count];
 
             for (int i = 0; i < sourceParameters.Count; i++)
             {
                 Parameter sourceParameter = sourceParameters[i];
-                parameter destinationParameter = ParameterTranslator.ToXmlEntity(sourceParameter);
+                XParameter destinationParameter = sourceParameter.ToXmlEntity();
 
-                destinationSection.parameter[i] = destinationParameter;
+                destinationSection.Parameter[i] = destinationParameter;
             }
         }
     }

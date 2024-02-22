@@ -32,10 +32,11 @@ namespace DustInTheWind.TextFileGenerator.Domain.ValueProviders
 
         public RandomNumberValueProvider()
         {
-            random = new Random();
+            if (random == null)
+                random = new Random();
 
-            MinValue = 1;
-            MaxValue = 100;
+            MinValue = 0;
+            MaxValue = 99;
 
             currentValue = string.Empty;
         }

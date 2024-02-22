@@ -19,11 +19,11 @@ using System.Xml;
 using System.Xml.Serialization;
 using DustInTheWind.TextFileGenerator.Domain.ProjectModel;
 using DustInTheWind.TextFileGenerator.ProjectAccess.Serialization.EntityTranslators;
-using DustInTheWind.TextFileGenerator.Serialization;
+using XTextFileGenerator = DustInTheWind.TextFileGenerator.Serialization.TextFileGenerator;
 
 namespace DustInTheWind.TextFileGenerator.ProjectAccess.Serialization
 {
-    public partial class FileDescriptorSerializer
+    internal partial class FileDescriptorSerializer
     {
         public void Serialize(Stream outputStream, Project project)
         {
@@ -31,9 +31,9 @@ namespace DustInTheWind.TextFileGenerator.ProjectAccess.Serialization
 
             using (XmlWriter sw = XmlWriter.Create(outputStream, settings))
             {
-                XmlSerializer serializer = new XmlSerializer(typeof(textFileGenerator));
+                XmlSerializer serializer = new XmlSerializer(typeof(XTextFileGenerator));
 
-                textFileGenerator textFileGenerator = DescriptorTranslator.ToXmlEntity(project);
+                XTextFileGenerator textFileGenerator = project.ToXmlEntity();
                 serializer.Serialize(sw, textFileGenerator);
             }
         }

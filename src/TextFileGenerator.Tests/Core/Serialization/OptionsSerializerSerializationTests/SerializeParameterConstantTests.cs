@@ -18,7 +18,6 @@ using System.IO;
 using DustInTheWind.TextFileGenerator.Domain.ProjectModel;
 using DustInTheWind.TextFileGenerator.Domain.ValueProviders;
 using DustInTheWind.TextFileGenerator.ProjectAccess.Serialization;
-using DustInTheWind.TextFileGenerator.Serialization;
 using DustInTheWind.TextFileGenerator.Tests.TestingTools;
 using NUnit.Framework;
 
@@ -59,7 +58,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
 
             XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
-            xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:section/alez:parameter/alez:constant", 1);
+            xmlAsserter.AssertNodeCount("/alez:TextFileGenerator/alez:Section/alez:Parameter/alez:Constant", 1);
         }
 
         [Test]
@@ -73,8 +72,8 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
 
             XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
-            xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:section/alez:parameter/alez:constant/@value", 1);
-            xmlAsserter.AssertText("/alez:textFileGenerator/alez:section/alez:parameter/alez:constant/@value", "some text");
+            xmlAsserter.AssertNodeCount("/alez:TextFileGenerator/alez:Section/alez:Parameter/alez:Constant/@Value", 1);
+            xmlAsserter.AssertText("/alez:TextFileGenerator/alez:Section/alez:Parameter/alez:Constant/@Value", "some text");
         }
 
         [Test]
@@ -88,7 +87,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
 
             XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
-            xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:section/alez:parameter/alez:constant/@value", 0);
+            xmlAsserter.AssertNodeCount("/alez:TextFileGenerator/alez:Section/alez:Parameter/alez:Constant/@Value", 0);
         }
 
         [Test]
@@ -102,7 +101,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
 
             XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
-            xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:section/alez:parameter/alez:constant/@value", 0);
+            xmlAsserter.AssertNodeCount("/alez:TextFileGenerator/alez:Section/alez:Parameter/alez:Constant/@Value", 0);
         }
 
         private XmlAsserter PerformTestAndCreateAsserterOnResult()

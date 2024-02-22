@@ -18,7 +18,6 @@ using System.IO;
 using DustInTheWind.TextFileGenerator.Domain.ProjectModel;
 using DustInTheWind.TextFileGenerator.Domain.ValueProviders;
 using DustInTheWind.TextFileGenerator.ProjectAccess.Serialization;
-using DustInTheWind.TextFileGenerator.Serialization;
 using DustInTheWind.TextFileGenerator.Tests.TestingTools;
 using NUnit.Framework;
 
@@ -59,7 +58,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
 
             XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
-            xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:section/alez:parameter/alez:randomText", 1);
+            xmlAsserter.AssertNodeCount("/alez:TextFileGenerator/alez:Section/alez:Parameter/alez:RandomText", 1);
         }
 
         [Test]
@@ -73,8 +72,8 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
 
             XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
-            xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:section/alez:parameter/alez:randomText/@minLength", 1);
-            xmlAsserter.AssertText("/alez:textFileGenerator/alez:section/alez:parameter/alez:randomText/@minLength", "5");
+            xmlAsserter.AssertNodeCount("/alez:TextFileGenerator/alez:Section/alez:Parameter/alez:RandomText/@MinLength", 1);
+            xmlAsserter.AssertText("/alez:TextFileGenerator/alez:Section/alez:Parameter/alez:RandomText/@MinLength", "5");
         }
 
         [Test]
@@ -88,7 +87,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
 
             XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
-            xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:section/alez:parameter/alez:randomText/@minLength", 0);
+            xmlAsserter.AssertNodeCount("/alez:TextFileGenerator/alez:Section/alez:Parameter/alez:RandomText/@MinLength", 0);
         }
 
         [Test]
@@ -102,7 +101,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
 
             XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
-            xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:section/alez:parameter/alez:randomText/@minLength", 0);
+            xmlAsserter.AssertNodeCount("/alez:TextFileGenerator/alez:Section/alez:Parameter/alez:RandomText/@MinLength", 0);
         }
 
         [Test]
@@ -116,8 +115,8 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
 
             XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
-            xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:section/alez:parameter/alez:randomText/@maxLength", 1);
-            xmlAsserter.AssertText("/alez:textFileGenerator/alez:section/alez:parameter/alez:randomText/@maxLength", "3");
+            xmlAsserter.AssertNodeCount("/alez:TextFileGenerator/alez:Section/alez:Parameter/alez:RandomText/@MaxLength", 1);
+            xmlAsserter.AssertText("/alez:TextFileGenerator/alez:Section/alez:Parameter/alez:RandomText/@MaxLength", "3");
         }
 
         [Test]
@@ -131,7 +130,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
 
             XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
-            xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:section/alez:parameter/alez:randomText/@maxLength", 0);
+            xmlAsserter.AssertNodeCount("/alez:TextFileGenerator/alez:Section/alez:Parameter/alez:RandomText/@MaxLength", 0);
         }
 
         [Test]
@@ -145,7 +144,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
 
             XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
-            xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:section/alez:parameter/alez:randomText/@maxLength", 0);
+            xmlAsserter.AssertNodeCount("/alez:TextFileGenerator/alez:Section/alez:Parameter/alez:RandomText/@MaxLength", 0);
         }
 
         private XmlAsserter PerformTestAndCreateAsserterOnResult()

@@ -18,40 +18,42 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using DustInTheWind.TextFileGenerator.Domain.ProjectModel;
-using DustInTheWind.TextFileGenerator.Serialization;
+using XSection = DustInTheWind.TextFileGenerator.Serialization.Section;
+using XSeparatorLocation = DustInTheWind.TextFileGenerator.Serialization.SeparatorLocation;
+using XParameter = DustInTheWind.TextFileGenerator.Serialization.Parameter;
 
 namespace DustInTheWind.TextFileGenerator.ProjectAccess.Serialization.EntityTranslators
 {
     public static partial class SectionTranslator
     {
-        public static Section ToDomainEntity(section sourceSection)
+        public static Section ToDomainEntity(this XSection sourceSection)
         {
             Section destinationSection = new Section
             {
-                Name = sourceSection.name,
-                RepeatCount = int.Parse(sourceSection.repeat),
-                Separator = sourceSection.separator,
-                SeparatorLocation = Translate(sourceSection.separatorLocation),
+                Name = sourceSection.Name,
+                RepeatCount = int.Parse(sourceSection.Repeat),
+                Separator = sourceSection.Separator,
+                SeparatorLocation = Translate(sourceSection.SeparatorLocation),
             };
 
             TranslateContent(destinationSection, sourceSection);
 
-            CreateParameters(destinationSection, sourceSection.parameter);
+            CreateParameters(destinationSection, sourceSection.Parameter);
 
             return destinationSection;
         }
 
-        private static SeparatorLocation Translate(separatorLocation sourceSeparatorType)
+        private static SeparatorLocation Translate(XSeparatorLocation sourceSeparatorType)
         {
             switch (sourceSeparatorType)
             {
-                case separatorLocation.Infix:
+                case XSeparatorLocation.Infix:
                     return SeparatorLocation.Infix;
 
-                case separatorLocation.Prefix:
+                case XSeparatorLocation.Prefix:
                     return SeparatorLocation.Prefix;
 
-                case separatorLocation.Postfix:
+                case XSeparatorLocation.Postfix:
                     return SeparatorLocation.Postfix;
 
                 default:
@@ -59,7 +61,7 @@ namespace DustInTheWind.TextFileGenerator.ProjectAccess.Serialization.EntityTran
             }
         }
 
-        private static void TranslateContent(Section destinationSection, section sourceSection)
+        private static void TranslateContent(Section destinationSection, XSection sourceSection)
         {
             if (sourceSection.Items == null || sourceSection.Items.Length <= 0)
                 return;
@@ -71,25 +73,24 @@ namespace DustInTheWind.TextFileGenerator.ProjectAccess.Serialization.EntityTran
 
                 Type itemType = item.GetType();
 
-                if (itemType == typeof(string))
-                {
+                if (itemType == typeof(string)) 
                     destinationSection.SectionText = new TextTemplate((string)item);
-                }
 
-                if (itemType == typeof(section))
+                if (itemType == typeof(XSection))
                 {
-                    Section destinationSubsection = ToDomainEntity((section)item);
+                    XSection section = (XSection)item;
+                    Section destinationSubsection = section.ToDomainEntity();
                     destinationSection.Sections.Add(destinationSubsection);
                 }
             }
         }
 
-        private static void CreateParameters(Section destinationSection, IEnumerable<parameter> sourceParameters)
+        private static void CreateParameters(Section destinationSection, IEnumerable<XParameter> sourceParameters)
         {
             if (sourceParameters == null)
                 return;
 
-            IEnumerable<Parameter> destinationParameters = sourceParameters.Select(ParameterTranslator.ToDomainEntity);
+            IEnumerable<Parameter> destinationParameters = sourceParameters.Select(x=> x.ToDomainEntity());
             destinationSection.Parameters.AddRange(destinationParameters);
         }
     }

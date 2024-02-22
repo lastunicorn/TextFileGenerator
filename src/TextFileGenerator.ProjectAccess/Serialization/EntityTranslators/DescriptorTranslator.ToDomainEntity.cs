@@ -17,26 +17,25 @@
 using System.Collections.Generic;
 using System.Linq;
 using DustInTheWind.TextFileGenerator.Domain.ProjectModel;
-using DustInTheWind.TextFileGenerator.Serialization;
+using XTextFileGenerator = DustInTheWind.TextFileGenerator.Serialization.TextFileGenerator;
 
 namespace DustInTheWind.TextFileGenerator.ProjectAccess.Serialization.EntityTranslators
 {
     public static partial class DescriptorTranslator
     {
-        public static Project ToDomainEntity(textFileGenerator source)
+        public static Project ToDomainEntity(this XTextFileGenerator source)
         {
             Project project = new Project();
 
-            if (source.section != null)
-                CreateSections(project, source.section);
+            if (source.Section != null)
+            {
+                IEnumerable<Section> destinationSections = source.Section
+                    .Select(x => x.ToDomainEntity());
+
+                project.Sections.AddRange(destinationSections);
+            }
 
             return project;
-        }
-
-        private static void CreateSections(Project project, IEnumerable<section> sourceSections)
-        {
-            IEnumerable<Section> destinationSections = sourceSections.Select(SectionTranslator.ToDomainEntity);
-            project.Sections.AddRange(destinationSections);
         }
     }
 }

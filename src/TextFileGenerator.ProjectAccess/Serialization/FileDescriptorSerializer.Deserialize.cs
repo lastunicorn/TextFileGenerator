@@ -20,11 +20,11 @@ using System.Xml.Schema;
 using System.Xml.Serialization;
 using DustInTheWind.TextFileGenerator.Domain.ProjectModel;
 using DustInTheWind.TextFileGenerator.ProjectAccess.Serialization.EntityTranslators;
-using DustInTheWind.TextFileGenerator.Serialization;
+using XTextFileGenerator = DustInTheWind.TextFileGenerator.Serialization.TextFileGenerator;
 
 namespace DustInTheWind.TextFileGenerator.ProjectAccess.Serialization
 {
-    public partial class FileDescriptorSerializer
+    internal partial class FileDescriptorSerializer
     {
         private const string XsdResourcePath = "DustInTheWind.TextFileGenerator.ProjectAccess.Serialization.TextFileGenerator.xsd";
 
@@ -34,10 +34,10 @@ namespace DustInTheWind.TextFileGenerator.ProjectAccess.Serialization
 
             using (XmlReader xmlReader = XmlReader.Create(inputStream, settings))
             {
-                XmlSerializer serializer = new XmlSerializer(typeof(textFileGenerator));
-                textFileGenerator sourceOptions = (textFileGenerator)serializer.Deserialize(xmlReader);
+                XmlSerializer serializer = new XmlSerializer(typeof(XTextFileGenerator));
+                XTextFileGenerator sourceOptions = (XTextFileGenerator)serializer.Deserialize(xmlReader);
 
-                return DescriptorTranslator.ToDomainEntity(sourceOptions);
+                return sourceOptions.ToDomainEntity();
             }
         }
 

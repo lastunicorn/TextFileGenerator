@@ -19,7 +19,6 @@ using System.Text;
 using DustInTheWind.TextFileGenerator.Domain.ProjectModel;
 using DustInTheWind.TextFileGenerator.Domain.ValueProviders;
 using DustInTheWind.TextFileGenerator.ProjectAccess.Serialization;
-using DustInTheWind.TextFileGenerator.Serialization;
 using NUnit.Framework;
 
 namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerializerDeserializationTests
@@ -39,14 +38,14 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
         public void deserialized_section_contains_one_parameter_if_one_parameter_is_declared_in_xml()
         {
             const string xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
-<textFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
-    <section name=""root"">
-        <text/>
-        <parameter name=""key1"">
-            <constant value=""value1""/>
-        </parameter>
-    </section>
-</textFileGenerator>";
+<TextFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
+    <Section Name=""root"">
+        <Text />
+        <Parameter Name=""key1"">
+            <Constant Value=""value1""/>
+        </Parameter>
+    </Section>
+</TextFileGenerator>";
 
             Project options = PerformTest(xml);
 
@@ -57,14 +56,14 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
         public void deserialized_parameter_contains_the_key()
         {
             const string xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
-<textFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
-    <section name=""root"">
-        <text/>
-        <parameter name=""key1"">
-            <constant value=""value1""/>
-        </parameter>
-    </section>
-</textFileGenerator>";
+<TextFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
+    <Section Name=""root"">
+        <Text />
+        <Parameter Name=""key1"">
+            <Constant Value=""value1""/>
+        </Parameter>
+    </Section>
+</TextFileGenerator>";
 
             Project options = PerformTest(xml);
 
@@ -75,14 +74,14 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
         public void deserialized_parameter_contains_ConstantValueProvider()
         {
             const string xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
-<textFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
-    <section name=""root"">
-        <text/>
-        <parameter name=""key1"">
-            <constant value=""value1""/>
-        </parameter>
-    </section>
-</textFileGenerator>";
+<TextFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
+    <Section Name=""root"">
+        <Text />
+        <Parameter Name=""key1"">
+            <Constant Value=""value1""/>
+        </Parameter>
+    </Section>
+</TextFileGenerator>";
 
             Project options = PerformTest(xml);
 
@@ -93,14 +92,14 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
         public void deserialized_parameter_contains_CounterValueProvider()
         {
             const string xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
-<textFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
-    <section name=""root"">
-        <text/>
-        <parameter name=""key1"">
-            <counter/>
-        </parameter>
-    </section>
-</textFileGenerator>";
+<TextFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
+    <Section Name=""root"">
+        <Text />
+        <Parameter Name=""key1"">
+            <Counter />
+        </Parameter>
+    </Section>
+</TextFileGenerator>";
 
             Project options = PerformTest(xml);
 
@@ -111,17 +110,17 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
         public void section_contains_two_parameters_of_different_types()
         {
             const string xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
-<textFileGenerator xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"" xmlns=""http://alez.ro/TextFileGenerator"">
-    <section>
-        <text/>
-        <parameter name=""key1"">
-            <constant />
-        </parameter>
-        <parameter name=""key2"">
-            <counter />
-        </parameter>
-    </section>
-</textFileGenerator>";
+<TextFileGenerator xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"" xmlns=""http://alez.ro/TextFileGenerator"">
+    <Section>
+        <Text />
+        <Parameter Name=""key1"">
+            <Constant />
+        </Parameter>
+        <Parameter Name=""key2"">
+            <Counter />
+        </Parameter>
+    </Section>
+</TextFileGenerator>";
 
             Project options = PerformTest(xml);
 

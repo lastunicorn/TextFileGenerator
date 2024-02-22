@@ -14,33 +14,26 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System.Collections.Generic;
+using System.Linq;
 using DustInTheWind.TextFileGenerator.Domain.ProjectModel;
-using DustInTheWind.TextFileGenerator.Serialization;
+using XTextFileGenerator = DustInTheWind.TextFileGenerator.Serialization.TextFileGenerator;
 
 namespace DustInTheWind.TextFileGenerator.ProjectAccess.Serialization.EntityTranslators
 {
     public static partial class DescriptorTranslator
     {
-        public static textFileGenerator ToXmlEntity(Project project)
+        public static XTextFileGenerator ToXmlEntity(this Project project)
         {
-            textFileGenerator result = new textFileGenerator();
+            XTextFileGenerator result = new XTextFileGenerator();
 
             if (project.Sections != null && project.Sections.Count > 0)
-                CreateSections(result, project.Sections);
+            {
+                result.Section = project.Sections
+                    .Select(x => x.ToXmlEntity())
+                    .ToArray();
+            }
 
             return result;
-        }
-
-        private static void CreateSections(textFileGenerator result, IReadOnlyList<Section> sourceSections)
-        {
-            result.section = new section[sourceSections.Count];
-
-            for (int i = 0; i < sourceSections.Count; i++)
-            {
-                section destinationSection = SectionTranslator.ToXmlEntity(sourceSections[i]);
-                result.section[i] = destinationSection;
-            }
         }
     }
 }
