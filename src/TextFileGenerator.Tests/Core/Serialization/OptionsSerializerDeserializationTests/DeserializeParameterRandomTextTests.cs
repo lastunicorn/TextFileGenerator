@@ -39,14 +39,12 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
         {
             const string xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <textFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
-    <sections>
-        <section name=""root"">
-            <text/>
-            <parameter name=""key1"">
-                <randomText/>
-            </parameter>
-        </section>
-    </sections>
+    <section name=""root"">
+        <text/>
+        <parameter name=""key1"">
+            <randomText/>
+        </parameter>
+    </section>
 </textFileGenerator>";
 
             FileDescriptor options = PerformTest(xml);
@@ -59,14 +57,12 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
         {
             const string xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <textFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
-    <sections>
-        <section name=""root"">
-            <text/>
-            <parameter name=""key1"">
-                <randomText minLength=""3""/>
-            </parameter>
-        </section>
-    </sections>
+    <section name=""root"">
+        <text/>
+        <parameter name=""key1"">
+            <randomText minLength=""3""/>
+        </parameter>
+    </section>
 </textFileGenerator>";
 
             FileDescriptor options = PerformTest(xml);
@@ -80,14 +76,12 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
         {
             const string xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <textFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
-    <sections>
-        <section name=""root"">
-            <text/>
-            <parameter name=""key1"">
-                <randomText maxLength=""5""/>
-            </parameter>
-        </section>
-    </sections>
+    <section name=""root"">
+        <text/>
+        <parameter name=""key1"">
+            <randomText maxLength=""5""/>
+        </parameter>
+    </section>
 </textFileGenerator>";
 
             FileDescriptor options = PerformTest(xml);

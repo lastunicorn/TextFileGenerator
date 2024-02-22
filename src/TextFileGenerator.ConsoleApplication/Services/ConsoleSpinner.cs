@@ -15,27 +15,28 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using System.Threading;
+using System.Timers;
 
 namespace DustInTheWind.TextFileGenerator.ConsoleApplication.Services
 {
     internal class ConsoleSpinner : IDisposable
     {
+        private readonly ITemplate template;
         private bool isDisposed;
-        private int counter;
-        private readonly string[] sequence;
         private readonly Timer timer;
 
-        public ConsoleSpinner()
+        public ConsoleSpinner(ITemplate template)
         {
-            //sequence = new[] { "/", "-", "\\", "|" };
-            //sequence = new[] { ".", "o", "0", "o" };
-            //sequence = new[] { "+", "x" };
-            //sequence = new[] { "V", "<", "^", ">" };
-            //sequence = new[] { ".   ", "..  ", "... ", "...." };
-            sequence = new[] { "[.   ]", "[..  ]", "[... ]", "[....]", "[ ...]", "[  ..]", "[   .]", "[    ]" };
+            if (template == null) throw new ArgumentNullException(nameof(template));
+            this.template = template;
 
-            timer = new Timer(HandleTimerElapsed);
+            timer = new Timer(500);
+            timer.Elapsed += HandleTimerElapsed;
+        }
+
+        private void HandleTimerElapsed(object sender, ElapsedEventArgs elapsedEventArgs)
+        {
+            Turn();
         }
 
         public void Start()
@@ -43,10 +44,11 @@ namespace DustInTheWind.TextFileGenerator.ConsoleApplication.Services
             if (isDisposed)
                 throw new ObjectDisposedException(GetType().FullName);
 
-            counter = 0;
+            template.Reset();
             Console.CursorVisible = false;
 
-            timer.Change(TimeSpan.Zero, TimeSpan.FromMilliseconds(500));
+            Turn();
+            timer.Start();
         }
 
         public void Stop()
@@ -54,26 +56,23 @@ namespace DustInTheWind.TextFileGenerator.ConsoleApplication.Services
             if (isDisposed)
                 throw new ObjectDisposedException(GetType().FullName);
 
-            timer.Change(TimeSpan.FromTicks(-1), TimeSpan.FromTicks(-1));
-
-            WriteAndGoBack(new string(' ', sequence[counter].Length));
+            timer.Stop();
+            EraseAll();
 
             Console.CursorVisible = true;
         }
 
-        private void HandleTimerElapsed(object o)
+        private void EraseAll()
         {
-            Turn();
+            int length = template.GetCurrent().Length;
+            string text = new string(' ', length);
+            WriteAndGoBack(text);
         }
 
         private void Turn()
         {
-            counter++;
-
-            if (counter >= sequence.Length)
-                counter = 0;
-
-            WriteAndGoBack(sequence[counter]);
+            string text = template.GetNext();
+            WriteAndGoBack(text);
         }
 
         private static void WriteAndGoBack(string text)

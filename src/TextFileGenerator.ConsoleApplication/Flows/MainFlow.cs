@@ -24,7 +24,7 @@ namespace DustInTheWind.TextFileGenerator.ConsoleApplication.Flows
     /// <summary>
     /// This is a hub that chooses a flow and starts it.
     /// </summary>
-    class MainFlow
+    internal class MainFlow
     {
         private readonly UserInterface ui;
         private readonly Options arguments;
@@ -42,7 +42,9 @@ namespace DustInTheWind.TextFileGenerator.ConsoleApplication.Flows
             try
             {
                 IFlow flow = ChooseFlow();
-                flow?.Start();
+
+                if (flow != null)
+                    flow.Start();
             }
             catch (Exception ex)
             {

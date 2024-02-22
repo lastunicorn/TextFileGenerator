@@ -14,18 +14,12 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace DustInTheWind.TextFileGenerator.Templating
+namespace DustInTheWind.TextFileGenerator.ConsoleApplication.Services
 {
-    internal struct TemplateItem
+    internal interface ITemplate
     {
-        public string Text { get; }
-        public TemplateItemType Type { get; }
-
-        public TemplateItem(string text, TemplateItemType type)
-            : this()
-        {
-            Text = text ?? string.Empty;
-            Type = type;
-        }
+        void Reset();
+        string GetNext();
+        string GetCurrent();
     }
 }

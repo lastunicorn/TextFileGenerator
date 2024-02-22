@@ -24,7 +24,7 @@ namespace DustInTheWind.TextFileGenerator.Templating
 {
     public class TextTemplate
     {
-        public static TextTemplate Empty { get; private set; }
+        public static TextTemplate Empty { get; }
 
         static TextTemplate()
         {
