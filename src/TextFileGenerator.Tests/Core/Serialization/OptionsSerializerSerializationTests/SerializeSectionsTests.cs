@@ -50,7 +50,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
         {
             XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
-            xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections", 0);
+            xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:section", 0);
         }
 
         [Test]
@@ -60,7 +60,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
 
             XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
-            xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section", 1);
+            xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:section", 1);
         }
 
         [Test]
@@ -71,7 +71,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerial
 
             XmlAsserter xmlAsserter = PerformTestAndCreateAsserterOnResult();
 
-            xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:sections/alez:section", 2);
+            xmlAsserter.AssertNodeCount("/alez:textFileGenerator/alez:section", 2);
         }
 
         private XmlAsserter PerformTestAndCreateAsserterOnResult()

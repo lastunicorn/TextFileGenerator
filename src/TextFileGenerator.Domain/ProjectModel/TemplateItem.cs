@@ -21,9 +21,9 @@ namespace DustInTheWind.TextFileGenerator.Domain.ProjectModel
 {
     internal struct TemplateItem
     {
-        public string Text { get; private set; }
+        public string Text { get; }
 
-        public TemplateItemType Type { get; private set; }
+        public TemplateItemType Type { get; }
 
         public TemplateItem(string text, TemplateItemType type)
             : this()

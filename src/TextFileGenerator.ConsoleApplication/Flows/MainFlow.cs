@@ -21,7 +21,10 @@ using DustInTheWind.TextFileGenerator.ProjectAccess;
 
 namespace DustInTheWind.TextFileGenerator.ConsoleApplication.Flows
 {
-    internal class MainFlow
+    /// <summary>
+    /// This is a hub that chooses a flow and starts it.
+    /// </summary>
+    class MainFlow
     {
         private readonly UserInterface userInterface;
         private readonly MainView mainView;
@@ -40,7 +43,8 @@ namespace DustInTheWind.TextFileGenerator.ConsoleApplication.Flows
 
             try
             {
-                ExecuteUseCase();
+                IFlow flow = ChooseFlow();
+                flow?.Start();
             }
             catch (Exception ex)
             {
