@@ -20,7 +20,7 @@ namespace DustInTheWind.TextFileGenerator.Cli
     {
         private static void Main(string[] args)
         {
-            Bootstrapper bootstrapper = new Bootstrapper();
+            Bootstrapper bootstrapper = new();
             bootstrapper.Run(args);
         }
     }

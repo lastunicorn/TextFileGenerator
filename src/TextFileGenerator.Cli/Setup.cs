@@ -15,20 +15,25 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using Autofac;
+using CommandLine;
+using DustInTheWind.TextFileGenerator.Cli.CommandArguments;
 using DustInTheWind.TextFileGenerator.Cli.Flows;
+using DustInTheWind.TextFileGenerator.UserAccess;
 
 namespace DustInTheWind.TextFileGenerator.Cli;
 
-internal class Bootstrapper
+internal class Setup
 {
-    public void Run(string[] args)
+    public static void ConfigureDependencies(ContainerBuilder containerBuilder, string[] args)
     {
-        ContainerBuilder containerBuilder = new();
-        Setup.ConfigureDependencies(containerBuilder, args);
+        containerBuilder.RegisterType<UserInterface>().AsSelf();
+        containerBuilder.RegisterType<MainView>().AsSelf();
+        containerBuilder.RegisterType<MainFlow>().AsSelf();
 
-        IContainer container = containerBuilder.Build();
-
-        MainFlow mainFlow = container.Resolve<MainFlow>();
-        mainFlow.Start();
+        Parser.Default.ParseArguments<Options>(args)
+            .WithParsed(o =>
+            {
+                containerBuilder.RegisterInstance(o).AsSelf();
+            });
     }
 }

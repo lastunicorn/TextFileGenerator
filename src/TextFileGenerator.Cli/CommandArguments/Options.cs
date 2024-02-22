@@ -25,11 +25,5 @@ namespace DustInTheWind.TextFileGenerator.Cli.CommandArguments
 
         [Option('t', "template", Required = false, Default = false, HelpText = "generates the template file.")]
         public bool GenerateScaffold { get; set; }
-
-        //[HelpOption]
-        //public string GetUsage()
-        //{
-        //    return HelpText.AutoBuild(this, x => HelpText.DefaultParsingErrorsHandler(this, x));
-        //}
     }
 }
