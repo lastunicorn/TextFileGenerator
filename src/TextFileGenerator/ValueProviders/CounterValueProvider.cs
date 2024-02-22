@@ -26,7 +26,7 @@ namespace DustInTheWind.TextFileGenerator.ValueProviders
 
         public int StartValue
         {
-            get { return startValue; }
+            get => startValue;
             set
             {
                 startValue = value;

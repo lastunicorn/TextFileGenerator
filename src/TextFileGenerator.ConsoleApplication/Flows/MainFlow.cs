@@ -31,11 +31,8 @@ namespace DustInTheWind.TextFileGenerator.ConsoleApplication.Flows
 
         public MainFlow(UserInterface ui, Options arguments)
         {
-            if (ui == null) throw new ArgumentNullException(nameof(ui));
-            if (arguments == null) throw new ArgumentNullException(nameof(arguments));
-
-            this.ui = ui;
-            this.arguments = arguments;
+            this.ui = ui ?? throw new ArgumentNullException(nameof(ui));
+            this.arguments = arguments ?? throw new ArgumentNullException(nameof(arguments));
         }
 
         public void Start()

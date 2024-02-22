@@ -21,27 +21,16 @@ namespace DustInTheWind.TextFileGenerator.FileDescription
 {
     public class Parameter
     {
-        private bool isNew;
-        private IValueProvider valueProvider;
+        private bool isNew = true;
+        private IValueProvider valueProvider = EmptyValueProvider.Value;
 
         public string Name { get; set; }
         public ValueChangeMode ValueChangeMode { get; set; }
 
         public IValueProvider ValueProvider
         {
-            get { return valueProvider; }
-            set
-            {
-                if (value == null) throw new ArgumentNullException(nameof(value));
-
-                valueProvider = value;
-            }
-        }
-
-        public Parameter()
-        {
-            valueProvider = EmptyValueProvider.Value;
-            isNew = true;
+            get => valueProvider;
+            set => valueProvider = value ?? throw new ArgumentNullException(nameof(value));
         }
 
         public string CurrentValue { get; private set; }

@@ -33,11 +33,8 @@ namespace DustInTheWind.TextFileGenerator.ConsoleApplication.Flows
 
         public GenerationFlow(UserInterface ui, IList<string> descriptorFileNames)
         {
-            if (ui == null) throw new ArgumentNullException(nameof(ui));
-            if (descriptorFileNames == null) throw new ArgumentNullException(nameof(descriptorFileNames));
-
-            this.ui = ui;
-            this.descriptorFileNames = descriptorFileNames;
+            this.ui = ui ?? throw new ArgumentNullException(nameof(ui));
+            this.descriptorFileNames = descriptorFileNames ?? throw new ArgumentNullException(nameof(descriptorFileNames));
         }
 
         public void Start()

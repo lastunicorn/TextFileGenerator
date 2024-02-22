@@ -1,5 +1,5 @@
-// TextFileGenerator
-// Copyright (C) 2009-2011 Dust in the Wind
+// VeloCity
+// Copyright (C) 2022-2023 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -29,9 +29,7 @@ namespace DustInTheWind.TextFileGenerator.FileGeneration
 
         public SectionGenerator(TextWriter textWriter)
         {
-            if (textWriter == null) throw new ArgumentNullException(nameof(textWriter));
-
-            this.textWriter = textWriter;
+            this.textWriter = textWriter ?? throw new ArgumentNullException(nameof(textWriter));
         }
 
         public void WriteSection(Section section, IEnumerable<Parameter> additionalParameters = null)

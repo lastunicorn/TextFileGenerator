@@ -22,18 +22,17 @@ namespace DustInTheWind.TextFileGenerator.FileDescription
     public class Section
     {
         public string Name { get; set; }
+    
         public TextTemplate SectionText { get; set; }
-        public int RepeatCount { get; set; }
-        public string Separator { get; set; }
-        public SeparatorLocation SeparatorLocation { get; set; }
-        public ParameterList Parameters { get; private set; }
-        public List<Section> Sections { get; private set; }
+        
+        public int RepeatCount { get; set; } = 1;
 
-        public Section()
-        {
-            RepeatCount = 1;
-            Parameters = new ParameterList();
-            Sections = new List<Section>();
-        }
+        public string Separator { get; set; }
+        
+        public SeparatorLocation SeparatorLocation { get; set; }
+        
+        public ParameterList Parameters { get; } = new ParameterList();
+
+        public List<Section> Sections { get; } = new List<Section>();
     }
 }
