@@ -18,7 +18,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using DustInTheWind.TextFileGenerator.FileDescription;
 
 namespace DustInTheWind.TextFileGenerator.Domain.ProjectModel
 {

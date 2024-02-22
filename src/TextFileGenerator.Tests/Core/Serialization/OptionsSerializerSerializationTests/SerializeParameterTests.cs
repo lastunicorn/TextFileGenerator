@@ -16,10 +16,10 @@
 
 using System.IO;
 using DustInTheWind.TextFileGenerator.Domain.ProjectModel;
-using DustInTheWind.TextFileGenerator.FileDescription;
+using DustInTheWind.TextFileGenerator.Domain.ValueProviders;
+using DustInTheWind.TextFileGenerator.ProjectAccess.Serialization;
 using DustInTheWind.TextFileGenerator.Serialization;
 using DustInTheWind.TextFileGenerator.Tests.TestingTools;
-using DustInTheWind.TextFileGenerator.ValueProviders;
 using NUnit.Framework;
 
 namespace DustInTheWind.TextFileGenerator.Tests.Core.Serialization.OptionsSerializerSerializationTests

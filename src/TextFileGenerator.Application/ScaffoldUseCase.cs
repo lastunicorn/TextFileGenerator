@@ -16,8 +16,9 @@
 
 using System;
 using System.IO;
+using DustInTheWind.TextFileGenerator.Ports.UserAccess;
 
-namespace DustInTheWind.TextFileGenerator.ConsoleApplication.Flows
+namespace DustInTheWind.TextFileGenerator.Application
 {
     public class ScaffoldUseCase
     {

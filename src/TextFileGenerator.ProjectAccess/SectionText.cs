@@ -17,7 +17,7 @@
 using System.Collections.Generic;
 using DustInTheWind.TextFileGenerator.Domain.ProjectModel;
 
-namespace DustInTheWind.TextFileGenerator.FileDescription
+namespace DustInTheWind.TextFileGenerator.ProjectAccess
 {
     public class SectionText
     {

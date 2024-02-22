@@ -15,10 +15,9 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using DustInTheWind.TextFileGenerator.Domain.ProjectModel;
-using DustInTheWind.TextFileGenerator.ValueProviders;
+using DustInTheWind.TextFileGenerator.Domain.ValueProviders;
 
-namespace DustInTheWind.TextFileGenerator.FileDescription
+namespace DustInTheWind.TextFileGenerator.Domain.ProjectModel
 {
     public class Parameter
     {

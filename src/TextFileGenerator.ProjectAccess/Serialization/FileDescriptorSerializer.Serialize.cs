@@ -17,10 +17,11 @@
 using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
-using DustInTheWind.TextFileGenerator.FileDescription;
-using DustInTheWind.TextFileGenerator.Serialization.EntityTranslators;
+using DustInTheWind.TextFileGenerator.Domain.ProjectModel;
+using DustInTheWind.TextFileGenerator.ProjectAccess.Serialization.EntityTranslators;
+using DustInTheWind.TextFileGenerator.Serialization;
 
-namespace DustInTheWind.TextFileGenerator.Serialization
+namespace DustInTheWind.TextFileGenerator.ProjectAccess.Serialization
 {
     public partial class FileDescriptorSerializer
     {

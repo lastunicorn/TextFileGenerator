@@ -16,7 +16,7 @@
 
 using DustInTheWind.TextFileGenerator.Domain.ProjectModel;
 
-namespace DustInTheWind.TextFileGenerator.ValueProviders
+namespace DustInTheWind.TextFileGenerator.Domain.ValueProviders
 {
     public class ConstantValueProvider : IValueProvider
     {

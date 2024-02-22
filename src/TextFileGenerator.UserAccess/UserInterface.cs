@@ -59,7 +59,9 @@ namespace DustInTheWind.TextFileGenerator.ConsoleApplication.Flows
 
         public void ExecuteWithSpinner(Action action)
         {
-            using (ConsoleSpinner consoleSpinner = new ConsoleSpinner())
+            SquareDotTemplate spinnerTemplate = new SquareDotTemplate();
+
+            using (ConsoleSpinner consoleSpinner = new ConsoleSpinner(spinnerTemplate))
             {
                 consoleSpinner.Start();
 

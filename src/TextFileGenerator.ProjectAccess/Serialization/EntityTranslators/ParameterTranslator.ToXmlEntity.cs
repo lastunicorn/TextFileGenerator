@@ -16,10 +16,11 @@
 
 using System;
 using System.Globalization;
-using DustInTheWind.TextFileGenerator.FileDescription;
-using DustInTheWind.TextFileGenerator.ValueProviders;
+using DustInTheWind.TextFileGenerator.Domain.ProjectModel;
+using DustInTheWind.TextFileGenerator.Domain.ValueProviders;
+using DustInTheWind.TextFileGenerator.Serialization;
 
-namespace DustInTheWind.TextFileGenerator.Serialization.EntityTranslators
+namespace DustInTheWind.TextFileGenerator.ProjectAccess.Serialization.EntityTranslators
 {
     public static partial class ParameterTranslator
     {

@@ -1,5 +1,5 @@
-﻿// VeloCity
-// Copyright (C) 2022-2023 Dust in the Wind
+// TextFileGenerator
+// Copyright (C) 2009-2011 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -14,22 +14,13 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
-
-namespace DustInTheWind.TextFileGenerator.Ports.UserAccess
+namespace DustInTheWind.TextFileGenerator.UserAccess.Controls
 {
-    public interface IUserInterface
+    internal class ArrowTemplate : TemplateBase
     {
-        void DisplayOptionFileReading(string fileName);
-
-        void DisplayOk();
-
-        void DisplayOutputFileGenerating(string fileName);
-
-        void DisplayElapsedTime(TimeSpan elapsed);
-
-        void ExecuteWithSpinner(Action action);
-
-        void DisplayOutputFileGenerateDone(string outputFileName);
+        public ArrowTemplate()
+            : base(new[] { "V", "<", "^", ">" })
+        {
+        }
     }
 }

@@ -19,9 +19,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using DustInTheWind.TextFileGenerator.Domain.ProjectModel;
-using DustInTheWind.TextFileGenerator.FileDescription;
 
-namespace DustInTheWind.TextFileGenerator.FileGeneration
+namespace DustInTheWind.TextFileGenerator.Domain.FileGeneration
 {
     public class SectionGenerator
     {

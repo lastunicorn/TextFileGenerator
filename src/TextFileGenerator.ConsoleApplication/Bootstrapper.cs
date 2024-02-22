@@ -17,7 +17,7 @@
 using CommandLine;
 using DustInTheWind.TextFileGenerator.ConsoleApplication.CommandArguments;
 using DustInTheWind.TextFileGenerator.ConsoleApplication.Flows;
-using DustInTheWind.TextFileGenerator.ConsoleApplication.Services;
+using DustInTheWind.TextFileGenerator.UserAccess;
 
 namespace DustInTheWind.TextFileGenerator.ConsoleApplication
 {

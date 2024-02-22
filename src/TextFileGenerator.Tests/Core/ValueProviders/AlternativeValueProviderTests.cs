@@ -15,7 +15,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using DustInTheWind.TextFileGenerator.Domain.ProjectModel;
-using DustInTheWind.TextFileGenerator.ValueProviders;
+using DustInTheWind.TextFileGenerator.Domain.ValueProviders;
 using Moq;
 using NUnit.Framework;
 

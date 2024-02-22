@@ -18,9 +18,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using DustInTheWind.TextFileGenerator.Domain.ProjectModel;
-using DustInTheWind.TextFileGenerator.FileDescription;
+using DustInTheWind.TextFileGenerator.Serialization;
 
-namespace DustInTheWind.TextFileGenerator.Serialization.EntityTranslators
+namespace DustInTheWind.TextFileGenerator.ProjectAccess.Serialization.EntityTranslators
 {
     public static partial class SectionTranslator
     {

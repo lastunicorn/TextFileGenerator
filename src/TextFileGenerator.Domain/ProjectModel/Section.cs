@@ -15,9 +15,8 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System.Collections.Generic;
-using DustInTheWind.TextFileGenerator.Domain.ProjectModel;
 
-namespace DustInTheWind.TextFileGenerator.FileDescription
+namespace DustInTheWind.TextFileGenerator.Domain.ProjectModel
 {
     public class Section
     {

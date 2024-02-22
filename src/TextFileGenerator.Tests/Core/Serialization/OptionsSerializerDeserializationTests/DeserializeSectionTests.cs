@@ -16,7 +16,8 @@
 
 using System.IO;
 using System.Text;
-using DustInTheWind.TextFileGenerator.FileDescription;
+using DustInTheWind.TextFileGenerator.Domain.ProjectModel;
+using DustInTheWind.TextFileGenerator.ProjectAccess.Serialization;
 using DustInTheWind.TextFileGenerator.Serialization;
 using NUnit.Framework;
 

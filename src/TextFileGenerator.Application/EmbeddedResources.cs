@@ -18,7 +18,7 @@ using System;
 using System.IO;
 using System.Reflection;
 
-namespace DustInTheWind.TextFileGenerator
+namespace DustInTheWind.TextFileGenerator.Application
 {
     public static class EmbeddedResources
     {

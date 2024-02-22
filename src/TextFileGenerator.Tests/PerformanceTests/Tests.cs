@@ -4,8 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using DustInTheWind.TextFileGenerator.Domain.ProjectModel;
-using DustInTheWind.TextFileGenerator.FileDescription;
-using DustInTheWind.TextFileGenerator.ValueProviders;
+using DustInTheWind.TextFileGenerator.Domain.ValueProviders;
 using NUnit.Framework;
 
 namespace DustInTheWind.TextFileGenerator.Tests.PerformanceTests

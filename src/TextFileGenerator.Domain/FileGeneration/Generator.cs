@@ -16,9 +16,9 @@
 
 using System;
 using System.IO;
-using DustInTheWind.TextFileGenerator.FileDescription;
+using DustInTheWind.TextFileGenerator.Domain.ProjectModel;
 
-namespace DustInTheWind.TextFileGenerator.FileGeneration
+namespace DustInTheWind.TextFileGenerator.Domain.FileGeneration
 {
     public class Generator
     {

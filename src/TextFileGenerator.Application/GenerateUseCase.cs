@@ -18,11 +18,12 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using DustInTheWind.TextFileGenerator.FileDescription;
-using DustInTheWind.TextFileGenerator.FileGeneration;
+using DustInTheWind.TextFileGenerator.Domain.FileGeneration;
+using DustInTheWind.TextFileGenerator.Domain.ProjectModel;
 using DustInTheWind.TextFileGenerator.Ports.ProjectAccess;
+using DustInTheWind.TextFileGenerator.Ports.UserAccess;
 
-namespace DustInTheWind.TextFileGenerator.ConsoleApplication.Flows
+namespace DustInTheWind.TextFileGenerator.Application
 {
     public class GenerateUseCase
     {

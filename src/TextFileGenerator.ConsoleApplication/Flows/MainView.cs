@@ -17,7 +17,7 @@
 using System;
 using System.Reflection;
 
-namespace DustInTheWind.TextFileGenerator.ConsoleApplication.Services
+namespace DustInTheWind.TextFileGenerator.ConsoleApplication.Flows
 {
     internal class MainView
     {

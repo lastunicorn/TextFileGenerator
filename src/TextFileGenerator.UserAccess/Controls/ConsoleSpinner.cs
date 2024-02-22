@@ -17,7 +17,7 @@
 using System;
 using System.Timers;
 
-namespace DustInTheWind.TextFileGenerator.ConsoleApplication.Services
+namespace DustInTheWind.TextFileGenerator.UserAccess.Controls
 {
     internal class ConsoleSpinner : IDisposable
     {

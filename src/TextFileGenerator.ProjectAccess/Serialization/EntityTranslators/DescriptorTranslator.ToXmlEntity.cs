@@ -15,9 +15,10 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System.Collections.Generic;
-using DustInTheWind.TextFileGenerator.FileDescription;
+using DustInTheWind.TextFileGenerator.Domain.ProjectModel;
+using DustInTheWind.TextFileGenerator.Serialization;
 
-namespace DustInTheWind.TextFileGenerator.Serialization.EntityTranslators
+namespace DustInTheWind.TextFileGenerator.ProjectAccess.Serialization.EntityTranslators
 {
     public static partial class DescriptorTranslator
     {

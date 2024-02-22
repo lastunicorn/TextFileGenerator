@@ -15,8 +15,9 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System.IO;
-using DustInTheWind.TextFileGenerator.FileDescription;
+using DustInTheWind.TextFileGenerator.Domain.ProjectModel;
 using DustInTheWind.TextFileGenerator.Ports.ProjectAccess;
+using DustInTheWind.TextFileGenerator.ProjectAccess.Serialization;
 using DustInTheWind.TextFileGenerator.Serialization;
 
 namespace DustInTheWind.TextFileGenerator.ProjectAccess

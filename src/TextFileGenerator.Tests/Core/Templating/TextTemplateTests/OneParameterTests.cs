@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using DustInTheWind.TextFileGenerator.Domain.ProjectModel;
-using DustInTheWind.TextFileGenerator.FileDescription;
-using DustInTheWind.TextFileGenerator.ValueProviders;
+using DustInTheWind.TextFileGenerator.Domain.ValueProviders;
 using NUnit.Framework;
 
 namespace DustInTheWind.TextFileGenerator.Tests.Core.Templating.TextTemplateTests

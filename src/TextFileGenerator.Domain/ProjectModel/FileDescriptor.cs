@@ -16,7 +16,7 @@
 
 using System.Collections.Generic;
 
-namespace DustInTheWind.TextFileGenerator.FileDescription
+namespace DustInTheWind.TextFileGenerator.Domain.ProjectModel
 {
     public class FileDescriptor
     {

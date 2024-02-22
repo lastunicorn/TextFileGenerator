@@ -15,9 +15,10 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using DustInTheWind.TextFileGenerator.Application;
 using DustInTheWind.TextFileGenerator.ConsoleApplication.CommandArguments;
-using DustInTheWind.TextFileGenerator.ConsoleApplication.Services;
 using DustInTheWind.TextFileGenerator.ProjectAccess;
+using DustInTheWind.TextFileGenerator.UserAccess;
 
 namespace DustInTheWind.TextFileGenerator.ConsoleApplication.Flows
 {

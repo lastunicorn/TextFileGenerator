@@ -1,4 +1,4 @@
-﻿// TextFileGenerator
+// TextFileGenerator
 // Copyright (C) 2009-2011 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -14,25 +14,39 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using DustInTheWind.TextFileGenerator.Domain.ProjectModel;
+using System;
 
-namespace DustInTheWind.TextFileGenerator.Domain.ValueProviders
+namespace DustInTheWind.TextFileGenerator.UserAccess.Controls
 {
-    public class EmptyValueProvider : IValueProvider
+    internal class TemplateBase : ITemplate
     {
-        public static IValueProvider Value { get; } = new EmptyValueProvider();
+        private int counter;
+        private readonly string[] sequence;
 
-        private EmptyValueProvider()
+        protected TemplateBase(string[] sequence)
         {
-        }
-
-        public string GetNextValue()
-        {
-            return string.Empty;
+            if (sequence == null) throw new ArgumentNullException(nameof(sequence));
+            this.sequence = sequence;
         }
 
         public void Reset()
         {
+            counter = 0;
+        }
+
+        public string GetCurrent()
+        {
+            return sequence[counter];
+        }
+
+        public string GetNext()
+        {
+            counter++;
+
+            if (counter >= sequence.Length)
+                counter = 0;
+
+            return sequence[counter];
         }
     }
 }

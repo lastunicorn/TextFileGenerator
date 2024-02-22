@@ -1,4 +1,4 @@
-﻿using DustInTheWind.TextFileGenerator.FileDescription;
+﻿using DustInTheWind.TextFileGenerator.Domain.ProjectModel;
 
 namespace DustInTheWind.TextFileGenerator.Ports.ProjectAccess
 {
