@@ -20,6 +20,8 @@ namespace DustInTheWind.TextFileGenerator.Wpf.Application.PresentProjects;
 
 public class SectionResponseDto
 {
+    public Guid Id { get; }
+
     public string Name { get; }
 
     public List<ParameterResponseDto> Parameters { get; }
@@ -28,10 +30,11 @@ public class SectionResponseDto
 
     internal SectionResponseDto(Section section)
     {
+        Id = section.Id;
         Name = section.Name;
 
         Parameters = section.Parameters
-            .Select(x => new ParameterResponseDto())
+            .Select(x => new ParameterResponseDto(x))
             .ToList();
 
         Sections = section.Sections

@@ -18,7 +18,7 @@ using System.Collections.ObjectModel;
 using DustInTheWind.TextFileGenerator.Wpf.Application.PresentProjects;
 using MediatR;
 
-namespace DustInTheWind.TextFileGenerator.Wpf;
+namespace DustInTheWind.TextFileGenerator.Wpf.ViewModels;
 
 public class MainViewModel : ViewModelBase
 {
@@ -26,9 +26,13 @@ public class MainViewModel : ViewModelBase
 
     public ObservableCollection<ProjectItemViewModel> Projects { get; } = new();
 
-    public MainViewModel(IMediator mediator)
+    public SelectedItemChangedCommand SelectedItemChangedCommand { get; }
+
+    public MainViewModel(IMediator mediator, SelectedItemChangedCommand selectedItemChangedCommand)
     {
         this.mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
+
+        SelectedItemChangedCommand = selectedItemChangedCommand ?? throw new ArgumentNullException(nameof(selectedItemChangedCommand));
 
         _ = RefreshProjects();
     }

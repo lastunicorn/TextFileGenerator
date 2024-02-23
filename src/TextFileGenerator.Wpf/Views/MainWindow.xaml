@@ -17,19 +17,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
 <Window
-    x:Class="DustInTheWind.TextFileGenerator.Wpf.MainWindow"
+    x:Class="DustInTheWind.TextFileGenerator.Wpf.Views.MainWindow"
 
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:wpf="clr-namespace:DustInTheWind.TextFileGenerator.Wpf"
+    xmlns:viewModels="clr-namespace:DustInTheWind.TextFileGenerator.Wpf.ViewModels"
 
     mc:Ignorable="d"
     Title="Big File Generator"
     Height="720"
     Width="1280"
-    d:DataContext="{d:DesignInstance wpf:MainViewModel}"
+    d:DataContext="{d:DesignInstance viewModels:MainViewModel}"
     Background="#202020">
 
     <Window.Resources>
@@ -50,7 +51,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             HorizontalAlignment="Stretch"
             BorderThickness="0"
             Background="#202020"
-            Foreground="#f0f0f0">
+            Foreground="#f0f0f0"
+            wpf:TreeViewBehaviors.SelectedItemChangedCommand="{Binding SelectedItemChangedCommand}">
 
             <TreeView.Resources>
 
@@ -71,16 +73,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 <SolidColorBrush
                     x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}"
                     Color="#363636" />
-                
+
                 <SolidColorBrush
                     x:Key="{x:Static SystemColors.InactiveSelectionHighlightTextBrushKey}"
                     Color="#e0e0e0" />
 
 
-                <HierarchicalDataTemplate DataType="{x:Type wpf:ProjectItemViewModel}" ItemsSource="{Binding Sections}">
+                <HierarchicalDataTemplate DataType="{x:Type viewModels:ProjectItemViewModel}" ItemsSource="{Binding Children}">
                     <StackPanel
                         Orientation="Horizontal"
-                        Margin="8 4">
+                        Margin="4 2 8 2">
 
                         <Image
                             Source="pack://application:,,,/DustInTheWind.TextFileGenerator.Wpf;component/Images/folder-management-16.png"
@@ -100,10 +102,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     </StackPanel>
                 </HierarchicalDataTemplate>
 
-                <DataTemplate DataType="{x:Type wpf:SectionItemViewModel}">
+                <HierarchicalDataTemplate DataType="{x:Type viewModels:ChildItemViewModel}" ItemsSource="{Binding Children}">
                     <StackPanel
                         Orientation="Horizontal"
-                        Margin="8 4">
+                        Margin="4 2 8 2">
 
                         <Image
                             Source="pack://application:,,,/DustInTheWind.TextFileGenerator.Wpf;component/Images/new-document-16.png"
@@ -115,7 +117,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                             Text="{Binding Label}"
                             Foreground="#e0e0e0" />
                     </StackPanel>
-                </DataTemplate>
+                </HierarchicalDataTemplate>
 
             </TreeView.Resources>
 

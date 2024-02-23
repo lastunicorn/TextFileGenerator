@@ -14,31 +14,15 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using DustInTheWind.TextFileGenerator.Domain.ProjectModel;
+using MediatR;
 
-namespace DustInTheWind.TextFileGenerator.Wpf.Application.PresentProjects;
+namespace DustInTheWind.TextFileGenerator.Wpf.Application.SetCurrentItem;
 
-public class ProjectResponseDto
+public class SetCurrentItemRequest : IRequest
 {
-    public Guid Id { get; }
+    public Guid? ProjectId { get; set; }
 
-    public string Name { get; }
+    public Guid? SectionId { get; set; }
 
-    public List<SectionResponseDto> Sections { get; }
-
-    public List<ParameterResponseDto> Parameters { get; set; }
-
-    internal ProjectResponseDto(Project project)
-    {
-        Id = project.Id;
-        Name = project.Name;
-
-        Sections = project.Sections?
-            .Select(x => new SectionResponseDto(x))
-            .ToList();
-
-        Parameters = project.Parameters?
-            .Select(x => new ParameterResponseDto(x))
-            .ToList();
-    }
+    public Guid? ParameterId { get; set; }
 }

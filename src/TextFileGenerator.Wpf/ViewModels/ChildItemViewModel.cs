@@ -15,58 +15,39 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System.Collections.ObjectModel;
+using DustInTheWind.TextFileGenerator.Wpf.Application;
 using DustInTheWind.TextFileGenerator.Wpf.Application.PresentProjects;
 
 namespace DustInTheWind.TextFileGenerator.Wpf.ViewModels;
 
-public class ProjectItemViewModel : ViewModelBase
+public class ChildItemViewModel
 {
-    private bool isChanged;
-    private string label;
+    public string Label { get; }
 
-    public string Label
-    {
-        get => label;
-        set
-        {
-            if (value == label)
-                return;
+    public Guid Value { get; }
 
-            label = value;
-            OnPropertyChanged();
-        }
-    }
-
-    public ProjectResponseDto Value { get; }
-
-    public bool IsChanged
-    {
-        get => isChanged;
-        set
-        {
-            if (value == isChanged)
-                return;
-
-            isChanged = value;
-            OnPropertyChanged();
-        }
-    }
+    public ProjectItemType ProjectItemType { get; }
 
     public ObservableCollection<ChildItemViewModel> Children { get; }
 
-    public ProjectItemViewModel(ProjectResponseDto projectResponseDto)
+    public ChildItemViewModel(ParameterResponseDto parameterResponseDto)
     {
-        Label = projectResponseDto.Name;
-        Value = projectResponseDto;
+        Label = parameterResponseDto.Name;
+        Value = parameterResponseDto.Id;
+        ProjectItemType = ProjectItemType.Parameter;
+        Children = new ObservableCollection<ChildItemViewModel>();
+    }
 
-        Children = projectResponseDto.Sections
-            .Select(z => new ChildItemViewModel(z))
-            .ToObservableCollection();
+    public ChildItemViewModel(SectionResponseDto sectionResponseDto)
+    {
+        Label = sectionResponseDto.Name;
+        Value = sectionResponseDto.Id;
+        ProjectItemType = ProjectItemType.Section;
 
-        IEnumerable<ChildItemViewModel> childSections = projectResponseDto.Sections
+        IEnumerable<ChildItemViewModel> childSections = sectionResponseDto.Sections
             .Select(x => new ChildItemViewModel(x));
 
-        IEnumerable<ChildItemViewModel> childParameters = projectResponseDto.Parameters
+        IEnumerable<ChildItemViewModel> childParameters = sectionResponseDto.Parameters
             .Select(x => new ChildItemViewModel(x));
 
         Children = childSections

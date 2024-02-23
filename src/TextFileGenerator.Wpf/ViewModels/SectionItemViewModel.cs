@@ -17,20 +17,29 @@
 using System.Collections.ObjectModel;
 using DustInTheWind.TextFileGenerator.Wpf.Application.PresentProjects;
 
-namespace DustInTheWind.TextFileGenerator.Wpf;
+namespace DustInTheWind.TextFileGenerator.Wpf.ViewModels;
 
-public class SectionItemViewModel
-{
-    public string Label { get; }
+//public class SectionItemViewModel
+//{
+//    public string Label { get; }
 
-    public ObservableCollection<SectionChildItemViewModel> Children { get; }
+//    public ObservableCollection<ChildItemViewModel> Children { get; }
 
-    public SectionItemViewModel(SectionResponseDto sectionResponseDto)
-    {
-        Label = sectionResponseDto.Name;
+//    public SectionResponseDto Value { get; }
 
-        Children = sectionResponseDto.Parameters
-            .Select(x => new SectionChildItemViewModel(x))
-            .ToObservableCollection();
-    }
-}
+//    public SectionItemViewModel(SectionResponseDto sectionResponseDto)
+//    {
+//        Label = sectionResponseDto.Name;
+//        Value = sectionResponseDto;
+
+//        IEnumerable<ChildItemViewModel> childSections = sectionResponseDto.Sections
+//            .Select(x => new ChildItemViewModel(x));
+
+//        IEnumerable<ChildItemViewModel> childParameters = sectionResponseDto.Parameters
+//            .Select(x => new ChildItemViewModel(x));
+
+//        Children = childSections
+//            .Concat(childParameters)
+//            .ToObservableCollection();
+//    }
+//}

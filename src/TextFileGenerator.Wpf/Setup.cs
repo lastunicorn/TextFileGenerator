@@ -17,6 +17,8 @@
 using Autofac;
 using DustInTheWind.TextFileGenerator.Wpf.Application;
 using DustInTheWind.TextFileGenerator.Wpf.Application.PresentProjects;
+using DustInTheWind.TextFileGenerator.Wpf.ViewModels;
+using DustInTheWind.TextFileGenerator.Wpf.Views;
 using MediatR.Extensions.Autofac.DependencyInjection;
 using MediatR.Extensions.Autofac.DependencyInjection.Builder;
 
@@ -28,8 +30,9 @@ public static class Setup
     {
         containerBuilder.RegisterType<MainWindow>().AsSelf();
         containerBuilder.RegisterType<MainViewModel>().AsSelf();
+        containerBuilder.RegisterType<SelectedItemChangedCommand>().AsSelf();
 
-        containerBuilder.RegisterType<ApplicationState>().AsSelf();
+        containerBuilder.RegisterType<ApplicationState>().AsSelf().SingleInstance();
 
         MediatRConfiguration mediatRConfiguration = MediatRConfigurationBuilder.Create(typeof(PresentProjectsRequest).Assembly)
             .WithAllOpenGenericHandlerTypesRegistered()

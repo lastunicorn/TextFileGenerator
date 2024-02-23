@@ -16,6 +16,7 @@
 
 using System.Windows;
 using Autofac;
+using DustInTheWind.TextFileGenerator.Wpf.Views;
 
 namespace DustInTheWind.TextFileGenerator.Wpf;
 

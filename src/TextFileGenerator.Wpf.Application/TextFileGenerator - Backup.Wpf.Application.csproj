@@ -34,7 +34,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="SetCurrentItem\" />
+      <Folder Include="NewFolder\" />
     </ItemGroup>
 
 </Project>

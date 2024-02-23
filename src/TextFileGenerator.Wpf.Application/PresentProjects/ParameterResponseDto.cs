@@ -14,8 +14,19 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using DustInTheWind.TextFileGenerator.Domain.ProjectModel;
+
 namespace DustInTheWind.TextFileGenerator.Wpf.Application.PresentProjects;
 
 public class ParameterResponseDto
 {
+    public Guid Id { get; }
+
+    public string Name { get; }
+
+    public ParameterResponseDto(Parameter parameter)
+    {
+        Id = parameter.Id;
+        Name = parameter.Name;
+    }
 }

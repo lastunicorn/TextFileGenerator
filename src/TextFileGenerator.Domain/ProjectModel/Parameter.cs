@@ -24,6 +24,8 @@ namespace DustInTheWind.TextFileGenerator.Domain.ProjectModel
         private bool isNew = true;
         private IValueProvider valueProvider = EmptyValueProvider.Value;
 
+        public Guid Id { get; }
+
         public string Name { get; set; }
 
         public ValueChangeMode ValueChangeMode { get; set; }
@@ -48,6 +50,16 @@ namespace DustInTheWind.TextFileGenerator.Domain.ProjectModel
 
                 return CurrentValue;
             }
+        }
+
+        public Parameter()
+        {
+            Id = Guid.NewGuid();
+        }
+
+        public Parameter(Guid id)
+        {
+            Id = id;
         }
 
         public void MoveToNextValue()

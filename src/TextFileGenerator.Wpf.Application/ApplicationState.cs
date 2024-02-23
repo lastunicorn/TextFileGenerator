@@ -20,69 +20,30 @@ namespace DustInTheWind.TextFileGenerator.Wpf.Application;
 
 public class ApplicationState
 {
+    private Project currentProject;
+    private Section currentSection;
+
     public List<Project> OpenedProjects { get; } = new();
 
-    public Project CurrentProject { get; set; }
+    public ProjectItemType CurrentItemType { get; private set; }
 
-    public ApplicationState()
+    public Project CurrentProject
     {
-        OpenedProjects.AddRange(CreateProjects());
+        get => currentProject;
+        set
+        {
+            currentProject = value;
+            CurrentItemType = ProjectItemType.Project;
+        }
     }
 
-    private List<Project> CreateProjects()
+    public Section CurrentSection
     {
-        List<Project> projects = new()
+        get => currentSection;
+        set
         {
-            new Project
-            {
-                Name = "Text 1000 rows",
-                Sections =
-                {
-                    new Section
-                    {
-                        Name = "Section 1",
-                        Parameters =
-                        {
-                            new Parameter(),
-                            new Parameter(),
-                            new Parameter()
-                        }
-                    },
-                    new Section
-                    {
-                        Name = "Section 2",
-                        Parameters =
-                        {
-                            new Parameter(),
-                            new Parameter(),
-                            new Parameter(),
-                            new Parameter(),
-                            new Parameter()
-                        }
-                    }
-                }
-            },
-            new Project
-            {
-                Name = "Binary 10 MB"
-            },
-            new Project
-            {
-                Name = "XML",
-                Sections =
-                {
-                    new Section
-                    {
-                        Name = "Section 1",
-                        Parameters =
-                        {
-                            new Parameter()
-                        }
-                    }
-                }
-            }
-        };
-
-        return projects;
+            currentSection = value;
+            CurrentItemType = ProjectItemType.Section;
+        }
     }
 }

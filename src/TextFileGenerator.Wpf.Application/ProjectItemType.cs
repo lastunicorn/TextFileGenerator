@@ -14,14 +14,11 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using DustInTheWind.TextFileGenerator.Wpf.Application.PresentProjects;
+namespace DustInTheWind.TextFileGenerator.Wpf.Application;
 
-namespace DustInTheWind.TextFileGenerator.Wpf;
-
-public class SectionChildItemViewModel
+public enum ProjectItemType
 {
-    public SectionChildItemViewModel(ParameterResponseDto parameterResponseDto)
-    {
-        
-    }
+    Project,
+    Section,
+    Parameter
 }
