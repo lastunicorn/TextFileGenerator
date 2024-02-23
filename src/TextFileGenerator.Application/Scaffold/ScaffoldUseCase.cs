@@ -16,13 +16,16 @@
 
 using System;
 using System.IO;
+using System.Threading;
+using System.Threading.Tasks;
 using DustInTheWind.TextFileGenerator.Ports.UserAccess;
+using MediatR;
 
-namespace DustInTheWind.TextFileGenerator.Application
+namespace DustInTheWind.TextFileGenerator.Application.Scaffold
 {
-    public class ScaffoldUseCase
+    internal class ScaffoldUseCase : IRequestHandler<ScaffoldRequest>
     {
-        private const string ScaffoldResourceFilePath = "DustInTheWind.TextFileGenerator.Application.Scaffold.xml";
+        private const string ScaffoldResourceFilePath = "DustInTheWind.TextFileGenerator.Application.Scaffold.Scaffold.xml";
         private const string ScaffoldDefaultFileName = "file.xml";
 
         private readonly IUserInterface userInterface;
@@ -32,18 +35,15 @@ namespace DustInTheWind.TextFileGenerator.Application
             this.userInterface = userInterface ?? throw new ArgumentNullException(nameof(userInterface));
         }
 
-        public void Execute()
+        public Task Handle(ScaffoldRequest request, CancellationToken cancellationToken)
         {
             using (Stream outputStream = File.Create(ScaffoldDefaultFileName))
-            {
-                using (Stream inputStream = EmbeddedResources.GetEmbeddedStream(ScaffoldResourceFilePath))
-                {
-                    inputStream.CopyTo(outputStream);
-                }
-            }
+            using (Stream inputStream = EmbeddedResources.GetEmbeddedStream(ScaffoldResourceFilePath))
+                inputStream.CopyTo(outputStream);
 
             userInterface.DisplayOutputFileGenerateDone(ScaffoldDefaultFileName);
-        }
 
+            return Task.CompletedTask;
+        }
     }
 }

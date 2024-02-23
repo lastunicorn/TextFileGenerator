@@ -14,39 +14,41 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
 using DustInTheWind.TextFileGenerator.Domain.ProjectModel;
 
 namespace DustInTheWind.TextFileGenerator.Domain.ValueProviders
 {
-    public class AlternativeValueProvider : IValueProvider
+    public class AlternateValueProvider : IValueProvider
     {
         private readonly IValueProvider valueProvider1;
         private readonly IValueProvider valueProvider2;
-        private bool isFirstRequest;
+        private bool isOdd;
 
-        public AlternativeValueProvider(IValueProvider valueProvider1, IValueProvider valueProvider2)
+        public AlternateValueProvider(IValueProvider valueProvider1, IValueProvider valueProvider2)
         {
             this.valueProvider1 = valueProvider1;
             this.valueProvider2 = valueProvider2;
 
-            isFirstRequest = true;
+            isOdd = true;
         }
 
         public string GetNextValue()
         {
-            string nextValue = isFirstRequest
+            string nextValue = isOdd
                 ? valueProvider1.GetNextValue()
                 : valueProvider2.GetNextValue();
 
-            isFirstRequest = false;
+            isOdd = !isOdd;
 
             return nextValue;
         }
 
         public void Reset()
         {
-            throw new NotImplementedException();
+            valueProvider1.Reset();
+            valueProvider2.Reset();
+
+            isOdd = true;
         }
     }
 }

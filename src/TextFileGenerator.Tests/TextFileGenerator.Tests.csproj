@@ -53,7 +53,7 @@
     <Compile Include="Core\Templating\TextTemplateTests\NoParameterTests.cs" />
     <Compile Include="Core\Templating\TextTemplateTests\OneParameterTests.cs" />
     <Compile Include="Core\Templating\TextTemplateTests\NullParametersTests.cs" />
-    <Compile Include="Core\ValueProviders\AlternativeValueProviderTests.cs" />
+    <Compile Include="Core\ValueProviders\AlternateValueProviderTests.cs" />
     <Compile Include="Core\FileGeneration\GeneratorTests\GeneratingSubsectionsTests.cs" />
     <Compile Include="Core\FileGeneration\GeneratorTests\GeneratingSectionWithRandomTextParameterTests.cs" />
     <Compile Include="Core\FileGeneration\GeneratorTests\GeneratingSectionWithRandomNumberParameterTests.cs" />

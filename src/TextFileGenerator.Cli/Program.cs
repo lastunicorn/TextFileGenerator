@@ -18,10 +18,10 @@ namespace DustInTheWind.TextFileGenerator.Cli
 {
     internal static class Program
     {
-        private static void Main(string[] args)
+        private static async Task Main(string[] args)
         {
             Bootstrapper bootstrapper = new();
-            bootstrapper.Run(args);
+            await bootstrapper.Run(args);
         }
     }
 }

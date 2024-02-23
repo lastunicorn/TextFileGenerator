@@ -18,45 +18,49 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Threading;
+using System.Threading.Tasks;
 using DustInTheWind.TextFileGenerator.Domain.FileGeneration;
 using DustInTheWind.TextFileGenerator.Domain.ProjectModel;
 using DustInTheWind.TextFileGenerator.Ports.ProjectAccess;
 using DustInTheWind.TextFileGenerator.Ports.UserAccess;
+using MediatR;
 
-namespace DustInTheWind.TextFileGenerator.Application
+namespace DustInTheWind.TextFileGenerator.Application.Generate
 {
-    public class GenerateUseCase
+    internal class GenerateUseCase : IRequestHandler<GenerateRequest>
     {
         private readonly IUserInterface userInterface;
         private readonly IProjectRepository projectRepository;
-        private readonly IList<string> descriptorFileNames;
 
-        public GenerateUseCase(IUserInterface userInterface, IProjectRepository projectRepository, IList<string> descriptorFileNames)
+        public GenerateUseCase(IUserInterface userInterface, IProjectRepository projectRepository)
         {
             this.userInterface = userInterface ?? throw new ArgumentNullException(nameof(userInterface));
             this.projectRepository = projectRepository ?? throw new ArgumentNullException(nameof(projectRepository));
-            this.descriptorFileNames = descriptorFileNames ?? throw new ArgumentNullException(nameof(descriptorFileNames));
         }
 
-        public void Execute()
+        public Task Handle(GenerateRequest request, CancellationToken cancellationToken)
         {
-            Project project = ReadDescriptorFile();
-            GenerateTextFile(project);
+            string projectFileName = request.DescriptorFileNames[0];
+            Project project = ReadDescriptorFile(projectFileName);
+
+            string outputFileName = GenerateOutputFileName(projectFileName);
+            GenerateTextFile(project, outputFileName);
+
+            return Task.CompletedTask;
         }
 
-        private Project ReadDescriptorFile()
+        private Project ReadDescriptorFile(string projectFileName)
         {
-            userInterface.DisplayOptionFileReading(descriptorFileNames[0]);
-            Project project = projectRepository.Get(descriptorFileNames[0]);
+            userInterface.DisplayOptionFileReading(projectFileName);
+            Project project = projectRepository.Get(projectFileName);
             userInterface.DisplayOk();
 
             return project;
         }
 
-        private void GenerateTextFile(Project project)
+        private void GenerateTextFile(Project project, string outputFileName)
         {
-            string outputFileName = GenerateOutputFileName();
-
             userInterface.DisplayOutputFileGenerating(outputFileName);
 
             TimeSpan time = Measure(() =>
@@ -85,10 +89,10 @@ namespace DustInTheWind.TextFileGenerator.Application
             return stopwatch.Elapsed;
         }
 
-        private string GenerateOutputFileName()
+        private string GenerateOutputFileName(string projectFileName)
         {
-            string directoryPath = Path.GetDirectoryName(descriptorFileNames[0]);
-            string outputFileName = Path.GetFileNameWithoutExtension(descriptorFileNames[0]) + ".output.txt";
+            string directoryPath = Path.GetDirectoryName(projectFileName);
+            string outputFileName = Path.GetFileNameWithoutExtension(projectFileName) + ".output.txt";
 
             return Path.Combine(directoryPath, outputFileName);
         }

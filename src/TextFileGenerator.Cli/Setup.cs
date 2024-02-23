@@ -16,9 +16,15 @@
 
 using Autofac;
 using CommandLine;
+using DustInTheWind.TextFileGenerator.Application.Generate;
 using DustInTheWind.TextFileGenerator.Cli.CommandArguments;
 using DustInTheWind.TextFileGenerator.Cli.Flows;
+using DustInTheWind.TextFileGenerator.Ports.ProjectAccess;
+using DustInTheWind.TextFileGenerator.Ports.UserAccess;
+using DustInTheWind.TextFileGenerator.ProjectAccess;
 using DustInTheWind.TextFileGenerator.UserAccess;
+using MediatR.Extensions.Autofac.DependencyInjection;
+using MediatR.Extensions.Autofac.DependencyInjection.Builder;
 
 namespace DustInTheWind.TextFileGenerator.Cli;
 
@@ -29,11 +35,20 @@ internal class Setup
         containerBuilder.RegisterType<UserInterface>().AsSelf();
         containerBuilder.RegisterType<MainView>().AsSelf();
         containerBuilder.RegisterType<MainFlow>().AsSelf();
+        
+        containerBuilder.RegisterType<ProjectRepository>().As<IProjectRepository>();
+        containerBuilder.RegisterType<UserInterface>().As<IUserInterface>();
 
         Parser.Default.ParseArguments<Options>(args)
             .WithParsed(o =>
             {
                 containerBuilder.RegisterInstance(o).AsSelf();
             });
+
+        MediatRConfiguration mediatRConfiguration = MediatRConfigurationBuilder.Create(typeof(GenerateRequest).Assembly)
+            .WithAllOpenGenericHandlerTypesRegistered()
+            .Build();
+
+        containerBuilder.RegisterMediatR(mediatRConfiguration);
     }
 }

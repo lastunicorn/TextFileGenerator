@@ -14,32 +14,11 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using Autofac;
-using DustInTheWind.TextFileGenerator.Cli.Flows;
+using MediatR;
 
-namespace DustInTheWind.TextFileGenerator.Cli;
-
-internal class Bootstrapper
+namespace DustInTheWind.TextFileGenerator.Application.Scaffold
 {
-    public async Task Run(string[] args)
+    public class ScaffoldRequest : IRequest
     {
-        IContainer container = CreateContainer(args);
-
-        await RunApplication(container);
-    }
-
-    private static IContainer CreateContainer(string[] args)
-    {
-        ContainerBuilder containerBuilder = new();
-        Setup.ConfigureDependencies(containerBuilder, args);
-
-        IContainer container = containerBuilder.Build();
-        return container;
-    }
-
-    private static async Task RunApplication(IContainer container)
-    {
-        MainFlow mainFlow = container.Resolve<MainFlow>();
-        await mainFlow.Start();
     }
 }

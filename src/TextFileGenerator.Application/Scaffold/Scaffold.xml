@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<TextFileGenerator xmlns="http://alez.ro/TextFileGenerator">
+
+    <!-- write sections here -->
+
+    <!--
+    <Section Repeat="10" Separator="," SeparatorLocation="Infix">
+        <Text>some text here</Text>
+    </Section>
+    -->
+
+</TextFileGenerator>

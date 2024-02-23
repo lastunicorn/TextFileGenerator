@@ -25,20 +25,18 @@ namespace DustInTheWind.TextFileGenerator.Domain.ValueProviders
         [ThreadStatic]
         private static Random random;
 
-        public int MinValue { get; set; }
-        public int MaxValue { get; set; }
-        public string Format { get; set; }
-        private string currentValue;
+        private string currentValue = string.Empty;
 
+        public int MinValue { get; set; } = 0;
+
+        public int MaxValue { get; set; } = 99;
+
+        public string Format { get; set; }
+        
         public RandomNumberValueProvider()
         {
             if (random == null)
                 random = new Random();
-
-            MinValue = 0;
-            MaxValue = 99;
-
-            currentValue = string.Empty;
         }
 
         public string GetNextValue()

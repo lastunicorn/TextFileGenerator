@@ -21,9 +21,11 @@ namespace DustInTheWind.TextFileGenerator.Domain.ValueProviders
 {
     public class CounterValueProvider : IValueProvider
     {
-        private int currentNumber;
-        private int startValue;
-        private bool isFirst;
+        private string currentValue;
+
+        private int currentNumber = 1;
+        private int startValue = 1;
+        private bool isFirst = true;
 
         public int StartValue
         {
@@ -36,17 +38,10 @@ namespace DustInTheWind.TextFileGenerator.Domain.ValueProviders
             }
         }
 
-        public int Step { get; set; }
+        public int Step { get; set; } = 1;
+
         public string Format { get; set; }
-        private string currentValue;
-
-        public CounterValueProvider()
-        {
-            StartValue = 1;
-            Step = 1;
-            isFirst = true;
-        }
-
+        
         public string GetNextValue()
         {
             GenerateNextValue();

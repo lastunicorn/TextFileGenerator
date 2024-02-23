@@ -14,10 +14,12 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using DustInTheWind.TextFileGenerator.Application;
+using DustInTheWind.TextFileGenerator.Application.Generate;
+using DustInTheWind.TextFileGenerator.Application.Scaffold;
 using DustInTheWind.TextFileGenerator.Cli.CommandArguments;
 using DustInTheWind.TextFileGenerator.ProjectAccess;
 using DustInTheWind.TextFileGenerator.UserAccess;
+using MediatR;
 
 namespace DustInTheWind.TextFileGenerator.Cli.Flows
 {
@@ -26,24 +28,31 @@ namespace DustInTheWind.TextFileGenerator.Cli.Flows
     /// </summary>
     internal class MainFlow
     {
-        private readonly UserInterface userInterface;
         private readonly MainView mainView;
-        private readonly Options arguments;
+        private readonly Options options;
+        private readonly IMediator mediator;
 
-        public MainFlow(UserInterface userInterface, MainView mainView, Options arguments)
+        public MainFlow(MainView mainView, Options options, IMediator mediator)
         {
-            this.userInterface = userInterface ?? throw new ArgumentNullException(nameof(userInterface));
             this.mainView = mainView ?? throw new ArgumentNullException(nameof(mainView));
-            this.arguments = arguments ?? throw new ArgumentNullException(nameof(arguments));
+            this.options = options ?? throw new ArgumentNullException(nameof(options));
+            this.mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
         }
 
-        public void Start()
+        public async Task Start()
         {
             mainView.WriteHeader();
 
             try
             {
-                ExecuteUseCase();
+                if (options.DescriptorFileNames is { Count: > 0 })
+                {
+                    await GenerateOutput();
+                }
+                else if (options.GenerateScaffold)
+                {
+                    await GenerateScaffoldFile();
+                }
             }
             catch (Exception ex)
             {
@@ -51,19 +60,19 @@ namespace DustInTheWind.TextFileGenerator.Cli.Flows
             }
         }
 
-        private void ExecuteUseCase()
+        private async Task GenerateOutput()
         {
-            if (arguments.DescriptorFileNames is { Count: > 0 })
+            GenerateRequest request = new()
             {
-                ProjectRepository projectRepository = new();
-                GenerateUseCase generateUseCase = new(userInterface, projectRepository, arguments.DescriptorFileNames);
-                generateUseCase.Execute();
-            }
-            else if (arguments.GenerateScaffold)
-            {
-                ScaffoldUseCase scaffoldUseCase = new(userInterface);
-                scaffoldUseCase.Execute();
-            }
+                DescriptorFileNames = options.DescriptorFileNames
+            };
+            await mediator.Send(request);
+        }
+
+        private async Task GenerateScaffoldFile()
+        {
+            ScaffoldRequest request = new();
+            await mediator.Send(request);
         }
     }
 }
