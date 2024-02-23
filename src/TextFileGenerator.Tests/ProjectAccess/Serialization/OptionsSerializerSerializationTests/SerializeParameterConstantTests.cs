@@ -14,105 +14,103 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System.IO;
 using DustInTheWind.TextFileGenerator.Domain.ProjectModel;
 using DustInTheWind.TextFileGenerator.Domain.ValueProviders;
 using DustInTheWind.TextFileGenerator.ProjectAccess.Serialization;
 using DustInTheWind.TextFileGenerator.Tests.Utils;
 using NUnit.Framework;
 
-namespace DustInTheWind.TextFileGenerator.Tests.ProjectAccess.Serialization.OptionsSerializerSerializationTests
+namespace DustInTheWind.TextFileGenerator.Tests.ProjectAccess.Serialization.OptionsSerializerSerializationTests;
+
+[TestFixture]
+public class SerializeParameterConstantTests
 {
-    [TestFixture]
-    public class SerializeParameterConstantTests
+    private FileDescriptorSerializer fileDescriptorSerializer;
+    private MemoryStream actualStream;
+    private Project project;
+
+    [SetUp]
+    public void SetUp()
     {
-        private FileDescriptorSerializer fileDescriptorSerializer;
-        private MemoryStream actualStream;
-        private Project project;
+        fileDescriptorSerializer = new FileDescriptorSerializer();
+        actualStream = new MemoryStream();
 
-        [SetUp]
-        public void SetUp()
+        project = new Project();
+        project.Sections.Add(new Section());
+    }
+
+    [TearDown]
+    public void TearDown()
+    {
+        actualStream?.Dispose();
+    }
+
+    [Test]
+    public void parameter_element_contains_constant_element_if_Parameter_has_a_ConstantValueProvider()
+    {
+        project.Sections[0].Parameters.Add(new Parameter
         {
-            fileDescriptorSerializer = new FileDescriptorSerializer();
-            actualStream = new MemoryStream();
+            Name = "key1",
+            ValueProvider = new ConstantValueProvider()
+        });
 
-            project = new Project();
-            project.Sections.Add(new Section());
-        }
+        XmlAssert xmlAssert = PerformTestAndCreateAsserterOnResult();
 
-        [TearDown]
-        public void TearDown()
+        xmlAssert.AssertNodeCount("/alez:TextFileGenerator/alez:Section/alez:Parameter/alez:Constant", 1);
+    }
+
+    [Test]
+    public void constant_element_contains_value_attribute_if_Value_was_set()
+    {
+        project.Sections[0].Parameters.Add(new Parameter
         {
-            actualStream?.Dispose();
-        }
+            Name = "key1",
+            ValueProvider = new ConstantValueProvider { Value = "some text" }
+        });
 
-        [Test]
-        public void parameter_element_contains_constant_element_if_Parameter_has_a_ConstantValueProvider()
+        XmlAssert xmlAssert = PerformTestAndCreateAsserterOnResult();
+
+        xmlAssert.AssertNodeCount("/alez:TextFileGenerator/alez:Section/alez:Parameter/alez:Constant/@Value", 1);
+        xmlAssert.AssertText("/alez:TextFileGenerator/alez:Section/alez:Parameter/alez:Constant/@Value", "some text");
+    }
+
+    [Test]
+    public void constant_element_does_not_contain_value_attribute_if_Value_was_not_set()
+    {
+        project.Sections[0].Parameters.Add(new Parameter
         {
-            project.Sections[0].Parameters.Add(new Parameter
-            {
-                Name = "key1",
-                ValueProvider = new ConstantValueProvider()
-            });
+            Name = "key1",
+            ValueProvider = new ConstantValueProvider()
+        });
 
-            XmlAssert xmlAssert = PerformTestAndCreateAsserterOnResult();
+        XmlAssert xmlAssert = PerformTestAndCreateAsserterOnResult();
 
-            xmlAssert.AssertNodeCount("/alez:TextFileGenerator/alez:Section/alez:Parameter/alez:Constant", 1);
-        }
+        xmlAssert.AssertNodeCount("/alez:TextFileGenerator/alez:Section/alez:Parameter/alez:Constant/@Value", 0);
+    }
 
-        [Test]
-        public void constant_element_contains_value_attribute_if_Value_was_set()
+    [Test]
+    public void constant_element_does_not_contain_value_attribute_if_Value_was_set_to_empty_string()
+    {
+        project.Sections[0].Parameters.Add(new Parameter
         {
-            project.Sections[0].Parameters.Add(new Parameter
-            {
-                Name = "key1",
-                ValueProvider = new ConstantValueProvider { Value = "some text" }
-            });
+            Name = "key1",
+            ValueProvider = new ConstantValueProvider { Value = string.Empty }
+        });
 
-            XmlAssert xmlAssert = PerformTestAndCreateAsserterOnResult();
+        XmlAssert xmlAssert = PerformTestAndCreateAsserterOnResult();
 
-            xmlAssert.AssertNodeCount("/alez:TextFileGenerator/alez:Section/alez:Parameter/alez:Constant/@Value", 1);
-            xmlAssert.AssertText("/alez:TextFileGenerator/alez:Section/alez:Parameter/alez:Constant/@Value", "some text");
-        }
+        xmlAssert.AssertNodeCount("/alez:TextFileGenerator/alez:Section/alez:Parameter/alez:Constant/@Value", 0);
+    }
 
-        [Test]
-        public void constant_element_does_not_contain_value_attribute_if_Value_was_not_set()
-        {
-            project.Sections[0].Parameters.Add(new Parameter
-            {
-                Name = "key1",
-                ValueProvider = new ConstantValueProvider()
-            });
+    private XmlAssert PerformTestAndCreateAsserterOnResult()
+    {
+        fileDescriptorSerializer.Serialize(actualStream, project);
 
-            XmlAssert xmlAssert = PerformTestAndCreateAsserterOnResult();
+        actualStream.Position = 0;
 
-            xmlAssert.AssertNodeCount("/alez:TextFileGenerator/alez:Section/alez:Parameter/alez:Constant/@Value", 0);
-        }
+        XmlAssert xmlAssert = new(actualStream);
+        xmlAssert.AddNamespace("alez", "http://alez.ro/TextFileGenerator");
 
-        [Test]
-        public void constant_element_does_not_contain_value_attribute_if_Value_was_set_to_empty_string()
-        {
-            project.Sections[0].Parameters.Add(new Parameter
-            {
-                Name = "key1",
-                ValueProvider = new ConstantValueProvider { Value = string.Empty }
-            });
-
-            XmlAssert xmlAssert = PerformTestAndCreateAsserterOnResult();
-
-            xmlAssert.AssertNodeCount("/alez:TextFileGenerator/alez:Section/alez:Parameter/alez:Constant/@Value", 0);
-        }
-
-        private XmlAssert PerformTestAndCreateAsserterOnResult()
-        {
-            fileDescriptorSerializer.Serialize(actualStream, project);
-
-            actualStream.Position = 0;
-
-            XmlAssert xmlAssert = new XmlAssert(actualStream);
-            xmlAssert.AddNamespace("alez", "http://alez.ro/TextFileGenerator");
-
-            return xmlAssert;
-        }
+        return xmlAssert;
     }
 }

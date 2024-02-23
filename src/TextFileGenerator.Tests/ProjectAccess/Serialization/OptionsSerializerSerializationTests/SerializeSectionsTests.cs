@@ -14,75 +14,73 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System.IO;
 using DustInTheWind.TextFileGenerator.Domain.ProjectModel;
 using DustInTheWind.TextFileGenerator.ProjectAccess.Serialization;
 using DustInTheWind.TextFileGenerator.Tests.Utils;
 using NUnit.Framework;
 
-namespace DustInTheWind.TextFileGenerator.Tests.ProjectAccess.Serialization.OptionsSerializerSerializationTests
+namespace DustInTheWind.TextFileGenerator.Tests.ProjectAccess.Serialization.OptionsSerializerSerializationTests;
+
+[TestFixture]
+public class SerializeSectionsTests
 {
-    [TestFixture]
-    public class SerializeSectionsTests
+    private FileDescriptorSerializer fileDescriptorSerializer;
+    private MemoryStream actualStream;
+    private Project project;
+
+    [SetUp]
+    public void SetUp()
     {
-        private FileDescriptorSerializer fileDescriptorSerializer;
-        private MemoryStream actualStream;
-        private Project project;
+        fileDescriptorSerializer = new FileDescriptorSerializer();
+        actualStream = new MemoryStream();
 
-        [SetUp]
-        public void SetUp()
-        {
-            fileDescriptorSerializer = new FileDescriptorSerializer();
-            actualStream = new MemoryStream();
+        project = new Project();
+    }
 
-            project = new Project();
-        }
+    [TearDown]
+    public void TearDown()
+    {
+        actualStream?.Dispose();
+    }
 
-        [TearDown]
-        public void TearDown()
-        {
-            actualStream?.Dispose();
-        }
+    [Test]
+    public void sections_element_is_not_created_if_it_contains_no_section()
+    {
+        XmlAssert xmlAssert = PerformTestAndCreateAsserterOnResult();
 
-        [Test]
-        public void sections_element_is_not_created_if_it_contains_no_section()
-        {
-            XmlAssert xmlAssert = PerformTestAndCreateAsserterOnResult();
+        xmlAssert.AssertNodeCount("/alez:TextFileGenerator/alez:Section", 0);
+    }
 
-            xmlAssert.AssertNodeCount("/alez:TextFileGenerator/alez:Section", 0);
-        }
+    [Test]
+    public void sections_element_contains_one_child_if_one_section_is_declared()
+    {
+        project.Sections.Add(new Section());
 
-        [Test]
-        public void sections_element_contains_one_child_if_one_section_is_declared()
-        {
-            project.Sections.Add(new Section());
+        XmlAssert xmlAssert = PerformTestAndCreateAsserterOnResult();
 
-            XmlAssert xmlAssert = PerformTestAndCreateAsserterOnResult();
+        xmlAssert.AssertNodeCount("/alez:TextFileGenerator/alez:Section", 1);
+    }
 
-            xmlAssert.AssertNodeCount("/alez:TextFileGenerator/alez:Section", 1);
-        }
+    [Test]
+    public void sections_element_contains_two_children_if_two_sections_are_declared()
+    {
+        project.Sections.Add(new Section());
+        project.Sections.Add(new Section());
 
-        [Test]
-        public void sections_element_contains_two_children_if_two_sections_are_declared()
-        {
-            project.Sections.Add(new Section());
-            project.Sections.Add(new Section());
+        XmlAssert xmlAssert = PerformTestAndCreateAsserterOnResult();
 
-            XmlAssert xmlAssert = PerformTestAndCreateAsserterOnResult();
+        xmlAssert.AssertNodeCount("/alez:TextFileGenerator/alez:Section", 2);
+    }
 
-            xmlAssert.AssertNodeCount("/alez:TextFileGenerator/alez:Section", 2);
-        }
+    private XmlAssert PerformTestAndCreateAsserterOnResult()
+    {
+        fileDescriptorSerializer.Serialize(actualStream, project);
 
-        private XmlAssert PerformTestAndCreateAsserterOnResult()
-        {
-            fileDescriptorSerializer.Serialize(actualStream, project);
+        actualStream.Position = 0;
 
-            actualStream.Position = 0;
+        XmlAssert xmlAssert = new(actualStream);
+        xmlAssert.AddNamespace("alez", "http://alez.ro/TextFileGenerator");
 
-            XmlAssert xmlAssert = new XmlAssert(actualStream);
-            xmlAssert.AddNamespace("alez", "http://alez.ro/TextFileGenerator");
-
-            return xmlAssert;
-        }
+        return xmlAssert;
     }
 }

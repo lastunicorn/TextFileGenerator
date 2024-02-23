@@ -14,126 +14,124 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System.IO;
 using DustInTheWind.TextFileGenerator.Domain.FileGeneration;
 using DustInTheWind.TextFileGenerator.Domain.ProjectModel;
 using NUnit.Framework;
 
-namespace DustInTheWind.TextFileGenerator.Tests.Domain.FileGeneration.GeneratorTests
+namespace DustInTheWind.TextFileGenerator.Tests.Domain.FileGeneration.OutputTests;
+
+[TestFixture]
+public class GeneratingSectionsTests
 {
-    [TestFixture]
-    public class GeneratingSectionsTests
+    private Project project;
+
+    [SetUp]
+    public void SetUp()
     {
-        private Project project;
+        project = new Project();
+    }
 
-        [SetUp]
-        public void SetUp()
+    [Test]
+    public void outputs_the_section_template_of_one_section()
+    {
+        project.Sections.Add(new Section
         {
-            project = new Project();
-        }
+            SectionText = new TextTemplate("test")
+        });
 
-        [Test]
-        public void outputs_the_section_template_of_one_section()
+        string actual = PerformTest();
+
+        Assert.That(actual, Is.EqualTo("test"));
+    }
+
+    [Test]
+    public void outputs_section_template_twice_if_one_section_with_RepeatCount_2()
+    {
+        project.Sections.Add(new Section
         {
-            project.Sections.Add(new Section
-            {
-                SectionText = new TextTemplate("test")
-            });
+            SectionText = new TextTemplate("test"),
+            RepeatCount = 2
+        });
 
-            string actual = PerformTest();
+        string actual = PerformTest();
 
-            Assert.That(actual, Is.EqualTo("test"));
-        }
+        Assert.That(actual, Is.EqualTo("testtest"));
+    }
 
-        [Test]
-        public void outputs_section_template_twice_if_one_section_with_RepeatCount_2()
+    [Test]
+    public void outputs_separator_between_two_instances_of_the_section_if_separator_was_set()
+    {
+        project.Sections.Add(new Section
         {
-            project.Sections.Add(new Section
-            {
-                SectionText = new TextTemplate("test"),
-                RepeatCount = 2
-            });
+            SectionText = new TextTemplate("test"),
+            RepeatCount = 2,
+            Separator = ";"
+        });
 
-            string actual = PerformTest();
+        string actual = PerformTest();
 
-            Assert.That(actual, Is.EqualTo("testtest"));
-        }
+        Assert.That(actual, Is.EqualTo("test;test"));
+    }
 
-        [Test]
-        public void outputs_separator_between_two_instances_of_the_section_if_separator_was_set()
+    [Test]
+    public void outputs_separator_after_each_instance_of_the_section_if_separatorType_is_Postfix()
+    {
+        project.Sections.Add(new Section
         {
-            project.Sections.Add(new Section
-            {
-                SectionText = new TextTemplate("test"),
-                RepeatCount = 2,
-                Separator = ";"
-            });
+            SectionText = new TextTemplate("test"),
+            RepeatCount = 2,
+            Separator = ";",
+            SeparatorLocation = SeparatorLocation.Postfix
+        });
 
-            string actual = PerformTest();
+        string actual = PerformTest();
 
-            Assert.That(actual, Is.EqualTo("test;test"));
-        }
+        Assert.That(actual, Is.EqualTo("test;test;"));
+    }
 
-        [Test]
-        public void outputs_separator_after_each_instance_of_the_section_if_separatorType_is_Postfix()
+    [Test]
+    public void outputs_separator_before_each_instance_of_the_section_if_separatorType_is_Prefix()
+    {
+        project.Sections.Add(new Section
         {
-            project.Sections.Add(new Section
-            {
-                SectionText = new TextTemplate("test"),
-                RepeatCount = 2,
-                Separator = ";",
-                SeparatorLocation = SeparatorLocation.Postfix
-            });
+            SectionText = new TextTemplate("test"),
+            RepeatCount = 2,
+            Separator = ";",
+            SeparatorLocation = SeparatorLocation.Prefix
+        });
 
-            string actual = PerformTest();
+        string actual = PerformTest();
 
-            Assert.That(actual, Is.EqualTo("test;test;"));
-        }
+        Assert.That(actual, Is.EqualTo(";test;test"));
+    }
 
-        [Test]
-        public void outputs_separator_before_each_instance_of_the_section_if_separatorType_is_Prefix()
+    [Test]
+    public void writes_two_section_templates_if_two_sections_are_declared()
+    {
+        project.Sections.Add(new Section
         {
-            project.Sections.Add(new Section
-            {
-                SectionText = new TextTemplate("test"),
-                RepeatCount = 2,
-                Separator = ";",
-                SeparatorLocation = SeparatorLocation.Prefix
-            });
-
-            string actual = PerformTest();
-
-            Assert.That(actual, Is.EqualTo(";test;test"));
-        }
-
-        [Test]
-        public void writes_two_section_templates_if_two_sections_are_declared()
+            SectionText = new TextTemplate("section1")
+        });
+        project.Sections.Add(new Section
         {
-            project.Sections.Add(new Section
-            {
-                SectionText = new TextTemplate("section1")
-            });
-            project.Sections.Add(new Section
-            {
-                SectionText = new TextTemplate("section2")
-            });
+            SectionText = new TextTemplate("section2")
+        });
 
-            string actual = PerformTest();
+        string actual = PerformTest();
 
-            Assert.That(actual, Is.EqualTo("section1section2"));
-        }
+        Assert.That(actual, Is.EqualTo("section1section2"));
+    }
 
-        private string PerformTest()
-        {
-            using MemoryStream ms = new();
-            using Output output = new(ms);
+    private string PerformTest()
+    {
+        using MemoryStream ms = new();
+        using Output output = new(ms);
 
-            output.AddSections(project.Sections);
+        output.AddSections(project.Sections);
 
-            ms.Position = 0;
+        ms.Position = 0;
 
-            StreamReader sr = new(ms);
-            return sr.ReadToEnd();
-        }
+        StreamReader sr = new(ms);
+        return sr.ReadToEnd();
     }
 }

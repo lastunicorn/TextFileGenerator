@@ -14,105 +14,103 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System.IO;
 using DustInTheWind.TextFileGenerator.Domain.FileGeneration;
 using DustInTheWind.TextFileGenerator.Domain.ProjectModel;
 using DustInTheWind.TextFileGenerator.Domain.ValueProviders;
 using NUnit.Framework;
 
-namespace DustInTheWind.TextFileGenerator.Tests.Domain.FileGeneration.GeneratorTests
+namespace DustInTheWind.TextFileGenerator.Tests.Domain.FileGeneration.OutputTests;
+
+[TestFixture]
+public class GeneratingSectionWithCounterParameterTests
 {
-    [TestFixture]
-    public class GeneratingSectionWithCounterParameterTests
+    private Project project;
+
+    [SetUp]
+    public void SetUp()
     {
-        private Project project;
+        project = new Project();
+    }
 
-        [SetUp]
-        public void SetUp()
+    [Test]
+    public void replaces_counter_parameter_in_section_template()
+    {
+        project.Sections.Add(new Section
         {
-            project = new Project();
-        }
-
-        [Test]
-        public void replaces_counter_parameter_in_section_template()
+            SectionText = new TextTemplate("test {param1}")
+        });
+        project.Sections[0].Parameters.AddRange(new[]
         {
-            project.Sections.Add(new Section
+            new Parameter
             {
-                SectionText = new TextTemplate("test {param1}")
-            });
-            project.Sections[0].Parameters.AddRange(new[]
-            {
-                new Parameter
-                {
-                    Name = "param1",
-                    ValueProvider = new CounterValueProvider { StartValue = 10, Step = 2 }
-                }
-            });
+                Name = "param1",
+                ValueProvider = new CounterValueProvider { StartValue = 10, Step = 2 }
+            }
+        });
 
-            string actual = PerformTest();
+        string actual = PerformTest();
 
-            Assert.That(actual, Is.EqualTo("test 10"));
-        }
+        Assert.That(actual, Is.EqualTo("test 10"));
+    }
 
-        [Test]
-        public void replaces_counter_parameter_in_section_template_rendered_multiple_times()
+    [Test]
+    public void replaces_counter_parameter_in_section_template_rendered_multiple_times()
+    {
+        project.Sections.Add(new Section
         {
-            project.Sections.Add(new Section
-            {
-                SectionText = new TextTemplate("test{param1}"),
-                RepeatCount = 2
-            });
-            project.Sections[0].Parameters.AddRange(new[]
-            {
-                new Parameter
-                {
-                    Name = "param1",
-                    ValueProvider = new CounterValueProvider { StartValue = 10, Step = 2 }
-                }
-            });
-
-            string actual = PerformTest();
-
-            Assert.That(actual, Is.EqualTo("test10test12"));
-        }
-
-        [Test]
-        public void replaces_one_counter_and_one_constant_parameter_in_section_template()
+            SectionText = new TextTemplate("test{param1}"),
+            RepeatCount = 2
+        });
+        project.Sections[0].Parameters.AddRange(new[]
         {
-            project.Sections.Add(new Section
+            new Parameter
             {
-                SectionText = new TextTemplate("test {param1} {param2}")
-            });
-            project.Sections[0].Parameters.AddRange(new[]
-            {
-                new Parameter
-                {
-                    Name = "param1",
-                    ValueProvider = new ConstantValueProvider { Value = "alez" }
-                },
-                new Parameter
-                {
-                    Name = "param2",
-                    ValueProvider = new CounterValueProvider { StartValue = 10, Step = 2 }
-                }
-            });
+                Name = "param1",
+                ValueProvider = new CounterValueProvider { StartValue = 10, Step = 2 }
+            }
+        });
 
-            string actual = PerformTest();
+        string actual = PerformTest();
 
-            Assert.That(actual, Is.EqualTo("test alez 10"));
-        }
+        Assert.That(actual, Is.EqualTo("test10test12"));
+    }
 
-        private string PerformTest()
+    [Test]
+    public void replaces_one_counter_and_one_constant_parameter_in_section_template()
+    {
+        project.Sections.Add(new Section
         {
-            using MemoryStream ms = new();
-            using Output output = new(ms);
+            SectionText = new TextTemplate("test {param1} {param2}")
+        });
+        project.Sections[0].Parameters.AddRange(new[]
+        {
+            new Parameter
+            {
+                Name = "param1",
+                ValueProvider = new ConstantValueProvider { Value = "alez" }
+            },
+            new Parameter
+            {
+                Name = "param2",
+                ValueProvider = new CounterValueProvider { StartValue = 10, Step = 2 }
+            }
+        });
 
-            output.AddSections(project.Sections);
+        string actual = PerformTest();
 
-            ms.Position = 0;
+        Assert.That(actual, Is.EqualTo("test alez 10"));
+    }
 
-            StreamReader sr = new(ms);
-            return sr.ReadToEnd();
-        }
+    private string PerformTest()
+    {
+        using MemoryStream ms = new();
+        using Output output = new(ms);
+
+        output.AddSections(project.Sections);
+
+        ms.Position = 0;
+
+        StreamReader sr = new(ms);
+        return sr.ReadToEnd();
     }
 }

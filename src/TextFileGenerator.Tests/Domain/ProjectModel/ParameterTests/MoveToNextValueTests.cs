@@ -18,53 +18,52 @@ using DustInTheWind.TextFileGenerator.Domain.ProjectModel;
 using Moq;
 using NUnit.Framework;
 
-namespace DustInTheWind.TextFileGenerator.Tests.Domain.ProjectModel.ParameterTests
+namespace DustInTheWind.TextFileGenerator.Tests.Domain.ProjectModel.ParameterTests;
+
+[TestFixture]
+public class MoveToNextValueTests
 {
-    [TestFixture]
-    public class MoveToNextValueTests
+    private Parameter parameter;
+    private Mock<IValueProvider> valueProvider;
+
+    [SetUp]
+    public void SetUp()
     {
-        private Parameter parameter;
-        private Mock<IValueProvider> valueProvider;
+        parameter = new Parameter();
 
-        [SetUp]
-        public void SetUp()
-        {
-            parameter = new Parameter();
+        valueProvider = new Mock<IValueProvider>();
+        parameter.ValueProvider = valueProvider.Object;
+    }
 
-            valueProvider = new Mock<IValueProvider>();
-            parameter.ValueProvider = valueProvider.Object;
-        }
+    [Test]
+    public void gets_next_value_from_the_ValueProvider()
+    {
+        parameter.ValueChangeMode = ValueChangeMode.Manual;
 
-        [Test]
-        public void gets_next_value_from_the_ValueProvider()
-        {
-            parameter.ValueChangeMode = ValueChangeMode.Manual;
+        parameter.MoveToNextValue();
 
-            parameter.MoveToNextValue();
+        valueProvider.Verify(x => x.GetNextValue(), Times.Once());
+    }
 
-            valueProvider.Verify(x => x.GetNextValue(), Times.Once());
-        }
+    [Test]
+    public void sets_the_CurrentValue_property_with_the_value_obtained_from_ValueProvider()
+    {
+        parameter.ValueChangeMode = ValueChangeMode.Manual;
+        valueProvider.Setup(x => x.GetNextValue()).Returns("value1");
 
-        [Test]
-        public void sets_the_CurrentValue_property_with_the_value_obtained_from_ValueProvider()
-        {
-            parameter.ValueChangeMode = ValueChangeMode.Manual;
-            valueProvider.Setup(x => x.GetNextValue()).Returns("value1");
+        parameter.MoveToNextValue();
 
-            parameter.MoveToNextValue();
+        string actual = parameter.CurrentValue;
+        Assert.That(actual, Is.EqualTo("value1"));
+    }
 
-            string actual = parameter.CurrentValue;
-            Assert.That(actual, Is.EqualTo("value1"));
-        }
+    [Test]
+    public void does_nothing_if_ValueChangeMode_is_Auto()
+    {
+        parameter.ValueChangeMode = ValueChangeMode.Auto;
 
-        [Test]
-        public void does_nothing_if_ValueChangeMode_is_Auto()
-        {
-            parameter.ValueChangeMode = ValueChangeMode.Auto;
+        parameter.MoveToNextValue();
 
-            parameter.MoveToNextValue();
-
-            valueProvider.Verify(x => x.GetNextValue(), Times.Never);
-        }
+        valueProvider.Verify(x => x.GetNextValue(), Times.Never);
     }
 }

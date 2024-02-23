@@ -14,53 +14,51 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System.IO;
 using DustInTheWind.TextFileGenerator.Domain.ProjectModel;
 using DustInTheWind.TextFileGenerator.ProjectAccess.Serialization;
 using DustInTheWind.TextFileGenerator.Tests.Utils;
 using NUnit.Framework;
 
-namespace DustInTheWind.TextFileGenerator.Tests.ProjectAccess.Serialization.OptionsSerializerSerializationTests
+namespace DustInTheWind.TextFileGenerator.Tests.ProjectAccess.Serialization.OptionsSerializerSerializationTests;
+
+[TestFixture]
+public class SerializeRootTests
 {
-    [TestFixture]
-    public class SerializeRootTests
+    private FileDescriptorSerializer fileDescriptorSerializer;
+    private MemoryStream actualStream;
+
+    [SetUp]
+    public void SetUp()
     {
-        private FileDescriptorSerializer fileDescriptorSerializer;
-        private MemoryStream actualStream;
+        fileDescriptorSerializer = new FileDescriptorSerializer();
+        actualStream = new MemoryStream();
+    }
 
-        [SetUp]
-        public void SetUp()
-        {
-            fileDescriptorSerializer = new FileDescriptorSerializer();
-            actualStream = new MemoryStream();
-        }
+    [TearDown]
+    public void TearDown()
+    {
+        actualStream?.Dispose();
+    }
 
-        [TearDown]
-        public void TearDown()
-        {
-            actualStream?.Dispose();
-        }
+    [Test]
+    public void root_element_textFileGenerator_is_created_in_correct_namespace()
+    {
+        Project project = new();
 
-        [Test]
-        public void root_element_textFileGenerator_is_created_in_correct_namespace()
-        {
-            Project project = new Project();
+        XmlAssert xmlAssert = PerformTestAndCreateAsserterOnResult(project);
 
-            XmlAssert xmlAssert = PerformTestAndCreateAsserterOnResult(project);
+        xmlAssert.AssertNodeCount("/alez:TextFileGenerator", 1);
+    }
 
-            xmlAssert.AssertNodeCount("/alez:TextFileGenerator", 1);
-        }
+    private XmlAssert PerformTestAndCreateAsserterOnResult(Project project)
+    {
+        fileDescriptorSerializer.Serialize(actualStream, project);
 
-        private XmlAssert PerformTestAndCreateAsserterOnResult(Project project)
-        {
-            fileDescriptorSerializer.Serialize(actualStream, project);
+        actualStream.Position = 0;
 
-            actualStream.Position = 0;
+        XmlAssert xmlAssert = new(actualStream);
+        xmlAssert.AddNamespace("alez", "http://alez.ro/TextFileGenerator");
 
-            XmlAssert xmlAssert = new XmlAssert(actualStream);
-            xmlAssert.AddNamespace("alez", "http://alez.ro/TextFileGenerator");
-
-            return xmlAssert;
-        }
+        return xmlAssert;
     }
 }

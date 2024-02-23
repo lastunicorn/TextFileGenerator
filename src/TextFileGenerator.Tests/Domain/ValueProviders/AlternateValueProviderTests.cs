@@ -19,58 +19,57 @@ using DustInTheWind.TextFileGenerator.Domain.ValueProviders;
 using Moq;
 using NUnit.Framework;
 
-namespace DustInTheWind.TextFileGenerator.Tests.Domain.ValueProviders
+namespace DustInTheWind.TextFileGenerator.Tests.Domain.ValueProviders;
+
+[TestFixture]
+public class AlternateValueProviderTests
 {
-    [TestFixture]
-    public class AlternateValueProviderTests
+    private Mock<IValueProvider> valueProvider1;
+    private Mock<IValueProvider> valueProvider2;
+    private AlternateValueProvider alternateValueProvider;
+
+    [SetUp]
+    public void SetUp()
     {
-        private Mock<IValueProvider> valueProvider1;
-        private Mock<IValueProvider> valueProvider2;
-        private AlternateValueProvider alternateValueProvider;
+        valueProvider1 = new Mock<IValueProvider>();
+        valueProvider2 = new Mock<IValueProvider>();
+        alternateValueProvider = new AlternateValueProvider(valueProvider1.Object, valueProvider2.Object);
+    }
 
-        [SetUp]
-        public void SetUp()
-        {
-            valueProvider1 = new Mock<IValueProvider>();
-            valueProvider2 = new Mock<IValueProvider>();
-            alternateValueProvider = new AlternateValueProvider(valueProvider1.Object, valueProvider2.Object);
-        }
+    [Test]
+    public void first_value_is_retrieved_from_valueProvider1()
+    {
+        valueProvider1.Setup(x => x.GetNextValue()).Returns("value1");
 
-        [Test]
-        public void first_value_is_retrieved_from_valueProvider1()
-        {
-            valueProvider1.Setup(x => x.GetNextValue()).Returns("value1");
+        string actual = alternateValueProvider.GetNextValue();
 
-            string actual = alternateValueProvider.GetNextValue();
+        valueProvider1.Verify(x => x.GetNextValue(), Times.Once());
+        Assert.That(actual, Is.EqualTo("value1"));
+    }
 
-            valueProvider1.Verify(x => x.GetNextValue(), Times.Once());
-            Assert.That(actual, Is.EqualTo("value1"));
-        }
+    [Test]
+    public void second_value_is_retrieved_from_valueProvider2()
+    {
+        valueProvider2.Setup(x => x.GetNextValue()).Returns("value2");
+        alternateValueProvider.GetNextValue();
 
-        [Test]
-        public void second_value_is_retrieved_from_valueProvider2()
-        {
-            valueProvider2.Setup(x => x.GetNextValue()).Returns("value2");
-            alternateValueProvider.GetNextValue();
+        string actual = alternateValueProvider.GetNextValue();
 
-            string actual = alternateValueProvider.GetNextValue();
+        valueProvider2.Verify(x => x.GetNextValue(), Times.Once());
+        Assert.That(actual, Is.EqualTo("value2"));
+    }
 
-            valueProvider2.Verify(x => x.GetNextValue(), Times.Once());
-            Assert.That(actual, Is.EqualTo("value2"));
-        }
+    [Test]
+    public void third_value_is_retrieved_from_valueProvider1()
+    {
+        string[] values1 = { "value1_1", "value1_2" };
+        valueProvider1
+            .Setup(x => x.GetNextValue())
+            .Returns(values1[0]);
 
-        [Test]
-        public void third_value_is_retrieved_from_valueProvider1()
-        {
-            string[] values1 = { "value1_1", "value1_2" };
-            valueProvider1
-                .Setup(x => x.GetNextValue())
-                .Returns(values1[0]);
+        string actual = alternateValueProvider.GetNextValue();
 
-            string actual = alternateValueProvider.GetNextValue();
-
-            valueProvider1.Verify(x => x.GetNextValue(), Times.Once());
-            Assert.That(actual, Is.EqualTo("value1_1"));
-        }
+        valueProvider1.Verify(x => x.GetNextValue(), Times.Once());
+        Assert.That(actual, Is.EqualTo("value1_1"));
     }
 }

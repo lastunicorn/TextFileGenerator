@@ -14,83 +14,81 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System.IO;
 using DustInTheWind.TextFileGenerator.Domain.ProjectModel;
 using DustInTheWind.TextFileGenerator.Domain.ValueProviders;
 using DustInTheWind.TextFileGenerator.ProjectAccess.Serialization;
 using DustInTheWind.TextFileGenerator.Tests.Utils;
 using NUnit.Framework;
 
-namespace DustInTheWind.TextFileGenerator.Tests.ProjectAccess.Serialization.OptionsSerializerSerializationTests
+namespace DustInTheWind.TextFileGenerator.Tests.ProjectAccess.Serialization.OptionsSerializerSerializationTests;
+
+[TestFixture]
+public class SerializeParameterTests
 {
-    [TestFixture]
-    public class SerializeParameterTests
+    private FileDescriptorSerializer fileDescriptorSerializer;
+    private MemoryStream actualStream;
+    private Project project;
+
+    [SetUp]
+    public void SetUp()
     {
-        private FileDescriptorSerializer fileDescriptorSerializer;
-        private MemoryStream actualStream;
-        private Project project;
+        fileDescriptorSerializer = new FileDescriptorSerializer();
+        actualStream = new MemoryStream();
 
-        [SetUp]
-        public void SetUp()
+        project = new Project();
+        project.Sections.Add(new Section());
+    }
+
+    [TearDown]
+    public void TearDown()
+    {
+        actualStream?.Dispose();
+    }
+
+    [Test]
+    public void parameter_element_contains_key_attribute()
+    {
+        project.Sections[0].Parameters.Add(new Parameter
         {
-            fileDescriptorSerializer = new FileDescriptorSerializer();
-            actualStream = new MemoryStream();
+            Name = "key1",
+            ValueProvider = EmptyValueProvider.Value
+        });
 
-            project = new Project();
-            project.Sections.Add(new Section());
-        }
+        XmlAssert xmlAssert = PerformTestAndCreateAsserterOnResult();
 
-        [TearDown]
-        public void TearDown()
+        xmlAssert.AssertNodeCount("/alez:TextFileGenerator/alez:Section/alez:Parameter/@Name", 1);
+        xmlAssert.AssertText("/alez:TextFileGenerator/alez:Section/alez:Parameter/@Name", "key1");
+    }
+
+    [Test]
+    public void serialize_two_parameters_of_different_type()
+    {
+        project.Sections[0].SectionText = new TextTemplate("template1");
+        project.Sections[0].Parameters.Add(new Parameter
         {
-            actualStream?.Dispose();
-        }
-
-        [Test]
-        public void parameter_element_contains_key_attribute()
+            Name = "key1",
+            ValueProvider = new ConstantValueProvider()
+        });
+        project.Sections[0].Parameters.Add(new Parameter
         {
-            project.Sections[0].Parameters.Add(new Parameter
-            {
-                Name = "key1",
-                ValueProvider = EmptyValueProvider.Value
-            });
+            Name = "key2",
+            ValueProvider = new CounterValueProvider()
+        });
 
-            XmlAssert xmlAssert = PerformTestAndCreateAsserterOnResult();
+        XmlAssert xmlAssert = PerformTestAndCreateAsserterOnResult();
 
-            xmlAssert.AssertNodeCount("/alez:TextFileGenerator/alez:Section/alez:Parameter/@Name", 1);
-            xmlAssert.AssertText("/alez:TextFileGenerator/alez:Section/alez:Parameter/@Name", "key1");
-        }
+        xmlAssert.AssertNodeCount("/alez:TextFileGenerator/alez:Section/alez:Parameter", 2);
+    }
 
-        [Test]
-        public void serialize_two_parameters_of_different_type()
-        {
-            project.Sections[0].SectionText = new TextTemplate("template1");
-            project.Sections[0].Parameters.Add(new Parameter
-            {
-                Name = "key1",
-                ValueProvider = new ConstantValueProvider()
-            });
-            project.Sections[0].Parameters.Add(new Parameter
-            {
-                Name = "key2",
-                ValueProvider = new CounterValueProvider()
-            });
+    private XmlAssert PerformTestAndCreateAsserterOnResult()
+    {
+        fileDescriptorSerializer.Serialize(actualStream, project);
 
-            XmlAssert xmlAssert = PerformTestAndCreateAsserterOnResult();
+        actualStream.Position = 0;
 
-            xmlAssert.AssertNodeCount("/alez:TextFileGenerator/alez:Section/alez:Parameter", 2);
-        }
+        XmlAssert xmlAssert = new(actualStream);
+        xmlAssert.AddNamespace("alez", "http://alez.ro/TextFileGenerator");
 
-        private XmlAssert PerformTestAndCreateAsserterOnResult()
-        {
-            fileDescriptorSerializer.Serialize(actualStream, project);
-
-            actualStream.Position = 0;
-
-            XmlAssert xmlAssert = new XmlAssert(actualStream);
-            xmlAssert.AddNamespace("alez", "http://alez.ro/TextFileGenerator");
-
-            return xmlAssert;
-        }
+        return xmlAssert;
     }
 }

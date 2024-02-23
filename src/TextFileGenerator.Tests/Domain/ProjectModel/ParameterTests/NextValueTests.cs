@@ -18,71 +18,70 @@ using DustInTheWind.TextFileGenerator.Domain.ProjectModel;
 using Moq;
 using NUnit.Framework;
 
-namespace DustInTheWind.TextFileGenerator.Tests.Domain.ProjectModel.ParameterTests
+namespace DustInTheWind.TextFileGenerator.Tests.Domain.ProjectModel.ParameterTests;
+
+[TestFixture]
+public class NextValueTests
 {
-    [TestFixture]
-    public class NextValueTests
+    private Parameter parameter;
+    private Mock<IValueProvider> valueProvider;
+
+    [SetUp]
+    public void SetUp()
     {
-        private Parameter parameter;
-        private Mock<IValueProvider> valueProvider;
+        parameter = new Parameter();
 
-        [SetUp]
-        public void SetUp()
-        {
-            parameter = new Parameter();
+        valueProvider = new Mock<IValueProvider>();
+        parameter.ValueProvider = valueProvider.Object;
+    }
 
-            valueProvider = new Mock<IValueProvider>();
-            parameter.ValueProvider = valueProvider.Object;
-        }
+    [Test]
+    public void gets_next_value_from_the_ValueProvider()
+    {
+        string value = parameter.NextValue;
 
-        [Test]
-        public void gets_next_value_from_the_ValueProvider()
-        {
-            string value = parameter.NextValue;
+        valueProvider.Verify(x => x.GetNextValue(), Times.Once());
+    }
 
-            valueProvider.Verify(x => x.GetNextValue(), Times.Once());
-        }
+    [Test]
+    public void returns_the_value_obtained_from_ValueProvider()
+    {
+        valueProvider.Setup(x => x.GetNextValue()).Returns("value1");
 
-        [Test]
-        public void returns_the_value_obtained_from_ValueProvider()
-        {
-            valueProvider.Setup(x => x.GetNextValue()).Returns("value1");
+        string actual = parameter.NextValue;
 
-            string actual = parameter.NextValue;
+        Assert.That(actual, Is.EqualTo("value1"));
+    }
 
-            Assert.That(actual, Is.EqualTo("value1"));
-        }
+    [Test]
+    public void sets_the_CurrentValue_property()
+    {
+        valueProvider.Setup(x => x.GetNextValue()).Returns("value1");
 
-        [Test]
-        public void sets_the_CurrentValue_property()
-        {
-            valueProvider.Setup(x => x.GetNextValue()).Returns("value1");
+        string value = parameter.NextValue;
 
-            string value = parameter.NextValue;
+        string actual = parameter.CurrentValue;
+        Assert.That(actual, Is.EqualTo("value1"));
+    }
 
-            string actual = parameter.CurrentValue;
-            Assert.That(actual, Is.EqualTo("value1"));
-        }
+    [Test]
+    public void second_call_gets_next_value_from_the_ValueProvider()
+    {
+        string value1 = parameter.NextValue;
 
-        [Test]
-        public void second_call_gets_next_value_from_the_ValueProvider()
-        {
-            string value1 = parameter.NextValue;
+        string value2 = parameter.NextValue;
 
-            string value2 = parameter.NextValue;
+        valueProvider.Verify(x => x.GetNextValue(), Times.Exactly(2));
+    }
 
-            valueProvider.Verify(x => x.GetNextValue(), Times.Exactly(2));
-        }
+    [Test]
+    public void if_ValueChangeMode_is_Manual_second_call_does_not_advance_the_ValueProvider()
+    {
+        parameter.ValueChangeMode = ValueChangeMode.Manual;
+        string value1 = parameter.NextValue;
 
-        [Test]
-        public void if_ValueChangeMode_is_Manual_second_call_does_not_advance_the_ValueProvider()
-        {
-            parameter.ValueChangeMode = ValueChangeMode.Manual;
-            string value1 = parameter.NextValue;
+        string value2 = parameter.NextValue;
 
-            string value2 = parameter.NextValue;
-
-            valueProvider.Verify(x => x.GetNextValue(), Times.Once());
-        }
+        valueProvider.Verify(x => x.GetNextValue(), Times.Once());
     }
 }

@@ -14,30 +14,29 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System.IO;
 using System.Text;
 using DustInTheWind.TextFileGenerator.Domain.ProjectModel;
 using DustInTheWind.TextFileGenerator.Domain.ValueProviders;
 using DustInTheWind.TextFileGenerator.ProjectAccess.Serialization;
 using NUnit.Framework;
 
-namespace DustInTheWind.TextFileGenerator.Tests.ProjectAccess.Serialization.OptionsSerializerDeserializationTests
+namespace DustInTheWind.TextFileGenerator.Tests.ProjectAccess.Serialization.OptionsSerializerDeserializationTests;
+
+[TestFixture]
+public class DeserializeParameterConstantTests
 {
-    [TestFixture]
-    public class DeserializeParameterConstantTests
+    private FileDescriptorSerializer fileDescriptorSerializer;
+
+    [SetUp]
+    public void SetUp()
     {
-        private FileDescriptorSerializer fileDescriptorSerializer;
+        fileDescriptorSerializer = new FileDescriptorSerializer();
+    }
 
-        [SetUp]
-        public void SetUp()
-        {
-            fileDescriptorSerializer = new FileDescriptorSerializer();
-        }
-
-        [Test]
-        public void deserialized_parameter_contains_ConstantValueProvider()
-        {
-            const string xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
+    [Test]
+    public void deserialized_parameter_contains_ConstantValueProvider()
+    {
+        const string xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <TextFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
     <Section Name=""root"">
         <Text />
@@ -47,15 +46,15 @@ namespace DustInTheWind.TextFileGenerator.Tests.ProjectAccess.Serialization.Opti
     </Section>
 </TextFileGenerator>";
 
-            Project options = PerformTest(xml);
+        Project options = PerformTest(xml);
 
-            Assert.That(options.Sections[0].Parameters[0].ValueProvider, Is.TypeOf<ConstantValueProvider>());
-        }
+        Assert.That(options.Sections[0].Parameters[0].ValueProvider, Is.TypeOf<ConstantValueProvider>());
+    }
 
-        [Test]
-        public void deserialized_ConstantValueProvider_contains_the_value__declared_in_xml()
-        {
-            const string xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
+    [Test]
+    public void deserialized_ConstantValueProvider_contains_the_value__declared_in_xml()
+    {
+        const string xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <TextFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
     <Section Name=""root"">
         <Text />
@@ -65,24 +64,21 @@ namespace DustInTheWind.TextFileGenerator.Tests.ProjectAccess.Serialization.Opti
     </Section>
 </TextFileGenerator>";
 
-            Project options = PerformTest(xml);
+        Project options = PerformTest(xml);
 
-            ConstantValueProvider valueProvider = (ConstantValueProvider)options.Sections[0].Parameters[0].ValueProvider;
-            Assert.That(valueProvider.Value, Is.EqualTo("value1"));
-        }
+        ConstantValueProvider valueProvider = (ConstantValueProvider)options.Sections[0].Parameters[0].ValueProvider;
+        Assert.That(valueProvider.Value, Is.EqualTo("value1"));
+    }
 
-        private Project PerformTest(string xml)
-        {
-            using (MemoryStream ms = new MemoryStream())
-            {
-                StreamWriter sw = new StreamWriter(ms, Encoding.UTF8);
-                sw.Write(xml);
-                sw.Flush();
+    private Project PerformTest(string xml)
+    {
+        using MemoryStream ms = new();
+        StreamWriter sw = new(ms, Encoding.UTF8);
+        sw.Write(xml);
+        sw.Flush();
 
-                ms.Position = 0;
+        ms.Position = 0;
 
-                return fileDescriptorSerializer.Deserialize(ms);
-            }
-        }
+        return fileDescriptorSerializer.Deserialize(ms);
     }
 }

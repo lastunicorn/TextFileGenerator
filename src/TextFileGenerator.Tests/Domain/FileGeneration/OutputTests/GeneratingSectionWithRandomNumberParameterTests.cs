@@ -14,55 +14,53 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System.IO;
 using DustInTheWind.TextFileGenerator.Domain.FileGeneration;
 using DustInTheWind.TextFileGenerator.Domain.ProjectModel;
 using DustInTheWind.TextFileGenerator.Domain.ValueProviders;
 using NUnit.Framework;
 
-namespace DustInTheWind.TextFileGenerator.Tests.Domain.FileGeneration.GeneratorTests
+namespace DustInTheWind.TextFileGenerator.Tests.Domain.FileGeneration.OutputTests;
+
+[TestFixture]
+public class GeneratingSectionWithRandomNumberParameterTests
 {
-    [TestFixture]
-    public class GeneratingSectionWithRandomNumberParameterTests
+    [Test]
+    public void test()
     {
-        [Test]
-        public void test()
+        Project project = new();
+        project.Sections.Add(new Section
         {
-            Project project = new();
-            project.Sections.Add(new Section
+            SectionText = new TextTemplate("test {param1}")
+        });
+        project.Sections[0].Parameters.AddRange(new[]
+        {
+            new Parameter
             {
-                SectionText = new TextTemplate("test {param1}")
-            });
-            project.Sections[0].Parameters.AddRange(new[]
-            {
-                new Parameter
+                Name = "param1",
+                ValueProvider = new RandomNumberValueProvider
                 {
-                    Name = "param1",
-                    ValueProvider = new RandomNumberValueProvider
-                    {
-                        Format = "000",
-                        MinValue = 10,
-                        MaxValue = 100
-                    }
+                    Format = "000",
+                    MinValue = 10,
+                    MaxValue = 100
                 }
-            });
+            }
+        });
 
-            string actual = PerformTest(project);
+        string actual = PerformTest(project);
 
-            Assert.That(actual, Contains.Substring("test "));
-        }
+        Assert.That(actual, Contains.Substring("test "));
+    }
 
-        private static string PerformTest(Project project)
-        {
-            using MemoryStream ms = new();
-            using Output output = new(ms);
+    private static string PerformTest(Project project)
+    {
+        using MemoryStream ms = new();
+        using Output output = new(ms);
 
-            output.AddSections(project.Sections);
+        output.AddSections(project.Sections);
 
-            ms.Position = 0;
+        ms.Position = 0;
 
-            StreamReader sr = new(ms);
-            return sr.ReadToEnd();
-        }
+        StreamReader sr = new(ms);
+        return sr.ReadToEnd();
     }
 }

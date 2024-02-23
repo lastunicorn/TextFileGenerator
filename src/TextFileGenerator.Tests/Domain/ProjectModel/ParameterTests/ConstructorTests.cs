@@ -18,49 +18,48 @@ using DustInTheWind.TextFileGenerator.Domain.ProjectModel;
 using DustInTheWind.TextFileGenerator.Domain.ValueProviders;
 using NUnit.Framework;
 
-namespace DustInTheWind.TextFileGenerator.Tests.Domain.ProjectModel.ParameterTests
+namespace DustInTheWind.TextFileGenerator.Tests.Domain.ProjectModel.ParameterTests;
+
+[TestFixture]
+public class ConstructorTests
 {
-    [TestFixture]
-    public class ConstructorTests
+    private Parameter parameter;
+
+    [SetUp]
+    public void SetUp()
     {
-        private Parameter parameter;
+        parameter = new Parameter();
+    }
 
-        [SetUp]
-        public void SetUp()
-        {
-            parameter = new Parameter();
-        }
+    [Test]
+    public void initially_ValueProvider_is_EmptyValueProvider()
+    {
+        IValueProvider actual = parameter.ValueProvider;
 
-        [Test]
-        public void initially_ValueProvider_is_EmptyValueProvider()
-        {
-            IValueProvider actual = parameter.ValueProvider;
+        Assert.That(actual, Is.SameAs(EmptyValueProvider.Value));
+    }
 
-            Assert.That(actual, Is.SameAs(EmptyValueProvider.Value));
-        }
+    [Test]
+    public void initially_CurrentValue_is_null()
+    {
+        string actual = parameter.CurrentValue;
 
-        [Test]
-        public void initially_CurrentValue_is_null()
-        {
-            string actual = parameter.CurrentValue;
+        Assert.That(actual, Is.Null);
+    }
 
-            Assert.That(actual, Is.Null);
-        }
+    [Test]
+    public void initially_Name_is_null()
+    {
+        string actual = parameter.Name;
 
-        [Test]
-        public void initially_Name_is_null()
-        {
-            string actual = parameter.Name;
+        Assert.That(actual, Is.Null);
+    }
 
-            Assert.That(actual, Is.Null);
-        }
+    [Test]
+    public void initially_ValueChangeMode_is_null()
+    {
+        ValueChangeMode actual = parameter.ValueChangeMode;
 
-        [Test]
-        public void initially_ValueChangeMode_is_null()
-        {
-            ValueChangeMode actual = parameter.ValueChangeMode;
-
-            Assert.That(actual, Is.EqualTo(ValueChangeMode.Auto));
-        }
+        Assert.That(actual, Is.EqualTo(ValueChangeMode.Auto));
     }
 }

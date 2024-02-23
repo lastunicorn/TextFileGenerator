@@ -14,104 +14,102 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System.IO;
 using DustInTheWind.TextFileGenerator.Domain.FileGeneration;
 using DustInTheWind.TextFileGenerator.Domain.ProjectModel;
 using DustInTheWind.TextFileGenerator.Domain.ValueProviders;
 using NUnit.Framework;
 
-namespace DustInTheWind.TextFileGenerator.Tests.Domain.FileGeneration.GeneratorTests
+namespace DustInTheWind.TextFileGenerator.Tests.Domain.FileGeneration.OutputTests;
+
+[TestFixture]
+public class GeneratingSectionWithConstantParameterTests
 {
-    [TestFixture]
-    public class GeneratingSectionWithConstantParameterTests
+    private Project project;
+
+    [SetUp]
+    public void SetUp()
     {
-        private Project project;
+        project = new Project();
+    }
 
-        [SetUp]
-        public void SetUp()
+    [Test]
+    public void replaces_one_constant_parameter_in_section_template()
+    {
+        project.Sections.Add(new Section
         {
-            project = new Project();
-        }
-
-        [Test]
-        public void replaces_one_constant_parameter_in_section_template()
+            SectionText = new TextTemplate("test {param1}")
+        });
+        project.Sections[0].Parameters.AddRange(new[]
         {
-            project.Sections.Add(new Section
+            new Parameter
             {
-                SectionText = new TextTemplate("test {param1}")
-            });
-            project.Sections[0].Parameters.AddRange(new[]
-            {
-                new Parameter
-                {
-                    Name = "param1",
-                    ValueProvider = new ConstantValueProvider { Value = "value1" }
-                }
-            });
+                Name = "param1",
+                ValueProvider = new ConstantValueProvider { Value = "value1" }
+            }
+        });
 
-            string actual = PerformTest();
+        string actual = PerformTest();
 
-            Assert.That(actual, Is.EqualTo("test value1"));
-        }
+        Assert.That(actual, Is.EqualTo("test value1"));
+    }
 
-        [Test]
-        public void replaces_two_occurences_of_one_constant_parameter_in_section_template()
+    [Test]
+    public void replaces_two_occurences_of_one_constant_parameter_in_section_template()
+    {
+        project.Sections.Add(new Section
         {
-            project.Sections.Add(new Section
-            {
-                SectionText = new TextTemplate("test {param1} {param1}")
-            });
-            project.Sections[0].Parameters.AddRange(new[]
-            {
-                new Parameter
-                {
-                    Name = "param1",
-                    ValueProvider = new ConstantValueProvider { Value = "value1" }
-                }
-            });
-
-            string actual = PerformTest();
-
-            Assert.That(actual, Is.EqualTo("test value1 value1"));
-        }
-
-        [Test]
-        public void replaces_two_constant_parameters_in_section_template()
+            SectionText = new TextTemplate("test {param1} {param1}")
+        });
+        project.Sections[0].Parameters.AddRange(new[]
         {
-            project.Sections.Add(new Section
+            new Parameter
             {
-                SectionText = new TextTemplate("test {param1} {param2}")
-            });
-            project.Sections[0].Parameters.AddRange(new[]
-            {
-                new Parameter
-                {
-                    Name = "param1",
-                    ValueProvider = new ConstantValueProvider { Value = "value1" }
-                },
-                new Parameter
-                {
-                    Name = "param2",
-                    ValueProvider = new ConstantValueProvider { Value = "value2" }
-                }
-            });
+                Name = "param1",
+                ValueProvider = new ConstantValueProvider { Value = "value1" }
+            }
+        });
 
-            string actual = PerformTest();
+        string actual = PerformTest();
 
-            Assert.That(actual, Is.EqualTo("test value1 value2"));
-        }
+        Assert.That(actual, Is.EqualTo("test value1 value1"));
+    }
 
-        private string PerformTest()
+    [Test]
+    public void replaces_two_constant_parameters_in_section_template()
+    {
+        project.Sections.Add(new Section
         {
-            using MemoryStream ms = new();
-            using Output output = new(ms);
+            SectionText = new TextTemplate("test {param1} {param2}")
+        });
+        project.Sections[0].Parameters.AddRange(new[]
+        {
+            new Parameter
+            {
+                Name = "param1",
+                ValueProvider = new ConstantValueProvider { Value = "value1" }
+            },
+            new Parameter
+            {
+                Name = "param2",
+                ValueProvider = new ConstantValueProvider { Value = "value2" }
+            }
+        });
 
-            output.AddSections(project.Sections);
+        string actual = PerformTest();
 
-            ms.Position = 0;
+        Assert.That(actual, Is.EqualTo("test value1 value2"));
+    }
 
-            StreamReader sr = new(ms);
-            return sr.ReadToEnd();
-        }
+    private string PerformTest()
+    {
+        using MemoryStream ms = new();
+        using Output output = new(ms);
+
+        output.AddSections(project.Sections);
+
+        ms.Position = 0;
+
+        StreamReader sr = new(ms);
+        return sr.ReadToEnd();
     }
 }

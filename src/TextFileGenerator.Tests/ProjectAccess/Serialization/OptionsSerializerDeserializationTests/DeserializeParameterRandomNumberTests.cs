@@ -14,30 +14,29 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System.IO;
 using System.Text;
 using DustInTheWind.TextFileGenerator.Domain.ProjectModel;
 using DustInTheWind.TextFileGenerator.Domain.ValueProviders;
 using DustInTheWind.TextFileGenerator.ProjectAccess.Serialization;
 using NUnit.Framework;
 
-namespace DustInTheWind.TextFileGenerator.Tests.ProjectAccess.Serialization.OptionsSerializerDeserializationTests
+namespace DustInTheWind.TextFileGenerator.Tests.ProjectAccess.Serialization.OptionsSerializerDeserializationTests;
+
+[TestFixture]
+public class DeserializeParameterRandomNumberTests
 {
-    [TestFixture]
-    public class DeserializeParameterRandomNumberTests
+    private FileDescriptorSerializer fileDescriptorSerializer;
+
+    [SetUp]
+    public void SetUp()
     {
-        private FileDescriptorSerializer fileDescriptorSerializer;
+        fileDescriptorSerializer = new FileDescriptorSerializer();
+    }
 
-        [SetUp]
-        public void SetUp()
-        {
-            fileDescriptorSerializer = new FileDescriptorSerializer();
-        }
-
-        [Test]
-        public void deserialized_parameter_contains_RandomNumberValueProvider()
-        {
-            const string xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
+    [Test]
+    public void deserialized_parameter_contains_RandomNumberValueProvider()
+    {
+        const string xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <TextFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
     <Section Name=""root"">
         <Text />
@@ -47,15 +46,15 @@ namespace DustInTheWind.TextFileGenerator.Tests.ProjectAccess.Serialization.Opti
     </Section>
 </TextFileGenerator>";
 
-            Project options = PerformTest(xml);
+        Project options = PerformTest(xml);
 
-            Assert.That(options.Sections[0].Parameters[0].ValueProvider, Is.TypeOf<RandomNumberValueProvider>());
-        }
+        Assert.That(options.Sections[0].Parameters[0].ValueProvider, Is.TypeOf<RandomNumberValueProvider>());
+    }
 
-        [Test]
-        public void deserialized_RandomNumberValueProvider_contains_the_format_declared_in_xml()
-        {
-            const string xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
+    [Test]
+    public void deserialized_RandomNumberValueProvider_contains_the_format_declared_in_xml()
+    {
+        const string xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <TextFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
     <Section Name=""root"">
         <Text />
@@ -65,16 +64,16 @@ namespace DustInTheWind.TextFileGenerator.Tests.ProjectAccess.Serialization.Opti
     </Section>
 </TextFileGenerator>";
 
-            Project options = PerformTest(xml);
+        Project options = PerformTest(xml);
 
-            RandomNumberValueProvider valueProvider = (RandomNumberValueProvider)options.Sections[0].Parameters[0].ValueProvider;
-            Assert.That(valueProvider.Format, Is.EqualTo("00"));
-        }
+        RandomNumberValueProvider valueProvider = (RandomNumberValueProvider)options.Sections[0].Parameters[0].ValueProvider;
+        Assert.That(valueProvider.Format, Is.EqualTo("00"));
+    }
 
-        [Test]
-        public void deserialized_RandomNumberValueProvider_contains_the_minValue_declared_in_xml()
-        {
-            const string xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
+    [Test]
+    public void deserialized_RandomNumberValueProvider_contains_the_minValue_declared_in_xml()
+    {
+        const string xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <TextFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
     <Section Name=""root"">
         <Text />
@@ -84,16 +83,16 @@ namespace DustInTheWind.TextFileGenerator.Tests.ProjectAccess.Serialization.Opti
     </Section>
 </TextFileGenerator>";
 
-            Project options = PerformTest(xml);
+        Project options = PerformTest(xml);
 
-            RandomNumberValueProvider valueProvider = (RandomNumberValueProvider)options.Sections[0].Parameters[0].ValueProvider;
-            Assert.That(valueProvider.MinValue, Is.EqualTo(3));
-        }
+        RandomNumberValueProvider valueProvider = (RandomNumberValueProvider)options.Sections[0].Parameters[0].ValueProvider;
+        Assert.That(valueProvider.MinValue, Is.EqualTo(3));
+    }
 
-        [Test]
-        public void deserialized_RandomNumberValueProvider_contains_the_maxValue_declared_in_xml()
-        {
-            const string xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
+    [Test]
+    public void deserialized_RandomNumberValueProvider_contains_the_maxValue_declared_in_xml()
+    {
+        const string xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <TextFileGenerator xmlns=""http://alez.ro/TextFileGenerator"">
     <Section Name=""root"">
         <Text />
@@ -103,24 +102,21 @@ namespace DustInTheWind.TextFileGenerator.Tests.ProjectAccess.Serialization.Opti
     </Section>
 </TextFileGenerator>";
 
-            Project options = PerformTest(xml);
+        Project options = PerformTest(xml);
 
-            RandomNumberValueProvider valueProvider = (RandomNumberValueProvider)options.Sections[0].Parameters[0].ValueProvider;
-            Assert.That(valueProvider.MaxValue, Is.EqualTo(5));
-        }
+        RandomNumberValueProvider valueProvider = (RandomNumberValueProvider)options.Sections[0].Parameters[0].ValueProvider;
+        Assert.That(valueProvider.MaxValue, Is.EqualTo(5));
+    }
 
-        private Project PerformTest(string xml)
-        {
-            using (MemoryStream ms = new MemoryStream())
-            {
-                StreamWriter sw = new StreamWriter(ms, Encoding.UTF8);
-                sw.Write(xml);
-                sw.Flush();
+    private Project PerformTest(string xml)
+    {
+        using MemoryStream ms = new();
+        StreamWriter sw = new(ms, Encoding.UTF8);
+        sw.Write(xml);
+        sw.Flush();
 
-                ms.Position = 0;
+        ms.Position = 0;
 
-                return fileDescriptorSerializer.Deserialize(ms);
-            }
-        }
+        return fileDescriptorSerializer.Deserialize(ms);
     }
 }

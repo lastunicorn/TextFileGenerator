@@ -17,115 +17,114 @@
 using DustInTheWind.TextFileGenerator.Domain.ValueProviders;
 using NUnit.Framework;
 
-namespace DustInTheWind.TextFileGenerator.Tests.Domain.ValueProviders
+namespace DustInTheWind.TextFileGenerator.Tests.Domain.ValueProviders;
+
+[TestFixture]
+public class CounterValueProviderTests
 {
-    [TestFixture]
-    public class CounterValueProviderTests
+    private CounterValueProvider counterValueProvider;
+
+    [SetUp]
+    public void SetUp()
     {
-        private CounterValueProvider counterValueProvider;
+        counterValueProvider = new CounterValueProvider();
+    }
 
-        [SetUp]
-        public void SetUp()
-        {
-            counterValueProvider = new CounterValueProvider();
-        }
+    [Test]
+    public void default_Step_is_1()
+    {
+        Assert.That(counterValueProvider.Step, Is.EqualTo(1));
+    }
 
-        [Test]
-        public void default_Step_is_1()
-        {
-            Assert.That(counterValueProvider.Step, Is.EqualTo(1));
-        }
+    [Test]
+    public void default_StartValue_is_1()
+    {
+        Assert.That(counterValueProvider.StartValue, Is.EqualTo(1));
+    }
 
-        [Test]
-        public void default_StartValue_is_1()
-        {
-            Assert.That(counterValueProvider.StartValue, Is.EqualTo(1));
-        }
+    // ------------------------------------------------------------------
 
-        // ------------------------------------------------------------------
+    [Test]
+    public void returns_1_as_first_value()
+    {
+        string firstValue = counterValueProvider.GetNextValue();
 
-        [Test]
-        public void returns_1_as_first_value()
-        {
-            string firstValue = counterValueProvider.GetNextValue();
+        Assert.That(firstValue, Is.EqualTo("1"));
+    }
 
-            Assert.That(firstValue, Is.EqualTo("1"));
-        }
+    [Test]
+    public void returns_2_as_second_value()
+    {
+        counterValueProvider.GetNextValue();
 
-        [Test]
-        public void returns_2_as_second_value()
-        {
-            counterValueProvider.GetNextValue();
+        string secondValue = counterValueProvider.GetNextValue();
 
-            string secondValue = counterValueProvider.GetNextValue();
+        Assert.That(secondValue, Is.EqualTo("2"));
+    }
 
-            Assert.That(secondValue, Is.EqualTo("2"));
-        }
+    [Test]
+    public void returns_3_as_third_value()
+    {
+        counterValueProvider.GetNextValue();
+        counterValueProvider.GetNextValue();
 
-        [Test]
-        public void returns_3_as_third_value()
-        {
-            counterValueProvider.GetNextValue();
-            counterValueProvider.GetNextValue();
+        string thirdValue = counterValueProvider.GetNextValue();
 
-            string thirdValue = counterValueProvider.GetNextValue();
+        Assert.That(thirdValue, Is.EqualTo("3"));
+    }
 
-            Assert.That(thirdValue, Is.EqualTo("3"));
-        }
+    [Test]
+    public void returns_10_as_first_value_if_StartValue_is_set_to_10()
+    {
+        counterValueProvider.StartValue = 10;
 
-        [Test]
-        public void returns_10_as_first_value_if_StartValue_is_set_to_10()
-        {
-            counterValueProvider.StartValue = 10;
+        string firstValue = counterValueProvider.GetNextValue();
 
-            string firstValue = counterValueProvider.GetNextValue();
+        Assert.That(firstValue, Is.EqualTo("10"));
+    }
 
-            Assert.That(firstValue, Is.EqualTo("10"));
-        }
+    [Test]
+    public void returns_11_as_second_value_if_StartValue_is_set_to_10()
+    {
+        counterValueProvider.StartValue = 10;
+        counterValueProvider.GetNextValue();
 
-        [Test]
-        public void returns_11_as_second_value_if_StartValue_is_set_to_10()
-        {
-            counterValueProvider.StartValue = 10;
-            counterValueProvider.GetNextValue();
+        string secondValue = counterValueProvider.GetNextValue();
 
-            string secondValue = counterValueProvider.GetNextValue();
+        Assert.That(secondValue, Is.EqualTo("11"));
+    }
 
-            Assert.That(secondValue, Is.EqualTo("11"));
-        }
+    [Test]
+    public void returns_15_as_second_value_if_StartValue_is_set_to_10_and_Step_to_5()
+    {
+        counterValueProvider.StartValue = 10;
+        counterValueProvider.Step = 5;
+        counterValueProvider.GetNextValue();
 
-        [Test]
-        public void returns_15_as_second_value_if_StartValue_is_set_to_10_and_Step_to_5()
-        {
-            counterValueProvider.StartValue = 10;
-            counterValueProvider.Step = 5;
-            counterValueProvider.GetNextValue();
+        string secondValue = counterValueProvider.GetNextValue();
 
-            string secondValue = counterValueProvider.GetNextValue();
+        Assert.That(secondValue, Is.EqualTo("15"));
+    }
 
-            Assert.That(secondValue, Is.EqualTo("15"));
-        }
+    [Test]
+    public void returns_001_as_first_value_if_Format_is_set_to_000()
+    {
+        counterValueProvider.Format = "000";
 
-        [Test]
-        public void returns_001_as_first_value_if_Format_is_set_to_000()
-        {
-            counterValueProvider.Format = "000";
+        string firstValue = counterValueProvider.GetNextValue();
 
-            string firstValue = counterValueProvider.GetNextValue();
+        Assert.That(firstValue, Is.EqualTo("001"));
+    }
 
-            Assert.That(firstValue, Is.EqualTo("001"));
-        }
+    [Test]
+    public void after_Reset_returns_1()
+    {
+        counterValueProvider.GetNextValue();
+        counterValueProvider.GetNextValue();
+        counterValueProvider.Reset();
 
-        [Test]
-        public void after_Reset_returns_1()
-        {
-            counterValueProvider.GetNextValue();
-            counterValueProvider.GetNextValue();
-            counterValueProvider.Reset();
+        string actual = counterValueProvider.GetNextValue();
 
-            string actual = counterValueProvider.GetNextValue();
-
-            Assert.That(actual, Is.EqualTo("1"));
-        }
+        Assert.That(actual, Is.EqualTo("1"));
     }
 }

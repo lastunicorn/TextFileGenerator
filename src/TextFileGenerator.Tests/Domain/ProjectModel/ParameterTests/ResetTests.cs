@@ -18,29 +18,28 @@ using DustInTheWind.TextFileGenerator.Domain.ProjectModel;
 using Moq;
 using NUnit.Framework;
 
-namespace DustInTheWind.TextFileGenerator.Tests.Domain.ProjectModel.ParameterTests
+namespace DustInTheWind.TextFileGenerator.Tests.Domain.ProjectModel.ParameterTests;
+
+[TestFixture]
+public class ResetTests
 {
-    [TestFixture]
-    public class ResetTests
+    private Parameter parameter;
+    private Mock<IValueProvider> valueProvider;
+
+    [SetUp]
+    public void SetUp()
     {
-        private Parameter parameter;
-        private Mock<IValueProvider> valueProvider;
+        parameter = new Parameter();
 
-        [SetUp]
-        public void SetUp()
-        {
-            parameter = new Parameter();
+        valueProvider = new Mock<IValueProvider>();
+        parameter.ValueProvider = valueProvider.Object;
+    }
 
-            valueProvider = new Mock<IValueProvider>();
-            parameter.ValueProvider = valueProvider.Object;
-        }
+    [Test]
+    public void resets_the_ValueProvider()
+    {
+        parameter.Reset();
 
-        [Test]
-        public void resets_the_ValueProvider()
-        {
-            parameter.Reset();
-
-            valueProvider.Verify(x => x.Reset(), Times.Once());
-        }
+        valueProvider.Verify(x => x.Reset(), Times.Once());
     }
 }
