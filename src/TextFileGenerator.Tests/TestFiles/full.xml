@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <TextFileGenerator xmlns="http://alez.ro/TextFileGenerator" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="namespace-to-use TextFileGenerator.xsd">
     <sections separator="" separatorLocation="Infix">
         <Section name="Header" count="1" separator="" separatorLocation="Infix">

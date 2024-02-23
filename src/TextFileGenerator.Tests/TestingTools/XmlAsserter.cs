@@ -65,7 +65,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.TestingTools
         public void AssertNodeCount(string xpath, int expectedCount)
         {
             XPathNodeIterator nodeIterator = xPathNavigator.Select(xpath, namespaceManager);
-            
+
             string message = string.Format("Node '{0}' was not found as expected.", xpath);
             Assert.That(nodeIterator.Count, Is.EqualTo(expectedCount), message);
         }

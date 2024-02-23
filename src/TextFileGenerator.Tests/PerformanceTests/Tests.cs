@@ -1,4 +1,20 @@
-﻿using System;
+﻿// TextFileGenerator
+// Copyright (C) 2009-2011 Dust in the Wind
+// 
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+// 
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -34,10 +50,10 @@ namespace DustInTheWind.TextFileGenerator.Tests.PerformanceTests
         [Test]
         public void TestAllValueProviders()
         {
-            var a = new CounterValueProvider();
-            var b = new CounterValueProvider();
-            var c = new RandomNumberValueProvider { MinValue = 10, MaxValue = 99 };
-            var d = new RandomTextValueProvider { MinLength = 10, MaxLength = 10 };
+            CounterValueProvider a = new CounterValueProvider();
+            CounterValueProvider b = new CounterValueProvider();
+            RandomNumberValueProvider c = new RandomNumberValueProvider { MinValue = 10, MaxValue = 99 };
+            RandomTextValueProvider d = new RandomTextValueProvider { MinLength = 10, MaxLength = 10 };
 
             TimeSpan timeSpan = Measure(() =>
             {
@@ -85,7 +101,8 @@ namespace DustInTheWind.TextFileGenerator.Tests.PerformanceTests
         [Test]
         public void TestParameterSearch()
         {
-            Parameter[] parameters = {
+            Parameter[] parameters =
+            {
                 new Parameter { Name = "r", ValueProvider = new CounterValueProvider() },
                 new Parameter { Name = "c", ValueProvider = new CounterValueProvider() },
                 new Parameter { Name = "p1", ValueProvider = new RandomNumberValueProvider() },
@@ -108,7 +125,8 @@ namespace DustInTheWind.TextFileGenerator.Tests.PerformanceTests
         {
             //SectionText sectionText = new SectionText { Value = "item_{r}_{c}_{p1}_{p2}" };
 
-            Parameter[] parameters = {
+            Parameter[] parameters =
+            {
                 new Parameter { Name = "r", ValueProvider = new CounterValueProvider() },
                 new Parameter { Name = "c", ValueProvider = new CounterValueProvider() },
                 new Parameter { Name = "p1", ValueProvider = new RandomNumberValueProvider { MinValue = 10, MaxValue = 99 } },

@@ -37,7 +37,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.FileGeneration.GeneratorTes
             {
                 new Parameter
                 {
-                    Name = "param1", 
+                    Name = "param1",
                     ValueProvider = new RandomNumberValueProvider { Format = "000", MinValue = 10, MaxValue = 100 }
                 }
             });

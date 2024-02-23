@@ -44,7 +44,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.FileGeneration.GeneratorTes
             {
                 new Parameter
                 {
-                    Name ="param1",
+                    Name = "param1",
                     ValueProvider = new CounterValueProvider { StartValue = 10, Step = 2 }
                 }
             });
@@ -66,7 +66,7 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.FileGeneration.GeneratorTes
             {
                 new Parameter
                 {
-                    Name ="param1",
+                    Name = "param1",
                     ValueProvider = new CounterValueProvider { StartValue = 10, Step = 2 }
                 }
             });
@@ -87,12 +87,12 @@ namespace DustInTheWind.TextFileGenerator.Tests.Core.FileGeneration.GeneratorTes
             {
                 new Parameter
                 {
-                    Name ="param1",
+                    Name = "param1",
                     ValueProvider = new ConstantValueProvider { Value = "alez" }
                 },
                 new Parameter
                 {
-                    Name ="param2",
+                    Name = "param2",
                     ValueProvider = new CounterValueProvider { StartValue = 10, Step = 2 }
                 }
             });
