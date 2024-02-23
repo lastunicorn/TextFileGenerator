@@ -14,14 +14,14 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
-namespace DustInTheWind.TextFileGenerator.Domain.ProjectModel
+namespace TextFileGenerator.Wpf;
+
+internal static class EnumerableExtensions
 {
-    public class Project
+    public static ObservableCollection<T> ToObservableCollection<T>(this IEnumerable<T> collection)
     {
-        public string Name { get; set; }
-
-        public List<Section> Sections { get; } = new List<Section>();
+        return new ObservableCollection<T>(collection);
     }
 }

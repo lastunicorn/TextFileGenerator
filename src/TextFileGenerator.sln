@@ -31,7 +31,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TextFileGenerator.UserAcces
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cli Application", "Cli Application", "{36807A79-109A-43EF-9FA9-8349F4348045}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextFileGenerator.Tests.Performance", "TextFileGenerator.Tests.Performance\TextFileGenerator.Tests.Performance.csproj", "{113220A0-4A44-4A56-857B-3CCD362773E7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TextFileGenerator.Tests.Performance", "TextFileGenerator.Tests.Performance\TextFileGenerator.Tests.Performance.csproj", "{113220A0-4A44-4A56-857B-3CCD362773E7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WPF Application", "WPF Application", "{45012E8B-88AF-4E2C-8AC7-E312BD718BFA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextFileGenerator.Wpf", "TextFileGenerator.Wpf\TextFileGenerator.Wpf.csproj", "{325704C2-7716-45E6-B945-B6CC6B101D6C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -75,6 +79,10 @@ Global
 		{113220A0-4A44-4A56-857B-3CCD362773E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{113220A0-4A44-4A56-857B-3CCD362773E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{113220A0-4A44-4A56-857B-3CCD362773E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{325704C2-7716-45E6-B945-B6CC6B101D6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{325704C2-7716-45E6-B945-B6CC6B101D6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{325704C2-7716-45E6-B945-B6CC6B101D6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{325704C2-7716-45E6-B945-B6CC6B101D6C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -86,6 +94,7 @@ Global
 		{BF67EAFF-368B-47A3-9888-A1A75D06F850} = {36807A79-109A-43EF-9FA9-8349F4348045}
 		{AC775745-72CD-44CE-9250-48951E8B4A9A} = {B45FDECE-370A-4241-9FA7-DE2B7632C665}
 		{200FEBBE-D742-490E-A4CD-A98F336E858E} = {A4EB1CE9-5944-4F76-A0A6-85A84B600B1A}
+		{325704C2-7716-45E6-B945-B6CC6B101D6C} = {45012E8B-88AF-4E2C-8AC7-E312BD718BFA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A8AAB80E-A554-4048-9139-EE6A3453643D}

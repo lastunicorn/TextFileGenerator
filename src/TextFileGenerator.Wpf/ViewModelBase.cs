@@ -14,14 +14,25 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System.Collections.Generic;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
-namespace DustInTheWind.TextFileGenerator.Domain.ProjectModel
+namespace TextFileGenerator.Wpf;
+
+public class ViewModelBase : INotifyPropertyChanged
 {
-    public class Project
-    {
-        public string Name { get; set; }
+    public event PropertyChangedEventHandler PropertyChanged;
 
-        public List<Section> Sections { get; } = new List<Section>();
+    protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+
+    protected bool SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
+    {
+        if (EqualityComparer<T>.Default.Equals(field, value)) return false;
+        field = value;
+        OnPropertyChanged(propertyName);
+        return true;
     }
 }

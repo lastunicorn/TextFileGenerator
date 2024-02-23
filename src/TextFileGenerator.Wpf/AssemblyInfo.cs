@@ -1,4 +1,4 @@
-﻿// TextFileGenerator
+// TextFileGenerator
 // Copyright (C) 2009-2011 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -14,14 +14,13 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System.Collections.Generic;
+using System.Windows;
 
-namespace DustInTheWind.TextFileGenerator.Domain.ProjectModel
-{
-    public class Project
-    {
-        public string Name { get; set; }
-
-        public List<Section> Sections { get; } = new List<Section>();
-    }
-}
+[assembly: ThemeInfo(
+    ResourceDictionaryLocation.None, //where theme specific resource dictionaries are located
+    //(used if a resource is not found in the page,
+    // or application resource dictionaries)
+    ResourceDictionaryLocation.SourceAssembly //where the generic resource dictionary is located
+    //(used if a resource is not found in the page,
+    // app, or any theme specific resource dictionaries)
+)]

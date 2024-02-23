@@ -14,14 +14,11 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System.Collections.Generic;
+namespace TextFileGenerator.Wpf;
 
-namespace DustInTheWind.TextFileGenerator.Domain.ProjectModel
+public class SectionItemViewModel
 {
-    public class Project
-    {
-        public string Name { get; set; }
-
-        public List<Section> Sections { get; } = new List<Section>();
-    }
+    public string Label { get; set; }
+    
+    public string Parameters { get; set; }
 }

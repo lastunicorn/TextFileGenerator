@@ -14,14 +14,25 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
-namespace DustInTheWind.TextFileGenerator.Domain.ProjectModel
+namespace TextFileGenerator.Wpf;
+
+public class ProjectItemViewModel : ViewModelBase
 {
-    public class Project
-    {
-        public string Name { get; set; }
+    private bool isChanged;
 
-        public List<Section> Sections { get; } = new List<Section>();
+    public string Label { get; set; }
+
+    public bool IsChanged
+    {
+        get => isChanged;
+        set
+        {
+            isChanged = value;
+            OnPropertyChanged();
+        }
     }
+
+    public ObservableCollection<SectionItemViewModel> Sections { get; set; }
 }

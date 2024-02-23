@@ -14,14 +14,23 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System.Collections.Generic;
+using System.Windows;
 
-namespace DustInTheWind.TextFileGenerator.Domain.ProjectModel
+namespace TextFileGenerator.Wpf;
+
+/// <summary>
+/// Interaction logic for App.xaml
+/// </summary>
+public partial class App : Application
 {
-    public class Project
+    protected override void OnStartup(StartupEventArgs e)
     {
-        public string Name { get; set; }
+        ProjectService projectService = new();
+        MainViewModel mainViewModel = new(projectService);
 
-        public List<Section> Sections { get; } = new List<Section>();
+        MainWindow = new MainWindow(mainViewModel);
+        MainWindow.Show();
+
+        base.OnStartup(e);
     }
 }

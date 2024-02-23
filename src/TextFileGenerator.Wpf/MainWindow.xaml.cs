@@ -14,14 +14,19 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System.Collections.Generic;
+using System.Windows;
 
-namespace DustInTheWind.TextFileGenerator.Domain.ProjectModel
+namespace TextFileGenerator.Wpf;
+
+/// <summary>
+/// Interaction logic for MainWindow.xaml
+/// </summary>
+public partial class MainWindow : Window
 {
-    public class Project
+    public MainWindow(MainViewModel mainViewModel)
     {
-        public string Name { get; set; }
+        InitializeComponent();
 
-        public List<Section> Sections { get; } = new List<Section>();
+        DataContext = mainViewModel;
     }
 }

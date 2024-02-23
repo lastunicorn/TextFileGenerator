@@ -81,7 +81,7 @@ internal class GenerateUseCase : IRequestHandler<GenerateRequest>
         return stopwatch.Elapsed;
     }
 
-    private string GenerateOutputFileName(string projectFileName)
+    private static string GenerateOutputFileName(string projectFileName)
     {
         string directoryPath = Path.GetDirectoryName(projectFileName);
         string outputFileName = Path.GetFileNameWithoutExtension(projectFileName) + ".output.txt";
