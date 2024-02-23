@@ -19,34 +19,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <OutputType>WinExe</OutputType>
-        <TargetFramework>net8.0-windows</TargetFramework>
+        <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
-        <AssemblyName>DustInTheWind.TextFileGenerator.Wpf</AssemblyName>
-        <RootNamespace>DustInTheWind.TextFileGenerator.Wpf</RootNamespace>
-        <UseWPF>true</UseWPF>
+        <AssemblyName>DustInTheWind.TextFileGenerator.Wpf.Application</AssemblyName>
+        <RootNamespace>DustInTheWind.TextFileGenerator.Wpf.Application</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
-        <None Remove="Images\folder-management-16.png" />
-        <None Remove="Images\new-document-16.png" />
-        <None Remove="Images\toilet-paper-16.png" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <PackageReference Include="Autofac" Version="8.0.0" />
-      <PackageReference Include="MediatR.Extensions.Autofac.DependencyInjection" Version="12.0.0" />
+        <PackageReference Include="MediatR" Version="12.2.0" />
     </ItemGroup>
 
     <ItemGroup>
         <ProjectReference Include="..\TextFileGenerator.Domain\TextFileGenerator.Domain.csproj" PrivateAssets="All" />
-        <ProjectReference Include="..\TextFileGenerator.Wpf.Application\TextFileGenerator.Wpf.Application.csproj" PrivateAssets="All" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <Resource Include="Images\folder-management-16.png" />
-        <Resource Include="Images\new-document-16.png" />
-        <Resource Include="Images\toilet-paper-16.png" />
     </ItemGroup>
 
 </Project>

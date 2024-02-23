@@ -15,24 +15,49 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System.Collections.ObjectModel;
+using DustInTheWind.TextFileGenerator.Wpf.Application.PresentProjects;
 
-namespace TextFileGenerator.Wpf;
+namespace DustInTheWind.TextFileGenerator.Wpf;
 
 public class ProjectItemViewModel : ViewModelBase
 {
     private bool isChanged;
+    private string label;
 
-    public string Label { get; set; }
+    public string Label
+    {
+        get => label;
+        set
+        {
+            if (value == label)
+                return;
+
+            label = value;
+            OnPropertyChanged();
+        }
+    }
 
     public bool IsChanged
     {
         get => isChanged;
         set
         {
+            if (value == isChanged)
+                return;
+
             isChanged = value;
             OnPropertyChanged();
         }
     }
 
-    public ObservableCollection<SectionItemViewModel> Sections { get; set; }
+    public ObservableCollection<SectionItemViewModel> Sections { get; }
+
+    public ProjectItemViewModel(ProjectResponseDto projectResponseDto)
+    {
+        Label = projectResponseDto.Name;
+
+        Sections = projectResponseDto.Sections
+            .Select(z => new SectionItemViewModel(z))
+            .ToObservableCollection();
+    }
 }

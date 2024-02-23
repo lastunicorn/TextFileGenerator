@@ -14,30 +14,14 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System.Windows;
-using Autofac;
+using DustInTheWind.TextFileGenerator.Wpf.Application.PresentProjects;
 
 namespace DustInTheWind.TextFileGenerator.Wpf;
 
-/// <summary>
-/// Interaction logic for App.xaml
-/// </summary>
-public partial class App : System.Windows.Application
+public class SectionChildItemViewModel
 {
-    protected override void OnStartup(StartupEventArgs e)
+    public SectionChildItemViewModel(ParameterResponseDto parameterResponseDto)
     {
-        IContainer container = CreateContainer();
-
-        MainWindow = container.Resolve<MainWindow>();
-        MainWindow.Show();
-
-        base.OnStartup(e);
-    }
-
-    private static IContainer CreateContainer()
-    {
-        ContainerBuilder containerBuilder = new();
-        Setup.ConfigureDependencies(containerBuilder);
-        return containerBuilder.Build();
+        
     }
 }

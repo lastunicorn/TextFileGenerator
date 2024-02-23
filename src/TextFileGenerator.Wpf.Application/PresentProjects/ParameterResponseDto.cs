@@ -14,11 +14,8 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace TextFileGenerator.Wpf;
+namespace DustInTheWind.TextFileGenerator.Wpf.Application.PresentProjects;
 
-public class SectionItemViewModel
+public class ParameterResponseDto
 {
-    public string Label { get; set; }
-    
-    public string Parameters { get; set; }
 }

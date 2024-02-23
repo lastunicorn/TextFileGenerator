@@ -37,6 +37,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WPF Application", "WPF Appl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextFileGenerator.Wpf", "TextFileGenerator.Wpf\TextFileGenerator.Wpf.csproj", "{325704C2-7716-45E6-B945-B6CC6B101D6C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextFileGenerator.Wpf.Application", "TextFileGenerator.Wpf.Application\TextFileGenerator.Wpf.Application.csproj", "{8F745B0B-996C-41BC-89E3-87BA4FC3402D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -83,6 +85,10 @@ Global
 		{325704C2-7716-45E6-B945-B6CC6B101D6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{325704C2-7716-45E6-B945-B6CC6B101D6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{325704C2-7716-45E6-B945-B6CC6B101D6C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F745B0B-996C-41BC-89E3-87BA4FC3402D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F745B0B-996C-41BC-89E3-87BA4FC3402D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F745B0B-996C-41BC-89E3-87BA4FC3402D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F745B0B-996C-41BC-89E3-87BA4FC3402D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -95,6 +101,7 @@ Global
 		{AC775745-72CD-44CE-9250-48951E8B4A9A} = {B45FDECE-370A-4241-9FA7-DE2B7632C665}
 		{200FEBBE-D742-490E-A4CD-A98F336E858E} = {A4EB1CE9-5944-4F76-A0A6-85A84B600B1A}
 		{325704C2-7716-45E6-B945-B6CC6B101D6C} = {45012E8B-88AF-4E2C-8AC7-E312BD718BFA}
+		{8F745B0B-996C-41BC-89E3-87BA4FC3402D} = {45012E8B-88AF-4E2C-8AC7-E312BD718BFA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A8AAB80E-A554-4048-9139-EE6A3453643D}

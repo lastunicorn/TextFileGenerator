@@ -17,7 +17,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace TextFileGenerator.Wpf;
+namespace DustInTheWind.TextFileGenerator.Wpf;
 
 public class ViewModelBase : INotifyPropertyChanged
 {

@@ -16,11 +16,20 @@
 
 using DustInTheWind.TextFileGenerator.Domain.ProjectModel;
 
-namespace TextFileGenerator.Wpf;
+namespace DustInTheWind.TextFileGenerator.Wpf.Application;
 
-public class ProjectService
+public class ApplicationState
 {
-    public List<Project> RetrieveProjects()
+    public List<Project> OpenedProjects { get; } = new();
+
+    public Project CurrentProject { get; set; }
+
+    public ApplicationState()
+    {
+        OpenedProjects.AddRange(CreateProjects());
+    }
+
+    private List<Project> CreateProjects()
     {
         List<Project> projects = new()
         {
@@ -69,7 +78,7 @@ public class ProjectService
                         {
                             new Parameter()
                         }
-                    },
+                    }
                 }
             }
         };

@@ -14,30 +14,28 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System.Windows;
-using Autofac;
+using DustInTheWind.TextFileGenerator.Domain.ProjectModel;
 
-namespace DustInTheWind.TextFileGenerator.Wpf;
+namespace DustInTheWind.TextFileGenerator.Wpf.Application.PresentProjects;
 
-/// <summary>
-/// Interaction logic for App.xaml
-/// </summary>
-public partial class App : System.Windows.Application
+public class SectionResponseDto
 {
-    protected override void OnStartup(StartupEventArgs e)
+    public string Name { get; }
+
+    public List<ParameterResponseDto> Parameters { get; }
+
+    public List<SectionResponseDto> Sections { get; }
+
+    internal SectionResponseDto(Section section)
     {
-        IContainer container = CreateContainer();
+        Name = section.Name;
 
-        MainWindow = container.Resolve<MainWindow>();
-        MainWindow.Show();
+        Parameters = section.Parameters
+            .Select(x => new ParameterResponseDto())
+            .ToList();
 
-        base.OnStartup(e);
-    }
-
-    private static IContainer CreateContainer()
-    {
-        ContainerBuilder containerBuilder = new();
-        Setup.ConfigureDependencies(containerBuilder);
-        return containerBuilder.Build();
+        Sections = section.Sections
+            .Select(x => new SectionResponseDto(x))
+            .ToList();
     }
 }

@@ -16,7 +16,7 @@
 
 using System.Collections.ObjectModel;
 
-namespace TextFileGenerator.Wpf;
+namespace DustInTheWind.TextFileGenerator.Wpf;
 
 internal static class EnumerableExtensions
 {

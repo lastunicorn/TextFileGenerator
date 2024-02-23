@@ -15,29 +15,18 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System.Windows;
-using Autofac;
 
 namespace DustInTheWind.TextFileGenerator.Wpf;
 
 /// <summary>
-/// Interaction logic for App.xaml
+/// Interaction logic for MainWindow.xaml
 /// </summary>
-public partial class App : System.Windows.Application
+public partial class MainWindow : Window
 {
-    protected override void OnStartup(StartupEventArgs e)
+    public MainWindow(MainViewModel mainViewModel)
     {
-        IContainer container = CreateContainer();
+        InitializeComponent();
 
-        MainWindow = container.Resolve<MainWindow>();
-        MainWindow.Show();
-
-        base.OnStartup(e);
-    }
-
-    private static IContainer CreateContainer()
-    {
-        ContainerBuilder containerBuilder = new();
-        Setup.ConfigureDependencies(containerBuilder);
-        return containerBuilder.Build();
+        DataContext = mainViewModel;
     }
 }
