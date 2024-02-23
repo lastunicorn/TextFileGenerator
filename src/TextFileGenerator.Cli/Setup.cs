@@ -16,7 +16,7 @@
 
 using Autofac;
 using CommandLine;
-using DustInTheWind.TextFileGenerator.Application.Generate;
+using DustInTheWind.TextFileGenerator.Cli.Application.Generate;
 using DustInTheWind.TextFileGenerator.Cli.CommandArguments;
 using DustInTheWind.TextFileGenerator.Cli.Flows;
 using DustInTheWind.TextFileGenerator.Ports.ProjectAccess;

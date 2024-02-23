@@ -14,11 +14,9 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using DustInTheWind.TextFileGenerator.Application.Generate;
-using DustInTheWind.TextFileGenerator.Application.Scaffold;
+using DustInTheWind.TextFileGenerator.Cli.Application.Generate;
+using DustInTheWind.TextFileGenerator.Cli.Application.Scaffold;
 using DustInTheWind.TextFileGenerator.Cli.CommandArguments;
-using DustInTheWind.TextFileGenerator.ProjectAccess;
-using DustInTheWind.TextFileGenerator.UserAccess;
 using MediatR;
 
 namespace DustInTheWind.TextFileGenerator.Cli.Flows

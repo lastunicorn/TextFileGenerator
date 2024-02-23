@@ -21,7 +21,7 @@ using System.Threading.Tasks;
 using DustInTheWind.TextFileGenerator.Ports.UserAccess;
 using MediatR;
 
-namespace DustInTheWind.TextFileGenerator.Application.Scaffold
+namespace DustInTheWind.TextFileGenerator.Cli.Application.Scaffold
 {
     internal class ScaffoldUseCase : IRequestHandler<ScaffoldRequest>
     {

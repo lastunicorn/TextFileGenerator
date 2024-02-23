@@ -14,11 +14,13 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using System.Collections.Generic;
 using MediatR;
 
-namespace DustInTheWind.TextFileGenerator.Application.Scaffold
+namespace DustInTheWind.TextFileGenerator.Cli.Application.Generate
 {
-    public class ScaffoldRequest : IRequest
+    public class GenerateRequest : IRequest
     {
+        public IList<string> DescriptorFileNames { get; set; }
     }
 }

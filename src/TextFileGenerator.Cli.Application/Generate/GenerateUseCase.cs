@@ -15,7 +15,6 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Threading;
@@ -26,7 +25,7 @@ using DustInTheWind.TextFileGenerator.Ports.ProjectAccess;
 using DustInTheWind.TextFileGenerator.Ports.UserAccess;
 using MediatR;
 
-namespace DustInTheWind.TextFileGenerator.Application.Generate
+namespace DustInTheWind.TextFileGenerator.Cli.Application.Generate
 {
     internal class GenerateUseCase : IRequestHandler<GenerateRequest>
     {

@@ -20,8 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
-        <AssemblyName>DustInTheWind.TextFileGenerator.Application</AssemblyName>
-        <RootNamespace>DustInTheWind.TextFileGenerator.Application</RootNamespace>
+        <AssemblyName>DustInTheWind.TextFileGenerator.Cli.Application</AssemblyName>
+        <RootNamespace>DustInTheWind.TextFileGenerator.Cli.Application</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
