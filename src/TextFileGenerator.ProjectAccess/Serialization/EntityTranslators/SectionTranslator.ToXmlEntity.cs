@@ -54,7 +54,7 @@ namespace DustInTheWind.TextFileGenerator.ProjectAccess.Serialization.EntityTran
             {
                 destinationSection.Items = new object[sourceSection.Sections.Count];
 
-                for (int i = 0; i < sourceSection.Sections.Count; i++) 
+                for (int i = 0; i < sourceSection.Sections.Count; i++)
                     destinationSection.Items[i] = sourceSection.Sections[i].ToXmlEntity();
             }
         }

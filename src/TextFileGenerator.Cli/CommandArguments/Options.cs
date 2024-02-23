@@ -16,14 +16,13 @@
 
 using CommandLine;
 
-namespace DustInTheWind.TextFileGenerator.Cli.CommandArguments
-{
-    internal class Options
-    {
-        [Value(0)]
-        public IList<string> DescriptorFileNames { get; set; }
+namespace DustInTheWind.TextFileGenerator.Cli.CommandArguments;
 
-        [Option('t', "template", Required = false, Default = false, HelpText = "generates the template file.")]
-        public bool GenerateScaffold { get; set; }
-    }
+internal class Options
+{
+    [Value(0)]
+    public IList<string> DescriptorFileNames { get; set; }
+
+    [Option('t', "template", Required = false, Default = false, HelpText = "generates the template file.")]
+    public bool GenerateScaffold { get; set; }
 }

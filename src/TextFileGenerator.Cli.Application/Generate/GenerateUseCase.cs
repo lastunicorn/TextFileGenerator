@@ -14,86 +14,78 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
 using System.Diagnostics;
-using System.IO;
-using System.Threading;
-using System.Threading.Tasks;
 using DustInTheWind.TextFileGenerator.Domain.FileGeneration;
 using DustInTheWind.TextFileGenerator.Domain.ProjectModel;
 using DustInTheWind.TextFileGenerator.Ports.ProjectAccess;
 using DustInTheWind.TextFileGenerator.Ports.UserAccess;
 using MediatR;
 
-namespace DustInTheWind.TextFileGenerator.Cli.Application.Generate
+namespace DustInTheWind.TextFileGenerator.Cli.Application.Generate;
+
+internal class GenerateUseCase : IRequestHandler<GenerateRequest>
 {
-    internal class GenerateUseCase : IRequestHandler<GenerateRequest>
+    private readonly IUserInterface userInterface;
+    private readonly IProjectRepository projectRepository;
+
+    public GenerateUseCase(IUserInterface userInterface, IProjectRepository projectRepository)
     {
-        private readonly IUserInterface userInterface;
-        private readonly IProjectRepository projectRepository;
+        this.userInterface = userInterface ?? throw new ArgumentNullException(nameof(userInterface));
+        this.projectRepository = projectRepository ?? throw new ArgumentNullException(nameof(projectRepository));
+    }
 
-        public GenerateUseCase(IUserInterface userInterface, IProjectRepository projectRepository)
+    public Task Handle(GenerateRequest request, CancellationToken cancellationToken)
+    {
+        string projectFileName = request.DescriptorFileNames[0];
+        Project project = ReadDescriptorFile(projectFileName);
+
+        string outputFileName = GenerateOutputFileName(projectFileName);
+        GenerateTextFile(project, outputFileName);
+
+        return Task.CompletedTask;
+    }
+
+    private Project ReadDescriptorFile(string projectFileName)
+    {
+        userInterface.DisplayOptionFileReading(projectFileName);
+        Project project = projectRepository.Get(projectFileName);
+        userInterface.DisplayOk();
+
+        return project;
+    }
+
+    private void GenerateTextFile(Project project, string outputFileName)
+    {
+        userInterface.DisplayOutputFileGenerating(outputFileName);
+
+        TimeSpan time = Measure(() =>
         {
-            this.userInterface = userInterface ?? throw new ArgumentNullException(nameof(userInterface));
-            this.projectRepository = projectRepository ?? throw new ArgumentNullException(nameof(projectRepository));
-        }
-
-        public Task Handle(GenerateRequest request, CancellationToken cancellationToken)
-        {
-            string projectFileName = request.DescriptorFileNames[0];
-            Project project = ReadDescriptorFile(projectFileName);
-
-            string outputFileName = GenerateOutputFileName(projectFileName);
-            GenerateTextFile(project, outputFileName);
-
-            return Task.CompletedTask;
-        }
-
-        private Project ReadDescriptorFile(string projectFileName)
-        {
-            userInterface.DisplayOptionFileReading(projectFileName);
-            Project project = projectRepository.Get(projectFileName);
-            userInterface.DisplayOk();
-
-            return project;
-        }
-
-        private void GenerateTextFile(Project project, string outputFileName)
-        {
-            userInterface.DisplayOutputFileGenerating(outputFileName);
-
-            TimeSpan time = Measure(() =>
+            userInterface.ExecuteWithSpinner(() =>
             {
-                userInterface.ExecuteWithSpinner(() =>
-                {
-                    using (Stream outputStream = File.Create(outputFileName))
-                    using (Output output = new Output(outputStream))
-                    {
-                        output.AddSections(project.Sections);
-                    }
-                });
-
+                using Stream outputStream = File.Create(outputFileName);
+                using Output output = new(outputStream);
+                output.AddSections(project.Sections);
             });
+        });
 
-            userInterface.DisplayOk();
-            userInterface.DisplayElapsedTime(time);
-        }
+        userInterface.DisplayOk();
+        userInterface.DisplayElapsedTime(time);
+    }
 
-        private static TimeSpan Measure(Action action)
-        {
-            Stopwatch stopwatch = Stopwatch.StartNew();
-            action();
-            stopwatch.Stop();
+    private static TimeSpan Measure(Action action)
+    {
+        Stopwatch stopwatch = Stopwatch.StartNew();
+        action();
+        stopwatch.Stop();
 
-            return stopwatch.Elapsed;
-        }
+        return stopwatch.Elapsed;
+    }
 
-        private string GenerateOutputFileName(string projectFileName)
-        {
-            string directoryPath = Path.GetDirectoryName(projectFileName);
-            string outputFileName = Path.GetFileNameWithoutExtension(projectFileName) + ".output.txt";
+    private string GenerateOutputFileName(string projectFileName)
+    {
+        string directoryPath = Path.GetDirectoryName(projectFileName);
+        string outputFileName = Path.GetFileNameWithoutExtension(projectFileName) + ".output.txt";
 
-            return Path.Combine(directoryPath, outputFileName);
-        }
+        return Path.Combine(directoryPath, outputFileName);
     }
 }

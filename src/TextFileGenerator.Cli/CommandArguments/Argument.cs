@@ -14,17 +14,17 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace DustInTheWind.TextFileGenerator.Cli.CommandArguments
-{
-    class Argument
-    {
-        public string Id { get; private set; }
-        public string Value { get; private set; }
+namespace DustInTheWind.TextFileGenerator.Cli.CommandArguments;
 
-        public Argument(string id, string value)
-        {
-            Id = id;
-            Value = value;
-        }
+internal class Argument
+{
+    public string Id { get; private set; }
+
+    public string Value { get; private set; }
+
+    public Argument(string id, string value)
+    {
+        Id = id;
+        Value = value;
     }
 }

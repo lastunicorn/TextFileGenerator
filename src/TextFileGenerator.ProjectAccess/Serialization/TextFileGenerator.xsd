@@ -1,15 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <xs:schema
     xmlns="http://alez.ro/TextFileGenerator"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
     elementFormDefault="qualified"
     attributeFormDefault="unqualified"
-    targetNamespace="http://alez.ro/TextFileGenerator" >
+    targetNamespace="http://alez.ro/TextFileGenerator">
 
     <xs:element name="TextFileGenerator">
         <xs:complexType>
             <xs:sequence>
-              <xs:element ref="Section" minOccurs="0" maxOccurs="unbounded" />
+                <xs:element ref="Section" minOccurs="0" maxOccurs="unbounded" />
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -18,10 +19,10 @@
         <xs:complexType>
             <xs:sequence minOccurs="0">
                 <xs:choice>
-                    <xs:element name="Text" type="xs:string"/>
-                    <xs:element ref="Section" maxOccurs="unbounded"/>
+                    <xs:element name="Text" type="xs:string" />
+                    <xs:element ref="Section" maxOccurs="unbounded" />
                 </xs:choice>
-                <xs:element ref="Parameter" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element ref="Parameter" minOccurs="0" maxOccurs="unbounded" />
             </xs:sequence>
             <xs:attribute name="Name" form="unqualified" type="xs:string" />
             <xs:attribute name="Repeat" form="unqualified" type="xs:positiveInteger" default="1" />
@@ -66,16 +67,16 @@
 
     <xs:simpleType name="SeparatorLocation">
         <xs:restriction base="xs:string">
-            <xs:enumeration value="Prefix"/>
-            <xs:enumeration value="Infix"/>
-            <xs:enumeration value="Postfix"/>
+            <xs:enumeration value="Prefix" />
+            <xs:enumeration value="Infix" />
+            <xs:enumeration value="Postfix" />
         </xs:restriction>
     </xs:simpleType>
 
     <xs:simpleType name="ParameterValuePersistence">
         <xs:restriction base="xs:string">
-            <xs:enumeration value="PerRequest"/>
-            <xs:enumeration value="PerSectionStep"/>
+            <xs:enumeration value="PerRequest" />
+            <xs:enumeration value="PerSectionStep" />
         </xs:restriction>
     </xs:simpleType>
 

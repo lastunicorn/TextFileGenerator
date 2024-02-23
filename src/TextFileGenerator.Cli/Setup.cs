@@ -35,7 +35,7 @@ internal class Setup
         containerBuilder.RegisterType<UserInterface>().AsSelf();
         containerBuilder.RegisterType<MainView>().AsSelf();
         containerBuilder.RegisterType<MainFlow>().AsSelf();
-        
+
         containerBuilder.RegisterType<ProjectRepository>().As<IProjectRepository>();
         containerBuilder.RegisterType<UserInterface>().As<IUserInterface>();
 

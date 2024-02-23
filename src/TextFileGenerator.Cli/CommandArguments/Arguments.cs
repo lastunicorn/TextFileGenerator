@@ -14,40 +14,40 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace DustInTheWind.TextFileGenerator.Cli.CommandArguments
+namespace DustInTheWind.TextFileGenerator.Cli.CommandArguments;
+
+internal class Arguments
 {
-    class Arguments
+    public string DescriptorFileName { get; private set; }
+
+    public bool GenerateScaffold { get; private set; }
+
+    public Arguments(IReadOnlyList<string> args)
     {
-        public string DescriptorFileName { get; private set; }
-        public bool GenerateScaffold { get; private set; }
+        if (args == null)
+            throw new ArgumentNullException(nameof(args));
 
-        public Arguments(IReadOnlyList<string> args)
+        ParseArgs(args);
+    }
+
+    private void ParseArgs(IReadOnlyList<string> args)
+    {
+        ArgumentParser argumentParser = new(args);
+
+        Argument argument = argumentParser.GetNext();
+
+        if (argument == null)
+            return;
+
+        switch (argument.Id)
         {
-            if (args == null)
-                throw new ArgumentNullException("args");
+            case null:
+                DescriptorFileName = argument.Value;
+                break;
 
-            ParseArgs(args);
-        }
-
-        private void ParseArgs(IReadOnlyList<string> args)
-        {
-            ArgumentParser argumentParser = new ArgumentParser(args);
-
-            Argument argument = argumentParser.GetNext();
-
-            if (argument == null)
-                return;
-
-            switch (argument.Id)
-            {
-                case null:
-                    DescriptorFileName = argument.Value;
-                    break;
-
-                case "x":
-                    GenerateScaffold = true;
-                    break;
-            }
+            case "x":
+                GenerateScaffold = true;
+                break;
         }
     }
 }

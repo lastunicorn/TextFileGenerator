@@ -16,9 +16,8 @@
 
 using MediatR;
 
-namespace DustInTheWind.TextFileGenerator.Cli.Application.Scaffold
+namespace DustInTheWind.TextFileGenerator.Cli.Application.Scaffold;
+
+public class ScaffoldRequest : IRequest
 {
-    public class ScaffoldRequest : IRequest
-    {
-    }
 }

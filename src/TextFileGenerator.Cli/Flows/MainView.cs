@@ -16,43 +16,42 @@
 
 using System.Reflection;
 
-namespace DustInTheWind.TextFileGenerator.Cli.Flows
+namespace DustInTheWind.TextFileGenerator.Cli.Flows;
+
+internal class MainView
 {
-    internal class MainView
+    private const ConsoleColor EnhancedColor = ConsoleColor.Green;
+    private const ConsoleColor ErrorColor = ConsoleColor.Red;
+
+    public void WriteHeader()
     {
-        private const ConsoleColor EnhancedColor = ConsoleColor.Green;
-        private const ConsoleColor ErrorColor = ConsoleColor.Red;
+        Version version = GetVersion();
 
-        public void WriteHeader()
-        {
-            Version version = GetVersion();
+        Console.WriteLine("TextFileGenerator " + version.ToString(3));
+        Console.WriteLine("===============================================================================");
+        Console.WriteLine();
+    }
 
-            Console.WriteLine("TextFileGenerator " + version.ToString(3));
-            Console.WriteLine("===============================================================================");
-            Console.WriteLine();
-        }
+    private static Version GetVersion()
+    {
+        Assembly assembly = Assembly.GetEntryAssembly();
+        AssemblyName assemblyName = assembly.GetName();
+        return assemblyName.Version;
+    }
 
-        private static Version GetVersion()
-        {
-            Assembly assembly = Assembly.GetEntryAssembly();
-            AssemblyName assemblyName = assembly.GetName();
-            return assemblyName.Version;
-        }
+    public void DisplayError(Exception ex)
+    {
+        Console.WriteLine();
+        ConsoleWriteLine(ex.ToString(), ErrorColor);
+    }
 
-        public void DisplayError(Exception ex)
-        {
-            Console.WriteLine();
-            ConsoleWriteLine(ex.ToString(), ErrorColor);
-        }
+    private static void ConsoleWriteLine(string text, ConsoleColor color)
+    {
+        ConsoleColor oldColor = Console.ForegroundColor;
 
-        private static void ConsoleWriteLine(string text, ConsoleColor color)
-        {
-            ConsoleColor oldColor = Console.ForegroundColor;
+        Console.ForegroundColor = color;
+        Console.WriteLine(text);
 
-            Console.ForegroundColor = color;
-            Console.WriteLine(text);
-
-            Console.ForegroundColor = oldColor;
-        }
+        Console.ForegroundColor = oldColor;
     }
 }

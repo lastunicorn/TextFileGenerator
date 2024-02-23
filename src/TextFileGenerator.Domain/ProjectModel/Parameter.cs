@@ -25,6 +25,7 @@ namespace DustInTheWind.TextFileGenerator.Domain.ProjectModel
         private IValueProvider valueProvider = EmptyValueProvider.Value;
 
         public string Name { get; set; }
+
         public ValueChangeMode ValueChangeMode { get; set; }
 
         public IValueProvider ValueProvider

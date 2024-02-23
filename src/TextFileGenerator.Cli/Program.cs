@@ -14,14 +14,13 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace DustInTheWind.TextFileGenerator.Cli
+namespace DustInTheWind.TextFileGenerator.Cli;
+
+internal static class Program
 {
-    internal static class Program
+    private static async Task Main(string[] args)
     {
-        private static async Task Main(string[] args)
-        {
-            Bootstrapper bootstrapper = new();
-            await bootstrapper.Run(args);
-        }
+        Bootstrapper bootstrapper = new();
+        await bootstrapper.Run(args);
     }
 }

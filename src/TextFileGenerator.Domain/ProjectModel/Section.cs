@@ -21,15 +21,15 @@ namespace DustInTheWind.TextFileGenerator.Domain.ProjectModel
     public class Section
     {
         public string Name { get; set; }
-    
+
         public TextTemplate SectionText { get; set; }
-        
+
         public int RepeatCount { get; set; } = 1;
 
         public string Separator { get; set; }
-        
+
         public SeparatorLocation SeparatorLocation { get; set; }
-        
+
         public ParameterList Parameters { get; } = new ParameterList();
 
         public List<Section> Sections { get; } = new List<Section>();

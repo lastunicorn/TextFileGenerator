@@ -1,5 +1,5 @@
-// VeloCity
-// Copyright (C) 2022-2023 Dust in the Wind
+// TextFileGenerator
+// Copyright (C) 2009-2011 Dust in the Wind
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -81,7 +81,7 @@ namespace DustInTheWind.TextFileGenerator.Domain.FileGeneration
                 IEnumerable<OutputSection> childOutputSections = section.Sections
                     .Select(x => new OutputSection(x));
 
-                foreach (OutputSection childOutputSection in childOutputSections) 
+                foreach (OutputSection childOutputSection in childOutputSections)
                     childOutputSection.Serialize(textWriter, allParameters);
             }
         }

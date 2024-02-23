@@ -19,58 +19,57 @@ using DustInTheWind.TextFileGenerator.Cli.Application.Scaffold;
 using DustInTheWind.TextFileGenerator.Cli.CommandArguments;
 using MediatR;
 
-namespace DustInTheWind.TextFileGenerator.Cli.Flows
+namespace DustInTheWind.TextFileGenerator.Cli.Flows;
+
+/// <summary>
+/// This is a hub that chooses a flow and starts it.
+/// </summary>
+internal class MainFlow
 {
-    /// <summary>
-    /// This is a hub that chooses a flow and starts it.
-    /// </summary>
-    internal class MainFlow
+    private readonly MainView mainView;
+    private readonly Options options;
+    private readonly IMediator mediator;
+
+    public MainFlow(MainView mainView, Options options, IMediator mediator)
     {
-        private readonly MainView mainView;
-        private readonly Options options;
-        private readonly IMediator mediator;
+        this.mainView = mainView ?? throw new ArgumentNullException(nameof(mainView));
+        this.options = options ?? throw new ArgumentNullException(nameof(options));
+        this.mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
+    }
 
-        public MainFlow(MainView mainView, Options options, IMediator mediator)
+    public async Task Start()
+    {
+        mainView.WriteHeader();
+
+        try
         {
-            this.mainView = mainView ?? throw new ArgumentNullException(nameof(mainView));
-            this.options = options ?? throw new ArgumentNullException(nameof(options));
-            this.mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
-        }
-
-        public async Task Start()
-        {
-            mainView.WriteHeader();
-
-            try
+            if (options.DescriptorFileNames is { Count: > 0 })
             {
-                if (options.DescriptorFileNames is { Count: > 0 })
-                {
-                    await GenerateOutput();
-                }
-                else if (options.GenerateScaffold)
-                {
-                    await GenerateScaffoldFile();
-                }
+                await GenerateOutput();
             }
-            catch (Exception ex)
+            else if (options.GenerateScaffold)
             {
-                mainView.DisplayError(ex);
+                await GenerateScaffoldFile();
             }
         }
-
-        private async Task GenerateOutput()
+        catch (Exception ex)
         {
-            GenerateRequest request = new()
-            {
-                DescriptorFileNames = options.DescriptorFileNames
-            };
-            await mediator.Send(request);
+            mainView.DisplayError(ex);
         }
+    }
 
-        private async Task GenerateScaffoldFile()
+    private async Task GenerateOutput()
+    {
+        GenerateRequest request = new()
         {
-            ScaffoldRequest request = new();
-            await mediator.Send(request);
-        }
+            DescriptorFileNames = options.DescriptorFileNames
+        };
+        await mediator.Send(request);
+    }
+
+    private async Task GenerateScaffoldFile()
+    {
+        ScaffoldRequest request = new();
+        await mediator.Send(request);
     }
 }

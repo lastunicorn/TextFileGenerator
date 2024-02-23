@@ -19,7 +19,9 @@ namespace DustInTheWind.TextFileGenerator.UserAccess.Controls
     internal interface ITemplate
     {
         void Reset();
+
         string GetNext();
+
         string GetCurrent();
     }
 }

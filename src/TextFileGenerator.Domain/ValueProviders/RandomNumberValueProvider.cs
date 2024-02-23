@@ -32,7 +32,7 @@ namespace DustInTheWind.TextFileGenerator.Domain.ValueProviders
         public int MaxValue { get; set; } = 99;
 
         public string Format { get; set; }
-        
+
         public RandomNumberValueProvider()
         {
             if (random == null)

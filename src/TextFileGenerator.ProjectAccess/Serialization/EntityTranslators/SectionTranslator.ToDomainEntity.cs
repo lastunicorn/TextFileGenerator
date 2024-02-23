@@ -33,7 +33,7 @@ namespace DustInTheWind.TextFileGenerator.ProjectAccess.Serialization.EntityTran
                 Name = sourceSection.Name,
                 RepeatCount = int.Parse(sourceSection.Repeat),
                 Separator = sourceSection.Separator,
-                SeparatorLocation = Translate(sourceSection.SeparatorLocation),
+                SeparatorLocation = Translate(sourceSection.SeparatorLocation)
             };
 
             TranslateContent(destinationSection, sourceSection);
@@ -73,7 +73,7 @@ namespace DustInTheWind.TextFileGenerator.ProjectAccess.Serialization.EntityTran
 
                 Type itemType = item.GetType();
 
-                if (itemType == typeof(string)) 
+                if (itemType == typeof(string))
                     destinationSection.SectionText = new TextTemplate((string)item);
 
                 if (itemType == typeof(XSection))
@@ -90,7 +90,7 @@ namespace DustInTheWind.TextFileGenerator.ProjectAccess.Serialization.EntityTran
             if (sourceParameters == null)
                 return;
 
-            IEnumerable<Parameter> destinationParameters = sourceParameters.Select(x=> x.ToDomainEntity());
+            IEnumerable<Parameter> destinationParameters = sourceParameters.Select(x => x.ToDomainEntity());
             destinationSection.Parameters.AddRange(destinationParameters);
         }
     }

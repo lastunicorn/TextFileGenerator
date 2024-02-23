@@ -14,36 +14,32 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
-using System.IO;
-using System.Threading;
-using System.Threading.Tasks;
 using DustInTheWind.TextFileGenerator.Ports.UserAccess;
 using MediatR;
 
-namespace DustInTheWind.TextFileGenerator.Cli.Application.Scaffold
+namespace DustInTheWind.TextFileGenerator.Cli.Application.Scaffold;
+
+internal class ScaffoldUseCase : IRequestHandler<ScaffoldRequest>
 {
-    internal class ScaffoldUseCase : IRequestHandler<ScaffoldRequest>
+    private const string ScaffoldResourceFilePath = "DustInTheWind.TextFileGenerator.Application.Scaffold.Scaffold.xml";
+    private const string ScaffoldDefaultFileName = "file.xml";
+
+    private readonly IUserInterface userInterface;
+
+    public ScaffoldUseCase(IUserInterface userInterface)
     {
-        private const string ScaffoldResourceFilePath = "DustInTheWind.TextFileGenerator.Application.Scaffold.Scaffold.xml";
-        private const string ScaffoldDefaultFileName = "file.xml";
+        this.userInterface = userInterface ?? throw new ArgumentNullException(nameof(userInterface));
+    }
 
-        private readonly IUserInterface userInterface;
+    public Task Handle(ScaffoldRequest request, CancellationToken cancellationToken)
+    {
+        using Stream outputStream = File.Create(ScaffoldDefaultFileName);
+        using Stream inputStream = EmbeddedResources.GetEmbeddedStream(ScaffoldResourceFilePath);
 
-        public ScaffoldUseCase(IUserInterface userInterface)
-        {
-            this.userInterface = userInterface ?? throw new ArgumentNullException(nameof(userInterface));
-        }
+        inputStream.CopyTo(outputStream);
 
-        public Task Handle(ScaffoldRequest request, CancellationToken cancellationToken)
-        {
-            using (Stream outputStream = File.Create(ScaffoldDefaultFileName))
-            using (Stream inputStream = EmbeddedResources.GetEmbeddedStream(ScaffoldResourceFilePath))
-                inputStream.CopyTo(outputStream);
+        userInterface.DisplayOutputFileGenerateDone(ScaffoldDefaultFileName);
 
-            userInterface.DisplayOutputFileGenerateDone(ScaffoldDefaultFileName);
-
-            return Task.CompletedTask;
-        }
+        return Task.CompletedTask;
     }
 }

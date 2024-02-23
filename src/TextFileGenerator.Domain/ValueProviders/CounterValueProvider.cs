@@ -41,7 +41,7 @@ namespace DustInTheWind.TextFileGenerator.Domain.ValueProviders
         public int Step { get; set; } = 1;
 
         public string Format { get; set; }
-        
+
         public string GetNextValue()
         {
             GenerateNextValue();

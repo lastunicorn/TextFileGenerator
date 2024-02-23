@@ -14,50 +14,49 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace DustInTheWind.TextFileGenerator.Cli.CommandArguments
+namespace DustInTheWind.TextFileGenerator.Cli.CommandArguments;
+
+internal class ArgumentParser
 {
-    class ArgumentParser
+    private readonly IReadOnlyList<string> args;
+    private int index;
+
+    public ArgumentParser(IReadOnlyList<string> args)
     {
-        private readonly IReadOnlyList<string> args;
-        private int index;
+        this.args = args ?? throw new ArgumentNullException(nameof(args));
+    }
 
-        public ArgumentParser(IReadOnlyList<string> args)
+    public Argument GetNext()
+    {
+        if (index == args.Count)
+            return null;
+
+        string id;
+        string value;
+
+        if (args[index].StartsWith("-"))
         {
-            this.args = args ?? throw new ArgumentNullException(nameof(args));
-        }
+            int pos = args[index].IndexOf(':', 1);
 
-        public Argument GetNext()
-        {
-            if (index == args.Count)
-                return null;
-
-            string id;
-            string value;
-
-            if (args[index].StartsWith("-"))
+            if (pos == -1)
             {
-                int pos = args[index].IndexOf(':', 1);
-
-                if (pos == -1)
-                {
-                    id = args[index].Substring(1);
-                    value = null;
-                }
-                else
-                {
-                    id = args[index].Substring(1, pos);
-                    value = args[index].Substring(pos + 1);
-                }
+                id = args[index].Substring(1);
+                value = null;
             }
             else
             {
-                id = null;
-                value = args[index];
+                id = args[index].Substring(1, pos);
+                value = args[index].Substring(pos + 1);
             }
-
-            index++;
-
-            return new Argument(id, value);
         }
+        else
+        {
+            id = null;
+            value = args[index];
+        }
+
+        index++;
+
+        return new Argument(id, value);
     }
 }

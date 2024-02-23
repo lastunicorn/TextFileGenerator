@@ -5,11 +5,12 @@ VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextFileGenerator.Tests", "TextFileGenerator.Tests\TextFileGenerator.Tests.csproj", "{98F992E4-42CD-4393-8D92-9284B740FAF1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextFileGenerator.Cli", "TextFileGenerator.Cli\TextFileGenerator.Cli.csproj", "{E03CFEF3-A346-40FD-8923-5E3573A36178}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TextFileGenerator.Cli", "TextFileGenerator.Cli\TextFileGenerator.Cli.csproj", "{E03CFEF3-A346-40FD-8923-5E3573A36178}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CCD29F5A-6FF7-44F3-B3B8-B2B26DDC514C}"
 	ProjectSection(SolutionItems) = preProject
 		AssemblyInfo.Shared.cs = AssemblyInfo.Shared.cs
+		Directory.build.props = Directory.build.props
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TextFileGenerator.Ports.ProjectAccess", "TextFileGenerator.Ports.ProjectAccess\TextFileGenerator.Ports.ProjectAccess.csproj", "{DE871ABE-9949-417F-A1F6-1078B03DDF6E}"

@@ -18,7 +18,6 @@ using System.IO;
 using DustInTheWind.TextFileGenerator.Domain.ProjectModel;
 using DustInTheWind.TextFileGenerator.Ports.ProjectAccess;
 using DustInTheWind.TextFileGenerator.ProjectAccess.Serialization;
-using DustInTheWind.TextFileGenerator.Serialization;
 
 namespace DustInTheWind.TextFileGenerator.ProjectAccess
 {

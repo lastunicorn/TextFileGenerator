@@ -14,26 +14,23 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System;
-using System.IO;
 using System.Reflection;
 
-namespace DustInTheWind.TextFileGenerator.Cli.Application
+namespace DustInTheWind.TextFileGenerator.Cli.Application;
+
+public static class EmbeddedResources
 {
-    public static class EmbeddedResources
+    public static Stream GetEmbeddedStream(string resourcePath)
     {
-        public static Stream GetEmbeddedStream(string resourcePath)
+        Assembly assembly = Assembly.GetCallingAssembly();
+        Stream stream = assembly.GetManifestResourceStream(resourcePath);
+
+        if (stream == null)
         {
-            Assembly assembly = Assembly.GetCallingAssembly();
-            Stream stream = assembly.GetManifestResourceStream(resourcePath);
-
-            if (stream == null)
-            {
-                string message = string.Format("Embedded file cannot be found: {{0}}", resourcePath);
-                throw new Exception(message);
-            }
-
-            return stream;
+            string message = string.Format("Embedded file cannot be found: {{0}}", resourcePath);
+            throw new Exception(message);
         }
+
+        return stream;
     }
 }

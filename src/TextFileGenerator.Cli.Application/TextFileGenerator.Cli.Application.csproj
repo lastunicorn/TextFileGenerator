@@ -19,27 +19,28 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>netstandard2.0</TargetFramework>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
         <AssemblyName>DustInTheWind.TextFileGenerator.Cli.Application</AssemblyName>
         <RootNamespace>DustInTheWind.TextFileGenerator.Cli.Application</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
-      <None Remove="Scaffold.xml" />
+        <None Remove="Scaffold.xml" />
     </ItemGroup>
 
     <ItemGroup>
-      <EmbeddedResource Include="Scaffold\Scaffold.xml" />
+        <EmbeddedResource Include="Scaffold\Scaffold.xml" />
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="MediatR" Version="12.2.0" />
+        <PackageReference Include="MediatR" Version="12.2.0" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\TextFileGenerator.Domain\TextFileGenerator.Domain.csproj" PrivateAssets="All" />
-      <ProjectReference Include="..\TextFileGenerator.Ports.ProjectAccess\TextFileGenerator.Ports.ProjectAccess.csproj" PrivateAssets="All" />
-      <ProjectReference Include="..\TextFileGenerator.Ports.UserAccess\TextFileGenerator.Ports.UserAccess.csproj" PrivateAssets="All" />
+        <ProjectReference Include="..\TextFileGenerator.Domain\TextFileGenerator.Domain.csproj" PrivateAssets="All" />
+        <ProjectReference Include="..\TextFileGenerator.Ports.ProjectAccess\TextFileGenerator.Ports.ProjectAccess.csproj" PrivateAssets="All" />
+        <ProjectReference Include="..\TextFileGenerator.Ports.UserAccess\TextFileGenerator.Ports.UserAccess.csproj" PrivateAssets="All" />
     </ItemGroup>
 
 </Project>

@@ -42,10 +42,21 @@ namespace DustInTheWind.TextFileGenerator.Domain.FileGeneration
                 {
                     switch (c)
                     {
-                        case '\\': chars.Add('\\'); break;
-                        case 'r': chars.Add('\r'); break;
-                        case 'n': chars.Add('\n'); break;
-                        case 't': chars.Add('\t'); break;
+                        case '\\':
+                            chars.Add('\\');
+                            break;
+
+                        case 'r':
+                            chars.Add('\r');
+                            break;
+
+                        case 'n':
+                            chars.Add('\n');
+                            break;
+
+                        case 't':
+                            chars.Add('\t');
+                            break;
 
                         default:
                             chars.Add('\\');
