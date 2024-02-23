@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextFileGenerator.Tests", "TextFileGenerator.Tests\TextFileGenerator.Tests.csproj", "{98F992E4-42CD-4393-8D92-9284B740FAF1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TextFileGenerator.Tests", "TextFileGenerator.Tests\TextFileGenerator.Tests.csproj", "{98F992E4-42CD-4393-8D92-9284B740FAF1}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TextFileGenerator.Cli", "TextFileGenerator.Cli\TextFileGenerator.Cli.csproj", "{E03CFEF3-A346-40FD-8923-5E3573A36178}"
 EndProject
@@ -30,6 +30,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TextFileGenerator.UserAccess", "TextFileGenerator.UserAccess\TextFileGenerator.UserAccess.csproj", "{200FEBBE-D742-490E-A4CD-A98F336E858E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cli Application", "Cli Application", "{36807A79-109A-43EF-9FA9-8349F4348045}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextFileGenerator.Tests.Performance", "TextFileGenerator.Tests.Performance\TextFileGenerator.Tests.Performance.csproj", "{113220A0-4A44-4A56-857B-3CCD362773E7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,6 +71,10 @@ Global
 		{200FEBBE-D742-490E-A4CD-A98F336E858E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{200FEBBE-D742-490E-A4CD-A98F336E858E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{200FEBBE-D742-490E-A4CD-A98F336E858E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{113220A0-4A44-4A56-857B-3CCD362773E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{113220A0-4A44-4A56-857B-3CCD362773E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{113220A0-4A44-4A56-857B-3CCD362773E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{113220A0-4A44-4A56-857B-3CCD362773E7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

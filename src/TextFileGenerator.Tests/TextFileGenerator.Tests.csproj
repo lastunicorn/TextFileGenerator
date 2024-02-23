@@ -1,108 +1,47 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
-  <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{98F992E4-42CD-4393-8D92-9284B740FAF1}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DustInTheWind.TextFileGenerator.Tests</RootNamespace>
-    <AssemblyName>DustInTheWind.TextFileGenerator.Tests</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="Moq">
-      <HintPath>..\packages\Moq.4.2.1502.0911\lib\net40\Moq.dll</HintPath>
-    </Reference>
-    <Reference Include="nunit.framework, Version=2.6.3.13283, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="..\AssemblyInfo.Shared.cs">
-      <Link>Properties\AssemblyInfo.Shared.cs</Link>
-    </Compile>
-    <Compile Include="Core\FileDescription\ParameterTests\MoveToNextValueTests.cs" />
-    <Compile Include="Core\FileDescription\ParameterTests\ResetTests.cs" />
-    <Compile Include="Core\FileDescription\ParameterTests\NextValueTests.cs" />
-    <Compile Include="Core\FileDescription\ParameterTests\ConstructorTests.cs" />
-    <Compile Include="Core\Templating\TextTemplateTests\NoParameterTests.cs" />
-    <Compile Include="Core\Templating\TextTemplateTests\OneParameterTests.cs" />
-    <Compile Include="Core\Templating\TextTemplateTests\NullParametersTests.cs" />
-    <Compile Include="Core\ValueProviders\AlternateValueProviderTests.cs" />
-    <Compile Include="Core\FileGeneration\GeneratorTests\GeneratingSubsectionsTests.cs" />
-    <Compile Include="Core\FileGeneration\GeneratorTests\GeneratingSectionWithRandomTextParameterTests.cs" />
-    <Compile Include="Core\FileGeneration\GeneratorTests\GeneratingSectionWithRandomNumberParameterTests.cs" />
-    <Compile Include="Core\FileGeneration\GeneratorTests\GeneratingSectionWithCounterParameterTests.cs" />
-    <Compile Include="Core\ValueProviders\CounterValueProviderTests.cs" />
-    <Compile Include="Core\FileGeneration\GeneratorTests\GeneratingSectionWithConstantParameterTests.cs" />
-    <Compile Include="Core\FileGeneration\GeneratorTests\GeneratingSectionsTests.cs" />
-    <Compile Include="PerformanceTests\Tests.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Core\Serialization\OptionsSerializerDeserializationTests\DeserializeParameterRandomTextTests.cs" />
-    <Compile Include="Core\Serialization\OptionsSerializerDeserializationTests\DeserializeParameterRandomNumberTests.cs" />
-    <Compile Include="Core\Serialization\OptionsSerializerDeserializationTests\DeserializeParameterConterTests.cs" />
-    <Compile Include="Core\Serialization\OptionsSerializerDeserializationTests\DeserializeParameterConstantTests.cs" />
-    <Compile Include="Core\Serialization\OptionsSerializerDeserializationTests\DeserializeParameterTests.cs" />
-    <Compile Include="Core\Serialization\OptionsSerializerDeserializationTests\DeserializeSectionTests.cs" />
-    <Compile Include="Core\Serialization\OptionsSerializerSerializationTests\SerializeParameterRandomTextTests.cs" />
-    <Compile Include="Core\Serialization\OptionsSerializerSerializationTests\SerializeParameterRandomNumberTests.cs" />
-    <Compile Include="Core\Serialization\OptionsSerializerSerializationTests\SerializeParameterCounterTests.cs" />
-    <Compile Include="Core\Serialization\OptionsSerializerSerializationTests\SerializeParameterConstantTests.cs" />
-    <Compile Include="Core\Serialization\OptionsSerializerSerializationTests\SerializeParameterTests.cs" />
-    <Compile Include="Core\Serialization\OptionsSerializerSerializationTests\SerializeSectionTests.cs" />
-    <Compile Include="Core\Serialization\OptionsSerializerSerializationTests\SerializeSectionsTests.cs" />
-    <Compile Include="Core\Serialization\OptionsSerializerSerializationTests\SerializeRootTests.cs" />
-    <Compile Include="TestingTools\XmlAsserter.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="TestFiles\full.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\TextFileGenerator.Domain\TextFileGenerator.Domain.csproj">
-      <Project>{736d1b4c-19fa-45ad-a3ac-6bfc68c0112b}</Project>
-      <Name>TextFileGenerator.Domain</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\TextFileGenerator.ProjectAccess\TextFileGenerator.ProjectAccess.csproj">
-      <Project>{4819918F-2A8D-4682-B613-9A8737775CAD}</Project>
-      <Name>TextFileGenerator.ProjectAccess</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+﻿<!--
+TextFileGenerator
+Copyright (C) 2009-2011 Dust in the Wind
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <AssemblyName>DustInTheWind.TextFileGenerator.Tests</AssemblyName>
+        <RootNamespace>DustInTheWind.TextFileGenerator.Tests</RootNamespace>
+
+        <IsPackable>false</IsPackable>
+        <IsTestProject>true</IsTestProject>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.6.0" />
+        <PackageReference Include="Moq" Version="4.20.70" />
+        <PackageReference Include="NUnit" Version="3.13.3" />
+        <PackageReference Include="NUnit3TestAdapter" Version="4.2.1" />
+        <PackageReference Include="NUnit.Analyzers" Version="3.6.1" />
+        <PackageReference Include="coverlet.collector" Version="6.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\TextFileGenerator.Domain\TextFileGenerator.Domain.csproj" PrivateAssets="All" />
+        <ProjectReference Include="..\TextFileGenerator.Ports.ProjectAccess\TextFileGenerator.Ports.ProjectAccess.csproj" PrivateAssets="All" />
+        <ProjectReference Include="..\TextFileGenerator.Ports.UserAccess\TextFileGenerator.Ports.UserAccess.csproj" PrivateAssets="All" />
+        <ProjectReference Include="..\TextFileGenerator.ProjectAccess\TextFileGenerator.ProjectAccess.csproj" />
+    </ItemGroup>
+
 </Project>
